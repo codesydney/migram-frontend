@@ -16,4 +16,4 @@ Migram is an acronym for Migrant Marketplace. It will help immigrants of refugee
 
 ## Live Links
 
-- [Link to work-in-progress](https://migram-frontend-ruby.vercel.app/)
+- [Link to the live app](https://www.migram.com.au/)
