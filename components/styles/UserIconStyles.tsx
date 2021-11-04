@@ -8,7 +8,7 @@ const UserIconStyles = styled.div`
   height: 48px;
   width: 48px;
   border-radius: 50%;
-  border: 2px solid;
+  border: 1px solid var(--darkGrey);
   img {
     border-radius: 50%;
   }

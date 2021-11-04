@@ -20,7 +20,7 @@ export default function Landing() {
           purus sit amet luctus venenatis
         </p>
         <div className="flex-container">
-          <Link href="/createtask" passHref>
+          <Link href="/tasks/createtask" passHref>
             <ButtonStyles>Post a Job</ButtonStyles>
           </Link>
           <ButtonStyles primary>Get started</ButtonStyles>

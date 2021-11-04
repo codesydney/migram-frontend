@@ -15,6 +15,7 @@ const NavStyles = styled.ul`
   display: flex;
   justify-content: space-between;
   justify-self: end;
+  align-items: center;
   gap: 2rem;
   font-weight: 500;
   text-transform: lowercase;
@@ -28,6 +29,8 @@ export default function Nav() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
+  console.log(session);
+
   async function handleSignout(e: any) {
     e.preventDefault();
     const data: any = await signOut({ redirect: false, callbackUrl: "/login" });
@@ -39,8 +42,14 @@ export default function Nav() {
   return (
     <NavStyles>
       {loading && <></>}
+      {/* If ANY user is logged in */}
       {session && (
         <>
+          <div>
+            {session.user.providerId && <Link href="/offers">Offers</Link>}
+            {session.user.customerId && <Link href="/mytasks">My Tasks</Link>}
+            <Link href="/tasks">Browse Tasks</Link>
+          </div>
           <UserIconStyles onClick={() => setIsOpen(!isOpen)}>
             {/* TODO: Remove/change placeholder */}
             {session.user.photo ? (

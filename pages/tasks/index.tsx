@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
+import Dashboard from "../../components/tasks/Dashboard";
 
 const TasksPage: NextPage = () => {
-  return <p>Hello I am the tasks page!</p>;
+  return <Dashboard myTasks={false} />;
 };
 
 export default TasksPage;

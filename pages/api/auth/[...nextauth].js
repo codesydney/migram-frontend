@@ -55,6 +55,8 @@ export default NextAuth({
         token.user = user;
       }
 
+      console.log(token);
+
       return token;
     },
 

@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 const DropDownStyles = styled.div`
   position: absolute;
+  z-index: 1;
   background: white;
-  border: 2px solid;
+  border: 1px solid #c4c4c4;
   top: 48px;
   box-shadow: var(--bs);
   border-radius: var(--border-radius);

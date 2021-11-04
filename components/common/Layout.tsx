@@ -14,7 +14,7 @@ const GlobalStyles = createGlobalStyle`
     --black: #000000;
     --grey: #AAAAAA;
     --lightGrey: #F0F0F0;
-    --darkGrey: #5a5a5a
+    --darkGrey: #5a5a5a;
     --maxWidth: 1920px;
     --breakpoint-desktop: 768px;
     --bs: 0 12px 24px 0 rgba(0,0,0,0.09);
@@ -31,6 +31,9 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     font-size: 24px;
     letter-spacing: 0.05em;
+  }
+  h1,h2,h3,h4,h5,h6 {
+    margin-top: 0;
   }
   h2 {
     font-size: 48px;

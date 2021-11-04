@@ -3,7 +3,9 @@ import Image from "next/image";
 import styled from "styled-components";
 import Nav from "./Nav";
 
+// TODO: Style logo for responsiveness (toggle smaller logo)
 const LogoStyles = styled.div`
+  padding-right: var(--side);
   :hover {
     cursor: pointer;
   }
