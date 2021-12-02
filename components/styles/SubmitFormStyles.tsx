@@ -1,6 +1,35 @@
 import styled from "styled-components";
 
 const FormStyles = styled.div`
+  .section-1 {
+    border-bottom: 1px solid var(--grey);
+    padding-top: 24px;
+  }
+  .section-2 {
+    border-bottom: 1px solid var(--grey);
+    padding-top: 24px;
+  }
+  .section-3 {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  .field {
+    padding: 0;
+    .title {
+      font-size: 16px;
+      color: var(--grey);
+      margin-bottom: 8px;
+    }
+    .user-input {
+      display: flex;
+      font-weight: 300;
+    }
+    .icon {
+      height: 56px;
+      min-width: 56px;
+    }
+  }
+
   .manage-task {
     display: flex;
     justify-content: flex-end;
@@ -14,14 +43,7 @@ const FormStyles = styled.div`
     align-items: center;
     font-weight: 200;
   }
-  .icon {
-    flex-basis: 48px;
-    width: 48px;
-    height: 48px;
-    min-width: 48px;
-    border-radius: 5px;
-    background: var(--grey);
-  }
+
   fieldset {
     border: 0;
     margin: 0;

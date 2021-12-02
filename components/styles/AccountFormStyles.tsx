@@ -25,9 +25,9 @@ const FormStyles = styled.form`
     border: 0px;
     border-bottom: 2px solid var(--grey);
   }
-  input[type="file"] {
+  /* input[type="file"] {
     display: none;
-  }
+  } */
   .image-container {
   }
   .custom-file-upload {
@@ -80,29 +80,6 @@ const FormStyles = styled.form`
   }
   .icon-input {
     display: flex;
-  }
-  .input-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 64px;
-  }
-  .input-container input,
-  .input-container textarea {
-    margin-bottom: 8px;
-  }
-  .input-container .error {
-    background-color: #f8d7da;
-    border: 2px solid #f5c2c7;
-  }
-  .char-count {
-    align-self: end;
-    font-size: 1rem;
-    background: var(--focus);
-    padding: 0.5rem;
-    margin: -28px 20px 8px 0;
-    color: #fff;
-    border-radius: 3px;
   }
   .icon {
     height: 56px;

@@ -15,6 +15,8 @@ const GlobalStyles = createGlobalStyle`
     --grey: #AAAAAA;
     --lightGrey: #F0F0F0;
     --darkGrey: #5a5a5a;
+    --focus: #3C1DFD;
+    --focus20: #3C1DFD20;
     --maxWidth: 1920px;
     --breakpoint-desktop: 768px;
     --bs: 0 12px 24px 0 rgba(0,0,0,0.09);

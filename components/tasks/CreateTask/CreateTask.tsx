@@ -1,13 +1,11 @@
 import { useState } from "react";
 import useForm from "../../../lib/useForm";
-import Step1 from "./steps/Step1";
-import Step2 from "./steps/Step2";
-import Step3 from "./steps/Step3";
-import Step4 from "./steps/Step4";
-import Step5 from "./steps/Step5";
-import Step6 from "./steps/Step6";
-import Step7 from "./steps/Step7";
-import SubmitForm from "./steps/SubmitForm";
+import Section1 from "./sections/Section1";
+import Section2 from "./sections/Section2";
+import Section3 from "./sections/Section3";
+
+import SubmitForm from "./SubmitForm";
+import {validate} from "../../../lib/validator";
 
 import BodyStyles from "../../styles/BodyStyles";
 import ButtonStyles from "../../styles/ButtonStyles";
@@ -15,20 +13,55 @@ import ProgressStyles from "../../styles/ProgressStyles";
 import FormControlStyles from "../../styles/FormControlStyles";
 
 export default function CreateTask() {
-  const { inputs, handleChange, resetForm, clearForm }: any = useForm({
-    category: "",
+  const [currentStep, setCurrentStep] = useState(1);
+  const totalSteps = 4;
+  const {
+    inputs,
+    errors,
+    handleChange,
+    updateErrors,
+    resetForm,
+    clearForm,
+  }: any = useForm({
+    category: "Cleaning",
     details: "",
     budget: 0,
     location: "",
     date: "",
     time: "",
     photo: "",
+    timeOfArrival: "7am-10am",
+    timeEstimate: "1-3hrs",
   });
-  const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 8;
+
+  const [selectedFile, setSelectedFile]: any = useState();
+  const [isFilePicked, setIsFilePicked] = useState(false);
+  const sections: any = {
+    1: ["category", "details", "budget"],
+    2: ["location", "date", ],
+    3: [],
+  };
+
+  function handleFileChange(event: any) {
+    setSelectedFile(event.target.files[0]);
+    setIsFilePicked(true);
+  }
+
+  function invalidField() {
+    if (currentStep < totalSteps) {
+      return sections[currentStep].some((field:string) => {
+        const value = inputs[field];
+        return validate[field](value);
+      });
+    }
+  }
 
   function nextStep() {
-    setCurrentStep(currentStep + 1);
+    if (invalidField()) {
+      updateErrors(sections[currentStep]);
+    } else {
+      setCurrentStep(currentStep + 1);
+    }
   }
 
   console.log(inputs);
@@ -40,12 +73,17 @@ export default function CreateTask() {
           <>
             <h2>Post a job</h2>
             <p>
-              Question {currentStep} of {totalSteps - 1}
+              <b>
+                Section {currentStep} of {totalSteps - 1}:
+              </b>{" "}
+              {currentStep == 1 ? "Job main details and budget" : ""}
+              {currentStep == 2 ? "Job location and schedule" : ""}
+              {currentStep == 3 ? "Further job details" : ""}
             </p>
           </>
         ) : (
           <>
-            <h2>Please confirm your details</h2>
+            <h2>Please confirm your job request</h2>
             <div className="flex-container">
               <ButtonStyles onClick={() => setCurrentStep(1)}>
                 Edit
@@ -57,49 +95,44 @@ export default function CreateTask() {
       </div>
       <div className="secondary">
         {/* TODO: Simplify by using a provider/consumer pattern */}
-        <Step1
+        <Section1
           currentStep={currentStep}
           handleChange={handleChange}
           category={inputs.category}
-          increment={nextStep}
-        />
-        <Step2
-          currentStep={currentStep}
-          handleChange={handleChange}
           details={inputs.details}
-          increment={nextStep}
+          budget={inputs.budget}
+          errors={errors}
         />
-        <Step3
+        <Section2
           currentStep={currentStep}
           handleChange={handleChange}
           location={inputs.location}
-          increment={nextStep}
-        />
-        <Step4
-          currentStep={currentStep}
-          handleChange={handleChange}
-          budget={inputs.budget}
-          increment={nextStep}
-        />
-        <Step5
-          currentStep={currentStep}
-          handleChange={handleChange}
           date={inputs.date}
-          increment={nextStep}
+          timeOfArrival={inputs.timeOfArrival}
+          errors={errors}
         />
-        <Step6
+        <Section3
           currentStep={currentStep}
           handleChange={handleChange}
-          time={inputs.time}
-          increment={nextStep}
+          handleFileChange={handleFileChange}
+          timeEstimate={inputs.timeEstimate}
+          selectedFile={selectedFile}
+          setSelectedFile={setSelectedFile}
+          errors={errors}
         />
-        <Step7
+        <SubmitForm
+          formData={inputs}
+          selectedFile={selectedFile}
           currentStep={currentStep}
-          handleChange={handleChange}
-          photo={inputs.photo}
-          increment={nextStep}
-        />
-        <SubmitForm formData={inputs} currentStep={currentStep}></SubmitForm>
+          isFilePicked={isFilePicked}
+        ></SubmitForm>
+        {currentStep != totalSteps ? (
+          <ButtonStyles onClick={nextStep} primary fullWidth>
+            next
+          </ButtonStyles>
+        ) : (
+          <></>
+        )}
         <FormControlStyles>
           <div className="bar">
             <label htmlFor="currentStep">{`${Math.floor(
@@ -118,7 +151,7 @@ export default function CreateTask() {
             {"<"}
           </button>
           <button
-            disabled={currentStep >= totalSteps}
+            disabled={currentStep >= totalSteps || invalidField()}
             onClick={() => setCurrentStep(currentStep + 1)}
           >
             {">"}

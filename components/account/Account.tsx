@@ -1,13 +1,13 @@
-import { useSession } from "next-auth/client";
+import { useSession, getSession } from "next-auth/client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import useForm from "../../lib/useForm";
 import axios from "axios";
 
 import ButtonStyles from "../styles/ButtonStyles";
 import BodyStyles from "../styles/BodyStyles";
-import FormStyles from "../styles/FormStyles";
+import AccountFormStyles from "../styles/AccountFormStyles";
 
 export default function Account() {
   const [session, loading]: any = useSession();
@@ -25,7 +25,11 @@ export default function Account() {
     setIsFilePicked(true);
   }
 
-  console.log(selectedFile);
+  useEffect(() => {
+    const session = getSession();
+  }, []);
+
+  console.log(session?.user.id);
 
   async function handleUpdate(e: any) {
     e.preventDefault();
@@ -53,7 +57,7 @@ export default function Account() {
           console.log("updated", session.user);
           axios
             .put(
-              `${process.env.NEXT_PUBLIC_API_URL}api/v1/users/${session.user._id}`,
+              `${process.env.NEXT_PUBLIC_API_URL}api/v1/users/${session.user.id}`,
               {
                 photo: imageURL,
                 firstName: inputs.firstName,
@@ -66,8 +70,14 @@ export default function Account() {
               }
             )
             .then((response) => {
+              // Cause the JWT callback handler to retrieve the new user data and save it in the session
               console.log(response);
-              setSending(false);
+              axios
+                .get("/api/auth/session?update", { withCredentials: true })
+                .then(() => {
+                  setSending(false);
+                  window.location.reload();
+                });
             })
             .catch((error) => {
               console.log(error);
@@ -82,7 +92,7 @@ export default function Account() {
     else {
       axios
         .put(
-          `${process.env.NEXT_PUBLIC_API_URL}api/v1/users/${session.user._id}`,
+          `${process.env.NEXT_PUBLIC_API_URL}api/v1/users/${session.user.id}`,
           {
             firstName: inputs.firstName,
             lastName: inputs.lastName,
@@ -95,7 +105,12 @@ export default function Account() {
         )
         .then((response) => {
           console.log(response);
-          setSending(false);
+          axios
+            .get("/api/auth/session?update", { withCredentials: true })
+            .then(() => {
+              setSending(false);
+              window.location.reload();
+            });
         })
         .catch((error) => {
           console.log(error);
@@ -179,7 +194,7 @@ export default function Account() {
       </div>
       <div className="secondary">
         <h3>Personal info</h3>
-        <FormStyles onSubmit={handleUpdate}>
+        <AccountFormStyles onSubmit={handleUpdate}>
           <fieldset disabled={sending}>
             <div style={{ paddingBottom: 32 }}>
               {selectedFile && (
@@ -218,7 +233,7 @@ export default function Account() {
               Update user
             </ButtonStyles>
           </fieldset>
-        </FormStyles>
+        </AccountFormStyles>
       </div>
     </BodyStyles>
   );

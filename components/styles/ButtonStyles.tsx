@@ -38,6 +38,7 @@ const ButtonStyles = styled.button<Pick<ButtonProps, any>>`
     `}
   &[disabled] {
     opacity: 0.5;
+    cursor: not-allowed
   }
 `;
 

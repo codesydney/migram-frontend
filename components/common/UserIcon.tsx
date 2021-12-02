@@ -5,26 +5,22 @@ import Image from "next/image";
 import { useSession, signOut } from "next-auth/client";
 import styled from "styled-components";
 
-import ButtonStyles from "../styles/ButtonStyles";
 import UserIconStyles from "../styles/UserIconStyles";
 import DropDownStyles from "../styles/DropDownStyles";
 
-const NavStyles = styled.ul`
-  margin: 1rem 0 1rem 0;
-  padding: 0;
-  display: flex;
-  justify-content: space-between;
-  justify-self: end;
-  align-items: center;
-  gap: 2rem;
+const PositionRelative = styled.div`
   font-weight: 500;
   text-transform: lowercase;
-  a {
-    margin: 1rem;
-  }
+  position:relative;
 `;
 
-export default function Nav() {
+const HideLink = styled.a`
+  @media(min-width:950px){
+    display:none
+  }
+`
+
+export default function UserIcon(props: any) {
   const [session, loading]: any = useSession();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -40,16 +36,11 @@ export default function Nav() {
   }
 
   return (
-    <NavStyles>
+    <PositionRelative>
       {loading && <></>}
       {/* If ANY user is logged in */}
       {session && (
         <>
-          <div>
-            {session.user.providerId && <Link href="/offers">Offers</Link>}
-            {session.user.customerId && <Link href="/mytasks">My Tasks</Link>}
-            <Link href="/tasks">Browse Tasks</Link>
-          </div>
           <UserIconStyles onClick={() => setIsOpen(!isOpen)}>
             {/* TODO: Remove/change placeholder */}
             {session.user.photo ? (
@@ -86,16 +77,6 @@ export default function Nav() {
           )}
         </>
       )}
-      {!session && !loading && (
-        <>
-          <Link href="/login" passHref>
-            <ButtonStyles>Login</ButtonStyles>
-          </Link>
-          <Link href="/signup" passHref>
-            <ButtonStyles primary>Sign up</ButtonStyles>
-          </Link>
-        </>
-      )}
-    </NavStyles>
+    </PositionRelative>
   );
 }

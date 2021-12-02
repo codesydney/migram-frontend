@@ -8,7 +8,7 @@ import axios from "axios";
 
 export default function Offer({ offer, myTask }: any) {
   const [session, loading]: any = useSession();
-  console.log(offer);
+  // console.log(offer);
 
   async function handleAcceptOffer() {
     axios

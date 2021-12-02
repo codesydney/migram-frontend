@@ -3,10 +3,17 @@ import styled, { css } from "styled-components";
 interface ButtonProps {
   alternate: any;
   dashboard: any;
+  topBar: any;
 }
 
 const BodyStyles = styled.div<Pick<ButtonProps, any>>`
   display: grid;
+  margin-top: 100px;
+  ${(props) =>
+    props.topBar &&
+    css`
+      margin-top: 0;
+    `}
   .primary {
     padding-left: var(--side);
     padding-right: 50px;

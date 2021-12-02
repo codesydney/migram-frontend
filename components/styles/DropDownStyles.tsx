@@ -5,10 +5,10 @@ const DropDownStyles = styled.div`
   z-index: 1;
   background: white;
   border: 1px solid #c4c4c4;
-  top: 48px;
+  top: 38px;
   box-shadow: var(--bs);
   border-radius: var(--border-radius);
-  right: calc(var(--side) + 24px);
+  right: calc(var(--side) - 24px);
   display: flex;
   flex-direction: column;
   font-weight: 300;

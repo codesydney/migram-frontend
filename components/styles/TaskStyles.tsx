@@ -1,36 +1,79 @@
 import styled, { css } from "styled-components";
 
-const TaskStyles = styled.div`
-  margin-bottom: 32px;
-  width: 328px;
-  height: 160px;
-  left: 250px;
+interface TaskProps {
+  selected: any;
+}
+
+const TaskStyles = styled.div<Pick<TaskProps, any>>`
+  width: 200px;
+  height: 200px;
+  border-radius: 16px;
+  border: 1px solid var(--grey);
+  ${(props) =>
+    props.selected &&
+    css`
+      border: 2px solid var(--focus);
+    `}
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
   :hover {
     cursor: pointer;
   }
-  .transparent-header {
-    height: 32px;
-    font-weight: 200;
-    padding-left: 10px;
-  }
-  .wrapper {
-    position: relative;
-  }
-  .icon {
-    position: absolute;
-    z-index: 1;
-    height: 64px;
-    width: 64px;
-    top: -32px;
-    right: 16px;
-    border-radius: 10px;
-    background: white;
-    border: 1px solid #c4c4c4;
+
+  .header {
+    padding: 16px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    text-transform: lowercase;
+    .icon {
+      width: 24px;
+      height: 24px;
+      background-color: var(--grey);
+      border-radius: 5px;
+    }
+    .category {
+      color: var(--grey);
+      font-size: 12px;
+      font-weight: bold;
+    }
   }
   .body {
-    height: 128px;
-    background: #c4c4c4;
-    border-radius: 10px;
+    padding: 0 16px 16px 16px;
+
+    p {
+      font-size: 16px;
+      padding: 0;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      -webkit-box-pack: end;
+      overflow: hidden;
+    }
+  }
+  .footer {
+    padding: 12px;
+    font-size: 12px;
+    background-color: var(--lightGrey);
+    ${(props) =>
+      props.selected &&
+      css`
+        background-color: var(--focus20);
+      `}
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-left: 1px solid var(--lightGrey);
+    border-bottom: 1px solid var(--lightGrey);
+    border-right: 1px solid var(--lightGrey);
+    .price {
+      display: flex;
+      font-size: 24px;
+      font-weight: bold;
+      padding-top: 8px;
+      gap: 8px;
+    }
   }
 `;
 

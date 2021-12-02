@@ -8,19 +8,23 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { signIn } from "../../node_modules/next-auth/client";
+import ErrorMessage from "../common/ErrorMessage";
+import { validate } from "../../lib/validator";
+import Loading from "../common/Loading";
 
 export default function Signup() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
-  const { inputs, handleChange, resetForm, clearForm }: any = useForm({
+  const { inputs, handleChange, errors, updateErrors, resetForm, clearForm }: any = useForm({
     email: "",
     password: "",
     passwordConfirm: "",
   });
 
-  async function handleSignup(e: any) {
+  async function handleSignup(e:any) {
     e.preventDefault();
+    console.log('sending data');
     setErrorMessage("");
     setLoading(true);
     await axios
@@ -48,6 +52,23 @@ export default function Signup() {
     }
   }
 
+  function invalidField() {
+    const fields = ["email", "password", "passwordConfirm"];
+    return fields.some((field) => {
+      const value = inputs[field];
+      if (field === "passwordConfirm") {
+        return validate[field](value, inputs.password);
+      } else {
+        return validate[field](value);
+      }
+    });
+  }
+
+  function handleErrors(event: any) {
+    event.preventDefault();
+    updateErrors(["email", "password", "passwordConfirm"]);
+  }
+
   return (
     <BodyStyles>
       <div className="primary">
@@ -61,31 +82,43 @@ export default function Signup() {
       </div>
       <div className="secondary">
         <div className="form-header" />
-        <FormStyles method="POST" onSubmit={handleSignup}>
+        <FormStyles method="POST" onSubmit={invalidField() ? handleErrors : handleSignup}>
           <fieldset disabled={loading}>
-            <input
-              type="email"
-              name="email"
-              placeholder="email address"
-              value={inputs.email}
-              onChange={handleChange}
-            />
-            <input
-              type="password"
-              name="password"
-              placeholder="password"
-              value={inputs.password}
-              onChange={handleChange}
-            />
-            <input
-              type="password"
-              name="passwordConfirm"
-              placeholder="confirm password"
-              value={inputs.passwordConfirm}
-              onChange={handleChange}
-            />
-            <ButtonStyles primary fullWidth>
-              Create account
+            <div className="input-container">
+              <input
+                type="email"
+                name="email"
+                className={errors.email && "error"}
+                placeholder="email address"
+                value={inputs.email}
+                onChange={handleChange}
+              />
+              {errors.email && <ErrorMessage message={errors.email}/>}
+            </div>
+            <div className="input-container">
+              <input
+                type="password"
+                name="password"
+                className={errors.password && "error"}
+                placeholder="password"
+                value={inputs.password}
+                onChange={handleChange}
+              />
+              {errors.password && <ErrorMessage message={errors.password}/>}
+            </div>
+            <div className="input-container">
+              <input
+                type="password"
+                name="passwordConfirm"
+                className={errors.passwordConfirm && "error"}
+                placeholder="confirm password"
+                value={inputs.passwordConfirm}
+                onChange={handleChange}
+              />
+              {errors.passwordConfirm && <ErrorMessage message={errors.passwordConfirm}/>}
+            </div>
+            <ButtonStyles primary fullWidth disabled={loading}>
+              {loading ? <Loading text="Creating account" /> : "Create account"}
             </ButtonStyles>
           </fieldset>
         </FormStyles>

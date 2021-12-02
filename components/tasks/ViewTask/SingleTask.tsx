@@ -4,36 +4,43 @@ import axios from "axios";
 import { useSession } from "../../../node_modules/next-auth/client";
 import { useRouter } from "next/router";
 import { useStripe } from "@stripe/react-stripe-js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faInfo,
+  faDollarSign,
+  faMapMarkerAlt,
+  faCalendarDay,
+  faClock,
+  faHourglassStart,
+} from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
+import useForm from "../../../lib/useForm";
+import Offers from "../Offers/Offers";
+import ErrorMessage from "../../common/ErrorMessage";
+import Loading from "../../common/Loading";
+import { validate } from "../../../lib/validator";
 
-import SingleTaskStyles from "../../styles/SingleTaskStyles";
 import ButtonStyles from "../../styles/ButtonStyles";
 import SubmitFormStyles from "../../styles/SubmitFormStyles";
 import FormStyles from "../../styles/FormStyles";
-import useForm from "../../../lib/useForm";
-import Offers from "../Offers/Offers";
 
-/*
-budget: 70
-​​​​​
-category: "Lawn Mowing"
-​​​​​
-createdAt: "2021-09-09T09:10:04.832Z"
-​​​​​
-customerId: "cus_K3ktYCB2QXWPNH"
-​​​​​
-details: "Backyard needs mowing. Area around 200 sq mtrs"
-​​​​​
-dueDate: "2021-09-28T00:00:00.000Z"
-*/
-export default function SingleTask({ Task, myTasks }: any) {
-  const { selectedTask } = useContext(DashboardContext);
-  const [session, loading]: any = useSession();
+export default function SingleTask({ Task, myTasks, selectedTask }: any) {
+  // const { selectedTask } = useContext(DashboardContext);
+  const [session]: any = useSession();
   const [updatedTask, setUpdatedTask] = useState(selectedTask);
   const [isMyTask, setIsMyTask] = useState(false);
+  const [isSubmiting, setIsSubmiting] = useState(false);
   const stripe = useStripe();
   const router = useRouter();
 
-  const { inputs, handleChange, resetForm, clearForm }: any = useForm({
+  const {
+    inputs,
+    handleChange,
+    errors,
+    updateErrors,
+    resetForm,
+    clearForm,
+  }: any = useForm({
     offerAmt: 0,
     comments: "",
   });
@@ -58,6 +65,7 @@ export default function SingleTask({ Task, myTasks }: any) {
 
   async function handleOfferSubmit(e: any) {
     e.preventDefault();
+    setIsSubmiting(true);
     axios
       .post(
         `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${selectedTask.id}/offers`,
@@ -138,7 +146,7 @@ export default function SingleTask({ Task, myTasks }: any) {
           setIsMyTask(true);
         }
         if (selectedTask._id == response.data.data.task._id) {
-          console.log(response.data.data.task);
+          // console.log(response.data.data.task);
           setUpdatedTask(response.data.data.task);
         }
       })
@@ -156,73 +164,149 @@ export default function SingleTask({ Task, myTasks }: any) {
     }
   }, [selectedTask]);
 
+  // console.log(selectedTask);
+
+  function invalidField() {
+    if (validate.offerAmt(inputs.offerAmt)) return true;
+    if (validate.comments(inputs.comments)) return true;
+    return false;
+  }
+
+  function handleErrors(event: any) {
+    event.preventDefault();
+    updateErrors(["offerAmt", "comments"]);
+  }
+
   return (
     selectedTask && (
       <>
         <SubmitFormStyles>
-          <div className="manage-task">
-            {session?.user.providerId && <ButtonStyles>Favourite</ButtonStyles>}
-            {session?.user.customerId && isMyTask && (
-              <>
-                <ButtonStyles>Edit</ButtonStyles>
-                <ButtonStyles onClick={handleDelete}>Delete</ButtonStyles>
-              </>
-            )}
+          <div className="section-1">
+            <div className="field">
+              <div className="title">Job Type</div>
+              <div className="user-input">
+                <div className="icon"></div>
+                {selectedTask.category}
+              </div>
+            </div>
+            <div className="field">
+              <div className="title">Description</div>
+              <div className="user-input">
+                <div className="icon">
+                  <FontAwesomeIcon icon={faInfo} color={"black"} />
+                </div>
+                {selectedTask.details}
+              </div>
+            </div>
+            <div className="field">
+              <div className="title">Budget</div>
+              <div className="user-input">
+                <div className="icon">
+                  <FontAwesomeIcon icon={faDollarSign} color={"black"} />
+                </div>
+                {selectedTask.budget}
+              </div>
+            </div>
           </div>
-          <div style={{ marginBottom: 24 }}>Status: {selectedTask.status}</div>
-          <div className="row">
-            <div className="icon"></div>
-            <div>{selectedTask.title}</div>
+          <div className="section-2">
+            <div className="field">
+              <div className="title">Location</div>
+              <div className="user-input">
+                <div className="icon">
+                  <FontAwesomeIcon icon={faMapMarkerAlt} color={"black"} />
+                </div>
+                {selectedTask.location.name}
+              </div>
+            </div>
+            <div className="field">
+              <div className="title">Date</div>
+              <div className="user-input">
+                <div className="icon">
+                  <FontAwesomeIcon icon={faCalendarDay} color={"black"} />
+                </div>
+                {selectedTask.dueDate.slice(0, 10)}
+              </div>
+            </div>
+            <div className="field">
+              <div className="title">Time</div>
+              <div className="user-input">
+                <div className="icon">
+                  <FontAwesomeIcon icon={faClock} color={"black"} />
+                </div>
+                {selectedTask.timeOfArrival}
+              </div>
+            </div>
           </div>
-          <div className="row">
-            <div className="icon"></div>
-            <div>{selectedTask.category}</div>
+          <div className="section-3">
+            <div className="field">
+              <div className="title">Completion Time</div>
+              <div className="user-input">
+                <div className="icon">
+                  <FontAwesomeIcon icon={faHourglassStart} color={"black"} />
+                </div>
+                {selectedTask.timeEstimate}
+              </div>
+            </div>
+            <div className="field">
+              <div className="title">Image</div>
+              <div className="user-input">
+                {selectedTask.photos[0] && (
+                  <Image
+                    width="48px"
+                    height="48px"
+                    src={selectedTask.photos[0]}
+                    alt="image to upload"
+                  />
+                )}
+              </div>
+            </div>
           </div>
-          <div className="row">
-            <div className="icon"></div>
-            <div>{selectedTask.details}</div>
-          </div>
-          <div className="row">
-            <div className="icon"></div>
-            <div>{selectedTask.location.name}</div>
-          </div>
-          <div className="row">
-            <div className="icon"></div>
-            <div>{selectedTask.budget}</div>
-          </div>
-          {selectedTask.status == "completed" && isMyTask && (
-            <ButtonStyles
-              style={{ marginBottom: 24 }}
-              onClick={handleReleasePayment}
-            >
-              Release Payment
-            </ButtonStyles>
-          )}
           <h4>Offers</h4>
           {updatedTask?.offers && (
             <Offers offers={updatedTask.offers} myTask={isMyTask} />
           )}
         </SubmitFormStyles>
         {session?.user.providerId && (
-          <FormStyles onSubmit={handleOfferSubmit}>
+          <FormStyles
+            onSubmit={invalidField() ? handleErrors : handleOfferSubmit}
+          >
             <fieldset disabled={false}>
-              <input
-                type="number"
-                name="offerAmt"
-                placeholder="offerAmt"
-                value={inputs.offerAmt}
-                onChange={handleChange}
-              />
-              <textarea
-                placeholder="comments"
-                rows={4}
-                id="comments"
-                name="comments"
-                value={inputs.comments}
-                onChange={handleChange}
-              />
+              <div className="input-container">
+                <input
+                  type="number"
+                  name="offerAmt"
+                  className={errors.offerAmt && "error"}
+                  placeholder="offer amount"
+                  value={inputs.offerAmt}
+                  onChange={handleChange}
+                />
+                {errors.offerAmt && <ErrorMessage message={errors.offerAmt} />}
+              </div>
+              <div className="input-container">
+                <textarea
+                  placeholder="comments"
+                  rows={4}
+                  id="comments"
+                  name="comments"
+                  className={errors.comments && "error"}
+                  value={inputs.comments}
+                  onChange={handleChange}
+                />
+                {inputs.comments && (
+                  <span className="char-count">
+                    {inputs.comments.length}/1500
+                  </span>
+                )}
+                {errors.comments && <ErrorMessage message={errors.comments} />}
+              </div>
             </fieldset>
-            <ButtonStyles fullWidth>Make an Offer</ButtonStyles>
+            <ButtonStyles disabled={isSubmiting} fullWidth>
+              {isSubmiting ? (
+                <Loading text="Submiting offer" />
+              ) : (
+                "Make an Offer"
+              )}
+            </ButtonStyles>
           </FormStyles>
         )}
       </>

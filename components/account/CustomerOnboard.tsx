@@ -59,6 +59,11 @@ export default function CustomerOnboard() {
         console.log(response);
         setLoading(false);
         router.push("/account");
+        axios
+          .get("/api/auth/session?update", { withCredentials: true })
+          .then(() => {
+            window.location.reload();
+          });
       })
       .catch((error) => {
         console.log(error);

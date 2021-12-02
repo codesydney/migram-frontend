@@ -5,9 +5,11 @@ import OfferStyles from "../styles/OfferStyles";
 import UserIconStyles from "../styles/UserIconStyles";
 import ButtonStyles from "../styles/ButtonStyles";
 import { useSession } from "../../node_modules/next-auth/client";
+import { useContext, useState } from "react";
 
-export default function Offer({ offer, myTask }: any) {
+export default function Offer({ offer }: any) {
   const [session, loading]: any = useSession();
+  // const { selectedOffer, setSelectedOffer } = useState(null);
 
   console.log(offer);
 
