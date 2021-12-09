@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import DashboardContext from "../DashboardContext";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSession } from "../../../node_modules/next-auth/client";
 import { useRouter } from "next/router";
@@ -153,15 +152,15 @@ export default function SingleTask({ Task, myTasks, selectedTask }: any) {
       .catch((error) => {
         setUpdatedTask(selectedTask);
       });
-    if (myTasks) {
-      router.push(`/mytasks/${selectedTask.id}`, undefined, {
-        shallow: true,
-      });
-    } else {
-      router.push(`/tasks/${selectedTask.id}`, undefined, {
-        shallow: true,
-      });
-    }
+    // if (myTasks) {
+    //   router.push(`/mytasks/${selectedTask.id}`, undefined, {
+    //     shallow: true,
+    //   });
+    // } else {
+    //   router.push(`/tasks/${selectedTask.id}`, undefined, {
+    //     shallow: true,
+    //   });
+    // }
   }, [selectedTask]);
 
   // console.log(selectedTask);

@@ -68,7 +68,7 @@ export default function Tasks({
   }
 
   useEffect(() => {
-    // setSelectedTask(null);
+    setSelectedTask(null);
     if (loading) return;
     if (!myTasks) {
       getTasks(currentPage);

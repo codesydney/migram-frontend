@@ -12,6 +12,7 @@ export default function FilterOffers({ status, setStatus }: any) {
       >
         accepted
       </button>
+      <button>completed</button>
     </FilterTasksStyles>
   );
 }

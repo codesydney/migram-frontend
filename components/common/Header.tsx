@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
 import NavItems from "./NavItems";
-import UserIcon from "./UserIcon"
+import UserIcon from "./UserIcon";
 import { useState } from "react";
 
 // TODO: Style logo for responsiveness (toggle smaller logo)
@@ -11,60 +11,60 @@ const LogoStyles = styled.div`
   :hover {
     cursor: pointer;
   }
-  display:inline;
+  display: inline;
 `;
 
 const HeaderStyles = styled.header`
   margin: 0.5rem 0 0.5rem 0;
-  min-height:77px;
+  min-height: 77px;
   border-bottom: 1px solid var(--lightGrey);
   padding-left: 5vw;
   padding-right: 5vw;
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  position:relative;
+  position: relative;
 `;
 
 const HamburgerIcon = styled.div`
-display:flex;
-flex-direction:column;
-cursor:pointer;
-margin-left:1.5rem;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  margin-left: 1.5rem;
 
-span{
-  height:2px;
-  width:25px;
-  background-color: var(--black);
-  margin-bottom:4px;
-  border-radius:5px;
-}
-
-  @media(min-width:820px){
-    display:none;
+  span {
+    height: 2px;
+    width: 25px;
+    background-color: var(--black);
+    margin-bottom: 4px;
+    border-radius: 5px;
   }
-`
+
+  @media (min-width: 820px) {
+    display: none;
+  }
+`;
 
 const NavBarIconGroup = styled.div`
-display:flex;
-flex-direction:row;
-align-items:center;
-position:relative;
-`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+`;
 
 const FlexRow = styled.div`
-display:flex;
-flex-direction:row;
-align-items:center;
-`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
 export default function Header() {
-  const [isNavBarOpen, setIsNavBarOpen]:any = useState(false)
+  const [isNavBarOpen, setIsNavBarOpen]: any = useState(false);
 
   const closeNavBar = () => {
-    setIsNavBarOpen(false)
-  }
+    setIsNavBarOpen(false);
+  };
 
   return (
     <HeaderStyles>
@@ -72,18 +72,17 @@ export default function Header() {
         <LogoStyles>
           <Image src="/logo.png" alt="Migram" width="174.6" height="48" />
         </LogoStyles>
-
       </Link>
       <FlexRow>
-      <NavItems isNavBarOpen={isNavBarOpen} closeNavBar = {closeNavBar} />
-      <NavBarIconGroup>
+        <NavItems isNavBarOpen={isNavBarOpen} closeNavBar={closeNavBar} />
+        <NavBarIconGroup>
           <UserIcon />
           <HamburgerIcon onClick={() => setIsNavBarOpen(!isNavBarOpen)}>
             <span></span>
             <span></span>
             <span></span>
           </HamburgerIcon>
-      </NavBarIconGroup>
+        </NavBarIconGroup>
       </FlexRow>
     </HeaderStyles>
   );

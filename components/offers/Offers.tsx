@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { useSession } from "../../node_modules/next-auth/client";
 
 import BodyStyles from "../styles/BodyStyles";
+import OffersStyles from "../styles/OffersStyles";
 import Offer from "./Offer";
 
-export default function Offers({ status }: any) {
+export default function Offers({ status, setSelectedTask, selectedTask }: any) {
   const [session, loading]: any = useSession();
   const [offers, setOffers] = useState([]);
 
@@ -29,11 +30,18 @@ export default function Offers({ status }: any) {
   }, [loading, status]);
 
   return (
-    <>
+    <OffersStyles>
       {offers.map((offer: any) => {
         // return <div key={offer._id}>{offer._id}</div>;
-        return <Offer key={offer._id} offer={offer} />;
+        return (
+          <Offer
+            setSelectedTask={setSelectedTask}
+            selectedTask={selectedTask}
+            key={offer._id}
+            offer={offer}
+          />
+        );
       })}
-    </>
+    </OffersStyles>
   );
 }

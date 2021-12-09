@@ -1,5 +1,5 @@
 import Image from "next/image";
-import OfferStyles from "../../styles/OfferStyles";
+import TaskOfferStyles from "../../styles/TaskOfferStyles";
 import { useSession } from "../../../node_modules/next-auth/client";
 
 import UserIconStyles from "../../styles/UserIconStyles";
@@ -35,7 +35,7 @@ export default function Offer({ offer, myTask }: any) {
     return <></>;
   }
   return (
-    <OfferStyles>
+    <TaskOfferStyles>
       <div className="header">
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <UserIconStyles>
@@ -55,6 +55,6 @@ export default function Offer({ offer, myTask }: any) {
           Accept Offer
         </ButtonStyles>
       )}
-    </OfferStyles>
+    </TaskOfferStyles>
   );
 }

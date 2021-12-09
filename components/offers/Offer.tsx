@@ -1,22 +1,26 @@
 import Image from "next/image";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import OfferStyles from "../styles/OfferStyles";
 import UserIconStyles from "../styles/UserIconStyles";
 import ButtonStyles from "../styles/ButtonStyles";
 import { useSession } from "../../node_modules/next-auth/client";
 import { useContext, useState } from "react";
+import Offers from "./Offers";
 
-export default function Offer({ offer }: any) {
+export default function Offer({ offer, setSelectedTask, selectedTask }: any) {
   const [session, loading]: any = useSession();
   // const { selectedOffer, setSelectedOffer } = useState(null);
 
-  console.log(offer);
+  console.log("OFFER", offer);
+  console.log("SELECTED TASK", selectedTask);
 
   async function handleCompleteOffer() {
     axios
       .patch(
         `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${offer.task}/completed`,
+        {},
         {
           headers: {
             authorization: `Bearer ${session.accessToken}`,
@@ -27,28 +31,48 @@ export default function Offer({ offer }: any) {
       .catch((error) => console.log(error));
   }
 
-  if (!offer) {
-    return <></>;
-  }
   return (
-    <OfferStyles>
+    <OfferStyles
+      onClick={async () => {
+        await axios
+          .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${offer.task}`, {
+            headers: {
+              authorization: `Bearer ${session.accessToken}`,
+            },
+          })
+          .then((response) => {
+            console.log(response);
+            setSelectedTask(response.data.data.task);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }}
+      selected={selectedTask?.id == offer.task}
+    >
       <div className="header">
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          {/* <UserIconStyles>
-            <Image width="48px" height="48px" src={offer?.photo} alt="Avatar" />
-          </UserIconStyles> */}
-          <div>
-            {offer.firstName}{" "}
-            {offer.providerId == session.user.providerId && "(You)"}
+        <div className="icon"></div>
+        <div className="category">{offer.status}</div>
+      </div>
+      <div className="body">
+        <p>{offer.comments}</p>
+      </div>
+      <div className="footer">
+        <div>
+          Your offer:
+          <div className="price">
+            <div className="icon">
+              <FontAwesomeIcon icon={faDollarSign} color={"black"} />
+            </div>
+            {offer.offerAmt.toFixed(2)}
           </div>
         </div>
-
-        <div className="offerAmt">${offer.offerAmt}</div>
+        {offer.status == "accepted" && (
+          <button onClick={handleCompleteOffer} style={{ marginTop: 24 }}>
+            Mark as Completed
+          </button>
+        )}
       </div>
-      <div className="body">{offer.comments}</div>
-      <ButtonStyles onClick={handleCompleteOffer} style={{ marginTop: 24 }}>
-        Mark as Completed
-      </ButtonStyles>
     </OfferStyles>
   );
 }

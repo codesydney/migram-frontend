@@ -15,10 +15,6 @@ export default function Task({ task, selectedTask, setSelectedTask }: any) {
         setSelectedTask(task);
         console.log("!!!", selectedTask);
       }}
-      // style={{
-      //   borderColor:
-      //     selectedTask?.id == task.id ? "var(--focus)" : "var(--grey",
-      // }}
       selected={selectedTask?.id == task.id}
     >
       <div className="header">
