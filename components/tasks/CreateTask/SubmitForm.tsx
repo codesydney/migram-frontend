@@ -7,6 +7,7 @@ import {
   faMapMarkerAlt,
   faCalendarDay,
   faClock,
+  faHourglassStart
 } from "@fortawesome/free-solid-svg-icons";
 
 import SubmitFormStyles from "../../styles/SubmitFormStyles";
@@ -177,7 +178,7 @@ export default function SubmitForm({
           <div className="title">Date</div>
           <div className="user-input">
             <div className="icon">
-              <FontAwesomeIcon icon={faMapMarkerAlt} color={"black"} />
+              <FontAwesomeIcon icon={faCalendarDay} color={"black"} />
             </div>
             {formData.date}
           </div>
@@ -186,7 +187,7 @@ export default function SubmitForm({
           <div className="title">Time</div>
           <div className="user-input">
             <div className="icon">
-              <FontAwesomeIcon icon={faCalendarDay} color={"black"} />
+              <FontAwesomeIcon icon={faClock} color={"black"} />
             </div>
             {formData.timeOfArrival}
           </div>
@@ -197,7 +198,7 @@ export default function SubmitForm({
           <div className="title">Completion Time</div>
           <div className="user-input">
             <div className="icon">
-              <FontAwesomeIcon icon={faClock} color={"black"} />
+              <FontAwesomeIcon icon={faHourglassStart} color={"black"} />
             </div>
             {formData.timeEstimate}
           </div>
