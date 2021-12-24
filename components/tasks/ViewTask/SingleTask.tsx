@@ -18,6 +18,7 @@ import Offers from "../Offers/Offers";
 import ErrorMessage from "../../common/ErrorMessage";
 import Loading from "../../common/Loading";
 import { validate } from "../../../lib/validator";
+import ImageModal from "../../common/ImageModal";
 
 import ButtonStyles from "../../styles/ButtonStyles";
 import SubmitFormStyles from "../../styles/SubmitFormStyles";
@@ -29,6 +30,7 @@ export default function SingleTask({ Task, myTasks, selectedTask }: any) {
   const [updatedTask, setUpdatedTask] = useState(selectedTask);
   const [isMyTask, setIsMyTask] = useState(false);
   const [isSubmiting, setIsSubmiting] = useState(false);
+  const [isModalOpen,setIsModalOpen] = useState(false);
   const stripe = useStripe();
   const router = useRouter();
 
@@ -250,12 +252,20 @@ export default function SingleTask({ Task, myTasks, selectedTask }: any) {
               <div className="title">Image</div>
               <div className="user-input">
                 {selectedTask.photos[0] && (
+                  <>
                   <Image
                     width="48px"
                     height="48px"
                     src={selectedTask.photos[0]}
                     alt="image to upload"
+                    onClick={()=>setIsModalOpen(true)}
                   />
+                  <ImageModal
+                    open={isModalOpen}
+                    onClose={()=>setIsModalOpen(false)}
+                    imgUrl={selectedTask.photos[0]}
+                    />
+                  </>
                 )}
               </div>
             </div>
