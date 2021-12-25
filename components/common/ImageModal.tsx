@@ -16,7 +16,7 @@ const OverlayStyles = styled.div`
     left:5%;
     right:5%;
     bottom:5%;
-    background-color:lightgrey;
+    background-color:rgba(150,150,150,0.95);
     z-index:100;
 `
 
@@ -29,25 +29,31 @@ const ImageModalStyles = styled.div`
     border-radius: var(--border-radius);
     i {
         position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
+        top: 0.25rem;
+        right: 0.25rem;
         cursor:pointer;
+        z-index:99;
     }
     .image-container {
         width: 100%;
         height:100%;
-        overflow:auto;
+        /* overflow:auto; */
         div {
         position: unset !important;
         }
 
-    .image {
-        object-fit: contain;
-        /* width: 100% !important; */
-        position: relative !important;
-        height: unset !important;
+        img {
+            border: 2px solid var(--focus) !important;
+            border-radius: var(--border-radius);
+            object-fit: contain;
+            max-width: 100%;
+            max-height:100%;
+            padding:2rem !important;
+            /* margin:1rem 1rem 1rem 1rem !important; */
+            /* position: relative !important; */
+            /* height: unset !important; */
+        }
     }
-}
 
 `;
 
@@ -58,7 +64,12 @@ function ImageModal({ open, imgUrl, onClose }: any) {
         <OverlayStyles>
             <ImageModalStyles>
                 <i>
-                    <FontAwesomeIcon icon={faTimesCircle} color={"black"} onClick={onClose} />
+                    <FontAwesomeIcon 
+                        icon={faTimesCircle} 
+                        color={"black"} 
+                        onClick={onClose} 
+                        size={"2x"}
+                        />
                 </i>
                 <div className = "image-container">
                         <Image
