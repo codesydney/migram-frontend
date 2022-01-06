@@ -33,41 +33,45 @@ One area to engage local community to help migrants of refugee background to int
 * % Provider Retention (% of providers that end up using Migram more than once) 
 
 ## 6. Unique Value Proposition 
-Unlike larger task marketplaces like Airtasker which has a provider service fee of 10-20% ([link here](https://support.airtasker.com/hc/en-au/articles/200294499-What-is-the-service-fee)), Migram does not charge a service fee to providers. 
+* Unlike larger task marketplaces like Airtasker which has a provider service fee of 10-20% ([link here](https://support.airtasker.com/hc/en-au/articles/200294499-What-is-the-service-fee)), Migram does not charge a service fee to providers. 
 
-This maximises provider earnings, while also incentivising customers to support the local migrant community, knowing every $ they put in goes straight to the providers. 
+* This maximises provider earnings, while also incentivising customers to support the local migrant community, knowing every $ they put in goes straight to the providers. 
 
 ## 7. Unfair Advantage 
-Unlike other apps which are mostly self-served, Migram will be a supervised app meaning there will be some sort of handholding by IMS to ensure the benefit of the app is realised.  
+* Unlike other apps which are mostly self-served, Migram will be a supervised app meaning there will be some sort of handholding by IMS to ensure the benefit of the app is realised.  
 
 ## 8. Marketing Channels
 * Local marketing (local community board, mail marketing, etc) 
 * Digital marketing (social media, etc)
 
 ## 9. Cost Structure 
-Frontend hosting fee - Vercel ($5/month)
-Backend hosting fee - Heroku ($9/month)
-Cloudinary (Free tier)
-EmailJS (Free tier)
+* Frontend hosting fee - Vercel ($5/month)
+* Backend hosting fee - Heroku ($9/month)
+* Cloudinary (Free tier)
+* EmailJS (Free tier)
 
 ## 10. Revenue Streams
-TBA with IMS 
+* TBA with IMS 
 
-## 11. Pre-production deployment
+## 11. User Acceptance Testing
+* TBA
+
+
+## 12. Pre-production deployment
 * Identify roles/responsibilities of IMS as well Code.Sydney support team in terms operations  
 * Infrastructure is already set up (stripe/hosting/domain/etc)
 * Agreement of both parties to go live (i.e. soft launch) 
 * Stripe admin portal (provision of training by Code.Sydney) 
 * Handling of customer issues, application issues. Ensure proper escalation channel/process is defined depending on the case type (either tech/process). Note: The team to confirm if additional feature is needed in the future.    
 
-## 12. Production deployment (Soft launch)
+## 13. Production deployment (Soft launch)
 * Soft launch - Sanity testing
 * One week of internal testing in production to identify gaps
 
-## 13. Production deployment (Actual launch)
+## 14. Production deployment (Actual launch)
 * Go Live (Standby support requirement?)
 
-## 14. Post Production Activities
+## 15. Post Production Activities
 * After Go Live catch up (i.e. regular meeting schedule?)
 * Backend monitoring and potential reporting by Code.Sydney (Paolo is interested to take this onboard)
 * Support service requests handling
@@ -75,7 +79,7 @@ TBA with IMS
 * Future enhancements (app/processes)
 
 <br/>
-# B. Project Status as of 12 December 2021
+# B. Project Status as of 6 January 2022
 
 # Summary of Beta Version Success Criteria
 
