@@ -54,6 +54,13 @@ One area to engage local community to help migrants of refugee background to int
 * TBA with IMS 
 
 ## 11. User Acceptance Testing
+We want to ensure that the app fits IMS's needs, as outlined in [Summary of Beta Version Success Criteria](#beta-success). User Acceptance Testing methodology TBD with IMS, but can come in the form of any of the following:
+
+* **Lower involvement:** Code.Sydney sends IMS a checklist + feedback form, and IMS fills it out before a set date. IMS can attend weekly meetings with Code.Sydney to discuss feedback
+* **Higher involvement:** Live user interviews where an IMS rep goes through the features as facilitated by Code.Sydney, and we discuss live
+
+
+Timelines:
 * 31st Jan - ETA delivery to IMS
 * 31st Jan - UAT Test Cases Success Criteria Feedback Form
 * 3rd Feb - UAT Handover Meeting 
@@ -80,8 +87,9 @@ One area to engage local community to help migrants of refugee background to int
 * User interviews (feedback)
 * Future enhancements (app/processes)
 
-<br/>
 # B. Project Status as of 6 January 2022
+
+<a name="beta-success"/>
 
 # Summary of Beta Version Success Criteria
 
