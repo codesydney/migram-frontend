@@ -54,7 +54,8 @@ One area to engage local community to help migrants of refugee background to int
 * TBA with IMS 
 
 ## 11. User Acceptance Testing
-* TBA
+* ETA delivery to IMS - 31st January 2022
+* UAT Test Cases Feedback Form - 31st January 2022
 
 
 ## 12. Pre-production deployment
