@@ -54,15 +54,16 @@ One area to engage local community to help migrants of refugee background to int
 * TBA with IMS 
 
 ## 11. User Acceptance Testing
-* ETA delivery to IMS - 31st January 2022
-* UAT Test Cases Feedback Form - 31st January 2022
-
+* 31st Jan - ETA delivery to IMS
+* 31st Jan - UAT Test Cases Success Criteria Feedback Form
+* 3rd Feb - UAT Handover Meeting 
+* 24th Feb - UAT Conclusion
 
 ## 12. Pre-production deployment
 * Identify roles/responsibilities of IMS as well Code.Sydney support team in terms operations  
 * Infrastructure is already set up (stripe/hosting/domain/etc)
 * Agreement of both parties to go live (i.e. soft launch) 
-* Stripe admin portal (provision of training by Code.Sydney) 
+* Stripe admin portal (provision of training by Praveen) 
 * Handling of customer issues, application issues. Ensure proper escalation channel/process is defined depending on the case type (either tech/process). Note: The team to confirm if additional feature is needed in the future.    
 
 ## 13. Production deployment (Soft launch)
