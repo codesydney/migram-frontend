@@ -108,9 +108,9 @@ TBA with IMS
 - [Completed] BE: Hooks to send email notification hen payment has been received in provider's bank account<br/>
 - [Completed] FE: Handle payment from the customer<br/>
 <h5> Thu 11/11 </h5>
-- [Ongoing] Last few code tweaks and internal testing and fixes: The team member start internal testing and reporting bugs or provide feedback. Devs start working on the fixes as and when they see issues logged in Github Issue board. <br/>
+- [Completed] Last few code tweaks and internal testing and fixes: The team member start internal testing and reporting bugs or provide feedback. Devs start working on the fixes as and when they see issues logged in Github Issue board. <br/>
 <h5> Thu 16/12 </h5>
-- [To Do] MVP Demo<br/>
+- [Completed] MVP Demo<br/>
 
 <br/>
 <br/>
