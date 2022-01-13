@@ -123,7 +123,7 @@ export default function Tasks({
           )}
         </>
       ) : (
-        <div>Loading...</div>
+        <div>...</div>
       )}
     </PaginationStyles>
   );

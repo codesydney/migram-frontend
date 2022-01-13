@@ -5,9 +5,12 @@ import { useSession } from "../../../node_modules/next-auth/client";
 import UserIconStyles from "../../styles/UserIconStyles";
 import ButtonStyles from "../../styles/ButtonStyles";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Offer({ offer, myTask }: any) {
   const [session, loading]: any = useSession();
+  const router = useRouter();
+
   // console.log(offer);
 
   async function handleAcceptOffer() {
@@ -27,6 +30,7 @@ export default function Offer({ offer, myTask }: any) {
       )
       .then((response) => {
         console.log(response);
+        router.push("/mytasks");
       })
       .catch((error) => console.log(error));
   }

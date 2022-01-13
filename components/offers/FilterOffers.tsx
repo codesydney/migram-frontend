@@ -6,6 +6,9 @@ export default function FilterOffers({ status, setStatus }: any) {
       <button disabled={status == ""} onClick={() => setStatus("")}>
         all
       </button>
+      <button disabled={status == "open"} onClick={() => setStatus("open")}>
+        open
+      </button>
       <button
         disabled={status == "accepted"}
         onClick={() => setStatus("accepted")}

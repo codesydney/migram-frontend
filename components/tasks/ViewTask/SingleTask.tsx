@@ -121,6 +121,7 @@ export default function SingleTask({ Task, myTasks, selectedTask }: any) {
         const { client_secret, payment_method } = response.data.data;
         console.log("!!!", client_secret, payment_method);
         handleStripeSubmit(client_secret, payment_method);
+        router.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -181,6 +182,11 @@ export default function SingleTask({ Task, myTasks, selectedTask }: any) {
   return (
     selectedTask && (
       <>
+        {updatedTask?.status == "completed" && (
+          <ButtonStyles onClick={handleReleasePayment} fullWidth>
+            Release Payment
+          </ButtonStyles>
+        )}
         <SubmitFormStyles>
           <div className="section-1">
             <div className="field">
@@ -270,12 +276,15 @@ export default function SingleTask({ Task, myTasks, selectedTask }: any) {
               </div>
             </div>
           </div>
-          <h4>Offers</h4>
-          {updatedTask?.offers && (
-            <Offers offers={updatedTask.offers} myTask={isMyTask} />
+
+          {updatedTask?.offers && updatedTask?.status == "open" && (
+            <>
+              <h4>Offers</h4>
+              <Offers offers={updatedTask.offers} myTask={isMyTask} />
+            </>
           )}
         </SubmitFormStyles>
-        {session?.user.providerId && (
+        {session?.user.providerId && updatedTask?.status == "open" && (
           <FormStyles
             onSubmit={invalidField() ? handleErrors : handleOfferSubmit}
           >
