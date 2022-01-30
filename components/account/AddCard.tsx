@@ -6,12 +6,13 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import BodyStyles from "../styles/BodyStyles";
 import FormStyles from "../styles/FormStyles";
 import ButtonStyles from "../styles/ButtonStyles";
+import { useRouter } from "next/router";
 
 export default function AddCard() {
   const [session]: any = useSession();
   const stripe = useStripe();
   const elements = useElements();
-
+  const router = useRouter();
   const { inputs, handleChange, resetForm }: any = useForm({
     cardName: "",
     cardNumber: "",
@@ -34,6 +35,7 @@ export default function AddCard() {
       .then((response) => {
         console.log(response);
         handleStripeSubmit(response.data.client_secret);
+        router.push("/account/");
       })
       .catch((error) => {
         console.log(error);

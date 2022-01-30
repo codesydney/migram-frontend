@@ -19,6 +19,8 @@ export default function Account() {
   });
   const [selectedFile, setSelectedFile]: any = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
+  const [customerPaymentMethods, setCustomerPaymentMethods]: any =
+    useState(null);
 
   function handleFileChange(event: any) {
     setSelectedFile(event.target.files[0]);
@@ -26,10 +28,28 @@ export default function Account() {
   }
 
   useEffect(() => {
-    const session = getSession();
-  }, []);
+    if (session?.user?.customerId) {
+      axios
+        .get(
+          `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/${session?.user?.customerId}/paymentMethods`,
+          {
+            headers: {
+              authorization: `Bearer ${session?.accessToken}`,
+            },
+          }
+        )
+        .then((response) => {
+          console.log("*", response);
+          setCustomerPaymentMethods(response.data.data.card);
+          console.log(customerPaymentMethods);
+        })
+        .catch((error) => {
+          console.log("*", error);
+        });
+    }
+  }, [session]);
 
-  console.log(session?.user.id);
+  console.log(session?.user);
 
   async function handleUpdate(e: any) {
     e.preventDefault();
@@ -126,13 +146,16 @@ export default function Account() {
         {!loading && (
           <>
             <p>{session?.user?.email}</p>
+            {session?.user?.customerId && <p>customer</p>}
+            {session?.user?.providerId && <p>provider</p>}
             <p>
-              {session?.user?.customerId && (
+              {session?.user?.customerId && !customerPaymentMethods && (
+                <Link href="/account/customer/addcard" passHref>
+                  <ButtonStyles primary>Add a Card</ButtonStyles>
+                </Link>
+              )}
+              {session?.user?.customerId && customerPaymentMethods && (
                 <>
-                  {session?.user?.customerId}
-                  <Link href="/account/customer/addcard" passHref>
-                    <ButtonStyles primary>Add a Card</ButtonStyles>
-                  </Link>
                   <ButtonStyles
                     onClick={() => {
                       axios.put(
@@ -146,48 +169,47 @@ export default function Account() {
                       );
                     }}
                   >
-                    Detach Card
+                    Detach Card {customerPaymentMethods.last4}
                   </ButtonStyles>
                 </>
               )}
             </p>
-            <p>{session?.user?.providerId}</p>
             <div className="flex-container">
-              {!session?.user.customerId && (
+              {!session?.user.customerId && !session?.user?.providerId && (
                 <Link href="/account/customer/onboard" passHref>
                   <ButtonStyles>Become a Customer</ButtonStyles>
                 </Link>
               )}
 
-              {/* {!session?.user.providerId && ( */}
-              <ButtonStyles
-                onClick={async () => {
-                  axios
-                    .post(
-                      `${process.env.NEXT_PUBLIC_API_URL}api/v1/providers`,
-                      { UserId: session.user._id },
-                      {
-                        headers: {
-                          authorization: `Bearer ${session.accessToken}`,
-                        },
-                      }
-                    )
-                    .then((response) => {
-                      console.log(response);
-                      console.log(response.data.data.accountLink.url);
-                      window.location.assign(
-                        response.data.data.accountLink.url
-                      );
-                    })
-                    .catch((error) => {
-                      console.log(error);
-                    });
-                }}
-                primary
-              >
-                Become a Provider
-              </ButtonStyles>
-              {/* )} */}
+              {!session?.user.providerId && !session?.user?.customerId && (
+                <ButtonStyles
+                  onClick={async () => {
+                    axios
+                      .post(
+                        `${process.env.NEXT_PUBLIC_API_URL}api/v1/providers`,
+                        { UserId: session.user._id },
+                        {
+                          headers: {
+                            authorization: `Bearer ${session.accessToken}`,
+                          },
+                        }
+                      )
+                      .then((response) => {
+                        console.log(response);
+                        console.log(response.data.data.accountLink.url);
+                        window.location.assign(
+                          response.data.data.accountLink.url
+                        );
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
+                  }}
+                  primary
+                >
+                  Become a Provider
+                </ButtonStyles>
+              )}
             </div>
           </>
         )}

@@ -24,11 +24,11 @@ export default function Landing() {
         {session ? (
           <h2>{`Welcome, ${session.user?.firstName}!`}</h2>
         ) : (
-          <h2>Lorem ipsum dolor sit amet, consectetur</h2>
+          <h2>Illawarra Multicultural Services</h2>
         )}
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
-          purus sit amet luctus venenatis
+          Continuous support and advocacy for culturally diverse communities
+          from migrant and refugee backgrounds.
         </p>
         <div className="flex-container">
           <Link href="/tasks/createtask" passHref>

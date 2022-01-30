@@ -30,7 +30,7 @@ export default function SingleTask({ Task, myTasks, selectedTask }: any) {
   const [updatedTask, setUpdatedTask] = useState(selectedTask);
   const [isMyTask, setIsMyTask] = useState(false);
   const [isSubmiting, setIsSubmiting] = useState(false);
-  const [isModalOpen,setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const stripe = useStripe();
   const router = useRouter();
 
@@ -182,7 +182,7 @@ export default function SingleTask({ Task, myTasks, selectedTask }: any) {
   return (
     selectedTask && (
       <>
-        {updatedTask?.status == "completed" && (
+        {updatedTask?.status == "completed" && isMyTask && (
           <ButtonStyles onClick={handleReleasePayment} fullWidth>
             Release Payment
           </ButtonStyles>
@@ -259,17 +259,17 @@ export default function SingleTask({ Task, myTasks, selectedTask }: any) {
               <div className="user-input">
                 {selectedTask.photos[0] && (
                   <>
-                  <Image
-                    width="48px"
-                    height="48px"
-                    src={selectedTask.photos[0]}
-                    alt="image to upload"
-                    onClick={()=>setIsModalOpen(true)}
-                  />
-                  <ImageModal
-                    open={isModalOpen}
-                    onClose={()=>setIsModalOpen(false)}
-                    imgUrl={selectedTask.photos[0]}
+                    <Image
+                      width="48px"
+                      height="48px"
+                      src={selectedTask.photos[0]}
+                      alt="image to upload"
+                      onClick={() => setIsModalOpen(true)}
+                    />
+                    <ImageModal
+                      open={isModalOpen}
+                      onClose={() => setIsModalOpen(false)}
+                      imgUrl={selectedTask.photos[0]}
                     />
                   </>
                 )}
