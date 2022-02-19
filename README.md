@@ -11,7 +11,7 @@ IMS approached Code.Sydney early 2021 to consider building a marketplace app to 
 ## 2. Customer Segments
 * Service Providers will be mainly migrants of refugee background. 
 * End customers will be the local community around Wollongong and surrounds. 
-* Estimated customer size for both segments?
+* Estimated customer size for both segments is quite low at the start, most likely less than 30. 
 
 ## 3. Problem Statement
 Many migrants of refugee background are having difficulty integrating to the society. Apart from language barriers, the local community needs to be more embracing of them being part of the local community.  
