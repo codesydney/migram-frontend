@@ -61,10 +61,23 @@ We want to ensure that the app fits IMS's needs, as outlined in [Summary of Beta
 
 
 Timelines:
-* 31st Jan - ETA delivery to IMS
-* 31st Jan - UAT Test Cases Success Criteria Feedback Form
-* 3rd Feb - UAT Handover Meeting 
-* 24th Feb - UAT Conclusion
+* 31st Jan - Delivery of UAT version to IMS
+* 20th Feb - UAT Success Criteria Definition
+* 24th Feb - UAT Handover meeting
+* 17th Mar - UAT Conclusion
+
+UAT Success Criteria per User Persona:
+* Customer
+- Customer is able to sign up as a customer
+- Customer is able to sign in and sign out
+
+* Service Provider
+- Service provider is able to sign up as a customer
+- Service provider is able to sign in and sign out
+
+* IMS Staff
+- IMS staff is able to sign up as a customer
+- IMS staff is able to sign in and sign out
 
 ## 12. Pre-production deployment
 * Identify roles/responsibilities of IMS as well Code.Sydney support team in terms operations  
