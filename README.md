@@ -67,17 +67,14 @@ Timelines:
 * 17th Mar - UAT Conclusion
 
 UAT Success Criteria per User Persona:
-* Customer
-* - Customer is able to sign up as a customer
-* - Customer is able to sign in and sign out
-
-* Service Provider
-* - Service provider is able to sign up as a customer
-* - Service provider is able to sign in and sign out
-
-* IMS Staff
-* - IMS staff is able to sign up as a customer
-* - IMS staff is able to sign in and sign out
+| User Persona | Test Case | Pass/Fail/Conditional |
+|:--|:--|:--|
+| Customer | Customer is able to sign up as a customer | To do |
+| Customer | Customer is able to sign in and sign out | To do |
+| Service Provider | Service provider is able to sign up as a customer | To do |
+| Service Provider | Service provider is able to sign in and sign out | To do |
+| IMS Staff | IMS staff is able to sign up as a customer | To do |
+| IMS Staff | IMS staff is able to sign in and sign out | To do |
 
 ## 12. Pre-production deployment
 * Identify roles/responsibilities of IMS as well Code.Sydney support team in terms operations  
