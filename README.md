@@ -59,14 +59,13 @@ We want to ensure that the app fits IMS's needs, as outlined in [Summary of Beta
 * **Lower involvement:** Code.Sydney sends IMS a checklist + feedback form, and IMS fills it out before a set date. IMS can attend weekly meetings with Code.Sydney to discuss feedback
 * **Higher involvement:** Live user interviews where an IMS rep goes through the features as facilitated by Code.Sydney, and we discuss live
 
-
 Timelines:
 * 31st Jan - Delivery of UAT version to IMS
 * 20th Feb - UAT Success Criteria Definition
 * 24th Feb - UAT Handover meeting
 * 17th Mar - UAT Conclusion
 * 1st Apr  - Soft Launch
-Post a Job (Input job description/images) |
+
 UAT Success Criteria per User Persona:
 | User Persona | Test Case | Pass/Fail/Conditional |
 |:--|:--|:--|
@@ -75,9 +74,6 @@ UAT Success Criteria per User Persona:
 | Customer | Become a Customer | To do |
 | Customer | Add a card (Test Card: 4242 4242 4242 4242 04/24 242 | To do |
 | Customer | Post a Job (Input job field descriptions/images) | To do 
-|
-| Customer | Confirmation of Job Posting | To do
-
 | Service Provider | User is able to sign up | To do |
 | Service Provider | User is able to sign in and sign out | To do |
 | Service Provider | Become a Service Provider (It will redirect to  | To do |
