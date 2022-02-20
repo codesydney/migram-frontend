@@ -109,19 +109,6 @@ UAT-14 | IMS Staff | User is able to sign in and sign out | To do |
 
 <a name="beta-success"/>
 
-# Summary of Beta Version Success Criteria
-
-* [Ready for Demo] Success Criteria 1 Customer sign up / sign in / profile update
-* [Ready for Demo] Success Criteria 2 Service provider sign up / sign in / profile update
-* [Ready for Demo] Success Criteria 3 Customer job posting 
-* [Ready for Demo] Success Criteria 4 Service provider offers
-* [Ready for Demo] Success Criteria 5 Customer job discussion/acceptance/cancellation 
-* [Ready for Demo] Success Criteria 6 Job provider job discussion/acceptance/cancellation
-* [Ready for Demo] Success Criteria 7 Customer payment 
-* [Ready for Demo] Success Criteria 8 Service provider payment receipt
-* [Ready for Demo] Success Criteria 9 Customer job completion/cancellation/feedback
-* [Ready for Demo] Success Criteria 10 Service provider job completion/cancellation/feedback
-
 # Project Schedule
 
 <h5> Thu 7/10 </h5>
