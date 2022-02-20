@@ -67,18 +67,22 @@ Timelines:
 * 1st Apr  - Soft Launch
 
 UAT Success Criteria per User Persona:
-| User Persona | Test Case | Pass/Fail/Conditional |
-|:--|:--|:--|
-| Customer | User is able to sign up | To do |
-| Customer | User is able to sign in and sign out | To do |
-| Customer | Become a Customer | To do |
-| Customer | Add a card (Test Card: 4242 4242 4242 4242 04/24 242) | To do |
-| Customer | Post a Job (Input job field descriptions/images) | To do 
-| Service Provider | User is able to sign up | To do |
-| Service Provider | User is able to sign in and sign out | To do |
-| Service Provider | Become a Service Provider (It will redirect to Stripe website to enrol) | To do |
-| IMS Staff | User is able to sign up | To do |
-| IMS Staff | User is able to sign in and sign out | To do |
+ID | User Persona | Test Case | Pass/Fail/Conditional |
+|:--|:--|:--|:--|
+UAT-1 | Customer | User is able to sign up | To do |
+UAT-2 | Customer | User is able to sign in and sign out | To do |
+UAT-3 | Customer | User can become a Customer | To do |
+UAT-4 | Customer | User is able to add a card (Test Card: 4242 4242 4242 4242 04/24 242) | To do |
+UAT-5 | Customer | User can post a Job (Input job field descriptions/images) | To do 
+UAT-6 | Customer | User is able to see and accept service providers offers for the job posted | To do 
+UAT-7 | Customer | User should be able to release payment after the actual job is done and marked as completed by the service provider | To do |
+UAT-8 | Service Provider | User is able to sign up | To do |
+UAT-9 | Service Provider | User is able to sign in and sign out | To do |
+UAT-10 | Service Provider | User can become a Service Provider (It will redirect to Stripe website to enrol) with IMS handholding | To do |
+UAT-11 | Service Provider | User can browse posted tasks by the customer and make an offer | To do |
+UAT-12 | Service Provider | User can mark the task as completed after the actual job is done | To do |
+UAT-13 | IMS Staff | User is able to sign up | To do |
+UAT-14 | IMS Staff | User is able to sign in and sign out | To do |
 
 ## 12. Pre-production deployment
 * Identify roles/responsibilities of IMS as well Code.Sydney support team in terms operations  
