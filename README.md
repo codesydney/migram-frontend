@@ -65,6 +65,7 @@ Timelines:
 * 20th Feb - UAT Success Criteria Definition
 * 24th Feb - UAT Handover meeting
 * 17th Mar - UAT Conclusion
+* 1st Apr  - Soft Launch
 
 UAT Success Criteria per User Persona:
 | User Persona | Test Case | Pass/Fail/Conditional |
