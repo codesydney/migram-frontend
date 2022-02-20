@@ -70,12 +70,16 @@ Timelines:
 UAT Success Criteria per User Persona:
 | User Persona | Test Case | Pass/Fail/Conditional |
 |:--|:--|:--|
-| Customer | Customer is able to sign up as a customer | To do |
-| Customer | Customer is able to sign in and sign out | To do |
-| Service Provider | Service provider is able to sign up as a customer | To do |
-| Service Provider | Service provider is able to sign in and sign out | To do |
-| IMS Staff | IMS staff is able to sign up as a customer | To do |
-| IMS Staff | IMS staff is able to sign in and sign out | To do |
+| Customer | User is able to sign up | To do |
+| Customer | User is able to sign in and sign out | To do |
+| Customer | Become a Customer | To do |
+| Customer | Add a card (Test Card: 4242 4242 4242 4242 04/24 242 | To do |
+
+| Service Provider | User is able to sign up | To do |
+| Service Provider | User is able to sign in and sign out | To do |
+| Service Provider | Become a Service Provider | To do |
+| IMS Staff | User is able to sign up | To do |
+| IMS Staff | User is able to sign in and sign out | To do |
 
 ## 12. Pre-production deployment
 * Identify roles/responsibilities of IMS as well Code.Sydney support team in terms operations  
