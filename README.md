@@ -72,11 +72,11 @@ UAT Success Criteria per User Persona:
 | Customer | User is able to sign up | To do |
 | Customer | User is able to sign in and sign out | To do |
 | Customer | Become a Customer | To do |
-| Customer | Add a card (Test Card: 4242 4242 4242 4242 04/24 242 | To do |
+| Customer | Add a card (Test Card: 4242 4242 4242 4242 04/24 242) | To do |
 | Customer | Post a Job (Input job field descriptions/images) | To do 
 | Service Provider | User is able to sign up | To do |
 | Service Provider | User is able to sign in and sign out | To do |
-| Service Provider | Become a Service Provider (It will redirect to  | To do |
+| Service Provider | Become a Service Provider (It will redirect to Stripe website to enrol) | To do |
 | IMS Staff | User is able to sign up | To do |
 | IMS Staff | User is able to sign in and sign out | To do |
 
