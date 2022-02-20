@@ -66,7 +66,7 @@ Timelines:
 * 24th Feb - UAT Handover meeting
 * 17th Mar - UAT Conclusion
 * 1st Apr  - Soft Launch
-
+Post a Job (Input job description/images) |
 UAT Success Criteria per User Persona:
 | User Persona | Test Case | Pass/Fail/Conditional |
 |:--|:--|:--|
@@ -74,10 +74,13 @@ UAT Success Criteria per User Persona:
 | Customer | User is able to sign in and sign out | To do |
 | Customer | Become a Customer | To do |
 | Customer | Add a card (Test Card: 4242 4242 4242 4242 04/24 242 | To do |
+| Customer | Post a Job (Input job field descriptions/images) | To do 
+|
+| Customer | Confirmation of Job Posting | To do
 
 | Service Provider | User is able to sign up | To do |
 | Service Provider | User is able to sign in and sign out | To do |
-| Service Provider | Become a Service Provider | To do |
+| Service Provider | Become a Service Provider (It will redirect to  | To do |
 | IMS Staff | User is able to sign up | To do |
 | IMS Staff | User is able to sign in and sign out | To do |
 
