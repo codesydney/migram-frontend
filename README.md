@@ -105,7 +105,7 @@ UAT-14 | IMS Staff | User is able to sign in and sign out | To do |
 * User interviews (feedback)
 * Future enhancements (app/processes)
 
-# B. Project Status as of 6 January 2022
+# B. Project Status as of 20 February 2022
 
 <a name="beta-success"/>
 
