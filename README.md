@@ -67,7 +67,7 @@ Timelines:
 * 1st Apr  - Soft Launch
 
 UAT Success Criteria per User Persona:
-Note - we have split each UAT Criteria into a Github Issue here: https://github.com/codesydney/migram-frontend/labels/uat%20%3Atest_tube%3A
+Note - we have split each UAT Criteria into a Github Issue [here](https://github.com/codesydney/migram-frontend/issues?q=is%3Aopen+label%3A%22uat+%3Atest_tube%3A%22+sort%3Acreated-asc)
 ID | User Persona | Test Case | Pass/Fail/Conditional |
 |:--|:--|:--|:--|
 UAT-1 | Customer | User is able to sign up | To do |
