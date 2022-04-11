@@ -1,18 +1,28 @@
 import { useState } from "react";
 import { useSession } from "next-auth/client";
 import axios from "axios";
+import styled from "styled-components";
 import useForm from "../../lib/useForm";
 
 import BodyStyles from "../styles/BodyStyles";
 import FormStyles from "../styles/FormStyles";
 import ButtonStyles from "../styles/ButtonStyles";
 import { useRouter } from "next/router";
+import ErrorMessage from "../common/ErrorMessage";
+import SuccessMessage from "../common/SuccessMessage";
+
+const MessageContainerStyle = styled.div`
+  margin-top: 1rem;
+`
 
 export default function CustomerOnboard() {
   const [session]: any = useSession();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+
   const { inputs, handleChange, resetForm }: any = useForm({
     name: "",
     email: "",
@@ -26,11 +36,17 @@ export default function CustomerOnboard() {
     postcode: "",
   });
 
+  async function wait(ms: number) {
+    return new Promise(resolve => {
+      setTimeout(resolve, ms);
+    });
+  }
+  
   async function handleSubmit(e: any) {
     e.preventDefault();
     setLoading(true);
-    axios
-      .post(
+    try {
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/`,
         {
           name: inputs.name,
@@ -55,20 +71,21 @@ export default function CustomerOnboard() {
           },
         }
       )
-      .then((response) => {
-        console.log(response);
-        setLoading(false);
-        router.push("/account");
-        axios
-          .get("/api/auth/session?update", { withCredentials: true })
-          .then(() => {
-            window.location.reload();
-          });
-      })
-      .catch((error) => {
+      console.log(response);
+      setLoading(false);
+      setShowSuccessMessage(true);
+      await wait(3000);
+      setShowSuccessMessage(false), 2000;
+      router.push("/account");
+      await axios.get("/api/auth/session?update", { withCredentials: true })
+      window.location.reload();
+      } catch (error)  {
         console.log(error);
+        setShowErrorMessage(true);
         setLoading(false);
-      });
+        await wait(3000);
+        setShowErrorMessage(false);
+      };
   }
 
   return (
@@ -163,6 +180,10 @@ export default function CustomerOnboard() {
             <ButtonStyles disabled={loading} primary fullWidth>
               Become a Customer
             </ButtonStyles>
+            <MessageContainerStyle>
+              {showSuccessMessage && <SuccessMessage message="You have successfully become a customer. Redirecting you to your account now." />}
+              {showErrorMessage && <ErrorMessage message="Error in becoming a customer." />}
+            </MessageContainerStyle>
           </fieldset>
         </FormStyles>
       </div>
