@@ -16,6 +16,7 @@ const ButtonStyles = styled.button<Pick<ButtonProps, any>>`
   line-height: 0;
   border-radius: var(--border-radius);
   font-weight: 500;
+  cursor: pointer;
   ${(props) =>
     props.primary &&
     css`
