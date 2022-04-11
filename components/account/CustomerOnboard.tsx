@@ -3,7 +3,7 @@ import { useSession } from "next-auth/client";
 import axios from "axios";
 import styled from "styled-components";
 import useForm from "../../lib/useForm";
-
+import wait from "../../lib/wait";
 import BodyStyles from "../styles/BodyStyles";
 import FormStyles from "../styles/FormStyles";
 import ButtonStyles from "../styles/ButtonStyles";
@@ -35,12 +35,6 @@ export default function CustomerOnboard() {
     country: "",
     postcode: "",
   });
-
-  async function wait(ms: number) {
-    return new Promise(resolve => {
-      setTimeout(resolve, ms);
-    });
-  }
   
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -75,7 +69,7 @@ export default function CustomerOnboard() {
       setLoading(false);
       setShowSuccessMessage(true);
       await wait(3000);
-      setShowSuccessMessage(false), 2000;
+      setShowSuccessMessage(false);
       router.push("/account");
       await axios.get("/api/auth/session?update", { withCredentials: true })
       window.location.reload();

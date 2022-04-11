@@ -2,14 +2,31 @@ import { useState } from "react";
 import { useSession } from "next-auth/client";
 import axios from "axios";
 import useForm from "../../lib/useForm";
+import styled from "styled-components";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import BodyStyles from "../styles/BodyStyles";
 import FormStyles from "../styles/FormStyles";
 import ButtonStyles from "../styles/ButtonStyles";
 import { useRouter } from "next/router";
+import ErrorMessage from "../common/ErrorMessage";
+import SuccessMessage from "../common/SuccessMessage";
+import wait from "../../lib/wait";
+
+const MessageContainerStyle = styled.div`
+  margin-top: 1rem;
+`
+
+const CardElementContainerStyle = styled.div`
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+`
 
 export default function AddCard() {
   const [session]: any = useSession();
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
@@ -22,8 +39,8 @@ export default function AddCard() {
 
   async function handleSubmit(e: any) {
     e.preventDefault();
-    axios
-      .post(
+    try {
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/create-setup-intent`,
         inputs,
         {
@@ -32,14 +49,14 @@ export default function AddCard() {
           },
         }
       )
-      .then((response) => {
-        console.log(response);
-        handleStripeSubmit(response.data.client_secret);
-        router.push("/account/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      console.log(response);
+      await handleStripeSubmit(response.data.client_secret);
+    } catch (error) {
+      console.error(error);
+      setShowErrorMessage(true);
+      await wait(3000);
+      setShowErrorMessage(false);
+    };
   }
 
   async function handleStripeSubmit(client_secret: string) {
@@ -49,19 +66,27 @@ export default function AddCard() {
 
     const cardElement: any = elements.getElement(CardElement);
 
-    console.log(client_secret);
-
-    const result: any = await stripe
-      .confirmCardSetup(client_secret, {
+    try {
+      const result: any = await stripe.confirmCardSetup(client_secret, {
         payment_method: {
           card: cardElement,
         },
       })
-      .then(function (result) {
-        // handleUpdateCard(inputs.cardNumber);
-        // Handle result.error or result.setupIntent
-      });
-    console.log(result);
+      console.log(result);
+      if (result.error) throw result.error;
+      setShowSuccessMessage(true);
+      await wait(3000);
+      setShowSuccessMessage(false);
+      router.push("/account");
+      // handleUpdateCard(inputs.cardNumber);
+      // Handle result.error or result.setupIntent
+    } catch (error: any) {
+      console.error(error);
+      setShowErrorMessage(true);
+      setErrorMessage(error.message);
+      await wait(3000);
+      setShowErrorMessage(false);
+    };
   }
 
   async function handleUpdateCard(cardNumber: string) {
@@ -126,11 +151,17 @@ export default function AddCard() {
               value={inputs.cvv}
               onChange={handleChange}
             /> */}
-          <CardElement options={{}} />
+          <CardElementContainerStyle>
+            <CardElement options={{}} />
+          </CardElementContainerStyle>
           <ButtonStyles disabled={false} primary fullWidth>
             Add a Card
           </ButtonStyles>
           {/* </fieldset> */}
+          <MessageContainerStyle>
+            {showSuccessMessage && <SuccessMessage message="You have successfully added a card. Redirecting you to the account page." />}
+            {showErrorMessage && <ErrorMessage message={errorMessage ? errorMessage : "Error in adding a card."} />}
+          </MessageContainerStyle>
         </FormStyles>
       </div>
     </BodyStyles>
