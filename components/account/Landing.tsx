@@ -22,7 +22,7 @@ export default function Landing() {
           />
         </div>
         {session ? (
-          <h2>{`Welcome, ${session.user?.firstName}!`}</h2>
+          <h2>{session.user?.firstName ? `Welcome, ${session.user?.firstName}!` : `Welcome!`}</h2>
         ) : (
           <h2>Illawarra Multicultural Services</h2>
         )}
