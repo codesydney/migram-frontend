@@ -10,15 +10,17 @@ import ButtonStyles from "../styles/ButtonStyles";
 import { useRouter } from "next/router";
 import ErrorMessage from "../common/ErrorMessage";
 import SuccessMessage from "../common/SuccessMessage";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 const MessageContainerStyle = styled.div`
   margin-top: 1rem;
-`
+`;
 
 export default function CustomerOnboard() {
   const [session]: any = useSession();
   const router = useRouter();
-
+  const stripe = useStripe();
+  const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -35,7 +37,36 @@ export default function CustomerOnboard() {
     country: "",
     postcode: "",
   });
-  
+
+  async function handleStripeSubmit(client_secret: string) {
+    if (!stripe || !elements) {
+      return;
+    }
+
+    const cardElement: any = elements.getElement(CardElement);
+
+    try {
+      const result: any = await stripe.confirmCardSetup(client_secret, {
+        payment_method: {
+          card: cardElement,
+        },
+      });
+      console.log(result);
+      if (result.error) throw result.error;
+      setShowSuccessMessage(true);
+      await wait(3000);
+      setShowSuccessMessage(false);
+      router.push("/account");
+      // handleUpdateCard(inputs.cardNumber);
+      // Handle result.error or result.setupIntent
+    } catch (error: any) {
+      console.error(error);
+      setShowErrorMessage(true);
+      setErrorMessage(error.message);
+      await wait(3000);
+      setShowErrorMessage(false);
+    }
+  }
   async function handleSubmit(e: any) {
     e.preventDefault();
     setLoading(true);
@@ -64,22 +95,45 @@ export default function CustomerOnboard() {
             Authorization: `Bearer ${session.accessToken}`,
           },
         }
-      )
+      );
       console.log(response);
+      try {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/create-setup-intent`,
+          {
+            cardName: "DUMMY CARD",
+            cardNumber: "4242424242424242",
+            expData: "04/24",
+            cvv: "242",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${session.accessToken}`,
+            },
+          }
+        );
+        console.log(response);
+        await handleStripeSubmit(response.data.client_secret);
+      } catch (error) {
+        console.error(error);
+        setShowErrorMessage(true);
+        await wait(3000);
+        setShowErrorMessage(false);
+      }
       setLoading(false);
       setShowSuccessMessage(true);
       await wait(3000);
       setShowSuccessMessage(false);
       router.push("/account");
-      await axios.get("/api/auth/session?update", { withCredentials: true })
+      await axios.get("/api/auth/session?update", { withCredentials: true });
       window.location.reload();
-      } catch (error)  {
-        console.log(error);
-        setShowErrorMessage(true);
-        setLoading(false);
-        await wait(3000);
-        setShowErrorMessage(false);
-      };
+    } catch (error) {
+      console.log(error);
+      setShowErrorMessage(true);
+      setLoading(false);
+      await wait(3000);
+      setShowErrorMessage(false);
+    }
   }
 
   return (
@@ -175,8 +229,12 @@ export default function CustomerOnboard() {
               Become a Customer
             </ButtonStyles>
             <MessageContainerStyle>
-              {showSuccessMessage && <SuccessMessage message="You have successfully become a customer. Redirecting you to your account now." />}
-              {showErrorMessage && <ErrorMessage message="Error in becoming a customer." />}
+              {showSuccessMessage && (
+                <SuccessMessage message="You have successfully become a customer. Redirecting you to your account now." />
+              )}
+              {showErrorMessage && (
+                <ErrorMessage message="Error in becoming a customer." />
+              )}
             </MessageContainerStyle>
           </fieldset>
         </FormStyles>

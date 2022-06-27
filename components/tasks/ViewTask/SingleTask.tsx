@@ -184,7 +184,7 @@ export default function SingleTask({ Task, myTasks, selectedTask }: any) {
       <>
         {updatedTask?.status == "completed" && isMyTask && (
           <ButtonStyles onClick={handleReleasePayment} fullWidth>
-            Release Payment
+            Confirm Payment
           </ButtonStyles>
         )}
         <SubmitFormStyles>

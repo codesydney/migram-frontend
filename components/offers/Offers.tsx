@@ -8,7 +8,7 @@ import Offer from "./Offer";
 
 export default function Offers({ status, setSelectedTask, selectedTask }: any) {
   const [session, loading]: any = useSession();
-  const [offers, setOffers] = useState([]);
+  const [offers, setOffers]: any = useState([]);
 
   useEffect(() => {
     // Get all tasks
@@ -22,12 +22,35 @@ export default function Offers({ status, setSelectedTask, selectedTask }: any) {
       })
       .then((response) => {
         setOffers(response.data.data.offers);
-        console.log(response);
+
+        // console.log(response);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [loading, status]);
+
+  useEffect(() => {
+    for (let item in offers) {
+      console.log("res", offers[item]);
+      axios
+        .get(
+          `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${offers[item].task}`,
+          {
+            headers: {
+              authorization: `Bearer ${session.accessToken}`,
+            },
+          }
+        )
+        .then((response) => {
+          console.log("task", response.data.data.task);
+          // update offers state if status = paid
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [offers]);
 
   return (
     <OffersStyles>

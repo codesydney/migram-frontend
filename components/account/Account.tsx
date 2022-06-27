@@ -151,7 +151,9 @@ export default function Account() {
             <p>
               {session?.user?.customerId && !customerPaymentMethods && (
                 <Link href="/account/customer/addcard" passHref>
-                  <ButtonStyles primary>Add a Card</ButtonStyles>
+                  <ButtonStyles disabled primary>
+                    Add a Card
+                  </ButtonStyles>
                 </Link>
               )}
               {session?.user?.customerId && customerPaymentMethods && (

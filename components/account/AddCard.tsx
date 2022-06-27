@@ -14,12 +14,12 @@ import wait from "../../lib/wait";
 
 const MessageContainerStyle = styled.div`
   margin-top: 1rem;
-`
+`;
 
 const CardElementContainerStyle = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
-`
+`;
 
 export default function AddCard() {
   const [session]: any = useSession();
@@ -36,9 +36,10 @@ export default function AddCard() {
     expDate: "",
     cvv: "",
   });
-
+  console.log(inputs);
   async function handleSubmit(e: any) {
     e.preventDefault();
+    console.log(inputs);
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/create-setup-intent`,
@@ -48,7 +49,7 @@ export default function AddCard() {
             Authorization: `Bearer ${session.accessToken}`,
           },
         }
-      )
+      );
       console.log(response);
       await handleStripeSubmit(response.data.client_secret);
     } catch (error) {
@@ -56,7 +57,7 @@ export default function AddCard() {
       setShowErrorMessage(true);
       await wait(3000);
       setShowErrorMessage(false);
-    };
+    }
   }
 
   async function handleStripeSubmit(client_secret: string) {
@@ -65,13 +66,13 @@ export default function AddCard() {
     }
 
     const cardElement: any = elements.getElement(CardElement);
-
+    console.log(CardElement);
     try {
       const result: any = await stripe.confirmCardSetup(client_secret, {
         payment_method: {
           card: cardElement,
         },
-      })
+      });
       console.log(result);
       if (result.error) throw result.error;
       setShowSuccessMessage(true);
@@ -86,7 +87,7 @@ export default function AddCard() {
       setErrorMessage(error.message);
       await wait(3000);
       setShowErrorMessage(false);
-    };
+    }
   }
 
   async function handleUpdateCard(cardNumber: string) {
@@ -159,8 +160,16 @@ export default function AddCard() {
           </ButtonStyles>
           {/* </fieldset> */}
           <MessageContainerStyle>
-            {showSuccessMessage && <SuccessMessage message="You have successfully added a card. Redirecting you to the account page." />}
-            {showErrorMessage && <ErrorMessage message={errorMessage ? errorMessage : "Error in adding a card."} />}
+            {showSuccessMessage && (
+              <SuccessMessage message="You have successfully added a card. Redirecting you to the account page." />
+            )}
+            {showErrorMessage && (
+              <ErrorMessage
+                message={
+                  errorMessage ? errorMessage : "Error in adding a card."
+                }
+              />
+            )}
           </MessageContainerStyle>
         </FormStyles>
       </div>
