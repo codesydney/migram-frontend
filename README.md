@@ -95,8 +95,12 @@ UAT-14 | IMS Staff | User is able to sign in and sign out | To do |
 * Handling of customer issues, application issues. Ensure proper escalation channel/process is defined depending on the case type (either tech/process). Note: The team to confirm if additional feature is needed in the future.    
 
 ## 13. Production deployment (Soft launch)
-* Soft launch - Sanity testing
-* One week of internal testing in production to identify gaps
+Date | Who | What | Status |
+|:--|:--|:--|:--|
+9-10 July 2022 | Engramar | Prepare high level presentation for app users | To do |
+11-17 July 2022 | Engramar/Sam/Moises | Finalise Stage 1 version  | To do |
+18-24 July 2022 | Engramar/Sam/Moises | Onboard Service Providers and do dry run using controlled customers | To do |
+25-31 July 2022 | Engramar/Sam/Moises | Onboard first paying customers | To do |
 
 ## 14. Production deployment (Actual launch)
 * Go Live (Standby support requirement?)
