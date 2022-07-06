@@ -99,7 +99,7 @@ Date | Who | What | Status |
 |:--|:--|:--|:--|
 9-10 July 2022 | Engramar | Prepare high level presentation for app users | To do |
 11-17 July 2022 | Engramar/Sam/Moises | Finalise Stage 1 version  | To do |
-18-24 July 2022 | Engramar/Sam/Moises | Onboard Service Providers and do dry run using controlled customers | To do |
+18-24 July 2022 | Engramar/Sam/Moises | Onboard service providers and do dry run using controlled customers | To do |
 25-31 July 2022 | Engramar/Sam/Moises | Onboard first paying customers | To do |
 
 ## 14. Production deployment (Actual launch)
