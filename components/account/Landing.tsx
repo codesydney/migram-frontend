@@ -33,8 +33,10 @@ export default function Landing() {
         <div className="flex-container">
           <Link href="/tasks/createtask" passHref>
             <ButtonStyles>Post a Job</ButtonStyles>
-          </Link>
+          </Link>     
+          {/* Commented by Engramar 24/08/2022     
           <ButtonStyles primary>Get started</ButtonStyles>
+          */}
         </div>
       </div>
       <div className="secondary"></div>
