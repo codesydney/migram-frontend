@@ -1,16 +1,57 @@
-import axios from "axios";
 import type { NextPage } from "next";
-import Landing from "../components/account/Landing";
+import Link from "next/link";
+import Image from "next/image";
+import { useSession } from "next-auth/client";
+import axios from "axios";
+
+import BodyStyles from "../components/styles/BodyStyles";
+import ButtonStyles from "../components/styles/ButtonStyles";
 
 const Home: NextPage = () => {
-  //const router = useRouter;
-  //const { success } = router.query;
+  const [session]: any = useSession();
 
   axios.get("/api/auth/session?update", { withCredentials: true }).then(() => {
     console.log("updated credentials!");
   });
 
-  return <Landing />;
+  return (
+    <BodyStyles>
+      <div className="primary">
+        <div style={{ paddingBottom: "32px", WebkitFilter: "grayscale(1)" }}>
+          <Image
+            width={152.5}
+            height={109}
+            alt={"IMS Logo"}
+            src={
+              "https://www.ims.org.au/wp-content/uploads/2020/04/IMS-Log-cut-1536x1100.png"
+            }
+          />
+        </div>
+        {session ? (
+          <h2>
+            {session.user?.firstName
+              ? `Welcome, ${session.user?.firstName}!`
+              : `Welcome!`}
+          </h2>
+        ) : (
+          <h2>Illawarra Multicultural Services</h2>
+        )}
+        <p>
+          Continuous support and advocacy for culturally diverse communities
+          from migrant and refugee backgrounds.
+        </p>
+        <div className="flex-container">
+          <Link href="/tasks/createtask" passHref>
+            <ButtonStyles>Post a Job</ButtonStyles>
+          </Link>
+          {/* Commented by Engramar 24/08/2022     
+            <ButtonStyles primary>Get started</ButtonStyles>
+          */}
+        </div>
+      </div>
+      <div className="secondary"></div>
+    </BodyStyles>
+  );
 };
 
 export default Home;
