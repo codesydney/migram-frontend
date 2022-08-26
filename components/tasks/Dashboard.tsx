@@ -1,9 +1,6 @@
-import { createContext, useEffect, useState } from "react";
+import { useState } from "react";
 import Tasks from "./ViewTask/Tasks";
-import DashboardContext from "./DashboardContext";
-import { useSession } from "../../node_modules/next-auth/client";
 import SingleTask from "./ViewTask/SingleTask";
-import axios from "axios";
 
 import BodyStyles from "../styles/BodyStyles";
 import FilterTasks, { TaskCategory, TaskStatus } from "./ViewTask/FilterTasks";
