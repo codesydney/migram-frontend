@@ -2,6 +2,7 @@ import axios from "axios";
 import DashboardContext from "../DashboardContext";
 import { useEffect, useState, useContext } from "react";
 import { useSession } from "next-auth/client";
+import styled from "styled-components";
 import {
   faCaretSquareLeft,
   faCaretSquareRight,
@@ -9,8 +10,30 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TaskCard from "./TaskCard";
 
-import TasksStyles from "../../styles/TasksStyles";
-import PaginationStyles from "../../styles/PaginationStyles";
+const PaginationStyles = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  .page-change {
+    align-self: center;
+    place-self: center;
+    :hover {
+      cursor: pointer;
+    }
+  }
+
+  button {
+    background: none;
+    border: none;
+  }
+`;
+
+const TasksStyles = styled.div`
+  display: grid;
+  grid-template-columns: 200px 200px;
+  grid-gap: 32px;
+  @media only screen and (max-width: 900px) {
+  }
+`;
 
 export default function TasksList({
   myTasks,
