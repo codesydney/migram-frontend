@@ -1,7 +1,5 @@
-import DashboardContext from "../DashboardContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState, useContext } from "react";
 
 import styled, { css } from "styled-components";
 

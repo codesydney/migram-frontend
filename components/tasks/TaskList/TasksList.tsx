@@ -1,6 +1,5 @@
 import axios from "axios";
-import DashboardContext from "../DashboardContext";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/client";
 import styled from "styled-components";
 import {
