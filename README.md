@@ -3,6 +3,19 @@
 ## About the Project
 Migram is an acronym for Migrant Marketplace. It will help immigrants of refugee-background to generate some income by providing low-skilled work to the local community.  
 
+# Contributors
+
+Thank you to our contributors.
+
+- [seqprav](https://github.com/seqprav) - Technical Team Lead
+- [s-sindinovic](https://github.com/s-sinadinovic) - Frontend Lead Developer
+- [engramar](https://github.com/engramar) - Project Coordinator
+- [LillianLuzinsky](https://github.com/LillianLuzinsky) - UI/UX Designer
+- [rpgarde](https://github.com/rpgarde) - Frontend Developer
+- [HDKHALILI](https://github.com/HDKHALILI) - Frontend Developer
+- [ettienekorayyi](https://github.com/ettienekorayyi) - Frontend Developer
+- [davidtaing](https://github.com/davidtaing) - Frontend Developer
+
 # Project MIGRAM (Migrant Marketplace)
 # A. Lean Canvas
 ## 1. Project Background
