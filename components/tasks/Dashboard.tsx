@@ -6,7 +6,7 @@ import SingleTask from "./ViewTask/SingleTask";
 import axios from "axios";
 
 import BodyStyles from "../styles/BodyStyles";
-import FilterTasks from "./ViewTask/FilterTasks";
+import FilterTasks, { TaskCategory, TaskStatus } from "./ViewTask/FilterTasks";
 
 // use provider to set singletask from inside tasks component
 
@@ -21,12 +21,10 @@ export default function Dashboard({ id, myTasks }: any) {
   return (
     <>
       <FilterTasks
-        myTasks={myTasks}
-        setCategory={setCategory}
-        setStatus={setStatus}
-        category={category}
-        status={status}
         setCurrentPage={setCurrentPage}
+        filter={myTasks ? status : category}
+        setFilter={myTasks ? setStatus : setCategory}
+        filterItems={Object.values(myTasks ? TaskStatus : TaskCategory)}
       />
       <BodyStyles dashboard topBar>
         <div className="primary">

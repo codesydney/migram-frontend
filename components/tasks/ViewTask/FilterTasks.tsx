@@ -1,90 +1,68 @@
-import FilterTasksStyles from "../../styles/FilterTasksStyle";
+import { Dispatch, SetStateAction } from "react";
+import styled from "styled-components";
+
+export enum TaskStatus {
+  ALL = "",
+  OPEN = "Open",
+  ASSIGNED = "Assigned",
+  COMPLETED = "Completed",
+  PAID = "Paid",
+}
+
+export enum TaskCategory {
+  ALL = "",
+  CLEANING = "Cleaning",
+  GARDENING = "Gardening",
+  PAINTING = "Painting",
+  LAWN_MOWING = "Lawn mowing",
+}
+
+const FilterTasksStyles = styled.div`
+  height: 100px;
+  margin-left: var(--side);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  button {
+    font-size: 16px;
+    height: 24px;
+    border: none;
+    border-radius: var(--border-radius);
+  }
+  button:disabled,
+  button[disabled] {
+    background-color: var(--black);
+    color: var(--white);
+  }
+`;
+
+interface FilterTasksProps {
+  setCurrentPage: Dispatch<SetStateAction<number>>;
+  filter: string;
+  setFilter: Dispatch<SetStateAction<string>>;
+  filterItems: string[];
+}
 
 export default function FilterTasks({
-  category,
-  setCategory,
-  status,
-  setStatus,
-  myTasks,
   setCurrentPage,
-}: any) {
+  filter,
+  setFilter,
+  filterItems,
+}: FilterTasksProps) {
   return (
     <FilterTasksStyles>
-      {myTasks ? (
-        // Filter by Status for MY TASKS
-        <>
-          <button disabled={status == ""} onClick={() => setStatus("")}>
-            all
-          </button>
-          <button disabled={status == "open"} onClick={() => setStatus("open")}>
-            open
-          </button>
-          <button
-            disabled={status == "assigned"}
-            onClick={() => setStatus("assigned")}
-          >
-            assigned
-          </button>
-          <button
-            disabled={status == "completed"}
-            onClick={() => setStatus("completed")}
-          >
-            completed
-          </button>
-          <button disabled={status == "paid"} onClick={() => setStatus("paid")}>
-            paid
-          </button>
-        </>
-      ) : (
-        // Filter by Category for BROWSE TASKS
-        <>
-          <button
-            disabled={category == ""}
-            onClick={() => {
-              setCurrentPage(1);
-              setCategory("");
-            }}
-          >
-            all
-          </button>
-          <button
-            disabled={category == "Cleaning"}
-            onClick={() => {
-              setCurrentPage(1);
-              setCategory("Cleaning");
-            }}
-          >
-            cleaning
-          </button>
-          <button
-            disabled={category == "Gardening"}
-            onClick={() => {
-              setCurrentPage(1);
-              setCategory("Gardening");
-            }}
-          >
-            gardening
-          </button>
-          <button
-            disabled={category == "Painting"}
-            onClick={() => {
-              setCurrentPage(1);
-              setCategory("Painting");
-            }}
-          >
-            painting
-          </button>
-          <button
-            disabled={category == "Lawn Mowing"}
-            onClick={() => {
-              setCurrentPage(1);
-              setCategory("Lawn Mowing");
-            }}
-          >
-            lawn mowing
-          </button>
-        </>
-      )}
+      {filterItems.map((filterItem: any) => (
+        <button
+          key={filterItem}
+          disabled={filter == filterItem}
+          onClick={() => {
+            setCurrentPage(1);
+            setFilter(filterItem);
+          }}
+        >
+          {filterItem ? filterItem : "all"}
+        </button>
+      ))}
     </FilterTasksStyles>
   );
 }
