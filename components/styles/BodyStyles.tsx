@@ -8,7 +8,7 @@ interface ButtonProps {
 
 const BodyStyles = styled.div<Pick<ButtonProps, any>>`
   display: grid;
-  margin-top: 100px;
+  margin-top: 145px;
   ${(props) =>
     props.topBar &&
     css`
