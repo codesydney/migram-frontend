@@ -3,7 +3,7 @@
 ## About the Project
 Migram is an acronym for Migrant Marketplace. It will help immigrants of refugee-background to generate some income by providing low-skilled work to the local community.  
 
-# Contributors
+## Contributors
 
 Thank you to our contributors.
 
