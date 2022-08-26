@@ -1,18 +1,18 @@
 import axios from "axios";
 import DashboardContext from "../DashboardContext";
 import { useEffect, useState, useContext } from "react";
-import { useSession } from "../../../node_modules/next-auth/client";
+import { useSession } from "next-auth/client";
 import {
   faCaretSquareLeft,
   faCaretSquareRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Task from "./Task";
+import TaskCard from "./TaskCard";
 
 import TasksStyles from "../../styles/TasksStyles";
 import PaginationStyles from "../../styles/PaginationStyles";
 
-export default function Tasks({
+export default function TasksList({
   myTasks,
   currentPage,
   setCurrentPage,
@@ -100,7 +100,7 @@ export default function Tasks({
 
           <TasksStyles>
             {tasks.map((task: any) => (
-              <Task
+              <TaskCard
                 setSelectedTask={setSelectedTask}
                 selectedTask={selectedTask}
                 key={task}

@@ -43,7 +43,7 @@ interface FilterTasksProps {
   filterItems: string[];
 }
 
-export default function FilterTasks({
+export function FilterTasks({
   setCurrentPage,
   filter,
   setFilter,

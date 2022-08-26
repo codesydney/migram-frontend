@@ -5,7 +5,7 @@ import { useEffect, useState, useContext } from "react";
 
 import TaskStyles from "../../styles/TaskStyles";
 
-export default function Task({ task, selectedTask, setSelectedTask }: any) {
+export default function TaskCard({ task, selectedTask, setSelectedTask }: any) {
   // const { selectedTask, setSelectedTask } = useContext(DashboardContext);
   console.log(selectedTask);
 

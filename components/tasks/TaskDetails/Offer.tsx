@@ -1,6 +1,6 @@
 import Image from "next/image";
 import TaskOfferStyles from "../../styles/TaskOfferStyles";
-import { useSession } from "../../../node_modules/next-auth/client";
+import { useSession } from "next-auth/client";
 
 import UserIconStyles from "../../styles/UserIconStyles";
 import ButtonStyles from "../../styles/ButtonStyles";

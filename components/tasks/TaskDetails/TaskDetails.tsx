@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useSession } from "../../../node_modules/next-auth/client";
+import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { useStripe } from "@stripe/react-stripe-js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,7 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import useForm from "../../../lib/useForm";
-import Offers from "../Offers/Offers";
+import OffersList from "./OffersList";
 import ErrorMessage from "../../common/ErrorMessage";
 import Loading from "../../common/Loading";
 import { validate } from "../../../lib/validator";
@@ -24,7 +24,7 @@ import ButtonStyles from "../../styles/ButtonStyles";
 import SubmitFormStyles from "../../styles/SubmitFormStyles";
 import FormStyles from "../../styles/FormStyles";
 
-export default function SingleTask({ Task, myTasks, selectedTask }: any) {
+export default function TaskDetails({ Task, myTasks, selectedTask }: any) {
   // const { selectedTask } = useContext(DashboardContext);
   const [session]: any = useSession();
   const [updatedTask, setUpdatedTask] = useState(selectedTask);
@@ -280,7 +280,7 @@ export default function SingleTask({ Task, myTasks, selectedTask }: any) {
           {updatedTask?.offers && updatedTask?.status == "open" && (
             <>
               <h4>Offers</h4>
-              <Offers offers={updatedTask.offers} myTask={isMyTask} />
+              <OffersList offers={updatedTask.offers} myTask={isMyTask} />
             </>
           )}
         </SubmitFormStyles>

@@ -1,13 +1,13 @@
 import { useState } from "react";
-import Tasks from "./ViewTask/Tasks";
-import SingleTask from "./ViewTask/SingleTask";
+import TasksList from "./TaskList/TasksList";
+import TaskDetails from "./TaskDetails/TaskDetails";
 
 import BodyStyles from "../styles/BodyStyles";
-import FilterTasks, { TaskCategory, TaskStatus } from "./ViewTask/FilterTasks";
+import { FilterTasks, TaskCategory, TaskStatus } from "./TaskList";
 
 // use provider to set singletask from inside tasks component
 
-export default function Dashboard({ id, myTasks }: any) {
+export default function TasksDashboard({ id, myTasks }: any) {
   const [selectedTask, setSelectedTask] = useState(null);
   const [currentPage, setCurrentPage]: any = useState(1);
   const [category, setCategory] = useState("");
@@ -25,7 +25,7 @@ export default function Dashboard({ id, myTasks }: any) {
       />
       <BodyStyles dashboard topBar>
         <div className="primary">
-          <Tasks
+          <TasksList
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             status={status}
@@ -43,7 +43,11 @@ export default function Dashboard({ id, myTasks }: any) {
           }}
           className="secondary"
         >
-          <SingleTask selectedTask={selectedTask} myTasks={myTasks} task={{}} />
+          <TaskDetails
+            selectedTask={selectedTask}
+            myTasks={myTasks}
+            task={{}}
+          />
         </div>
       </BodyStyles>
     </>

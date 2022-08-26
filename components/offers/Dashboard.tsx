@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Offers from "./Offers";
 import DashboardContext from "./DashboardContext";
-import SingleTask from "../tasks/ViewTask/SingleTask";
+import TaskDetails from "../tasks/TaskDetails/TaskDetails";
 
 import BodyStyles from "../styles/BodyStyles";
 import FilterTasksStyles from "../styles/FilterTasksStyle";
@@ -28,7 +28,7 @@ export default function Dashboard() {
           }}
           className="secondary"
         >
-          <SingleTask selectedTask={selectedTask} myTasks={false} task={{}} />
+          <TaskDetails selectedTask={selectedTask} myTasks={false} task={{}} />
         </div>
       </BodyStyles>
     </>
