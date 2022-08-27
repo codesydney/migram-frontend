@@ -25,7 +25,11 @@ const HeaderStyles = styled.header`
   justify-content: space-between;
   align-items: center;
   position: relative;
+<<<<<<< HEAD
   z-index: 1;
+=======
+  z-index: 100;
+>>>>>>> 71824b7aaea7da12dcafbbf661e4d659b0b1f19a
 `;
 
 const HamburgerIcon = styled.div`
