@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import Dashboard from "../../components/tasks/Dashboard";
+import TasksDashboard from "../../components/tasks/TasksDashboard";
 
 const TasksPage: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
   console.log(router.query);
-  return <Dashboard myTasks={true} id={id} />;
+  return <TasksDashboard myTasks={true} id={id} />;
 };
 
 export default TasksPage;

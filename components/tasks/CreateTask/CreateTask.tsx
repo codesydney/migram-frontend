@@ -128,12 +128,10 @@ export default function CreateTask() {
           currentStep={currentStep}
           isFilePicked={isFilePicked}
         ></SubmitForm>
-        {currentStep != totalSteps ? (
+        {currentStep != totalSteps && (
           <ButtonStyles onClick={nextStep} primary fullWidth>
             next
           </ButtonStyles>
-        ) : (
-          <></>
         )}
         <FormControlStyles>
           <div className="bar">

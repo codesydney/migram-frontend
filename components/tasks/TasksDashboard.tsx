@@ -1,16 +1,13 @@
-import { createContext, useEffect, useState } from "react";
-import Tasks from "./ViewTask/Tasks";
-import DashboardContext from "./DashboardContext";
-import { useSession } from "../../node_modules/next-auth/client";
-import SingleTask from "./ViewTask/SingleTask";
-import axios from "axios";
+import { useState } from "react";
+import TasksList from "./TaskList/TasksList";
+import TaskDetails from "./TaskDetails/TaskDetails";
 
 import BodyStyles from "../styles/BodyStyles";
-import FilterTasks from "./ViewTask/FilterTasks";
+import { FilterTasks, TaskCategory, TaskStatus } from "./TaskList";
 
 // use provider to set singletask from inside tasks component
 
-export default function Dashboard({ id, myTasks }: any) {
+export default function TasksDashboard({ id, myTasks }: any) {
   const [selectedTask, setSelectedTask] = useState(null);
   const [currentPage, setCurrentPage]: any = useState(1);
   const [category, setCategory] = useState("");
@@ -21,16 +18,14 @@ export default function Dashboard({ id, myTasks }: any) {
   return (
     <>
       <FilterTasks
-        myTasks={myTasks}
-        setCategory={setCategory}
-        setStatus={setStatus}
-        category={category}
-        status={status}
         setCurrentPage={setCurrentPage}
+        filter={myTasks ? status : category}
+        setFilter={myTasks ? setStatus : setCategory}
+        filterItems={Object.values(myTasks ? TaskStatus : TaskCategory)}
       />
       <BodyStyles dashboard topBar>
         <div className="primary">
-          <Tasks
+          <TasksList
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             status={status}
@@ -48,7 +43,11 @@ export default function Dashboard({ id, myTasks }: any) {
           }}
           className="secondary"
         >
-          <SingleTask selectedTask={selectedTask} myTasks={myTasks} task={{}} />
+          <TaskDetails
+            selectedTask={selectedTask}
+            myTasks={myTasks}
+            task={{}}
+          />
         </div>
       </BodyStyles>
     </>

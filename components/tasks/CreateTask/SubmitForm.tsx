@@ -12,7 +12,7 @@ import {
 import SubmitFormStyles from "../../styles/SubmitFormStyles";
 import ButtonStyles from "../../styles/ButtonStyles";
 import axios from "axios";
-import router, { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import ErrorMessageStyles from "../../styles/ErrorMessage";
 
