@@ -71,9 +71,16 @@ export default function Nav(props: any) {
             </Link>
           )}
           {session.user.customerId && (
-            <Link href="/mytasks">
-              <a onClick={() => props.closeNavBar()}>My Tasks</a>
-            </Link>
+            <>
+              <Link href="/tasks/createtask">
+                <a onClick={() => props.closeNavBar()}>
+                  <button>Create Task</button>
+                </a>
+              </Link>
+              <Link href="/mytasks">
+                <a onClick={() => props.closeNavBar()}>My Tasks</a>
+              </Link>
+            </>
           )}
           <Link href="/tasks">Browse Tasks</Link>
         </>
