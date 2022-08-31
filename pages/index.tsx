@@ -6,13 +6,18 @@ import axios from "axios";
 
 import BodyStyles from "../components/styles/BodyStyles";
 import ButtonStyles from "../components/styles/ButtonStyles";
+import { useEffect } from "react";
 
 const Home: NextPage = () => {
   const [session]: any = useSession();
 
-  axios.get("/api/auth/session?update", { withCredentials: true }).then(() => {
-    console.log("updated credentials!");
-  });
+  useEffect(() => {
+    axios
+      .get("/api/auth/session?update", { withCredentials: true })
+      .then(() => {
+        console.log("updated credentials!");
+      });
+  }, []);
 
   return (
     <BodyStyles>
