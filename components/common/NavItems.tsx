@@ -15,6 +15,7 @@ const NavStyles = styled.ul<Pick<NavProps, any>>`
   align-items: center;
   font-weight: 500;
   text-transform: lowercase;
+  padding: 0px;
   a {
     margin: 0 1rem;
   }
@@ -22,7 +23,6 @@ const NavStyles = styled.ul<Pick<NavProps, any>>`
     margin: 0 1rem;
   }
   @media (max-width: 820px) {
-    padding: 0px;
     width: 100vw;
     position: absolute;
     top: 70%;

@@ -47,15 +47,6 @@ const HamburgerIcon = styled.div`
   }
 `;
 
-const LInkContainer = styled.div`
-  width: auto;
-  width: 30%;
-
-  @media (max-width: 820px) {
-    width: 50%;
-  }
-`;
-
 const NavBarIconGroup = styled.div`
   display: flex;
   flex-direction: row;
@@ -63,19 +54,10 @@ const NavBarIconGroup = styled.div`
   position: relative;
 `;
 
-
 const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 70%;
-
-  @media (max-width: 820px) {
-    display: flex;
-    flex-wrap: wrap;
-    place-content: end;
-    width: 50%;
-  }
 `;
 
 export default function Header() {
@@ -87,13 +69,11 @@ export default function Header() {
 
   return (
     <HeaderStyles>
-      <LInkContainer>
-        <Link href="/" passHref>
-          <LogoStyles>
-            <Image src="/logo.png" alt="Migram" width="174.6" height="48" />
-          </LogoStyles>
-        </Link>
-      </LInkContainer>
+      <Link href="/" passHref>
+        <LogoStyles>
+          <Image src="/logo.png" alt="Migram" width="174.6" height="48" />
+        </LogoStyles>
+      </Link>
       <FlexRow>
         <NavItems isNavBarOpen={isNavBarOpen} closeNavBar={closeNavBar} />
         <NavBarIconGroup>
