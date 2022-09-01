@@ -22,6 +22,7 @@ const NavStyles = styled.ul<Pick<NavProps, any>>`
     margin: 0 1rem;
   }
   @media (max-width: 820px) {
+    padding: 0px;
     width: 100vw;
     position: absolute;
     top: 70%;
