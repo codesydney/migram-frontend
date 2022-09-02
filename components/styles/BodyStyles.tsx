@@ -109,6 +109,14 @@ const BodyStyles = styled.div<Pick<ButtonProps, any>>`
     @media (max-width: 331px){
       font-size: 20px;
     }
+
+  }
+
+  .subTitle{
+    @media (max-width: 388px){
+      font-size: 16px;
+    }
+  }
 `;
 
 export default BodyStyles;

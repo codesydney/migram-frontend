@@ -41,7 +41,7 @@ const Home: NextPage = () => {
         ) : (
           <h2 className="homeTitle">Illawarra Multicultural Services</h2>
         )}
-        <p>
+        <p className="subTitle">
           Continuous support and advocacy for culturally diverse communities
           from migrant and refugee backgrounds.
         </p>
