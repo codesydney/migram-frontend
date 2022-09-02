@@ -39,7 +39,7 @@ const Home: NextPage = () => {
               : `Welcome!`}
           </h2>
         ) : (
-          <h2>Illawarra Multicultural Services</h2>
+          <h2 className="homeTitle">Illawarra Multicultural Services</h2>
         )}
         <p>
           Continuous support and advocacy for culturally diverse communities

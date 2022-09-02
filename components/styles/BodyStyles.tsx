@@ -96,6 +96,19 @@ const BodyStyles = styled.div<Pick<ButtonProps, any>>`
     gap: 2rem;
     margin-bottom: 1rem;
   }
+
+  .homeTitle{
+    @media (max-width: 612px){
+      font-size: 30px;
+    }
+
+    @media (max-width: 388px){
+      font-size: 25px;
+    }
+
+    @media (max-width: 331px){
+      font-size: 20px;
+    }
 `;
 
 export default BodyStyles;
