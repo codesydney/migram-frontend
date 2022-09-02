@@ -26,11 +26,6 @@ const HeaderStyles = styled.header`
   align-items: center;
   position: relative;
   z-index: 100;
-
-  @media (max-width: 283px){
-    place-content: center;
-    gap: 20px;
-  }
 `;
 
 const HamburgerIcon = styled.div`
@@ -49,11 +44,6 @@ const HamburgerIcon = styled.div`
 
   @media (min-width: 820px) {
     display: none;
-  }
-
-  @media (max-width: 283px){
-    margin: 0px;
-    gap: 0px;
   }
 `;
 
