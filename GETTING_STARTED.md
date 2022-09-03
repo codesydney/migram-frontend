@@ -13,3 +13,7 @@ NEXTAUTH_URL="http://localhost:3000/"
 ```
 
 5. Run a local development server with `npm run dev`.
+
+## Contributing to Migram - Code.Sydney Playbook Excerpt
+
+- [Managing version control / branches / pull requests](https://github.com/codesydney/code-sydney-playbook/blob/main/docs/pull-request.md)
