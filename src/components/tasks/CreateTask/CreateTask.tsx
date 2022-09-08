@@ -5,7 +5,7 @@ import Section2 from "./sections/Section2";
 import Section3 from "./sections/Section3";
 
 import SubmitForm from "./SubmitForm";
-import {validate} from "../../../lib/validator";
+import { validate } from "../../../lib/validator";
 
 import BodyStyles from "../../styles/BodyStyles";
 import ButtonStyles from "../../styles/ButtonStyles";
@@ -38,7 +38,7 @@ export default function CreateTask() {
   const [isFilePicked, setIsFilePicked] = useState(false);
   const sections: any = {
     1: ["category", "details", "budget"],
-    2: ["location", "date", ],
+    2: ["location", "date"],
     3: [],
   };
 
@@ -49,7 +49,7 @@ export default function CreateTask() {
 
   function invalidField() {
     if (currentStep < totalSteps) {
-      return sections[currentStep].some((field:string) => {
+      return sections[currentStep].some((field: string) => {
         const value = inputs[field];
         return validate[field](value);
       });

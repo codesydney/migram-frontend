@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const OfferStyles = styled.div`
   border: 1px solid #c4c4c4;

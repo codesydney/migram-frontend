@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSession } from "../../node_modules/next-auth/client";
+import { useSession } from "next-auth/client";
 
-import BodyStyles from "../styles/BodyStyles";
 import OffersStyles from "../styles/OffersStyles";
 import Offer from "./Offer";
 
