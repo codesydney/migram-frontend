@@ -14,10 +14,11 @@ export default function Login() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const { inputs, handleChange, errors, updateErrors, resetForm }: any = useForm({
-    email: "",
-    password: "",
-  });
+  const { inputs, handleChange, errors, updateErrors, resetForm }: any =
+    useForm({
+      email: "",
+      password: "",
+    });
 
   async function handleLogin(e: any) {
     e.preventDefault();
@@ -74,7 +75,7 @@ export default function Login() {
                 placeholder="email address"
                 value={inputs.email}
                 onChange={handleChange}
-                />
+              />
               {errors.email && <ErrorMessage message={errors.email} />}
             </div>
             <div className="input-container">
@@ -86,7 +87,7 @@ export default function Login() {
                 value={inputs.password}
                 onChange={handleChange}
               />
-              {errors.password && <ErrorMessage message={errors.password}/>}
+              {errors.password && <ErrorMessage message={errors.password} />}
             </div>
             <ButtonStyles disabled={loading} primary fullWidth>
               {loading ? <Loading text="Logging in" /> : "Login"}

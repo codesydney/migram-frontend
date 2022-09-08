@@ -1,10 +1,8 @@
 import { useState } from "react";
 import Offers from "./Offers";
-import DashboardContext from "./DashboardContext";
 import TaskDetails from "../tasks/TaskDetails/TaskDetails";
 
 import BodyStyles from "../styles/BodyStyles";
-import FilterTasksStyles from "../styles/FilterTasksStyle";
 import FilterOffers from "./FilterOffers";
 
 export default function Dashboard() {

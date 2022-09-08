@@ -7,7 +7,7 @@ import useForm from "../../lib/useForm";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { signIn } from "../../node_modules/next-auth/client";
+import { signIn } from "next-auth/client";
 import ErrorMessage from "../common/ErrorMessage";
 import { validate } from "../../lib/validator";
 import Loading from "../common/Loading";
@@ -16,15 +16,22 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
-  const { inputs, handleChange, errors, updateErrors, resetForm, clearForm }: any = useForm({
+  const {
+    inputs,
+    handleChange,
+    errors,
+    updateErrors,
+    resetForm,
+    clearForm,
+  }: any = useForm({
     email: "",
     password: "",
     passwordConfirm: "",
   });
 
-  async function handleSignup(e:any) {
+  async function handleSignup(e: any) {
     e.preventDefault();
-    console.log('sending data');
+    console.log("sending data");
     setErrorMessage("");
     setLoading(true);
     await axios
@@ -82,7 +89,10 @@ export default function Signup() {
       </div>
       <div className="secondary">
         <div className="form-header" />
-        <FormStyles method="POST" onSubmit={invalidField() ? handleErrors : handleSignup}>
+        <FormStyles
+          method="POST"
+          onSubmit={invalidField() ? handleErrors : handleSignup}
+        >
           <fieldset disabled={loading}>
             <div className="input-container">
               <input
@@ -93,7 +103,7 @@ export default function Signup() {
                 value={inputs.email}
                 onChange={handleChange}
               />
-              {errors.email && <ErrorMessage message={errors.email}/>}
+              {errors.email && <ErrorMessage message={errors.email} />}
             </div>
             <div className="input-container">
               <input
@@ -104,7 +114,7 @@ export default function Signup() {
                 value={inputs.password}
                 onChange={handleChange}
               />
-              {errors.password && <ErrorMessage message={errors.password}/>}
+              {errors.password && <ErrorMessage message={errors.password} />}
             </div>
             <div className="input-container">
               <input
@@ -115,7 +125,9 @@ export default function Signup() {
                 value={inputs.passwordConfirm}
                 onChange={handleChange}
               />
-              {errors.passwordConfirm && <ErrorMessage message={errors.passwordConfirm}/>}
+              {errors.passwordConfirm && (
+                <ErrorMessage message={errors.passwordConfirm} />
+              )}
             </div>
             <ButtonStyles primary fullWidth disabled={loading}>
               {loading ? <Loading text="Creating account" /> : "Create account"}

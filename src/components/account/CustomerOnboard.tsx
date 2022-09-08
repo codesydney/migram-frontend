@@ -62,9 +62,11 @@ export default function CustomerOnboard() {
     } catch (error: any) {
       console.error(error);
       setShowErrorMessage(true);
-      {/* Commented by Engramar 24/08/2022
+      {
+        /* Commented by Engramar 24/08/2022
       setErrorMessage(error.message);
-      */}
+      */
+      }
       await wait(3000);
       setShowErrorMessage(false);
     }

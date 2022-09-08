@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useSession } from "../../../node_modules/next-auth/client";
+import { useSession } from "next-auth/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faInfo,
