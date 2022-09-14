@@ -1,12 +1,8 @@
 import type { NextPage } from "next";
-import Signup from "../components/account/Signup";
+import { CustomerSignupPage } from "../features/CustomerSignupPage";
 
 const SignupPage: NextPage = () => {
-  return (
-    <>
-      <Signup />
-    </>
-  );
+  return <CustomerSignupPage />;
 };
 
 export default SignupPage;
