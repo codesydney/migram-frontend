@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
 import Signup from "../components/account/Signup";
 
-const SignupPage: NextPage = () => {
+//Original signup page.
+const ProviderSignupPage: NextPage = () => {
   return (
     <>
       <Signup />
@@ -9,4 +10,4 @@ const SignupPage: NextPage = () => {
   );
 };
 
-export default SignupPage;
+export default ProviderSignupPage;
