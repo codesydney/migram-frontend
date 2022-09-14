@@ -1,8 +1,10 @@
-import axios from "axios";
-import { Session } from "next-auth";
 import { Dispatch } from "react";
+import { Session } from "next-auth";
+import axios from "axios";
+
 import { signin } from ".";
 import { ACTIONTYPE, State, Statuses } from "./CustomerSignupReducer";
+import { Stripe } from "@stripe/stripe-js";
 
 export const createUser = (
   state: State,
@@ -13,7 +15,6 @@ export const createUser = (
   if (session) return;
 
   const { name, email, password, passwordConfirm } = state.values;
-
   const user = { name, email, password, passwordConfirm };
   const credentials = { email, password };
 
@@ -36,7 +37,8 @@ export const createUser = (
 export const createCustomer = (
   state: State,
   dispatch: Dispatch<ACTIONTYPE>,
-  session: Session | null
+  session: Session | null,
+  stripe: Stripe | null
 ) => {
   if (state.status !== Statuses.CREATE_CUSTOMER) return;
   if (!session) return;
@@ -77,16 +79,55 @@ export const createCustomer = (
         Authorization: `Bearer ${session.accessToken}`,
       },
     })
+    .then(() => {
+      console.log("Create Setup Intent");
+      console.log("session");
+      console.log(session);
+      return createSetupIntent(session);
+    })
+    .then((response) => {
+      console.log("Confirm Stripe Card Setup");
+      return confirmStripeCardSetup(response.data.client_secret, stripe);
+    })
     .then(async () => {
       await signin(credentials);
       dispatch({ type: Statuses.RESOLVED });
     })
     .catch((error: any) => {
-      console.log(error.response.status);
-      console.log(error.response.data);
       dispatch({
         type: Statuses.REJECTED,
-        error: new Error(error.response.data.message),
+        error: error,
       });
     });
 };
+
+export const createSetupIntent = async (session: Session) => {
+  return await axios.post(
+    `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/create-setup-intent`,
+    null,
+    {
+      headers: {
+        Authorization: `Bearer ${session.accessToken}`,
+      },
+    }
+  );
+};
+
+async function confirmStripeCardSetup(
+  client_secret: string,
+  stripe: Stripe | null
+) {
+  if (!stripe) {
+    console.log(stripe);
+    throw new Error("Stripe is not intiialized.");
+  }
+
+  const result = await stripe.confirmCardSetup(client_secret, {
+    // Add Test Card
+    payment_method: { card: { token: "tok_au" } },
+  });
+
+  if (result.error) throw result.error;
+
+  return result;
+}

@@ -1,4 +1,3 @@
-import { CustomerSignupForm, FormValues } from "./CustomerSignupForm";
 import styled from "styled-components";
 
 import { ErrorNotification, SuccessNotification } from "./Notification";
@@ -6,9 +5,11 @@ import {
   Statuses,
   useCustomerSignupReducer,
 } from "../api/CustomerSignupReducer";
+import { CustomerSignupForm, FormValues } from "./CustomerSignupForm";
+import { useStripe } from "@stripe/react-stripe-js";
 import { useSession } from "next-auth/client";
 import { useEffect } from "react";
-import { createCustomer, createUser } from "../api/effects";
+import { createUser, createCustomer } from "../api/effects";
 
 const StyledDiv = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap");
@@ -25,8 +26,13 @@ const StyledDiv = styled.div`
 `;
 
 export const CustomerSignupPage = () => {
-  const [session] = useSession();
   const [state, dispatch] = useCustomerSignupReducer();
+  const [session] = useSession();
+  const stripe = useStripe();
+
+  const onSubmit = async (data: FormValues) => {
+    dispatch({ type: "SUBMIT_FORM", values: data });
+  };
 
   useEffect(
     () => createUser(state, dispatch, session),
@@ -34,13 +40,9 @@ export const CustomerSignupPage = () => {
   );
 
   useEffect(
-    () => createCustomer(state, dispatch, session),
-    [session, state, dispatch]
+    () => createCustomer(state, dispatch, session, stripe),
+    [session, state, dispatch, stripe]
   );
-
-  const onSubmit = async (data: FormValues) => {
-    dispatch({ type: "SUBMIT_FORM", values: data });
-  };
 
   // Temporary Loading Status.
   if (
