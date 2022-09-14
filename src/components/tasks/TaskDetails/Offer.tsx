@@ -43,7 +43,7 @@ export default function Offer({ offer, myTask }: any) {
       <div className="header">
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <UserIconStyles>
-            <Image width="48px" height="48px" src={offer?.photo} alt="Avatar" />
+            <Image width="40px" height="40px" src={offer?.photo} alt="Avatar" />
           </UserIconStyles>
           <div>
             {offer.firstName}{" "}

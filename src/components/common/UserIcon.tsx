@@ -11,14 +11,14 @@ import DropDownStyles from "../styles/DropDownStyles";
 const PositionRelative = styled.div`
   font-weight: 500;
   text-transform: lowercase;
-  position:relative;
+  position: relative;
 `;
 
 const HideLink = styled.a`
-  @media(min-width:950px){
-    display:none
+  @media (min-width: 950px) {
+    display: none;
   }
-`
+`;
 
 export default function UserIcon(props: any) {
   const [session, loading]: any = useSession();
@@ -45,15 +45,15 @@ export default function UserIcon(props: any) {
             {/* TODO: Remove/change placeholder */}
             {session.user.photo ? (
               <Image
-                width="48px"
-                height="48px"
+                width="40px"
+                height="40px"
                 src={session.user.photo}
                 alt="Avatar"
               />
             ) : (
               <Image
-                width="48px"
-                height="48px"
+                width="40px"
+                height="40px"
                 // src={`${process.env.NEXT_PUBLIC_API_URL}${session.user.photo}`}
                 src="https://www.w3schools.com/howto/img_avatar.png"
                 alt="Avatar"
