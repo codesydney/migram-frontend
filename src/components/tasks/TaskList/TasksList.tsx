@@ -47,10 +47,14 @@ export default function TasksList({
   const [tasks, setTasks] = useState([]);
   console.log(category);
 
-  function getTasks(currentPage: number) {
+  function getTasks(currentPage: number, myTasks: boolean) {
+    const params = myTasks
+      ? { my_tasks: true, status: status }
+      : { page: currentPage, limit: 6, category: category };
+
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
-        params: { page: currentPage, limit: 6, category: category },
+        params,
         headers: {
           authorization: `Bearer ${session.accessToken}`,
         },
@@ -72,53 +76,29 @@ export default function TasksList({
       });
   }
 
-  function getMyTasks() {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
-        params: { my_tasks: true, status: status },
-        headers: {
-          authorization: `Bearer ${session.accessToken}`,
-        },
-      })
-      .then((response) => {
-        setTasks(response.data.data.tasks);
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
   useEffect(() => {
     setSelectedTask(null);
     if (loading) return;
-    if (!myTasks) {
-      getTasks(currentPage);
-    } else {
-      getMyTasks();
-    }
+
+    getTasks(currentPage, myTasks);
   }, [loading, category, status]);
 
   return (
     <PaginationStyles>
       {tasks.length > 0 ? (
         <>
-          {myTasks ? (
-            <div />
-          ) : (
-            <button
-              className="page-change"
-              onClick={() => {
-                getTasks(currentPage - 1);
-                setCurrentPage(currentPage - 1);
-              }}
-            >
-              <FontAwesomeIcon
-                icon={faCaretSquareLeft}
-                color={currentPage == 1 ? "grey" : "black"}
-              />
-            </button>
-          )}
+          <button
+            className="page-change"
+            onClick={() => {
+              getTasks(currentPage - 1, myTasks);
+              setCurrentPage(currentPage - 1);
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faCaretSquareLeft}
+              color={currentPage == 1 ? "grey" : "black"}
+            />
+          </button>
 
           <TasksStyles>
             {tasks.map((task: any) => (
@@ -130,19 +110,16 @@ export default function TasksList({
               />
             ))}
           </TasksStyles>
-          {myTasks ? (
-            <div />
-          ) : (
-            <button
-              className="page-change"
-              onClick={() => {
-                getTasks(currentPage + 1);
-                setCurrentPage(currentPage + 1);
-              }}
-            >
-              <FontAwesomeIcon icon={faCaretSquareRight} color={"black"} />
-            </button>
-          )}
+
+          <button
+            className="page-change"
+            onClick={() => {
+              getTasks(currentPage + 1, myTasks);
+              setCurrentPage(currentPage + 1);
+            }}
+          >
+            <FontAwesomeIcon icon={faCaretSquareRight} color={"black"} />
+          </button>
         </>
       ) : (
         <div>...</div>
