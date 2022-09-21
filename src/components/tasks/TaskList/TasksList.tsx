@@ -1,6 +1,3 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/client";
 import styled from "styled-components";
 import {
   faCaretSquareLeft,
@@ -40,49 +37,9 @@ export default function TasksList({
   setCurrentPage,
   setSelectedTask,
   selectedTask,
-  category,
-  status,
+  tasks,
+  getTasks,
 }: any) {
-  const [session, loading]: any = useSession();
-  const [tasks, setTasks] = useState([]);
-  console.log(category);
-
-  function getTasks(currentPage: number, myTasks: boolean) {
-    const params = myTasks
-      ? { my_tasks: true, status: status }
-      : { page: currentPage, limit: 6, category: category };
-
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
-        params,
-        headers: {
-          authorization: `Bearer ${session.accessToken}`,
-        },
-      })
-      .then((response) => {
-        if (response.data.data.tasks.length == 0) {
-          setCurrentPage(currentPage - 1);
-        } else {
-          setTasks(response.data.data.tasks);
-        }
-
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-        if (error.response.data.message == "This page does not exist.") {
-          setCurrentPage(currentPage - 1);
-        }
-      });
-  }
-
-  useEffect(() => {
-    setSelectedTask(null);
-    if (loading) return;
-
-    getTasks(currentPage, myTasks);
-  }, [loading, category, status]);
-
   return (
     <PaginationStyles>
       {tasks.length > 0 ? (
@@ -99,7 +56,6 @@ export default function TasksList({
               color={currentPage == 1 ? "grey" : "black"}
             />
           </button>
-
           <TasksStyles>
             {tasks.map((task: any) => (
               <TaskCard
