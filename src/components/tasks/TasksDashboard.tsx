@@ -43,11 +43,7 @@ export default function TasksDashboard({ id, myTasks }: any) {
           }}
           className="secondary"
         >
-          <TaskDetails
-            selectedTask={selectedTask}
-            myTasks={myTasks}
-            task={{}}
-          />
+          <TaskDetails selectedTask={selectedTask} />
         </div>
       </BodyStyles>
     </>
