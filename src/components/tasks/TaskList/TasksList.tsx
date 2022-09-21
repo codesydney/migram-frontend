@@ -103,10 +103,13 @@ export default function TasksList({
           <TasksStyles>
             {tasks.map((task: any) => (
               <TaskCard
-                setSelectedTask={setSelectedTask}
-                selectedTask={selectedTask}
-                key={task}
+                handleClick={() => {
+                  setSelectedTask(task);
+                  console.log("!!!", selectedTask);
+                }}
+                key={task.id}
                 task={task}
+                selected={selectedTask?.id == task.id}
               />
             ))}
           </TasksStyles>

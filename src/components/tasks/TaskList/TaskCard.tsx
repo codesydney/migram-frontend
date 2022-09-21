@@ -79,18 +79,9 @@ const TaskStyles = styled.div<Pick<TaskProps, any>>`
     }
   }
 `;
-export default function TaskCard({ task, selectedTask, setSelectedTask }: any) {
-  // const { selectedTask, setSelectedTask } = useContext(DashboardContext);
-  console.log(selectedTask);
-
+export default function TaskCard({ task, handleClick, selected }: any) {
   return (
-    <TaskStyles
-      onClick={() => {
-        setSelectedTask(task);
-        console.log("!!!", selectedTask);
-      }}
-      selected={selectedTask?.id == task.id}
-    >
+    <TaskStyles onClick={handleClick} selected={selected}>
       <div className="header">
         <div className="icon"></div>
         <div className="category">{task.category}</div>
