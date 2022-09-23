@@ -3,10 +3,10 @@ import styled from "styled-components";
 
 export enum TaskStatus {
   ALL = "",
-  OPEN = "Open",
-  ASSIGNED = "Assigned",
-  COMPLETED = "Completed",
-  PAID = "Paid",
+  OPEN = "open",
+  ASSIGNED = "assigned",
+  COMPLETED = "completed",
+  PAID = "paid",
 }
 
 export enum TaskCategory {

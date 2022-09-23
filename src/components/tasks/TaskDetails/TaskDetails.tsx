@@ -24,7 +24,7 @@ import ButtonStyles from "../../styles/ButtonStyles";
 import SubmitFormStyles from "../../styles/SubmitFormStyles";
 import FormStyles from "../../styles/FormStyles";
 
-export default function TaskDetails({ Task, myTasks, selectedTask }: any) {
+export default function TaskDetails({ selectedTask }: any) {
   // const { selectedTask } = useContext(DashboardContext);
   const [session]: any = useSession();
   const [updatedTask, setUpdatedTask] = useState(selectedTask);
