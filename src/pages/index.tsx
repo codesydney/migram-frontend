@@ -47,7 +47,7 @@ const Home: NextPage = () => {
         </p>
         <div className="flex-container">
           <Link href="/tasks/createtask" passHref>
-            <ButtonStyles>Post a Job</ButtonStyles>
+            <ButtonStyles hidden={!session?.user}>Post a Job</ButtonStyles>
           </Link>
           {/* Commented by Engramar 24/08/2022     
             <ButtonStyles primary>Get started</ButtonStyles>
