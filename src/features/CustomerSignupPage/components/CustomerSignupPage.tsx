@@ -10,6 +10,7 @@ import { useStripe } from "@stripe/react-stripe-js";
 import { useSession } from "next-auth/client";
 import { useEffect } from "react";
 import { createUser, createCustomer } from "../api/effects";
+import { useRouter } from "next/router";
 
 const StyledDiv = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap");
@@ -26,6 +27,7 @@ const StyledDiv = styled.div`
 `;
 
 export const CustomerSignupPage = () => {
+  const router = useRouter();
   const [state, dispatch] = useCustomerSignupReducer();
   const [session] = useSession();
   const stripe = useStripe();
@@ -43,6 +45,14 @@ export const CustomerSignupPage = () => {
     () => createCustomer(state, dispatch, session, stripe),
     [session, state, dispatch, stripe]
   );
+
+  useEffect(() => {
+    if (state.status === Statuses.RESOLVED) {
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
+    }
+  }, [router, state.status]);
 
   // Temporary Loading Status.
   if (
@@ -68,7 +78,7 @@ export const CustomerSignupPage = () => {
       {state.status === Statuses.RESOLVED && (
         <SuccessNotification
           title="Account Created"
-          message="Account Setup."
+          message="Redirecting to Home."
           handleClose={() => dispatch({ type: Statuses.IDLE })}
         />
       )}
