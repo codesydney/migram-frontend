@@ -9,7 +9,7 @@ export default function Section1({
   handleChange,
   details,
   budget,
-  errors
+  errors,
 }: any) {
   if (currentStep !== 1) {
     return null;
@@ -22,15 +22,16 @@ export default function Section1({
         <div className="input-container">
           <select
             name="category"
-            id="category" 
-            onChange={handleChange} 
-            className={errors["category"] && "error"}>
+            id="category"
+            onChange={handleChange}
+            className={errors["category"] && "error"}
+          >
             <option value="Cleaning">cleaning</option>
             <option value="Gardening">gardening</option>
-            <option value="Lawn Mowing">lawn mowing</option>
             <option value="Painting">painting</option>
+            <option value="Other">other</option>
           </select>
-          {errors.category && <ErrorMessage message={errors.category}/>}
+          {errors.category && <ErrorMessage message={errors.category} />}
         </div>
         <h4>Add a brief description</h4>
         <div className="icon-input">
@@ -46,7 +47,7 @@ export default function Section1({
               value={details}
               onChange={handleChange}
             ></input>
-            {errors.details && <ErrorMessage message={errors.details}/>}
+            {errors.details && <ErrorMessage message={errors.details} />}
           </div>
         </div>
         <h4>What is your budget?</h4>
@@ -64,7 +65,7 @@ export default function Section1({
               value={budget}
               onChange={handleChange}
             />
-            {errors.budget && <ErrorMessage message={errors.budget}/>}
+            {errors.budget && <ErrorMessage message={errors.budget} />}
           </div>
         </div>
       </fieldset>
