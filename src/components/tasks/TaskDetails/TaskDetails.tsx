@@ -183,7 +183,7 @@ export default function TaskDetails({ selectedTask }: any) {
     selectedTask && (
       <>
         {updatedTask?.status == "completed" && isMyTask && (
-          <ButtonStyles onClick={handleReleasePayment} fullWidth>
+          <ButtonStyles onClick={handleReleasePayment} fullWidth hidden>
             Confirm Payment
           </ButtonStyles>
         )}
