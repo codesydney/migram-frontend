@@ -14,7 +14,7 @@ export enum TaskCategory {
   CLEANING = "Cleaning",
   GARDENING = "Gardening",
   PAINTING = "Painting",
-  LAWN_MOWING = "Lawn mowing",
+  LAWN_MOWING = "Other",
 }
 
 const FilterTasksStyles = styled.div`
