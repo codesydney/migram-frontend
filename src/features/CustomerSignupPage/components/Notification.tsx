@@ -115,6 +115,7 @@ export const SuccessNotification = ({
         </div>
         <div className="message">
           <p className="title">{`Success: ${title}`}</p>
+          <p className="message-body">{message}</p>
         </div>
         <div className="right-icon">
           <MdClose onClick={handleClose} />
