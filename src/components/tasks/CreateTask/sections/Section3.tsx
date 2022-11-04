@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { faClock, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -48,8 +48,8 @@ export default function Section2({
           </label>
           {selectedFile && (
             <Image
-              width="48px"
-              height="48px"
+              width="48"
+              height="48"
               src={URL.createObjectURL(selectedFile)}
               alt="image to upload"
             />

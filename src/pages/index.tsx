@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useSession } from "next-auth/client";
 import axios from "axios";
 

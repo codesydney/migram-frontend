@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useSession, signOut } from "next-auth/client";
 import styled from "styled-components";
 
@@ -45,15 +45,15 @@ export default function UserIcon(props: any) {
             {/* TODO: Remove/change placeholder */}
             {session.user.photo ? (
               <Image
-                width="40px"
-                height="40px"
+                width="40"
+                height="40"
                 src={session.user.photo}
                 alt="Avatar"
               />
             ) : (
               <Image
-                width="40px"
-                height="40px"
+                width="40"
+                height="40"
                 // src={`${process.env.NEXT_PUBLIC_API_URL}${session.user.photo}`}
                 src="https://www.w3schools.com/howto/img_avatar.png"
                 alt="Avatar"

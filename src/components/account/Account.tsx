@@ -1,7 +1,7 @@
 import { useSession, getSession } from "next-auth/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import useForm from "../../lib/useForm";
 import axios from "axios";
 
@@ -223,8 +223,8 @@ export default function Account() {
             <div style={{ paddingBottom: 32 }}>
               {selectedFile && (
                 <Image
-                  width="200px"
-                  height="200px"
+                  width="200"
+                  height="200"
                   src={URL.createObjectURL(selectedFile)}
                   alt="Job Photo"
                 />
