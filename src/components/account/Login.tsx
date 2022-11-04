@@ -58,7 +58,7 @@ export default function Login() {
         <h2>Welcome back!</h2>
         <p>
           {"Don't have a login? "}
-          <Link href="/signup" passHref>
+          <Link href="/signup" passHref legacyBehavior>
             <ButtonStyles inLine>Create account</ButtonStyles>
           </Link>
         </p>

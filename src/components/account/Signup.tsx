@@ -82,7 +82,7 @@ export default function Signup() {
         <h2>Create a new account</h2>
         <p>
           Already have an account?{" "}
-          <Link href="/login" passHref>
+          <Link href="/login" passHref legacyBehavior>
             <ButtonStyles inLine>Login</ButtonStyles>
           </Link>
         </p>

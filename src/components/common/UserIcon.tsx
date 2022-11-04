@@ -62,8 +62,8 @@ export default function UserIcon(props: any) {
           </UserIconStyles>
           {isOpen && (
             <DropDownStyles>
-              <Link href="/account" passHref>
-                <a onClick={() => setIsOpen(false)}>Account</a>
+              <Link href="/account" passHref onClick={() => setIsOpen(false)}>
+                Account
               </Link>
               <a
                 onClick={(e) => {

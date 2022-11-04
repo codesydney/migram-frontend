@@ -46,7 +46,7 @@ const Home: NextPage = () => {
           from migrant and refugee backgrounds.
         </p>
         <div className="flex-container">
-          <Link href="/tasks/createtask" passHref>
+          <Link href="/tasks/createtask" passHref legacyBehavior>
             <ButtonStyles hidden={!session?.user}>Post a Job</ButtonStyles>
           </Link>
           {/* Commented by Engramar 24/08/2022     
