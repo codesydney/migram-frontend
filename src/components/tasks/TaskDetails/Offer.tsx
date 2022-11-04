@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import TaskOfferStyles from "../../styles/TaskOfferStyles";
 import { useSession } from "next-auth/client";
 
@@ -43,7 +43,7 @@ export default function Offer({ offer, myTask }: any) {
       <div className="header">
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <UserIconStyles>
-            <Image width="40px" height="40px" src={offer?.photo} alt="Avatar" />
+            <Image width="40" height="40" src={offer?.photo} alt="Avatar" />
           </UserIconStyles>
           <div>
             {offer.firstName}{" "}

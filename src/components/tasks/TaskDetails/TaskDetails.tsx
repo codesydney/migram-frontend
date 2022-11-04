@@ -12,7 +12,7 @@ import {
   faClock,
   faHourglassStart,
 } from "@fortawesome/free-solid-svg-icons";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import useForm from "../../../lib/useForm";
 import OffersList from "./OffersList";
 import ErrorMessage from "../../common/ErrorMessage";
@@ -260,8 +260,8 @@ export default function TaskDetails({ selectedTask }: any) {
                 {selectedTask.photos[0] && (
                   <>
                     <Image
-                      width="48px"
-                      height="48px"
+                      width="48"
+                      height="48"
                       src={selectedTask.photos[0]}
                       alt="image to upload"
                       onClick={() => setIsModalOpen(true)}

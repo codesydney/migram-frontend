@@ -1,7 +1,7 @@
 import { useSession, getSession } from "next-auth/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import useForm from "../../lib/useForm";
 import axios from "axios";
 
@@ -150,7 +150,7 @@ export default function Account() {
             {session?.user?.providerId && <p>provider</p>}
             <p>
               {session?.user?.customerId && !customerPaymentMethods && (
-                <Link href="/account/customer/addcard" passHref>
+                <Link href="/account/customer/addcard" passHref legacyBehavior>
                   <ButtonStyles disabled primary>
                     Add a Card
                   </ButtonStyles>
@@ -178,7 +178,7 @@ export default function Account() {
             </p>
             <div className="flex-container">
               {!session?.user.customerId && !session?.user?.providerId && (
-                <Link href="/account/customer/onboard" passHref>
+                <Link href="/account/customer/onboard" passHref legacyBehavior>
                   <ButtonStyles>Become a Customer</ButtonStyles>
                 </Link>
               )}
@@ -223,8 +223,8 @@ export default function Account() {
             <div style={{ paddingBottom: 32 }}>
               {selectedFile && (
                 <Image
-                  width="200px"
-                  height="200px"
+                  width="200"
+                  height="200"
                   src={URL.createObjectURL(selectedFile)}
                   alt="Job Photo"
                 />

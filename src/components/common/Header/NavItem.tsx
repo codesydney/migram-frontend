@@ -15,7 +15,7 @@ export const NavItem = ({
 }: NavItemProps) => {
   return (
     <li className="menu-item" onClick={handleClick}>
-      <Link href={href} passHref={true}>
+      <Link href={href} passHref={true} legacyBehavior>
         {isButton ? (
           <a>
             <button>{text}</button>

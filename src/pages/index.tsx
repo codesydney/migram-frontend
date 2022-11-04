@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useSession } from "next-auth/client";
 import axios from "axios";
 
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
           from migrant and refugee backgrounds.
         </p>
         <div className="flex-container">
-          <Link href="/tasks/createtask" passHref>
+          <Link href="/tasks/createtask" passHref legacyBehavior>
             <ButtonStyles hidden={!session?.user}>Post a Job</ButtonStyles>
           </Link>
           {/* Commented by Engramar 24/08/2022     

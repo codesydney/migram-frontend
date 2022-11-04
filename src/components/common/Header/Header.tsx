@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -68,7 +68,7 @@ export const Header = () => {
   return (
     <StyledHeader>
       <div className="logo">
-        <Link href="/" passHref={true}>
+        <Link href="/" passHref={true} legacyBehavior>
           <Image src="/logo.png" alt="Migram" width="116" height="32" />
         </Link>
       </div>

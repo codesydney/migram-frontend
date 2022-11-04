@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useSession } from "next-auth/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -207,8 +207,8 @@ export default function SubmitForm({
           <div className="user-input">
             {selectedFile && (
               <Image
-                width="48px"
-                height="48px"
+                width="48"
+                height="48"
                 src={URL.createObjectURL(selectedFile)}
                 alt="image to upload"
               />
