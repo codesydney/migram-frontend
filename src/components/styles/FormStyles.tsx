@@ -25,11 +25,6 @@ const FormStyles = styled.form`
     border: 0px;
     border-bottom: 2px solid var(--grey);
   }
-  input[type="file"] {
-    display: none;
-  }
-  .image-container {
-  }
   .custom-file-upload {
     display: flex;
     align-items: center;

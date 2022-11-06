@@ -7,7 +7,7 @@ import axios from "axios";
 
 import ButtonStyles from "../styles/ButtonStyles";
 import BodyStyles from "../styles/BodyStyles";
-import AccountFormStyles from "../styles/AccountFormStyles";
+import FormStyles from "../styles/FormStyles";
 
 export default function Account() {
   const [session, loading]: any = useSession();
@@ -218,7 +218,7 @@ export default function Account() {
       </div>
       <div className="secondary">
         <h3>Personal info</h3>
-        <AccountFormStyles onSubmit={handleUpdate}>
+        <FormStyles onSubmit={handleUpdate}>
           <fieldset disabled={sending}>
             <div style={{ paddingBottom: 32 }}>
               {selectedFile && (
@@ -257,7 +257,7 @@ export default function Account() {
               Update user
             </ButtonStyles>
           </fieldset>
-        </AccountFormStyles>
+        </FormStyles>
       </div>
     </BodyStyles>
   );
