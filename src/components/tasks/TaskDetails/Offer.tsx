@@ -1,11 +1,28 @@
 import Image from "next/legacy/image";
-import TaskOfferStyles from "../../styles/TaskOfferStyles";
 import { useSession } from "next-auth/client";
 
 import UserIconStyles from "../../styles/UserIconStyles";
 import ButtonStyles from "../../styles/ButtonStyles";
 import axios from "axios";
 import { useRouter } from "next/router";
+
+import styled from "styled-components";
+
+const StyledDiv = styled.div`
+  border: 1px solid #c4c4c4;
+  padding: 24px;
+  margin-bottom: 32px;
+  border-radius: 10px;
+  font-weight: 200;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--lightGrey);
+    align-items: center;
+  }
+`;
 
 export default function Offer({ offer, myTask }: any) {
   const [session, loading]: any = useSession();
@@ -39,7 +56,7 @@ export default function Offer({ offer, myTask }: any) {
     return <></>;
   }
   return (
-    <TaskOfferStyles>
+    <StyledDiv>
       <div className="header">
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <UserIconStyles>
@@ -59,6 +76,6 @@ export default function Offer({ offer, myTask }: any) {
           Accept Offer
         </ButtonStyles>
       )}
-    </TaskOfferStyles>
+    </StyledDiv>
   );
 }
