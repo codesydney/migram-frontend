@@ -4,7 +4,6 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Nprogress from "nprogress";
 import "nprogress/nprogress.css";
-import Layout from "../components/common/Layout";
 
 import type { AppProps } from "next/app";
 
