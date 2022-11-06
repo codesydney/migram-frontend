@@ -1,9 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/client";
+import styled from "styled-components";
 
-import OffersStyles from "../styles/OffersStyles";
 import Offer from "./Offer";
+
+const OffersStyles = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+`;
 
 export default function Offers({ status, setSelectedTask, selectedTask }: any) {
   const [session, loading]: any = useSession();
