@@ -15,10 +15,10 @@ const SuccessMessageStyle = styled.div`
   border-radius: 0.25rem;
 `;
 
-function SuccessMessage(props: any) {
+function SuccessMessage({ message }: { message: string }) {
   return (
     <SuccessMessageStyle>
-      <div className="success-message">{props.message}</div>
+      <div className="success-message">{message}</div>
     </SuccessMessageStyle>
   );
 }
