@@ -71,7 +71,6 @@ const InnerStyles = styled.div`
 const Layout = ({ children }: any) => {
   return (
     <div>
-      <GlobalStyles />
       <Header />
       <InnerStyles>{children}</InnerStyles>
     </div>

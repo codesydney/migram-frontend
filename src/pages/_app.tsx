@@ -8,6 +8,9 @@ import Layout from "../components/common/Layout";
 
 import type { AppProps } from "next/app";
 
+import "../styles/globals.css";
+import { Header } from "../components/common/Header";
+
 Router.events.on("routeChangeStart", () => Nprogress.start());
 Router.events.on("routeChangeComplete", () => Nprogress.done());
 Router.events.on("routeChangeError", () => Nprogress.done());
@@ -18,9 +21,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Elements stripe={stripePromise}>
       <Provider session={pageProps.session}>
-        <Layout>
+        <Header />
+        <div className="container">
           <Component {...pageProps} />
-        </Layout>
+        </div>
       </Provider>
     </Elements>
   );
