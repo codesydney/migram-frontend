@@ -80,4 +80,5 @@ button:hover {
 
 .container {
   max-width: var(--maxWidth);
+  margin-inline: auto;
 }
