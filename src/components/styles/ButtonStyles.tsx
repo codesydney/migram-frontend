@@ -1,12 +1,12 @@
 import styled, { css } from "styled-components";
 
 interface ButtonProps {
-  primary: any;
-  fullWidth: any;
-  inLine: any;
+  primary?: boolean;
+  fullWidth?: boolean;
+  inLine?: boolean;
 }
 
-const ButtonStyles = styled.button<Pick<ButtonProps, any>>`
+const ButtonStyles = styled.button<ButtonProps>`
   height: 48px;
   min-width: 208px;
   background: white;
@@ -33,13 +33,11 @@ const ButtonStyles = styled.button<Pick<ButtonProps, any>>`
   ${(props) =>
     props.inLine &&
     css`
-      /* margin-left: 1rem;
-      margin-right: 1rem; */
       margin-top: 1rem;
     `}
   &[disabled] {
     opacity: 0.5;
-    cursor: not-allowed
+    cursor: not-allowed;
   }
 `;
 
