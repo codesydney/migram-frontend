@@ -3,8 +3,7 @@ import { useSession } from "next-auth/client";
 import styled from "styled-components";
 
 import UserIcon from "../UserIcon";
-import { NavItem } from "./NavItem";
-import { defaultMenu } from "./utils";
+import { NavItems } from "./NavItems";
 
 const StyledNavMenu = styled.ul`
   margin: 0;
@@ -49,13 +48,11 @@ const StyledNavMenu = styled.ul`
 interface StyledNavMenuProps {
   className: string;
   setHamburgerActive: Dispatch<SetStateAction<boolean>>;
-  menuItems: typeof defaultMenu;
 }
 
 export const NavMenu = ({
   className,
   setHamburgerActive,
-  menuItems,
 }: StyledNavMenuProps) => {
   const [session] = useSession();
 
@@ -65,9 +62,7 @@ export const NavMenu = ({
 
   return (
     <StyledNavMenu className={`navMenu ${className}`}>
-      {menuItems.map((item) => (
-        <NavItem key={item.href} {...item} handleClick={handleMenuItemClick} />
-      ))}
+      <NavItems session={session} onClick={handleMenuItemClick} />
       {session && <UserIcon />}
     </StyledNavMenu>
   );

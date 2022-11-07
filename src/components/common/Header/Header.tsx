@@ -5,8 +5,6 @@ import styled from "styled-components";
 
 import { HamburgerMenu } from "./HamburgerMenu";
 import { NavMenu } from "./NavMenu";
-import { useSession } from "next-auth/client";
-import { defaultMenu, determineNavItems } from "./utils";
 
 const StyledHeader = styled.header`
   @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap");
@@ -52,14 +50,8 @@ const StyledHeader = styled.header`
 
 export const Header = () => {
   const [hamburgerActive, setHamburgerActive] = useState(false);
-  const [menuItems, setMenuItems] = useState(defaultMenu);
-  const [session] = useSession();
 
   const toggleActive = () => setHamburgerActive(!hamburgerActive);
-
-  useEffect(() => {
-    setMenuItems(determineNavItems(session));
-  }, [session]);
 
   return (
     <StyledHeader>
@@ -71,7 +63,6 @@ export const Header = () => {
       <HamburgerMenu active={hamburgerActive} toggleActive={toggleActive} />
       <NavMenu
         className={hamburgerActive ? "" : "hidden"}
-        menuItems={menuItems}
         setHamburgerActive={setHamburgerActive}
       />
     </StyledHeader>
