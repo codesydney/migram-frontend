@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import OfferStyles from "./OfferStyles";
 
 export function Offer({ offer, setSelectedTask, selectedTask }: any) {
-  const [session]: any = useSession();
+  const { data: session }: any = useSession();
   // const { selectedOffer, setSelectedOffer } = useState(null);
 
   console.log("OFFER", offer);
@@ -18,7 +18,7 @@ export function Offer({ offer, setSelectedTask, selectedTask }: any) {
         {},
         {
           headers: {
-            authorization: `Bearer ${session.accessToken}`,
+            authorization: `Bearer ${session?.accessToken}`,
           },
         }
       )
@@ -32,7 +32,7 @@ export function Offer({ offer, setSelectedTask, selectedTask }: any) {
         await axios
           .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${offer.task}`, {
             headers: {
-              authorization: `Bearer ${session.accessToken}`,
+              authorization: `Bearer ${session?.accessToken}`,
             },
           })
           .then((response) => {

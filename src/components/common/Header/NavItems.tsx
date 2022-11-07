@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import ButtonStyles from "../../styles/ButtonStyles";
 
@@ -41,13 +42,11 @@ export const DefaultMenu = ({ onClick }: MenuProps) => (
   </>
 );
 
-export const NavItems = ({
-  session,
-  onClick,
-}: {
-  session: any;
-  onClick: () => void;
-}) => {
+export const NavItems = ({ onClick }: MenuProps) => {
+  const { data: session }: any = useSession();
+
+  if (!session?.user) return <DefaultMenu onClick={onClick} />;
+
   if (session?.user.providerId) return <ProviderMenu onClick={onClick} />;
   if (session?.user.customerId) return <CustomerMenu onClick={onClick} />;
 

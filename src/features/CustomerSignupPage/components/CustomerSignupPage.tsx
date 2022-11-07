@@ -7,7 +7,7 @@ import {
 } from "../api/CustomerSignupReducer";
 import { CustomerSignupForm, FormValues } from "./CustomerSignupForm";
 import { useStripe } from "@stripe/react-stripe-js";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { createUser, createCustomer } from "../api/effects";
 import { useRouter } from "next/router";
@@ -29,7 +29,7 @@ const StyledDiv = styled.div`
 export const CustomerSignupPage = () => {
   const router = useRouter();
   const [state, dispatch] = useCustomerSignupReducer();
-  const [session] = useSession();
+  const { data: session } = useSession();
   const stripe = useStripe();
 
   const onSubmit = async (data: FormValues) => {

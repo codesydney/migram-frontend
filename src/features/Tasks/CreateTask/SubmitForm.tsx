@@ -1,5 +1,5 @@
 import Image from "next/legacy/image";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faInfo,
@@ -22,7 +22,7 @@ export default function SubmitForm({
   isFilePicked,
   currentStep,
 }: any) {
-  const [session, loading]: any = useSession();
+  const { data: session }: any = useSession();
   const [sending, setSending] = useState(false);
   const router = useRouter();
 

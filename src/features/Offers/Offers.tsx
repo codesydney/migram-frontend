@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import styled from "styled-components";
 
 import { Offer } from "./Offer";
@@ -12,18 +12,18 @@ const OffersStyles = styled.div`
   gap: 32px;
 `;
 
-export function Offers({ status, setSelectedTask, selectedTask }: any) {
-  const [session, loading]: any = useSession();
+export function Offers({ statusFilter, setSelectedTask, selectedTask }: any) {
+  const { data: session, status }: any = useSession();
   const [offers, setOffers]: any = useState([]);
 
   useEffect(() => {
     // Get all tasks
-    if (loading) return;
+    if (status === "loading") return;
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/offers`, {
-        params: { my_offers: true, status: status },
+        params: { my_offers: true, status: statusFilter },
         headers: {
-          authorization: `Bearer ${session.accessToken}`,
+          authorization: `Bearer ${session?.accessToken}`,
         },
       })
       .then((response) => {
@@ -34,7 +34,7 @@ export function Offers({ status, setSelectedTask, selectedTask }: any) {
       .catch((error) => {
         console.log(error);
       });
-  }, [loading, status]);
+  }, [status, statusFilter, session?.accessToken]);
 
   useEffect(() => {
     for (let item in offers) {
@@ -56,7 +56,7 @@ export function Offers({ status, setSelectedTask, selectedTask }: any) {
           console.log(error);
         });
     }
-  }, [offers]);
+  }, [offers, session?.accessToken]);
 
   return (
     <OffersStyles>

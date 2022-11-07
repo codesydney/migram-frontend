@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import BodyStyles from "../../components/styles/BodyStyles";
 import { FilterTasks, TaskCategory, TasksList, TaskStatus } from "./TaskList";
 import axios from "axios";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import { TaskDetails } from "./TaskDetails";
 
 // use provider to set singletask from inside tasks component
@@ -11,7 +11,7 @@ import { TaskDetails } from "./TaskDetails";
 export default function TasksDashboard({ myTasks }: any) {
   const [selectedTask, setSelectedTask] = useState(null);
   const [currentPage, setCurrentPage]: any = useState(1);
-  const [session, loading]: any = useSession();
+  const { data: session, status }: any = useSession();
   const [tasks, setTasks]: any[] = useState([]);
 
   const [filter, setFilter] = useState("");
@@ -51,10 +51,10 @@ export default function TasksDashboard({ myTasks }: any) {
 
   useEffect(() => {
     setSelectedTask(null);
-    if (loading) return;
+    if (status === "loading") return;
 
     getTasks(currentPage, myTasks);
-  }, [currentPage, loading, myTasks]);
+  }, [currentPage, status, myTasks]);
 
   return (
     <>

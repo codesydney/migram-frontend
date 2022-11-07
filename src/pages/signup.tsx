@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import { useStripe } from "@stripe/react-stripe-js";
 import styled from "styled-components";
 
@@ -33,7 +33,7 @@ const StyledDiv = styled.div`
 const SignupPage: NextPage = () => {
   const router = useRouter();
   const [state, dispatch] = useCustomerSignupReducer();
-  const [session] = useSession();
+  const { data: session } = useSession();
   const stripe = useStripe();
 
   const onSubmit = async (data: FormValues) => {

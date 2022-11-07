@@ -1,5 +1,5 @@
 import Image from "next/legacy/image";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 import UserIconStyles from "../../../components/styles/UserIconStyles";
 import ButtonStyles from "../../../components/styles/ButtonStyles";
@@ -25,7 +25,7 @@ const StyledDiv = styled.div`
 `;
 
 export function Offer({ offer, myTask }: any) {
-  const [session, loading]: any = useSession();
+  const { data: session }: any = useSession();
   const router = useRouter();
 
   // console.log(offer);

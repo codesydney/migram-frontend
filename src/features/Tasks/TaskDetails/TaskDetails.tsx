@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useStripe } from "@stripe/react-stripe-js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,7 +26,7 @@ import FormStyles from "../../../components/styles/FormStyles";
 
 export function TaskDetails({ selectedTask }: any) {
   // const { selectedTask } = useContext(DashboardContext);
-  const [session]: any = useSession();
+  const { data: session }: any = useSession();
   const [updatedTask, setUpdatedTask] = useState(selectedTask);
   const [isMyTask, setIsMyTask] = useState(false);
   const [isSubmiting, setIsSubmiting] = useState(false);

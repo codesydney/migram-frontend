@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { signIn } from "next-auth/client";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 
 import ErrorMessage from "../components/common/ErrorMessage";

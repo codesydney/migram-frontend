@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import { useSession, getSession } from "next-auth/client";
+import { useSession, getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Image from "next/legacy/image";
 import useForm from "../../lib/useForm";
@@ -10,7 +10,7 @@ import ButtonStyles from "../../components/styles/ButtonStyles";
 import FormStyles from "../../components/styles/FormStyles";
 
 export function AccountPage() {
-  const [session, loading]: any = useSession();
+  const { data: session, status }: any = useSession();
   const [sending, setSending] = useState(false);
   const { inputs, handleChange, resetForm, clearForm }: any = useForm({
     photo: "",
@@ -143,7 +143,7 @@ export function AccountPage() {
     <BodyStyles alternate>
       <div className="primary">
         <h2>Update User</h2>
-        {!loading && (
+        {status !== "loading" && (
           <>
             <p>{session?.user?.email}</p>
             {session?.user?.customerId && <p>customer</p>}

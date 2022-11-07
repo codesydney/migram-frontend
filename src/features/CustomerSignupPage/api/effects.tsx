@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import { Session } from "next-auth";
-import { signIn as nextAuthSignIn } from "next-auth/client";
+import { signIn as nextAuthSignIn } from "next-auth/react";
 import { Stripe } from "@stripe/stripe-js";
 import axios from "axios";
 
@@ -17,7 +17,7 @@ export async function signin(credentials: { email: string; password: string }) {
 export const createUser = (
   state: State,
   dispatch: Dispatch<ACTIONTYPE>,
-  session: Session | null
+  session: any
 ) => {
   if (state.status !== Statuses.CREATE_USER) return;
   if (session) return;
@@ -45,7 +45,7 @@ export const createUser = (
 export const createCustomer = (
   state: State,
   dispatch: Dispatch<ACTIONTYPE>,
-  session: Session | null,
+  session: any,
   stripe: Stripe | null
 ) => {
   if (state.status !== Statuses.CREATE_CUSTOMER) return;
@@ -84,7 +84,7 @@ export const createCustomer = (
   axios
     .post(`${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/`, customer, {
       headers: {
-        Authorization: `Bearer ${session.accessToken}`,
+        Authorization: `Bearer ${session?.accessToken}`,
       },
     })
     .then(() => {
@@ -109,13 +109,13 @@ export const createCustomer = (
     });
 };
 
-export const createSetupIntent = async (session: Session) => {
+export const createSetupIntent = async (session: any) => {
   return await axios.post(
     `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/create-setup-intent`,
     null,
     {
       headers: {
-        Authorization: `Bearer ${session.accessToken}`,
+        Authorization: `Bearer ${session?.accessToken}`,
       },
     }
   );

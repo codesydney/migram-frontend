@@ -1,5 +1,5 @@
 import Router from "next/router";
-import { Provider } from "next-auth/client";
+import { SessionProvider } from "next-auth/react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Nprogress from "nprogress";
@@ -17,11 +17,11 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PK as string);
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Elements stripe={stripePromise}>
-      <Provider session={pageProps.session}>
+      <SessionProvider session={pageProps.session}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </Provider>
+      </SessionProvider>
     </Elements>
   );
 }

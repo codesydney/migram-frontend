@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import axios from "axios";
 import styled from "styled-components";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
@@ -22,7 +22,7 @@ const CardElementContainerStyle = styled.div`
 `;
 
 function AddCardPage() {
-  const [session]: any = useSession();
+  const { data: session }: any = useSession();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");

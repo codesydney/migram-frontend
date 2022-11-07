@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { signIn } from "next-auth/client";
+import { signIn } from "next-auth/react";
 import useForm from "../lib/useForm";
 import ErrorMessage from "../components/common/ErrorMessage";
 import Loading from "../components/common/Loading";

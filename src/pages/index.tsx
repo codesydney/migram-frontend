@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import Image from "next/legacy/image";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import axios from "axios";
 
 import BodyStyles from "../components/styles/BodyStyles";
@@ -9,7 +9,7 @@ import ButtonStyles from "../components/styles/ButtonStyles";
 import { useEffect } from "react";
 
 const Home: NextPage = () => {
-  const [session]: any = useSession();
+  const { data: session }: any = useSession();
 
   useEffect(() => {
     axios

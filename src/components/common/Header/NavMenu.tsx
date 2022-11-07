@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import styled from "styled-components";
 
 import UserIcon from "../UserIcon";
@@ -54,7 +54,7 @@ export const NavMenu = ({
   className,
   setHamburgerActive,
 }: StyledNavMenuProps) => {
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   const handleMenuItemClick = () => {
     setHamburgerActive(false);
@@ -62,7 +62,7 @@ export const NavMenu = ({
 
   return (
     <StyledNavMenu className={`navMenu ${className}`}>
-      <NavItems session={session} onClick={handleMenuItemClick} />
+      <NavItems onClick={handleMenuItemClick} />
       {session && <UserIcon />}
     </StyledNavMenu>
   );

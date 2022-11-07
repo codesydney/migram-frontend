@@ -2,7 +2,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/legacy/image";
-import { useSession, signOut } from "next-auth/client";
+import { useSession, signOut } from "next-auth/react";
 import styled from "styled-components";
 
 import UserIconStyles from "../styles/UserIconStyles";
@@ -21,7 +21,7 @@ const HideLink = styled.a`
 `;
 
 export default function UserIcon(props: any) {
-  const [session, loading]: any = useSession();
+  const { data: session, status }: any = useSession();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -37,17 +37,17 @@ export default function UserIcon(props: any) {
 
   return (
     <PositionRelative>
-      {loading && <></>}
+      {status === "loading" && <></>}
       {/* If ANY user is logged in */}
       {session && (
         <>
           <UserIconStyles onClick={() => setIsOpen(!isOpen)}>
             {/* TODO: Remove/change placeholder */}
-            {session.user.photo ? (
+            {session?.user?.photo ? (
               <Image
                 width="40"
                 height="40"
-                src={session.user.photo}
+                src={session?.user?.photo}
                 alt="Avatar"
               />
             ) : (
