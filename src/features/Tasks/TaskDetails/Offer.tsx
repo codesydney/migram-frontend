@@ -1,8 +1,8 @@
 import Image from "next/legacy/image";
 import { useSession } from "next-auth/client";
 
-import UserIconStyles from "../../styles/UserIconStyles";
-import ButtonStyles from "../../styles/ButtonStyles";
+import UserIconStyles from "../../../components/styles/UserIconStyles";
+import ButtonStyles from "../../../components/styles/ButtonStyles";
 import axios from "axios";
 import { useRouter } from "next/router";
 
@@ -24,7 +24,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-export default function Offer({ offer, myTask }: any) {
+export function Offer({ offer, myTask }: any) {
   const [session, loading]: any = useSession();
   const router = useRouter();
 

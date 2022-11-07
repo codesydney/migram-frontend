@@ -79,7 +79,7 @@ const TaskStyles = styled.div<Pick<TaskProps, any>>`
     }
   }
 `;
-export default function TaskCard({ task, handleClick, selected }: any) {
+export function TaskCard({ task, handleClick, selected }: any) {
   return (
     <TaskStyles onClick={handleClick} selected={selected}>
       <div className="header">

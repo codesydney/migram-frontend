@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import TasksDashboard from "../../components/tasks/TasksDashboard";
+import TasksDashboard from "../../features/Tasks/TasksDashboard";
 
 const TasksPage: NextPage = () => {
   const router = useRouter();

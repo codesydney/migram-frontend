@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import CreateTask from "../../components/tasks/CreateTask/CreateTask";
+import CreateTask from "../../features/Tasks/CreateTask/CreateTask";
 
 const CreateTaskPage: NextPage = () => {
   return <CreateTask />;

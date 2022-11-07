@@ -14,17 +14,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/legacy/image";
 import useForm from "../../../lib/useForm";
-import OffersList from "./OffersList";
-import ErrorMessage from "../../common/ErrorMessage";
-import Loading from "../../common/Loading";
+import { OffersList } from "./OffersList";
+import ErrorMessage from "../../../components/common/ErrorMessage";
+import Loading from "../../../components/common/Loading";
 import { validate } from "../../../lib/validator";
-import ImageModal from "../../common/ImageModal";
+import ImageModal from "../../../components/common/ImageModal";
 
-import ButtonStyles from "../../styles/ButtonStyles";
-import SubmitFormStyles from "../../styles/SubmitFormStyles";
-import FormStyles from "../../styles/FormStyles";
+import ButtonStyles from "../../../components/styles/ButtonStyles";
+import SubmitFormStyles from "../../../components/styles/SubmitFormStyles";
+import FormStyles from "../../../components/styles/FormStyles";
 
-export default function TaskDetails({ selectedTask }: any) {
+export function TaskDetails({ selectedTask }: any) {
   // const { selectedTask } = useContext(DashboardContext);
   const [session]: any = useSession();
   const [updatedTask, setUpdatedTask] = useState(selectedTask);
@@ -45,24 +45,6 @@ export default function TaskDetails({ selectedTask }: any) {
     offerAmt: 0,
     comments: "",
   });
-
-  async function handleDelete(e: any) {
-    axios
-      .delete(
-        `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${selectedTask._id}`,
-        {
-          headers: {
-            authorization: `Bearer ${session.accessToken}`,
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
 
   async function handleOfferSubmit(e: any) {
     e.preventDefault();
@@ -183,8 +165,8 @@ export default function TaskDetails({ selectedTask }: any) {
     selectedTask && (
       <>
         {updatedTask?.status == "completed" && isMyTask && (
-          <ButtonStyles onClick={handleReleasePayment} fullWidth hidden>
-            Confirm Payment
+          <ButtonStyles onClick={handleReleasePayment} fullWidth>
+            Checkout
           </ButtonStyles>
         )}
         <SubmitFormStyles>

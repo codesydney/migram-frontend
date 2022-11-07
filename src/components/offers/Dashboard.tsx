@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Offers from "./Offers";
-import TaskDetails from "../tasks/TaskDetails/TaskDetails";
+import { TaskDetails } from "../../features/Tasks/TaskDetails";
 
 import BodyStyles from "../styles/BodyStyles";
 import FilterOffers from "./FilterOffers";

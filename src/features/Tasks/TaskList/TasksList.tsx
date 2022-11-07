@@ -4,7 +4,7 @@ import {
   faCaretSquareRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import TaskCard from "./TaskCard";
+import { TaskCard } from "./TaskCard";
 
 const PaginationStyles = styled.div`
   display: grid;
@@ -31,7 +31,7 @@ const TasksStyles = styled.div`
   }
 `;
 
-export default function TasksList({
+export function TasksList({
   myTasks,
   currentPage,
   setCurrentPage,

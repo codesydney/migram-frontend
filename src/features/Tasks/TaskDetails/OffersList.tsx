@@ -1,6 +1,6 @@
-import Offer from "./Offer";
+import { Offer } from "./Offer";
 
-export default function OffersList({ offers, myTask }: any) {
+export function OffersList({ offers, myTask }: any) {
   return (
     <>
       {offers.map((offer: any) => {

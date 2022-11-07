@@ -4,15 +4,15 @@ import {
   faCalendarDay,
 } from "@fortawesome/free-solid-svg-icons";
 
-import ErrorMessage from "../../../common/ErrorMessage";
-import FormStyles from "../../../styles/FormStyles";
+import ErrorMessage from "../../../../components/common/ErrorMessage";
+import FormStyles from "../../../../components/styles/FormStyles";
 
 export default function Section2({
   currentStep,
   handleChange,
   location,
   date,
-  errors
+  errors,
 }: any) {
   if (currentStep !== 2) {
     return null;
@@ -35,7 +35,7 @@ export default function Section2({
               value={location}
               onChange={handleChange}
             ></input>
-            {errors.location && <ErrorMessage message={errors.location}/>}
+            {errors.location && <ErrorMessage message={errors.location} />}
           </div>
         </div>
         <h4>What date would you like to book?</h4>
@@ -51,8 +51,8 @@ export default function Section2({
               value={date}
               onChange={handleChange}
             ></input>
-            {errors.date && <ErrorMessage message={errors.date}/>}
-        </div>
+            {errors.date && <ErrorMessage message={errors.date} />}
+          </div>
         </div>
         <h4>What time of arrival do you expect?</h4>
         {/* enum: ['7am-10am', '10am-1pm', '1pm-4pm', '4pm-7pm'] */}
@@ -69,7 +69,9 @@ export default function Section2({
             <option value="1pm-4pm">1pm - 4pm</option>
             <option value="4pm-7pm">4pm - 7pm</option>
           </select>
-          {errors.timeOfArrival && <ErrorMessage message={errors.timeOfArrival}/>}
+          {errors.timeOfArrival && (
+            <ErrorMessage message={errors.timeOfArrival} />
+          )}
         </div>
       </fieldset>
     </FormStyles>

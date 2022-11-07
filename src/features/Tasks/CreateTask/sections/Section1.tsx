@@ -1,8 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfo, faDollarSign } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import ErrorMessage from "../../../common/ErrorMessage";
-import FormStyles from "../../../styles/FormStyles";
+import ErrorMessage from "../../../../components/common/ErrorMessage";
+import FormStyles from "../../../../components/styles/FormStyles";
 
 export default function Section1({
   currentStep,

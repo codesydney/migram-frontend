@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import TasksDashboard from "../../components/tasks/TasksDashboard";
+import TasksDashboard from "../../features/Tasks/TasksDashboard";
 
 const TasksPage: NextPage = () => {
   return <TasksDashboard myTasks={false} />;
