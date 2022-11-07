@@ -48,10 +48,6 @@ const StyledHeader = styled.header`
       display: none;
     }
   }
-
-  @media (min-width: 768px) {
-    margin: 2rem;
-  }
 `;
 
 export const Header = () => {
