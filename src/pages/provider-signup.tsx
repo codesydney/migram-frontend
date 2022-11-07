@@ -3,11 +3,7 @@ import Signup from "../components/account/Signup";
 
 //Original signup page.
 const ProviderSignupPage: NextPage = () => {
-  return (
-    <>
-      <Signup />
-    </>
-  );
+  return <Signup />;
 };
 
 export default ProviderSignupPage;
