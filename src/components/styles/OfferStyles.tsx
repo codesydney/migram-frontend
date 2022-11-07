@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 
-interface OfferProps {
+interface OfferProps extends React.ComponentPropsWithoutRef<"div"> {
   selected: any;
 }
 
-const OfferStyles = styled.div<Pick<OfferProps, any>>`
+const OfferStyles = styled.div<OfferProps>`
   width: 432px;
   height: 200px;
   border-radius: 16px;
