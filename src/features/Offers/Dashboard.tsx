@@ -1,11 +1,10 @@
 import { useState } from "react";
-import Offers from "./Offers";
-import { TaskDetails } from "../../features/Tasks/TaskDetails";
 
-import BodyStyles from "../styles/BodyStyles";
-import FilterOffers from "./FilterOffers";
+import { TaskDetails } from "../Tasks/TaskDetails";
+import BodyStyles from "../../components/styles/BodyStyles";
+import { FilterOffers, Offers } from ".";
 
-export default function Dashboard() {
+export function Dashboard() {
   const [selectedTask, setSelectedTask] = useState(null);
   const [status, setStatus] = useState("");
   return (

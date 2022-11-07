@@ -19,7 +19,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-export default function FilterOffers({ status, setStatus }: any) {
+export function FilterOffers({ status, setStatus }: any) {
   return (
     <StyledDiv>
       <button disabled={status == ""} onClick={() => setStatus("")}>

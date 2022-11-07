@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/client";
 import styled from "styled-components";
 
-import Offer from "./Offer";
+import { Offer } from "./Offer";
 
 const OffersStyles = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ const OffersStyles = styled.div`
   gap: 32px;
 `;
 
-export default function Offers({ status, setSelectedTask, selectedTask }: any) {
+export function Offers({ status, setSelectedTask, selectedTask }: any) {
   const [session, loading]: any = useSession();
   const [offers, setOffers]: any = useState([]);
 

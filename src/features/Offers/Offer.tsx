@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import OfferStyles from "../styles/OfferStyles";
 import { useSession } from "next-auth/client";
+import OfferStyles from "./OfferStyles";
 
-export default function Offer({ offer, setSelectedTask, selectedTask }: any) {
+export function Offer({ offer, setSelectedTask, selectedTask }: any) {
   const [session]: any = useSession();
   // const { selectedOffer, setSelectedOffer } = useState(null);
 
