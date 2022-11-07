@@ -55,11 +55,6 @@
     "prettier": "^2.4.1",
     "typescript": "^4.8.4"
   },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "./jest.setup.js"
-    ]
-  },
   "babel": {
     "env": {
       "development": {
