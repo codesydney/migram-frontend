@@ -28,7 +28,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: inherit;
   }
   body {
-    font-family: 'SonnyVol2',--apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Mullish',--apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     padding: 0;
     margin: 0;
     font-size: 24px;
@@ -36,7 +36,9 @@ const GlobalStyles = createGlobalStyle`
   }
   h1,h2,h3,h4,h5,h6 {
     margin-top: 0;
+    font-family: 'SonnyVol2',--apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
+
   h2 {
     font-size: 48px;
   }
@@ -45,8 +47,11 @@ const GlobalStyles = createGlobalStyle`
     font-weight: 200;
     letter-spacing: 0.05em;
   }
+
   p {
-    font-weight: 300;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 2rem;
   }
   a {
     text-decoration: none;
