@@ -23,19 +23,6 @@ const StyledHeader = styled.header`
     display: inline-flex;
   }
 
-  button {
-    font-family: "Poppins", sans-serif;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 500;
-    line-height: 1.5;
-    text-transform: none;
-    border-radius: 50px;
-    background-color: black;
-    color: white;
-    border: none;
-  }
-
   svg {
     height: 2rem;
     width: 2rem;

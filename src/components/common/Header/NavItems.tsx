@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ButtonStyles from "../../styles/ButtonStyles";
 
 interface MenuProps {
   onClick: () => void;
@@ -24,7 +25,7 @@ export const CustomerMenu = ({ onClick }: MenuProps) => (
       My Tasks
     </Link>
     <Link href="/tasks/createtask" onClick={onClick}>
-      <button>Post a Task</button>
+      <ButtonStyles primary>Post a Task</ButtonStyles>
     </Link>
   </>
 );
@@ -32,10 +33,10 @@ export const CustomerMenu = ({ onClick }: MenuProps) => (
 export const DefaultMenu = ({ onClick }: MenuProps) => (
   <>
     <Link href="/login" onClick={onClick}>
-      <button>Login</button>
+      <ButtonStyles>Login</ButtonStyles>
     </Link>
     <Link href="/signup" onClick={onClick}>
-      <button>Signup</button>
+      <ButtonStyles primary>Signup</ButtonStyles>
     </Link>
   </>
 );

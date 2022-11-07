@@ -7,16 +7,16 @@ interface ButtonProps {
 }
 
 const ButtonStyles = styled.button<ButtonProps>`
-  height: 48px;
-  min-width: 208px;
+  min-width: 160px;
+  height: 3rem;
   background: white;
-  padding: 12px;
-  /* margin: 1rem; */
+  padding: 0.5rem 0.75rem;
   border: 2px solid;
-  line-height: 0;
-  border-radius: var(--border-radius);
+  font-size: 1.25rem;
+  line-height: 2rem;
   font-weight: 500;
-  cursor: pointer;
+  border-radius: var(--border-radius);
+
   ${(props) =>
     props.primary &&
     css`
