@@ -6,9 +6,7 @@ import Nprogress from "nprogress";
 import "nprogress/nprogress.css";
 
 import type { AppProps } from "next/app";
-
-import "../styles/globals.css";
-import { Header } from "../components/common/Header";
+import Layout from "../components/common/Layout";
 
 Router.events.on("routeChangeStart", () => Nprogress.start());
 Router.events.on("routeChangeComplete", () => Nprogress.done());
@@ -20,10 +18,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Elements stripe={stripePromise}>
       <Provider session={pageProps.session}>
-        <Header />
-        <div className="container">
+        <Layout>
           <Component {...pageProps} />
-        </div>
+        </Layout>
       </Provider>
     </Elements>
   );
