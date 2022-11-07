@@ -39,11 +39,12 @@ const Home: NextPage = () => {
               : `Welcome!`}
           </h2>
         ) : (
-          <h2>Illawarra Multicultural Services</h2>
+          <h2>migrant marketplace</h2>
         )}
         <p>
-          Continuous support and advocacy for culturally diverse communities
-          from migrant and refugee backgrounds.
+          Illawara Multicultural Services strive to provide equal and
+          independant work opportunities for refugees and inmigrants. Support
+          our community by creating jobs through this easy to use platform.
         </p>
         <div className="flex-container">
           <Link href="/tasks/createtask" passHref legacyBehavior>
