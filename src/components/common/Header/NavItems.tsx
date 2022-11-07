@@ -43,7 +43,7 @@ export const DefaultMenu = ({ onClick }: MenuProps) => (
 );
 
 export const NavItems = ({ onClick }: MenuProps) => {
-  const { data: session }: any = useSession();
+  const { data: session } = useSession();
 
   if (!session?.user) return <DefaultMenu onClick={onClick} />;
 

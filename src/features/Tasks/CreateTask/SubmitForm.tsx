@@ -22,7 +22,7 @@ export default function SubmitForm({
   isFilePicked,
   currentStep,
 }: any) {
-  const { data: session }: any = useSession();
+  const { data: session } = useSession();
   const [sending, setSending] = useState(false);
   const router = useRouter();
 
@@ -48,7 +48,7 @@ export default function SubmitForm({
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${session.accessToken}`,
+              Authorization: `Bearer ${session?.accessToken}`,
             },
           }
         )
@@ -75,7 +75,7 @@ export default function SubmitForm({
               },
               {
                 headers: {
-                  authorization: `Bearer ${session.accessToken}`,
+                  authorization: `Bearer ${session?.accessToken}`,
                 },
               }
             )
@@ -114,7 +114,7 @@ export default function SubmitForm({
           },
           {
             headers: {
-              authorization: `Bearer ${session.accessToken}`,
+              authorization: `Bearer ${session?.accessToken}`,
             },
           }
         )

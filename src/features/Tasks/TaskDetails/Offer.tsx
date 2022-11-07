@@ -25,7 +25,7 @@ const StyledDiv = styled.div`
 `;
 
 export function Offer({ offer, myTask }: any) {
-  const { data: session }: any = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
 
   async function handleAcceptOffer() {
@@ -39,7 +39,7 @@ export function Offer({ offer, myTask }: any) {
         {
           // params: { my_tasks: true },
           headers: {
-            authorization: `Bearer ${session.accessToken}`,
+            authorization: `Bearer ${session?.accessToken}`,
           },
         }
       )
@@ -62,7 +62,7 @@ export function Offer({ offer, myTask }: any) {
           </UserIconStyles>
           <div>
             {offer.firstName}{" "}
-            {offer.providerId == session.user.providerId && "(You)"}
+            {offer.providerId == session?.user.providerId && "(You)"}
           </div>
         </div>
 

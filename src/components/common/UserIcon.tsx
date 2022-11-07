@@ -21,7 +21,7 @@ const HideLink = styled.a`
 `;
 
 export default function UserIcon(props: any) {
-  const { data: session, status }: any = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 

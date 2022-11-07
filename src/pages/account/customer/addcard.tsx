@@ -22,7 +22,7 @@ const CardElementContainerStyle = styled.div`
 `;
 
 function AddCardPage() {
-  const { data: session }: any = useSession();
+  const { data: session } = useSession();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -45,7 +45,7 @@ function AddCardPage() {
         inputs,
         {
           headers: {
-            Authorization: `Bearer ${session.accessToken}`,
+            Authorization: `Bearer ${session?.accessToken}`,
           },
         }
       );
@@ -95,7 +95,7 @@ function AddCardPage() {
         },
         {
           headers: {
-            Authorization: `Bearer ${session.accessToken}`,
+            Authorization: `Bearer ${session?.accessToken}`,
           },
         }
       )

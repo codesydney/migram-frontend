@@ -26,7 +26,7 @@ import FormStyles from "../../../components/styles/FormStyles";
 
 export function TaskDetails({ selectedTask }: any) {
   // const { selectedTask } = useContext(DashboardContext);
-  const { data: session }: any = useSession();
+  const { data: session } = useSession();
   const [updatedTask, setUpdatedTask] = useState(selectedTask);
   const [isMyTask, setIsMyTask] = useState(false);
   const [isSubmiting, setIsSubmiting] = useState(false);
@@ -58,7 +58,7 @@ export function TaskDetails({ selectedTask }: any) {
         },
         {
           headers: {
-            authorization: `Bearer ${session.accessToken}`,
+            authorization: `Bearer ${session?.accessToken}`,
           },
         }
       )
@@ -94,7 +94,7 @@ export function TaskDetails({ selectedTask }: any) {
         {
           taskId: selectedTask.id,
         },
-        { headers: { authorization: `Bearer ${session.accessToken}` } }
+        { headers: { authorization: `Bearer ${session?.accessToken}` } }
       )
       .then((response) => {
         const { client_secret, payment_method } = response.data.data;
@@ -117,12 +117,12 @@ export function TaskDetails({ selectedTask }: any) {
         `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${selectedTask._id}`,
         {
           headers: {
-            authorization: `Bearer ${session.accessToken}`,
+            authorization: `Bearer ${session?.accessToken}`,
           },
         }
       )
       .then((response) => {
-        if (response.data.data.task.customerId == session.user.customerId) {
+        if (response.data.data.task.customerId == session?.user.customerId) {
           setIsMyTask(true);
         }
         if (selectedTask._id == response.data.data.task._id) {

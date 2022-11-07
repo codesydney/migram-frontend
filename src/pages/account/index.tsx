@@ -10,7 +10,7 @@ import ButtonStyles from "../../components/styles/ButtonStyles";
 import FormStyles from "../../components/styles/FormStyles";
 
 export function AccountPage() {
-  const { data: session, status }: any = useSession();
+  const { data: session, status } = useSession();
   const [sending, setSending] = useState(false);
   const { inputs, handleChange, resetForm, clearForm }: any = useForm({
     photo: "",
@@ -66,7 +66,7 @@ export function AccountPage() {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${session.accessToken}`,
+              Authorization: `Bearer ${session?.accessToken}`,
             },
           }
         )
@@ -74,10 +74,10 @@ export function AccountPage() {
           console.log(response.data.data.photo);
           imageURL = response.data.data.photo;
 
-          console.log("updated", session.user);
+          console.log("updated", session?.user);
           axios
             .put(
-              `${process.env.NEXT_PUBLIC_API_URL}api/v1/users/${session.user.id}`,
+              `${process.env.NEXT_PUBLIC_API_URL}api/v1/users/${session?.user.id}`,
               {
                 photo: imageURL,
                 firstName: inputs.firstName,
@@ -85,7 +85,7 @@ export function AccountPage() {
               },
               {
                 headers: {
-                  Authorization: `Bearer ${session.accessToken}`,
+                  Authorization: `Bearer ${session?.accessToken}`,
                 },
               }
             )
@@ -112,14 +112,14 @@ export function AccountPage() {
     else {
       axios
         .put(
-          `${process.env.NEXT_PUBLIC_API_URL}api/v1/users/${session.user.id}`,
+          `${process.env.NEXT_PUBLIC_API_URL}api/v1/users/${session?.user.id}`,
           {
             firstName: inputs.firstName,
             lastName: inputs.lastName,
           },
           {
             headers: {
-              Authorization: `Bearer ${session.accessToken}`,
+              Authorization: `Bearer ${session?.accessToken}`,
             },
           }
         )
@@ -189,10 +189,10 @@ export function AccountPage() {
                     axios
                       .post(
                         `${process.env.NEXT_PUBLIC_API_URL}api/v1/providers`,
-                        { UserId: session.user._id },
+                        { UserId: session?.user.id },
                         {
                           headers: {
-                            authorization: `Bearer ${session.accessToken}`,
+                            authorization: `Bearer ${session?.accessToken}`,
                           },
                         }
                       )

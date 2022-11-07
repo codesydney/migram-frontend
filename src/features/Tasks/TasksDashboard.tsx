@@ -11,7 +11,7 @@ import { TaskDetails } from "./TaskDetails";
 export default function TasksDashboard({ myTasks }: any) {
   const [selectedTask, setSelectedTask] = useState(null);
   const [currentPage, setCurrentPage]: any = useState(1);
-  const { data: session, status }: any = useSession();
+  const { data: session, status } = useSession();
   const [tasks, setTasks]: any[] = useState([]);
 
   const [filter, setFilter] = useState("");
@@ -29,7 +29,7 @@ export default function TasksDashboard({ myTasks }: any) {
       .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
         params,
         headers: {
-          authorization: `Bearer ${session.accessToken}`,
+          authorization: `Bearer ${session?.accessToken}`,
         },
       })
       .then((response) => {

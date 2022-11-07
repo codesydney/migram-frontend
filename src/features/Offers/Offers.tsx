@@ -13,7 +13,7 @@ const OffersStyles = styled.div`
 `;
 
 export function Offers({ statusFilter, setSelectedTask, selectedTask }: any) {
-  const { data: session, status }: any = useSession();
+  const { data: session, status } = useSession();
   const [offers, setOffers]: any = useState([]);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export function Offers({ statusFilter, setSelectedTask, selectedTask }: any) {
           `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${offers[item].task}`,
           {
             headers: {
-              authorization: `Bearer ${session.accessToken}`,
+              authorization: `Bearer ${session?.accessToken}`,
             },
           }
         )

@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import OfferStyles from "./OfferStyles";
 
 export function Offer({ offer, setSelectedTask, selectedTask }: any) {
-  const { data: session }: any = useSession();
+  const { data: session } = useSession();
   // const { selectedOffer, setSelectedOffer } = useState(null);
 
   async function handleCompleteOffer() {

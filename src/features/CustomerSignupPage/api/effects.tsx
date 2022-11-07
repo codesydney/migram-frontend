@@ -17,7 +17,7 @@ export async function signin(credentials: { email: string; password: string }) {
 export const createUser = (
   state: State,
   dispatch: Dispatch<ACTIONTYPE>,
-  session: any
+  session: Session | null
 ) => {
   if (state.status !== Statuses.CREATE_USER) return;
   if (session) return;
@@ -43,7 +43,7 @@ export const createUser = (
 export const createCustomer = (
   state: State,
   dispatch: Dispatch<ACTIONTYPE>,
-  session: any,
+  session: Session | null,
   stripe: Stripe | null
 ) => {
   if (state.status !== Statuses.CREATE_CUSTOMER) return;
@@ -103,7 +103,7 @@ export const createCustomer = (
     });
 };
 
-export const createSetupIntent = async (session: any) => {
+export const createSetupIntent = async (session: Session) => {
   return await axios.post(
     `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/create-setup-intent`,
     null,

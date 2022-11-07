@@ -9,7 +9,7 @@ import ButtonStyles from "../components/styles/ButtonStyles";
 import { useEffect } from "react";
 
 const Home: NextPage = () => {
-  const { data: session }: any = useSession();
+  const { data: session } = useSession();
 
   useEffect(() => {
     axios
