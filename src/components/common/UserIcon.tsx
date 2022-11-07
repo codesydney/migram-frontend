@@ -25,8 +25,6 @@ export default function UserIcon(props: any) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log(session);
-
   async function handleSignout(e: any) {
     e.preventDefault();
     const data: any = await signOut({ redirect: false, callbackUrl: "/login" });

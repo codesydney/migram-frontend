@@ -28,8 +28,6 @@ export function Offers({ statusFilter, setSelectedTask, selectedTask }: any) {
       })
       .then((response) => {
         setOffers(response.data.data.offers);
-
-        // console.log(response);
       })
       .catch((error) => {
         console.log(error);
@@ -38,7 +36,6 @@ export function Offers({ statusFilter, setSelectedTask, selectedTask }: any) {
 
   useEffect(() => {
     for (let item in offers) {
-      console.log("res", offers[item]);
       axios
         .get(
           `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${offers[item].task}`,

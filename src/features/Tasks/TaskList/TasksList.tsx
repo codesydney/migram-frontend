@@ -61,7 +61,6 @@ export function TasksList({
               <TaskCard
                 handleClick={() => {
                   setSelectedTask(task);
-                  console.log("!!!", selectedTask);
                 }}
                 key={task.id}
                 task={task}

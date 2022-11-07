@@ -26,14 +26,12 @@ const LoginPage: NextPage = () => {
     e.preventDefault();
     setErrorMessage("");
     setLoading(true);
-    console.log(loading);
     const data: any = await signIn("credentials", {
       ...inputs,
       redirect: false,
       callbackUrl: "/",
     });
     setLoading(false);
-    console.log(data);
     if (data.url) {
       resetForm();
       router.push(data.url);

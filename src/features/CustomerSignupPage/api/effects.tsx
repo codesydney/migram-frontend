@@ -33,8 +33,6 @@ export const createUser = (
       dispatch({ type: Statuses.CREATE_CUSTOMER });
     })
     .catch((error: any) => {
-      console.log(error.response.status);
-      console.log(error.response.data);
       dispatch({
         type: Statuses.REJECTED,
         error: new Error(error.response.data.message),
@@ -88,13 +86,9 @@ export const createCustomer = (
       },
     })
     .then(() => {
-      console.log("Create Setup Intent");
-      console.log("session");
-      console.log(session);
       return createSetupIntent(session);
     })
     .then((response) => {
-      console.log("Confirm Stripe Card Setup");
       return confirmStripeCardSetup(response.data.client_secret, stripe);
     })
     .then(async () => {
@@ -126,7 +120,6 @@ async function confirmStripeCardSetup(
   stripe: Stripe | null
 ) {
   if (!stripe) {
-    console.log(stripe);
     throw new Error("Stripe is not intiialized.");
   }
 

@@ -53,7 +53,6 @@ export default function SubmitForm({
           }
         )
         .then((response) => {
-          console.log(response);
           imageURL = response.data.data.photos[0];
 
           axios
@@ -82,12 +81,10 @@ export default function SubmitForm({
             )
             .then((response) => {
               setSending(false);
-              console.log(response);
               router.push(`/mytasks/${response.data.data.task._id}`);
             })
             .catch((error) => {
               setSending(false);
-              console.log(error.response.data.message);
               setErrorMessage(error.response.data.message);
             });
         })
@@ -123,12 +120,10 @@ export default function SubmitForm({
         )
         .then((response) => {
           setSending(false);
-          console.log(response);
           router.push(`/mytasks/${response.data.data.task._id}`);
         })
         .catch((error) => {
           setSending(false);
-          console.log(error.response.data.message);
           setErrorMessage(error.response.data.message);
         });
     }

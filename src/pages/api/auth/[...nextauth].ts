@@ -36,9 +36,6 @@ export default NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      console.log(token);
-      console.log(user);
-
       if (user) {
         token.accessToken = user.token;
         delete user.token;

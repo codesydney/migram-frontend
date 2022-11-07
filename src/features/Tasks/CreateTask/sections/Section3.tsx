@@ -15,8 +15,6 @@ export default function Section2({
     return null;
   }
 
-  console.log(selectedFile);
-
   return (
     <FormStyles>
       <fieldset>

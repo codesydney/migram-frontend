@@ -36,10 +36,9 @@ function AddCardPage() {
     expDate: "",
     cvv: "",
   });
-  console.log(inputs);
+
   async function handleSubmit(e: any) {
     e.preventDefault();
-    console.log(inputs);
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/create-setup-intent`,
@@ -50,7 +49,6 @@ function AddCardPage() {
           },
         }
       );
-      console.log(response);
       await handleStripeSubmit(response.data.client_secret);
     } catch (error) {
       console.error(error);
@@ -66,14 +64,12 @@ function AddCardPage() {
     }
 
     const cardElement: any = elements.getElement(CardElement);
-    console.log(CardElement);
     try {
       const result: any = await stripe.confirmCardSetup(client_secret, {
         payment_method: {
           card: cardElement,
         },
       });
-      console.log(result);
       if (result.error) throw result.error;
       setShowSuccessMessage(true);
       await wait(3000);

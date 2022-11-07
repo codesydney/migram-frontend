@@ -5,7 +5,6 @@ import TasksDashboard from "../../features/Tasks/TasksDashboard";
 const TasksPage: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
-  console.log(router.query);
   return <TasksDashboard id={id} />;
 };
 

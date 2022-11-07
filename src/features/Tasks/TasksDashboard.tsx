@@ -38,11 +38,8 @@ export default function TasksDashboard({ myTasks }: any) {
         } else {
           setTasks(response.data.data.tasks);
         }
-
-        console.log(response);
       })
       .catch((error) => {
-        console.log(error.response.data);
         if (error.response.data.message == "This page does not exist.") {
           setCurrentPage(currentPage - 1);
         }

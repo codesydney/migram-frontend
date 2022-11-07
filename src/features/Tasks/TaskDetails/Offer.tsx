@@ -28,8 +28,6 @@ export function Offer({ offer, myTask }: any) {
   const { data: session }: any = useSession();
   const router = useRouter();
 
-  // console.log(offer);
-
   async function handleAcceptOffer() {
     axios
       .post(

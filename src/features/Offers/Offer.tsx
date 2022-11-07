@@ -8,9 +8,6 @@ export function Offer({ offer, setSelectedTask, selectedTask }: any) {
   const { data: session }: any = useSession();
   // const { selectedOffer, setSelectedOffer } = useState(null);
 
-  console.log("OFFER", offer);
-  console.log("SELECTED TASK", selectedTask);
-
   async function handleCompleteOffer() {
     axios
       .patch(
@@ -36,7 +33,6 @@ export function Offer({ offer, setSelectedTask, selectedTask }: any) {
             },
           })
           .then((response) => {
-            console.log(response);
             setSelectedTask(response.data.data.task);
           })
           .catch((error) => {

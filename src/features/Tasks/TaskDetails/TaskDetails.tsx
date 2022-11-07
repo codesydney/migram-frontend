@@ -63,7 +63,6 @@ export function TaskDetails({ selectedTask }: any) {
         }
       )
       .then((response) => {
-        console.log(response);
         resetForm();
         router.push("/offers");
       })
@@ -85,8 +84,6 @@ export function TaskDetails({ selectedTask }: any) {
         payment_method: payment_method,
       })
       .then(function (result) {});
-
-    console.log(result);
   }
 
   async function handleReleasePayment(e: any) {
@@ -101,7 +98,6 @@ export function TaskDetails({ selectedTask }: any) {
       )
       .then((response) => {
         const { client_secret, payment_method } = response.data.data;
-        console.log("!!!", client_secret, payment_method);
         handleStripeSubmit(client_secret, payment_method);
         router.reload();
       })
@@ -130,7 +126,6 @@ export function TaskDetails({ selectedTask }: any) {
           setIsMyTask(true);
         }
         if (selectedTask._id == response.data.data.task._id) {
-          // console.log(response.data.data.task);
           setUpdatedTask(response.data.data.task);
         }
       })
@@ -147,8 +142,6 @@ export function TaskDetails({ selectedTask }: any) {
     //   });
     // }
   }, [selectedTask]);
-
-  // console.log(selectedTask);
 
   function invalidField() {
     if (validate.offerAmt(inputs.offerAmt)) return true;

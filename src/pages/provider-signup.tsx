@@ -48,7 +48,6 @@ export function ProviderSignupPage() {
       callbackUrl: "/",
     });
     setLoading(false);
-    console.log(data);
     if (data.url) {
       resetForm();
       router.push(data.url);
