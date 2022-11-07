@@ -1,10 +1,18 @@
 import { Dispatch } from "react";
 import { Session } from "next-auth";
+import { signIn as nextAuthSignIn } from "next-auth/client";
+import { Stripe } from "@stripe/stripe-js";
 import axios from "axios";
 
-import { signin } from ".";
 import { ACTIONTYPE, State, Statuses } from "./CustomerSignupReducer";
-import { Stripe } from "@stripe/stripe-js";
+
+export async function signin(credentials: { email: string; password: string }) {
+  await nextAuthSignIn("credentials", {
+    ...credentials,
+    redirect: false,
+    callbackUrl: "/",
+  });
+}
 
 export const createUser = (
   state: State,
