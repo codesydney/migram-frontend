@@ -20,7 +20,7 @@ export const AddressFormSegment = <T extends AddressSchema>({
 
   return (
     <>
-      <div className="text-input">
+      <div className="labelled-input">
         <label htmlFor="lin1">Address Line 1</label>
         <input id="line1" {...addressRegister("line1")} />
         <label htmlFor="line1" className="error">
@@ -28,7 +28,7 @@ export const AddressFormSegment = <T extends AddressSchema>({
         </label>
       </div>
 
-      <div className="text-input">
+      <div className="labelled-input">
         <label htmlFor="line2">Address Line 2</label>
         <input id="line2" {...addressRegister("line2")} />
         <label htmlFor="line2" className="error">
@@ -36,7 +36,7 @@ export const AddressFormSegment = <T extends AddressSchema>({
         </label>
       </div>
 
-      <div className="text-input">
+      <div className="labelled-input">
         <label htmlFor="city">City</label>
         <input id="city" {...addressRegister("city")} />
         <label htmlFor="city" className="error">
@@ -44,7 +44,7 @@ export const AddressFormSegment = <T extends AddressSchema>({
         </label>
       </div>
 
-      <div className="text-input">
+      <div className="labelled-input">
         <label htmlFor="state">State</label>
         <select id="state" {...addressRegister("state")}>
           <option value="ACT">ACT</option>
@@ -61,7 +61,7 @@ export const AddressFormSegment = <T extends AddressSchema>({
         </label>
       </div>
 
-      <div className="text-input">
+      <div className="labelled-input">
         <label htmlFor="postcode">Postcode</label>
         <input id="postcode" {...addressRegister("postal_code")} />
         <label htmlFor="postcode" className="error">
