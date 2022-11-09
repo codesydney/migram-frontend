@@ -1,4 +1,5 @@
-import { ComponentPropsWithRef, forwardRef, Ref } from "react";
+import { forwardRef, Ref, ComponentPropsWithoutRef } from "react";
+import styled from "styled-components";
 
 interface TextInputProps extends ComponentPropsWithRef<"input"> {
   label: string;
@@ -6,20 +7,21 @@ interface TextInputProps extends ComponentPropsWithRef<"input"> {
   error?: string;
 }
 
-export const TextInput = ({
-  id,
-  label,
-  error,
-  ref,
-  ...props
-}: TextInputProps) => {
-  return (
-    <div className="labelled-input">
-      <label htmlFor={id} className="primary-label">
-        {label}
-      </label>
-      <input ref={ref} id={id} {...props} />
-      <label className="error-label">{error}</label>
-    </div>
-  );
-};
+export const TextInput = forwardRef(
+  (
+    { id, label, error, ...props }: TextInputProps,
+    ref: Ref<HTMLInputElement>
+  ) => {
+    return (
+      <div className="labelled-input">
+        <label htmlFor={id} className="primary-label">
+          {label}
+        </label>
+        <input ref={ref} id={id} {...props} />
+        <label className="error-label">{error}</label>
+      </div>
+    );
+  }
+);
+
+TextInput.displayName = "TextInput";
