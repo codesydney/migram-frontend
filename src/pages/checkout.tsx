@@ -4,8 +4,35 @@ import { useForm } from "react-hook-form";
 import z, { string } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FeatureFlag } from "../utils/FeatureFlag";
+import styled from "styled-components";
 import ButtonStyles from "../components/styles/ButtonStyles";
 
+const StyledDiv = styled.div`
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .text-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .text-input > * {
+    display: block;
+    width: 100%;
+  }
+
+  .text-input > label {
+    font-size: 1rem;
+  }
+
+  .text-input > label.error {
+    color: red;
+  }
+`;
 
 const schema = z.object({
   name: z.string().min(1, "Please enter a name"),
@@ -33,7 +60,7 @@ const CheckoutPage = () => {
   const onSubmit = (data: Schema) => {};
 
   return (
-    <>
+    <StyledDiv>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="text-input">
           <label htmlFor="name">Name</label>
@@ -85,7 +112,7 @@ const CheckoutPage = () => {
           Checkout
         </ButtonStyles>
       </form>
-    </>
+    </StyledDiv>
   );
 };
 
