@@ -7,6 +7,8 @@ import { FeatureFlag } from "../utils/FeatureFlag";
 import styled from "styled-components";
 import ButtonStyles from "../components/styles/ButtonStyles";
 
+import { addressSchema } from "../types/schemas";
+
 const StyledDiv = styled.div`
   form {
     display: flex;
@@ -34,17 +36,11 @@ const StyledDiv = styled.div`
   }
 `;
 
-const schema = z.object({
-  name: z.string().min(1, "Please enter a name"),
-  line1: z.string().min(1, "Please enter address line 1"),
-  line2: z.string().optional(),
-  city: z.string().min(1, "Please enter a city"),
-  state: z.string().min(1, "Please enter a state"),
-  postalCode: z
-    .string()
-    .min(1, "Please enter a postcode")
-    .length(4, "Postcode must be 4 digits"),
-});
+const schema = z
+  .object({
+    name: z.string().min(1, "Please enter a name"),
+  })
+  .merge(addressSchema);
 
 type Schema = z.infer<typeof schema>;
 
