@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import z, { string } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FeatureFlag } from "../utils/FeatureFlag";
+import ButtonStyles from "../components/styles/ButtonStyles";
+
 
 const schema = z.object({
   name: z.string().min(1, "Please enter a name"),
@@ -79,7 +81,9 @@ const CheckoutPage = () => {
           </label>
         </div>
 
-        <button type="submit">Checkout</button>
+        <ButtonStyles type="submit" primary>
+          Checkout
+        </ButtonStyles>
       </form>
     </>
   );
