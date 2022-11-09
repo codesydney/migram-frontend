@@ -21,7 +21,7 @@ export const AddressFormSegment = <T extends AddressSchema>({
   return (
     <>
       <div className="labelled-input">
-        <label htmlFor="lin1">Address Line 1</label>
+        <label htmlFor="line1">Address Line 1</label>
         <input id="line1" {...addressRegister("line1")} />
         <label htmlFor="line1" className="error">
           {errors.line1?.message}
