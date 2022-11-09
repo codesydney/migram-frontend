@@ -1,7 +1,26 @@
 import { forwardRef, Ref, ComponentPropsWithoutRef } from "react";
 import styled from "styled-components";
 
-interface TextInputProps extends ComponentPropsWithRef<"input"> {
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  > * {
+    display: block;
+    width: 100%;
+  }
+
+  label {
+    font-size: 1rem;
+  }
+
+  .error-label {
+    color: red;
+  }
+`;
+
+interface TextInputProps extends ComponentPropsWithoutRef<"input"> {
   label: string;
   id: string;
   error?: string;
@@ -13,13 +32,13 @@ export const TextInput = forwardRef(
     ref: Ref<HTMLInputElement>
   ) => {
     return (
-      <div className="labelled-input">
+      <StyledDiv className="labelled-input">
         <label htmlFor={id} className="primary-label">
           {label}
         </label>
         <input ref={ref} id={id} {...props} />
         <label className="error-label">{error}</label>
-      </div>
+      </StyledDiv>
     );
   }
 );
