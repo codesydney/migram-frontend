@@ -1,8 +1,5 @@
 import { useReducer } from "react";
-import {
-  FormValues,
-  defaultFormValues,
-} from "../components/CustomerSignupForm";
+import { FormValues } from "../types";
 
 export enum Statuses {
   IDLE = "IDLE",
@@ -11,6 +8,20 @@ export enum Statuses {
   RESOLVED = "RESOLVED",
   REJECTED = "REJECTED",
 }
+
+export const defaultFormValues = {
+  name: "",
+  email: "",
+  password: "",
+  passwordConfirm: "",
+  phone: "",
+  description: "",
+  line1: "",
+  line2: "",
+  city: "",
+  state: "",
+  postal_code: "",
+};
 
 export interface State {
   status: Statuses;
