@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import z, { string } from "zod";
+import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FeatureFlag } from "../utils/FeatureFlag";
 import styled from "styled-components";
