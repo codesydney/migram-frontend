@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { TextInput } from "../../../components/common/TextInput";
 import { AddressFormSegment } from "../../FormSegments/AddressFormSegment";
 import { FormValues, formSchema } from "../types";
+import ButtonStyles from "../../../components/styles/ButtonStyles";
 
 const StyledForm = styled.form`
   padding-bottom: 2rem;
@@ -118,7 +119,9 @@ export const CustomerSignupForm = ({
         </label>
       </div>
 
-      <button type="submit">Create Account</button>
+      <ButtonStyles type="submit" primary>
+        Create Account
+      </ButtonStyles>
     </StyledForm>
   );
 };
