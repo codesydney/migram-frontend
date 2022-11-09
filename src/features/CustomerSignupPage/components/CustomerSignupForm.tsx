@@ -1,8 +1,9 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TextInput } from "../../../components/common/TextInput";
+import { AddressFormSegment } from "../../FormSegments/AddressFormSegment";
+import { FormValues, formSchema } from "../types";
 
 const StyledForm = styled.form`
   padding-bottom: 2rem;
@@ -88,44 +89,6 @@ const StyledForm = styled.form`
   }
 `;
 
-export const defaultFormValues = {
-  name: "",
-  email: "",
-  password: "",
-  passwordConfirm: "",
-  phone: "",
-  description: "",
-  line1: "",
-  line2: "",
-  city: "",
-  state: "",
-  postal_code: "",
-};
-
-export type FormValues = typeof defaultFormValues;
-
-const validationSchema = z
-  .object({
-    name: z.string().min(1, "Please enter a name."),
-    email: z
-      .string()
-      .email("Please enter a valid email address.")
-      .min(1, "Please enter an email address."),
-    password: z.string().min(8, "Password must be 8 or more characters"),
-    passwordConfirm: z.string().min(1, "Please enter a password confirmation"),
-    phone: z.string().min(1, "Please enter a phone number."),
-    description: z.string(),
-    line1: z.string().min(1, "Please enter an address line 1."),
-    line2: z.string(),
-    city: z.string().min(1, "Please enter a City."),
-    state: z.string().min(1, "Please enter a state."),
-    postal_code: z.string().length(4, "Postcode must be 4 digits"),
-  })
-  .refine((data) => data.password === data.passwordConfirm, {
-    message: "Passwords don't match",
-    path: ["passwordConfirm"],
-  });
-
 interface CustomerSignupFormProps {
   onSubmit: SubmitHandler<FormValues>;
   values?: FormValues;
@@ -139,9 +102,8 @@ export const CustomerSignupForm = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues: values ?? defaultFormValues,
-    resolver: zodResolver(validationSchema),
+  } = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
     mode: "onBlur",
   });
 

@@ -5,12 +5,13 @@ import {
   Statuses,
   useCustomerSignupReducer,
 } from "../api/CustomerSignupReducer";
-import { CustomerSignupForm, FormValues } from "./CustomerSignupForm";
+import { CustomerSignupForm } from "./CustomerSignupForm";
 import { useStripe } from "@stripe/react-stripe-js";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { createUser, createCustomer } from "../api/effects";
 import { useRouter } from "next/router";
+import { FormValues } from "../types";
 
 const StyledDiv = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap");
