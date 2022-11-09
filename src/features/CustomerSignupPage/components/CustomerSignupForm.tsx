@@ -7,8 +7,10 @@ import { FormValues, formSchema } from "../types";
 
 const StyledForm = styled.form`
   padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 
-  input,
   textarea {
     padding: 0.5rem 1rem;
     display: block;
@@ -19,7 +21,6 @@ const StyledForm = styled.form`
     color: #434343;
     border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 4px;
-    font-family: "Poppins", sans-serif;
   }
 
   h1 {
@@ -36,56 +37,13 @@ const StyledForm = styled.form`
     font-weight: 300;
   }
 
-  label {
-    display: block;
-    width: 100%;
-    font-size: 0.875rem;
-    line-height: 1;
-    height: 0.875rem;
-    font-weight: 600;
-  }
-
-  .labelled-input {
-    margin-top: 0.75rem;
-  }
-
   .hidden {
     visibility: hidden;
-  }
-
-  .input-error-label {
-    margin-top: 0.5rem;
-    font-size: 0.75rem;
-    color: red;
-    font-weight: 400;
   }
 
   textarea {
     resize: vertical;
     padding: 0.5rem 1rem;
-  }
-
-  button {
-    margin-top: 2rem;
-    font-size: 1rem;
-    line-height: 1.75rem;
-    color: white;
-    background-color: #3e3e3e;
-
-    padding: 0.5rem 2rem;
-    border-radius: 4px;
-    border: none;
-    box-shadow: 0px 2px #999;
-
-    &:hover {
-      background-color: #2b2b2b;
-    }
-
-    &:active {
-      box-shadow: 0px 2px #999;
-      transform: translateY(1px);
-      background-color: black;
-    }
   }
 `;
 
@@ -152,7 +110,7 @@ export const CustomerSignupForm = ({
 
       <div className="labelled-input">
         <label htmlFor="description" className="primary-label">
-          Description:{" "}
+          Description:
         </label>
         <textarea rows={4} id="description" {...register("description")} />
         <label htmlFor="description" className="error-label">
