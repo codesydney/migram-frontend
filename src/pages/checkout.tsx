@@ -33,29 +33,51 @@ const CheckoutPage = () => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="name">Name</label>
-        <input id="name" {...register("name")} />
-        <label htmlFor="name">{errors.name?.message}</label>
+        <div className="text-input">
+          <label htmlFor="name">Name</label>
+          <input id="name" {...register("name")} />
+          <label htmlFor="name" className="error">
+            {errors.name?.message}
+          </label>
+        </div>
 
-        <label htmlFor="lin1">Address Line 1</label>
-        <input id="line1" {...register("line1")} />
-        <label htmlFor="line1">{errors.line1?.message}</label>
+        <div className="text-input">
+          <label htmlFor="lin1">Address Line 1</label>
+          <input id="line1" {...register("line1")} />
+          <label htmlFor="line1" className="error">
+            {errors.line1?.message}
+          </label>
+        </div>
 
-        <label htmlFor="line2">Address Line 2</label>
-        <input id="line2" {...register("line2")} />
-        <label htmlFor="line2">{errors.line2?.message}</label>
+        <div className="text-input">
+          <label htmlFor="line2">Address Line 2</label>
+          <input id="line2" {...register("line2")} />
+          <label htmlFor="line2" className="error">
+            {errors.line2?.message}
+          </label>
+        </div>
 
-        <label htmlFor="city">City</label>
-        <input id="city" {...register("city")} />
-        <label htmlFor="city">{errors.city?.message}</label>
+        <div className="text-input">
+          <label htmlFor="city">City</label>
+          <input id="city" {...register("city")} />
+          <label htmlFor="city" className="error">
+            {errors.city?.message}
+          </label>
+        </div>
 
-        <label htmlFor="state">State</label>
-        <input id="state" {...register("state")} />
-        <label htmlFor="state">{errors.state?.message}</label>
+        <div className="text-input">
+          <label htmlFor="state">State</label>
+          <input id="state" {...register("state")} />
+          <label htmlFor="state">{errors.state?.message}</label>
+        </div>
 
-        <label htmlFor="postcode">Postcode</label>
-        <input id="postcode" {...register("postalCode")} />
-        <label htmlFor="postcode">{errors.postalCode?.message}</label>
+        <div className="text-input">
+          <label htmlFor="postcode">Postcode</label>
+          <input id="postcode" {...register("postalCode")} />
+          <label htmlFor="postcode" className="error">
+            {errors.postalCode?.message}
+          </label>
+        </div>
 
         <button type="submit">Checkout</button>
       </form>
