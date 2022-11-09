@@ -5,7 +5,7 @@ export const addressSchema = z.object({
   line2: z.string().optional(),
   city: z.string().min(1, "Please enter a city"),
   state: z.string().min(1, "Please enter a state"),
-  postalCode: z
+  postal_code: z
     .string()
     .min(1, "Please enter a postcode")
     .length(4, "Postcode must be 4 digits"),

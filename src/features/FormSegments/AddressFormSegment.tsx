@@ -63,9 +63,9 @@ export const AddressFormSegment = <T extends AddressSchema>({
 
       <div className="text-input">
         <label htmlFor="postcode">Postcode</label>
-        <input id="postcode" {...addressRegister("postalCode")} />
+        <input id="postcode" {...addressRegister("postal_code")} />
         <label htmlFor="postcode" className="error">
-          {errors.postalCode?.message}
+          {errors.postal_code?.message}
         </label>
       </div>
     </>
