@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { TextInput } from "../../../components/common/TextInput";
 
 const StyledForm = styled.form`
   padding-bottom: 2rem;
@@ -147,102 +148,52 @@ export const CustomerSignupForm = ({
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)} method="POST">
       <h1>Create an Account</h1>
-      <div className="labelled-input">
-        <label htmlFor="name">Name: </label>
-        <input id="name" type="text" {...register("name")} />
-        <label
-          className={`input-error-label ${
-            errors.name?.message ? "" : "hidden"
-          }`}
-          htmlFor="name"
-        >
-          {errors.name?.message}
-        </label>
-      </div>
-
-      <div className="labelled-input">
-        <label htmlFor="name">Email: </label>
-        <input id="email" type="email" {...register("email")} />
-        <label className="input-error-label" htmlFor="name">
-          {errors.email?.message}
-        </label>
-      </div>
-
-      <div className="labelled-input">
-        <label htmlFor="password">Password: </label>
-        <input id="password" type="password" {...register("password")} />
-        <label className="input-error-label" htmlFor="password">
-          {errors.password?.message}
-        </label>
-      </div>
-
-      <div className="labelled-input">
-        <label htmlFor="passwordConfirm">Confirm Password: </label>
-        <input
-          id="passwordConfirm"
-          type="password"
-          {...register("passwordConfirm")}
-        />
-        <label className="input-error-label" htmlFor="passwordConfirm">
-          {errors.passwordConfirm?.message}
-        </label>
-      </div>
+      <TextInput
+        id="name"
+        label="Name:"
+        error={errors.name?.message}
+        {...register("name")}
+      />
+      <TextInput
+        id="email"
+        label="Email:"
+        type="email"
+        error={errors.email?.message}
+        {...register("email")}
+      />
+      <TextInput
+        id="password"
+        label="Password:"
+        type="password"
+        error={errors.password?.message}
+        {...register("password")}
+      />
+      <TextInput
+        id="passwordConfirm"
+        label="Confirm Password:"
+        type="passwordConfirm"
+        error={errors.passwordConfirm?.message}
+        {...register("passwordConfirm")}
+      />
 
       <h2>Billing Details</h2>
 
-      <div className="labelled-input">
-        <label htmlFor="phone">Phone: </label>
-        <input id="phone" type="tel" {...register("phone")} />
-        <label className="input-error-label" htmlFor="phone">
-          {errors.phone?.message}
-        </label>
-      </div>
+      <TextInput
+        id="phone"
+        label="Phone:"
+        type="phone"
+        error={errors.phone?.message}
+        {...register("phone")}
+      />
+
+      <AddressFormSegment register={register} errors={errors} />
 
       <div className="labelled-input">
-        <label htmlFor="line1">Address Line 1: </label>
-        <input id="line1" type="text" {...register("line1")} />
-        <label className="input-error-label" htmlFor="line1">
-          {errors.line1?.message}
+        <label htmlFor="description" className="primary-label">
+          Description:{" "}
         </label>
-      </div>
-
-      <div className="labelled-input">
-        <label htmlFor="line2">Address Line 2: </label>
-        <input id="line2" type="text" {...register("line2")} />
-        <label className="input-error-label" htmlFor="line2">
-          {errors.line2?.message}
-        </label>
-      </div>
-
-      <div className="labelled-input">
-        <label htmlFor="city">City: </label>
-        <input id="city" type="text" {...register("city")} />
-        <label className="input-error-label" htmlFor="city">
-          {errors.city?.message}
-        </label>
-      </div>
-
-      <div className="labelled-input">
-        {/* TODO: Turn into select */}
-        <label htmlFor="state">State: </label>
-        <input id="state" type="text" {...register("state")} />
-        <label className="input-error-label" htmlFor="state">
-          {errors.state?.message}
-        </label>
-      </div>
-
-      <div className="labelled-input">
-        <label htmlFor="postal_code">Postcode: </label>
-        <input id="postal_code" type="text" {...register("postal_code")} />
-        <label className="input-error-label" htmlFor="state">
-          {errors.postal_code?.message}
-        </label>
-      </div>
-
-      <div className="labelled-input">
-        <label htmlFor="description">Description: </label>
         <textarea rows={4} id="description" {...register("description")} />
-        <label className="input-error-label" htmlFor="description">
+        <label htmlFor="description" className="error-label">
           {errors.description?.message}
         </label>
       </div>
