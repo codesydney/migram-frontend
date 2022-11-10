@@ -1,6 +1,9 @@
 import { act, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import CheckoutPage from "../../pages/checkout";
+import CheckoutPage from "../../pages/checkout/[taskId]";
+import { useRouter } from "next/router";
+
+jest.mock("next/router", () => require("next-router-mock"));
 
 describe("CheckoutPage", () => {
   test("it validates billing details", async () => {
