@@ -37,6 +37,7 @@ const CheckoutPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Schema>({
+    mode: "onBlur",
     resolver: zodResolver(schema),
   });
 
