@@ -9,6 +9,10 @@ import "nprogress/nprogress.css";
 import type { AppProps } from "next/app";
 import Layout from "../components/common/Layout";
 
+if (process.env.NODE_ENV !== "production") {
+  require("../mocks");
+}
+
 Router.events.on("routeChangeStart", () => Nprogress.start());
 Router.events.on("routeChangeComplete", () => Nprogress.done());
 Router.events.on("routeChangeError", () => Nprogress.done());

@@ -16,9 +16,7 @@ describe("CheckoutForm", () => {
     test("it validates billing details", async () => {
       const user = userEvent.setup();
 
-      const container = render(<CheckoutForm />, {
-        wrapper: QueryClientWrapper,
-      });
+      const container = render(<CheckoutForm />);
 
       const checkoutButton = container.getByText(/checkout/i, {
         selector: "button",
@@ -34,9 +32,7 @@ describe("CheckoutForm", () => {
     test("it validates billing details", async () => {
       const user = userEvent.setup();
 
-      const container = render(<CheckoutForm />, {
-        wrapper: QueryClientWrapper,
-      });
+      const container = render(<CheckoutForm />);
 
       const nameInput = container.getByLabelText(/name/i);
       const line1Input = container.getByLabelText(/address line 1/i);
