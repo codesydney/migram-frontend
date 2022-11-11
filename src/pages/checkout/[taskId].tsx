@@ -25,11 +25,9 @@ const CheckoutPage = () => {
   const router = useRouter();
   const { taskId } = router.query as { taskId: string };
 
-  const { register, onSubmit, errors } = useCheckoutForm();
-
   return (
     <StyledDiv>
-      <CheckoutForm onSubmit={onSubmit} errors={errors} register={register} />
+      <CheckoutForm />
     </StyledDiv>
   );
 };

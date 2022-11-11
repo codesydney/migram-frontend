@@ -5,6 +5,7 @@ import { TextInput } from "../../components/common/TextInput";
 import { addressSchema } from "../../types/schemas";
 import { AddressFormSegment } from "../FormSegments/AddressFormSegment";
 import { FormProps } from "../../types";
+import { useCheckoutForm } from "./hooks";
 
 export const schema = z
   .object({
@@ -14,11 +15,9 @@ export const schema = z
 
 export type Schema = z.infer<typeof schema>;
 
-export const CheckoutForm = ({
-  onSubmit,
-  errors,
-  register,
-}: FormProps<Schema>) => {
+export const CheckoutForm = () => {
+  const { onSubmit, errors, register } = useCheckoutForm();
+
   return (
     <form onSubmit={onSubmit}>
       <TextInput
