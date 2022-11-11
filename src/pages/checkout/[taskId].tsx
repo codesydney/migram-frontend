@@ -1,17 +1,10 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { FeatureFlag } from "../../utils/FeatureFlag";
 import styled from "styled-components";
 
 import { useRouter } from "next/router";
-import {
-  Schema,
-  schema,
-  CheckoutForm,
-} from "../../features/Checkout/CheckoutForm";
-import { useCheckoutForm } from "../../features/Checkout/hooks";
+import { CheckoutForm } from "../../features/Checkout/CheckoutForm";
 
 const StyledDiv = styled.div`
   form {

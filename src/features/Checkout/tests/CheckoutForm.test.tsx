@@ -1,13 +1,6 @@
-import { act, render, renderHook } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-
 import { CheckoutForm } from "../CheckoutForm";
-import { useCheckoutForm } from "../hooks";
-import CheckoutPage from "../../../pages/checkout/[taskId]";
-
-import { QueryClientWrapper } from "../../../test/utils";
-
-import { useRouter } from "next/router";
 
 jest.mock("next/router", () => require("next-router-mock"));
 
@@ -15,7 +8,6 @@ describe("CheckoutForm", () => {
   describe("onSubmit", () => {
     test("it validates billing details", async () => {
       const user = userEvent.setup();
-
       const container = render(<CheckoutForm />);
 
       const checkoutButton = container.getByText(/checkout/i, {
@@ -31,7 +23,6 @@ describe("CheckoutForm", () => {
   describe("onBlur", () => {
     test("it validates billing details", async () => {
       const user = userEvent.setup();
-
       const container = render(<CheckoutForm />);
 
       const nameInput = container.getByLabelText(/name/i);
