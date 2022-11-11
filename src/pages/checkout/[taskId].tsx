@@ -11,6 +11,7 @@ import {
   schema,
   CheckoutForm,
 } from "../../features/Checkout/CheckoutForm";
+import { useCheckoutForm } from "../../features/Checkout/hooks";
 
 const StyledDiv = styled.div`
   form {
@@ -24,24 +25,11 @@ const CheckoutPage = () => {
   const router = useRouter();
   const { taskId } = router.query as { taskId: string };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Schema>({
-    mode: "onBlur",
-    resolver: zodResolver(schema),
-  });
-
-  const onSubmit = (data: Schema) => {};
+  const { register, onSubmit, errors } = useCheckoutForm();
 
   return (
     <StyledDiv>
-      <CheckoutForm
-        onSubmit={handleSubmit(onSubmit)}
-        errors={errors}
-        register={register}
-      />
+      <CheckoutForm onSubmit={onSubmit} errors={errors} register={register} />
     </StyledDiv>
   );
 };
