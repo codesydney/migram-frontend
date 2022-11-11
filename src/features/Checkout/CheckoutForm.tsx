@@ -1,11 +1,10 @@
 "use client";
-import { FieldErrorsImpl, FieldValues, UseFormRegister } from "react-hook-form";
 import z from "zod";
 import ButtonStyles from "../../components/styles/ButtonStyles";
 import { TextInput } from "../../components/common/TextInput";
 import { addressSchema } from "../../types/schemas";
 import { AddressFormSegment } from "../FormSegments/AddressFormSegment";
-import { BaseSyntheticEvent } from "react";
+import { FormProps } from "../../types";
 
 export const schema = z
   .object({
@@ -14,14 +13,6 @@ export const schema = z
   .merge(addressSchema);
 
 export type Schema = z.infer<typeof schema>;
-
-interface FormProps<TFieldValues extends FieldValues> {
-  onSubmit: (
-    e?: BaseSyntheticEvent<object, any, any> | undefined
-  ) => Promise<void>;
-  register: UseFormRegister<TFieldValues>;
-  errors: Partial<FieldErrorsImpl<TFieldValues>>;
-}
 
 export const CheckoutForm = ({
   onSubmit,
