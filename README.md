@@ -16,6 +16,8 @@ Thank you to our contributors.
 - [ettienekorayyi](https://github.com/ettienekorayyi) - Frontend Developer
 - [davidtaing](https://github.com/davidtaing) - Frontend Developer
 - [capsap](https://github.com/capsap) - Frontend Developer
+- [foadbotan](https://github.com/foadbotan) - Frontend Developer
+
 
 # Project MIGRAM (Migrant Marketplace)
 # A. Lean Canvas
