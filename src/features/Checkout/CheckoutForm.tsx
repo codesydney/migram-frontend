@@ -15,22 +15,28 @@ export const schema = z
 
 export type Schema = z.infer<typeof schema>;
 
-export const CheckoutForm = () => {
+interface CheckoutFormProps {
+  disabled: boolean;
+}
+
+export const CheckoutForm = ({ disabled }: CheckoutFormProps) => {
   const { onSubmit, errors, register } = useCheckoutForm();
 
   return (
     <form onSubmit={onSubmit}>
-      <TextInput
-        id="name"
-        label="Name:"
-        error={errors.name?.message}
-        {...register("name")}
-      />
-      <AddressFormSegment register={register} errors={errors} />
+      <fieldset disabled={disabled}>
+        <TextInput
+          id="name"
+          label="Name:"
+          error={errors.name?.message}
+          {...register("name")}
+        />
+        <AddressFormSegment register={register} errors={errors} />
 
-      <ButtonStyles type="submit" primary>
-        Checkout
-      </ButtonStyles>
+        <ButtonStyles type="submit" primary>
+          Checkout
+        </ButtonStyles>
+      </fieldset>
     </form>
   );
 };
