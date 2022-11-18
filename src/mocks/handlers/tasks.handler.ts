@@ -1,4 +1,5 @@
 import { rest } from "msw";
+import { fetchURL } from "../../pages/checkout/[taskId]";
 
 const getTaskResponse = {
   location: {
@@ -24,9 +25,6 @@ const getTaskResponse = {
   id: "6350d7bc80c58772355d7620",
 };
 
-export const getTask = rest.get(
-  `${process.env.NEXT_PUBLIC_SERVER_URL}/tasks/:id`,
-  (req, res, ctx) => {
-    return res(ctx.json(getTaskResponse));
-  }
-);
+export const getTask = rest.get(fetchURL + ":id", (req, res, ctx) => {
+  return res(ctx.json(getTaskResponse));
+});

@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { CheckoutForm } from "../../features/Checkout/CheckoutForm";
 import { CheckoutDetails } from "../../features/Checkout/CheckoutDetails";
-import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 const StyledDiv = styled.div`
@@ -17,6 +16,8 @@ const StyledDiv = styled.div`
   }
 `;
 
+export const fetchURL = `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/`;
+
 const CheckoutPage = () => {
   const router = useRouter();
   const { taskId } = router.query as { taskId: string };
@@ -25,7 +26,7 @@ const CheckoutPage = () => {
     queryKey: ["tasks", taskId],
     queryFn: async () => {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/tasks/` + taskId
+        fetchURL + taskId
       );
 
       if (!response.ok) {
