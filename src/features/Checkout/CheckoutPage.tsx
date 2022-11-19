@@ -1,8 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
-import { fetchURL } from "../../pages/checkout/[taskId]";
 import { CheckoutDetails } from "./CheckoutDetails";
 import { CheckoutForm } from "./CheckoutForm";
+import { useTaskFetch } from "./hooks";
 
 const StyledDiv = styled.div`
   form {
@@ -13,22 +12,13 @@ const StyledDiv = styled.div`
 `;
 
 export const CheckoutPage = ({ taskId }: { taskId: string }) => {
-  const query = useQuery({
-    queryKey: ["tasks", taskId],
-    queryFn: async () => {
-      const response = await fetch(fetchURL + taskId);
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    },
-  });
+  const query = useTaskFetch(taskId);
+  const isLoading = query.isLoading;
 
   return (
     <StyledDiv>
-      <CheckoutDetails task={{}} />
-      <CheckoutForm disabled={true} />
+      <CheckoutDetails task={query.data} isLoading={isLoading} />
+      <CheckoutForm disabled={isLoading} />
     </StyledDiv>
   );
 };
