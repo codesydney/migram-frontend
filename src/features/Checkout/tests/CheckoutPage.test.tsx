@@ -29,7 +29,7 @@ describe("CheckoutPage at /checkout/:taskId", () => {
       wrapper: QueryClientWrapper,
     });
 
-    await waitFor(() => container.getByText(/task/i));
+    await waitFor(() => container.getByText(/task details/i));
 
     const nameInput = container.getByLabelText(/name/i);
 
