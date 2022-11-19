@@ -43,7 +43,7 @@ export const CheckoutDetails = ({ task, isLoading }: CheckoutDetailsProps) => {
   return (
     <StyledDiv>
       <h2>Task Details</h2>
-      <h4>End of Lease Cleaning</h4>
+      <h4>{task.details}</h4>
       <p>123 Fake St, Sydney NSW 2000</p>
 
       <h4>Your task was completed by</h4>
@@ -58,10 +58,10 @@ export const CheckoutDetails = ({ task, isLoading }: CheckoutDetailsProps) => {
       </div>
 
       <div className="price-container">
-        <h4 className="price">
+        <h5 className="price">
           <span>Total</span>
-          <span>AUD $300</span>
-        </h4>
+          <span>AUD ${task.budget}</span>
+        </h5>
       </div>
     </StyledDiv>
   );
