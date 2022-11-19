@@ -8,6 +8,10 @@ const StyledDiv = styled.div`
   flex-direction: column;
   padding: 1rem;
 
+  > * {
+    padding-bottom: 1rem;
+  }
+
   form {
     display: flex;
     flex-direction: column;
@@ -55,8 +59,7 @@ const StyledDiv = styled.div`
     margin-bottom: 1rem;
   }
 
-  p,
-  span {
+  p {
     font-size: 1rem;
     line-height: 1.2rem;
     margin: 0 0 1rem;
@@ -65,6 +68,7 @@ const StyledDiv = styled.div`
   @media (min-width: 768px) {
     display: grid;
     grid-template-columns: 1fr 2fr;
+    gap: 2rem;
 
     h1 {
       font-size: 2.5rem;
