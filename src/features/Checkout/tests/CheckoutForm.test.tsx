@@ -2,8 +2,6 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { CheckoutForm } from "../CheckoutForm";
 
-jest.mock("next/router", () => require("next-router-mock"));
-
 describe("CheckoutForm", () => {
   it("should validate billing details onSubmit", async () => {
     const user = userEvent.setup();
