@@ -1,17 +1,14 @@
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { useRouter } from "next/router";
+import { CheckoutPage } from "../CheckoutPage";
 
-import CheckoutPage from "../../../pages/checkout/[taskId]";
-import { QueryClientWrapper } from "../../utils";
-
-jest.mock("next/router", () => require("next-router-mock"));
+import { QueryClientWrapper } from "../../../test/utils";
 
 describe("CheckoutPage at /checkout/:taskId", () => {
   describe("When the task is loading", () => {
     test("The form is disabled", async () => {
       const user = userEvent.setup();
-      const container = render(<CheckoutPage />, {
+      const container = render(<CheckoutPage taskId="1" />, {
         wrapper: QueryClientWrapper,
       });
 
