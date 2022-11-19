@@ -1,3 +1,8 @@
-export const CheckoutDetails = ({ task }: any) => {
-  return <div>Loading</div>;
+interface CheckoutDetailsProps {
+  task: any;
+  isLoading: boolean;
+}
+
+export const CheckoutDetails = ({ task, isLoading }: CheckoutDetailsProps) => {
+  return <div>{isLoading ? "Loading" : "Task"}</div>;
 };
