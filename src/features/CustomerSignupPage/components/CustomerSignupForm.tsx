@@ -92,7 +92,7 @@ export const CustomerSignupForm = ({
       <TextInput
         id="passwordConfirm"
         label="Confirm Password:"
-        type="passwordConfirm"
+        type="password"
         error={errors.passwordConfirm?.message}
         {...register("passwordConfirm")}
       />
