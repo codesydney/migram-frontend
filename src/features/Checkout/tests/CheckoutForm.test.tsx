@@ -7,7 +7,7 @@ jest.mock("next/router", () => require("next-router-mock"));
 describe("CheckoutForm", () => {
   it("should validate billing details onSubmit", async () => {
     const user = userEvent.setup();
-    const container = render(<CheckoutForm />);
+    const container = render(<CheckoutForm disabled={false} />);
 
     const checkoutButton = container.getByText(/checkout/i, {
       selector: "button",
@@ -20,7 +20,7 @@ describe("CheckoutForm", () => {
 
   it("should validate billing details, onBlur", async () => {
     const user = userEvent.setup();
-    const container = render(<CheckoutForm />);
+    const container = render(<CheckoutForm disabled={false} />);
 
     const nameInput = container.getByLabelText(/name/i);
     const line1Input = container.getByLabelText(/address line 1/i);
