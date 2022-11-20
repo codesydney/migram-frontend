@@ -5,19 +5,19 @@ import "@testing-library/jest-dom/extend-expect";
 import { TextInput } from "../TextInput";
 
 describe("TextInput", () => {
-  test("Displays error message if error prop is provided", () => {
+  it("should display an error message if error prop is provided", () => {
     render(<TextInput label="Name" id="name" error="ERROR" />);
 
     expect(screen.queryByText("ERROR")).toBeTruthy();
   });
 
-  test("No error message if error prop is not provided", () => {
+  it("Should have no error message if error prop is not provided", () => {
     render(<TextInput label="Name" id="name" />);
 
     expect(screen.queryByText("ERROR")).toBeFalsy();
   });
 
-  test("Clicking on the label focuses on the input", async () => {
+  test("input should be focused after clicking on the label", async () => {
     const user = userEvent.setup();
     render(
       <>

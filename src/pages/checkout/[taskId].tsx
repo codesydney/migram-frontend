@@ -1,28 +1,13 @@
-"use client";
+import { useRouter } from "next/router";
 
 import { FeatureFlag } from "../../utils/FeatureFlag";
-import styled from "styled-components";
+import { CheckoutPage } from "../../features/Checkout";
 
-import { useRouter } from "next/router";
-import { CheckoutForm } from "../../features/Checkout/CheckoutForm";
-
-const StyledDiv = styled.div`
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-`;
-
-const CheckoutPage = () => {
+const CheckoutRoute = () => {
   const router = useRouter();
   const { taskId } = router.query as { taskId: string };
 
-  return (
-    <StyledDiv>
-      <CheckoutForm />
-    </StyledDiv>
-  );
+  return <CheckoutPage taskId={taskId} />;
 };
 
-export default FeatureFlag(CheckoutPage, { isPage: true });
+export default FeatureFlag(CheckoutRoute, { isPage: true });

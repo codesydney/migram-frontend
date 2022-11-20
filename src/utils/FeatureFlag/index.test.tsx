@@ -13,59 +13,49 @@ describe("FeatureFlag", () => {
     process.env = env;
   });
 
-  describe("When node_env = 'production'", () => {
-    test("it returns a React.Fragment", () => {
-      process.env = { ...env, NODE_ENV: "production" };
+  it("should render nothing when node_env = 'production'", () => {
+    process.env = { ...env, NODE_ENV: "production" };
 
-      const ProductionComponent = () => <div>Production Component</div>;
-      const ActualComponent = FeatureFlag(ProductionComponent);
+    const ProductionComponent = () => <div>Production Component</div>;
+    const ActualComponent = FeatureFlag(ProductionComponent);
 
-      render(<ActualComponent />);
+    render(<ActualComponent />);
 
-      expect(screen.queryByText(/production component/i)).toBeNull();
-    });
+    expect(screen.queryByText(/production component/i)).toBeNull();
   });
 
-  describe("When node_env = 'production' and Component isPage = true", () => {
-    test("it renders 'this feature is not available'", () => {
-      process.env = { ...env, NODE_ENV: "production" };
+  it("should render 'this feature is not available' when node_env = 'production' and component is page", () => {
+    process.env = { ...env, NODE_ENV: "production" };
 
-      const ProductionComponent = () => <div>Production Component</div>;
-      const ActualComponent = FeatureFlag(ProductionComponent, {
-        isPage: true,
-      });
-
-      render(<ActualComponent />);
-
-      expect(
-        screen.queryByText(/this feature is not available./i)
-      ).not.toBeNull();
+    const ProductionComponent = () => <div>Production Component</div>;
+    const ActualComponent = FeatureFlag(ProductionComponent, {
+      isPage: true,
     });
+
+    render(<ActualComponent />);
+
+    expect(screen.queryByText(/this feature is not available./i)).toBeTruthy();
   });
 
-  describe("When node_env = 'development'", () => {
-    test("it returns the development component", () => {
-      process.env = { ...env, NODE_ENV: "development" };
+  it("should return the component when node_env = 'development'", () => {
+    process.env = { ...env, NODE_ENV: "development" };
 
-      const DevlopmentComponent = () => <div>Development Component</div>;
-      const ActualComponent = FeatureFlag(DevlopmentComponent);
+    const DevlopmentComponent = () => <div>Development Component</div>;
+    const ActualComponent = FeatureFlag(DevlopmentComponent);
 
-      render(<ActualComponent />);
+    render(<ActualComponent />);
 
-      expect(screen.queryByText(/development component/i)).not.toBeNull();
-    });
+    expect(screen.queryByText(/development component/i)).not.toBeNull();
   });
 
-  describe("When node_env = 'test'", () => {
-    test("it returns a test component", () => {
-      process.env = { ...env, NODE_ENV: "test" };
+  it("should return the component when node_env = 'test", () => {
+    process.env = { ...env, NODE_ENV: "test" };
 
-      const TestComponent = () => <div>Test Component</div>;
-      const ActualComponent = FeatureFlag(TestComponent);
+    const TestComponent = () => <div>Test Component</div>;
+    const ActualComponent = FeatureFlag(TestComponent);
 
-      render(<ActualComponent />);
+    render(<ActualComponent />);
 
-      expect(screen.queryByText(/test component/i)).not.toBeNull();
-    });
+    expect(screen.queryByText(/test component/i)).not.toBeNull();
   });
 });
