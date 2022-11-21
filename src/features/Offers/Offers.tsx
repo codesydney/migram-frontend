@@ -13,7 +13,7 @@ const OffersStyles = styled.div`
 `;
 
 export function Offers({ statusFilter, setSelectedTask, selectedTask }: any) {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const [offers, setOffers]: any = useState([]);
 
   useEffect(() => {
@@ -22,9 +22,6 @@ export function Offers({ statusFilter, setSelectedTask, selectedTask }: any) {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/offers`, {
         params: { my_offers: true, status: statusFilter },
-        headers: {
-          authorization: `Bearer ${session?.accessToken}`,
-        },
       })
       .then((response) => {
         setOffers(response.data.data.offers);
@@ -32,18 +29,13 @@ export function Offers({ statusFilter, setSelectedTask, selectedTask }: any) {
       .catch((error) => {
         console.log(error);
       });
-  }, [status, statusFilter, session?.accessToken]);
+  }, [status, statusFilter]);
 
   useEffect(() => {
     for (let item in offers) {
       axios
         .get(
-          `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${offers[item].task}`,
-          {
-            headers: {
-              authorization: `Bearer ${session?.accessToken}`,
-            },
-          }
+          `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${offers[item].task}`
         )
         .then((response) => {
           console.log("task", response.data.data.task);
@@ -53,7 +45,7 @@ export function Offers({ statusFilter, setSelectedTask, selectedTask }: any) {
           console.log(error);
         });
     }
-  }, [offers, session?.accessToken]);
+  }, [offers]);
 
   return (
     <OffersStyles>

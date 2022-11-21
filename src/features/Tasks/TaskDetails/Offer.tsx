@@ -30,19 +30,10 @@ export function Offer({ offer, myTask }: any) {
 
   async function handleAcceptOffer() {
     axios
-      .post(
-        `${process.env.NEXT_PUBLIC_API_URL}api/v1/acceptoffer/`,
-        {
-          taskId: offer.task,
-          offerId: offer.id,
-        },
-        {
-          // params: { my_tasks: true },
-          headers: {
-            authorization: `Bearer ${session?.accessToken}`,
-          },
-        }
-      )
+      .post(`${process.env.NEXT_PUBLIC_API_URL}api/v1/acceptoffer/`, {
+        taskId: offer.task,
+        offerId: offer.id,
+      })
       .then((response) => {
         console.log(response);
         router.push("/mytasks");

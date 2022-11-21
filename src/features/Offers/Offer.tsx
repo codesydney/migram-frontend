@@ -1,23 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { useSession } from "next-auth/react";
 import OfferStyles from "./OfferStyles";
 
 export function Offer({ offer, setSelectedTask, selectedTask }: any) {
-  const { data: session } = useSession();
   // const { selectedOffer, setSelectedOffer } = useState(null);
 
   async function handleCompleteOffer() {
     axios
       .patch(
-        `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${offer.task}/completed`,
-        {},
-        {
-          headers: {
-            authorization: `Bearer ${session?.accessToken}`,
-          },
-        }
+        `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${offer.task}/completed`
       )
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
@@ -27,11 +19,7 @@ export function Offer({ offer, setSelectedTask, selectedTask }: any) {
     <OfferStyles
       onClick={async () => {
         await axios
-          .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${offer.task}`, {
-            headers: {
-              authorization: `Bearer ${session?.accessToken}`,
-            },
-          })
+          .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${offer.task}`)
           .then((response) => {
             setSelectedTask(response.data.data.task);
           })
