@@ -9,7 +9,7 @@ import "nprogress/nprogress.css";
 import type { AppProps } from "next/app";
 import Layout from "../components/common/Layout";
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV === "test") {
   require("../mocks");
 }
 
