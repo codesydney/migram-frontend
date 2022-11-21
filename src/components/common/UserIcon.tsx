@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/legacy/image";
 import { useSession, signOut } from "next-auth/react";
+import axios from "axios";
 import styled from "styled-components";
 
 import UserIconStyles from "../styles/UserIconStyles";
@@ -29,6 +30,7 @@ export default function UserIcon(props: any) {
     e.preventDefault();
     const data: any = await signOut({ redirect: false, callbackUrl: "/login" });
     if (data.url) {
+      delete axios.defaults.headers.common["Authorization"];
       router.push(data.url);
     }
   }
