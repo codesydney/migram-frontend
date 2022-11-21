@@ -31,12 +31,7 @@ export function AccountPage() {
     if (session?.user?.customerId) {
       axios
         .get(
-          `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/${session?.user?.customerId}/paymentMethods`,
-          {
-            headers: {
-              authorization: `Bearer ${session?.accessToken}`,
-            },
-          }
+          `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/${session?.user?.customerId}/paymentMethods`
         )
         .then((response) => {
           console.log("*", response);
@@ -66,7 +61,6 @@ export function AccountPage() {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${session?.accessToken}`,
             },
           }
         )
@@ -82,11 +76,6 @@ export function AccountPage() {
                 photo: imageURL,
                 firstName: inputs.firstName,
                 lastName: inputs.lastName,
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${session?.accessToken}`,
-                },
               }
             )
             .then((response) => {
@@ -116,11 +105,6 @@ export function AccountPage() {
           {
             firstName: inputs.firstName,
             lastName: inputs.lastName,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${session?.accessToken}`,
-            },
           }
         )
         .then((response) => {
@@ -161,13 +145,7 @@ export function AccountPage() {
                   <ButtonStyles
                     onClick={() => {
                       axios.put(
-                        `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/${session.user.customerId}/detachCreditCard`,
-                        {},
-                        {
-                          headers: {
-                            Authorization: `Bearer ${session.accessToken}`,
-                          },
-                        }
+                        `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/${session.user.customerId}/detachCreditCard`
                       );
                     }}
                   >
@@ -189,12 +167,7 @@ export function AccountPage() {
                     axios
                       .post(
                         `${process.env.NEXT_PUBLIC_API_URL}api/v1/providers`,
-                        { UserId: session?.user.id },
-                        {
-                          headers: {
-                            authorization: `Bearer ${session?.accessToken}`,
-                          },
-                        }
+                        { UserId: session?.user.id }
                       )
                       .then((response) => {
                         console.log(response);

@@ -36,6 +36,7 @@ const LoginPage: NextPage = () => {
 
     const session = await getSession();
 
+    // set JWT token as default header for axios
     axios.defaults.headers.common[
       "authorization"
     ] = `Bearer ${session?.accessToken}`;

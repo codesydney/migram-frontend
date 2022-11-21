@@ -1,5 +1,4 @@
 import Image from "next/legacy/image";
-import { useSession } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faInfo,
@@ -22,7 +21,6 @@ export default function SubmitForm({
   isFilePicked,
   currentStep,
 }: any) {
-  const { data: session } = useSession();
   const [sending, setSending] = useState(false);
   const router = useRouter();
 
@@ -48,7 +46,6 @@ export default function SubmitForm({
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${session?.accessToken}`,
             },
           }
         )
@@ -56,29 +53,21 @@ export default function SubmitForm({
           imageURL = response.data.data.photos[0];
 
           axios
-            .post(
-              `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/`,
-              {
-                category: formData.category,
-                title: "Placeholder",
-                details: formData.details,
-                dueDate: formData.date,
-                budget: formData.budget,
-                photos: [imageURL],
-                location: {
-                  name: formData.location,
-                  type: "Point",
-                  coordinates: [0, 0],
-                },
-                timeEstimate: formData.timeEstimate,
-                timeOfArrival: formData.timeOfArrival,
+            .post(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/`, {
+              category: formData.category,
+              title: "Placeholder",
+              details: formData.details,
+              dueDate: formData.date,
+              budget: formData.budget,
+              photos: [imageURL],
+              location: {
+                name: formData.location,
+                type: "Point",
+                coordinates: [0, 0],
               },
-              {
-                headers: {
-                  authorization: `Bearer ${session?.accessToken}`,
-                },
-              }
-            )
+              timeEstimate: formData.timeEstimate,
+              timeOfArrival: formData.timeOfArrival,
+            })
             .then((response) => {
               setSending(false);
               router.push(`/mytasks/${response.data.data.task._id}`);
@@ -95,29 +84,21 @@ export default function SubmitForm({
     // Post task WITHOUT photo
     else {
       axios
-        .post(
-          `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/`,
-          {
-            category: formData.category,
-            title: "Placeholder",
-            details: formData.details,
-            dueDate: formData.date,
-            budget: formData.budget,
-            photos: "",
-            location: {
-              name: formData.location,
-              type: "Point",
-              coordinates: [0, 0],
-            },
-            timeEstimate: formData.timeEstimate,
-            timeOfArrival: formData.timeOfArrival,
+        .post(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/`, {
+          category: formData.category,
+          title: "Placeholder",
+          details: formData.details,
+          dueDate: formData.date,
+          budget: formData.budget,
+          photos: "",
+          location: {
+            name: formData.location,
+            type: "Point",
+            coordinates: [0, 0],
           },
-          {
-            headers: {
-              authorization: `Bearer ${session?.accessToken}`,
-            },
-          }
-        )
+          timeEstimate: formData.timeEstimate,
+          timeOfArrival: formData.timeOfArrival,
+        })
         .then((response) => {
           setSending(false);
           router.push(`/mytasks/${response.data.data.task._id}`);
