@@ -1,9 +1,10 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
 
 import UserIcon from "../UserIcon";
 import { NavItems } from "./NavItems";
+import axios from "axios";
 
 const StyledNavMenu = styled.ul`
   margin: 0;
@@ -55,6 +56,14 @@ export const NavMenu = ({
   setHamburgerActive,
 }: StyledNavMenuProps) => {
   const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session && !axios.defaults.headers.common["authorization"]) {
+      axios.defaults.headers.common[
+        "authorization"
+      ] = `Bearer ${session?.accessToken}`;
+    }
+  }, [session]);
 
   const handleMenuItemClick = () => {
     setHamburgerActive(false);
