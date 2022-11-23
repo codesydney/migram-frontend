@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSession } from "next-auth/react";
 import axios from "axios";
 import styled from "styled-components";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
@@ -22,7 +21,6 @@ const CardElementContainerStyle = styled.div`
 `;
 
 function AddCardPage() {
-  const { data: session } = useSession();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -42,12 +40,7 @@ function AddCardPage() {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/create-setup-intent`,
-        inputs,
-        {
-          headers: {
-            Authorization: `Bearer ${session?.accessToken}`,
-          },
-        }
+        inputs
       );
       await handleStripeSubmit(response.data.client_secret);
     } catch (error) {
@@ -92,11 +85,6 @@ function AddCardPage() {
         `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers/create-setup-intent`,
         {
           customerCreditCard: `....${cardNumber.slice(-5, -1)}`,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${session?.accessToken}`,
-          },
         }
       )
       .then((response) => {

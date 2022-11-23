@@ -5,7 +5,7 @@ export default interface Task {
   location: string;
   budget: number;
   date: string;
-  photos: File;
+  photos: string[];
   timeOfArrival: string;
   timeEstimate: string;
 }

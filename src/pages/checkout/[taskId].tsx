@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 
 import { FeatureFlag } from "../../utils/FeatureFlag";
-import { CheckoutPage } from "../../features/Checkout/CheckoutPage";
+import { CheckoutPage } from "../../features/Checkout";
 
 const CheckoutRoute = () => {
   const router = useRouter();

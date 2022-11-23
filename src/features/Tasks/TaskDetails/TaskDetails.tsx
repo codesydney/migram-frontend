@@ -55,11 +55,6 @@ export function TaskDetails({ selectedTask }: any) {
         {
           offerAmt: inputs.offerAmt,
           comments: inputs.comments,
-        },
-        {
-          headers: {
-            authorization: `Bearer ${session?.accessToken}`,
-          },
         }
       )
       .then((response) => {
@@ -89,13 +84,9 @@ export function TaskDetails({ selectedTask }: any) {
   async function handleReleasePayment(e: any) {
     e.preventDefault();
     axios
-      .post(
-        `${process.env.NEXT_PUBLIC_API_URL}api/v1/releasePayment`,
-        {
-          taskId: selectedTask.id,
-        },
-        { headers: { authorization: `Bearer ${session?.accessToken}` } }
-      )
+      .post(`${process.env.NEXT_PUBLIC_API_URL}api/v1/releasePayment`, {
+        taskId: selectedTask.id,
+      })
       .then((response) => {
         const { client_secret, payment_method } = response.data.data;
         handleStripeSubmit(client_secret, payment_method);
@@ -113,14 +104,7 @@ export function TaskDetails({ selectedTask }: any) {
     setUpdatedTask(selectedTask);
     // setIsMyTask(false);
     axios
-      .get(
-        `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${selectedTask._id}`,
-        {
-          headers: {
-            authorization: `Bearer ${session?.accessToken}`,
-          },
-        }
-      )
+      .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${selectedTask._id}`)
       .then((response) => {
         if (response.data.data.task.customerId == session?.user.customerId) {
           setIsMyTask(true);

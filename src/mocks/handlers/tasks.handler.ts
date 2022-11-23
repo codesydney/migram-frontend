@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { fetchURL } from "../../features/Checkout/hooks/useTaskFetch";
+import { getTaskURL } from "../../features/Checkout/hooks/useTaskFetch";
 
 const getTaskResponse = {
   location: {
@@ -25,6 +25,6 @@ const getTaskResponse = {
   id: "6350d7bc80c58772355d7620",
 };
 
-export const getTask = rest.get(fetchURL + ":id", (req, res, ctx) => {
+export const getTask = rest.get(getTaskURL + ":id", (req, res, ctx) => {
   return res(ctx.json(getTaskResponse));
 });

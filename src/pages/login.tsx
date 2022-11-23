@@ -11,6 +11,8 @@ import ButtonStyles from "../components/styles/ButtonStyles";
 import FormStyles from "../components/styles/FormStyles";
 import { validate } from "../lib/validator";
 import useForm from "../lib/useForm";
+import axios from "axios";
+import { getSession } from "next-auth/react";
 
 const LoginPage: NextPage = () => {
   const router = useRouter();
@@ -31,6 +33,14 @@ const LoginPage: NextPage = () => {
       redirect: false,
       callbackUrl: "/",
     });
+
+    const session = await getSession();
+
+    // set JWT token as default header for axios
+    axios.defaults.headers.common[
+      "authorization"
+    ] = `Bearer ${session?.accessToken}`;
+
     setLoading(false);
     if (data?.url) {
       resetForm();

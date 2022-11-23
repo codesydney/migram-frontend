@@ -25,6 +25,7 @@ export const CheckoutForm = ({ disabled }: CheckoutFormProps) => {
   return (
     <form onSubmit={onSubmit}>
       <fieldset disabled={disabled}>
+        <h2>Billing Details</h2>
         <TextInput
           id="name"
           label="Name:"
