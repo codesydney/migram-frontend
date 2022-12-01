@@ -42,8 +42,8 @@ const Home: NextPage = () => {
           <h2>migrant marketplace</h2>
         )}
         <p>
-          Illawara Multicultural Services strive to provide equal and
-          independant work opportunities for refugees and inmigrants. Support
+          Illawarra Multicultural Services strive to provide equal and
+          independent work opportunities for refugees and immigrants. Support
           our community by creating jobs through this easy to use platform.
         </p>
         <div className="flex-container">
