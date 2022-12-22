@@ -1,39 +1,52 @@
 "use client";
-import z from "zod";
 import ButtonStyles from "../../components/styles/ButtonStyles";
-import { TextInput } from "../../components/common/TextInput";
-import { addressSchema } from "../../types/schemas";
-import { AddressFormSegment } from "../FormSegments/AddressFormSegment";
-import { FormProps } from "../../types";
-import { useCheckoutForm } from "./hooks";
-
-export const schema = z
-  .object({
-    name: z.string().min(1, "Please enter a name"),
-  })
-  .merge(addressSchema);
-
-export type Schema = z.infer<typeof schema>;
+import { AddressElement, CardElement } from "@stripe/react-stripe-js";
+import styled from "styled-components";
+import React from "react";
 
 interface CheckoutFormProps {
   disabled: boolean;
 }
 
+const CardElementContainer = styled.div`
+  margin-top: 12px;
+
+  .cardInput__container {
+    margin-bottom: 12px;
+    padding: 12px;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+  }
+
+  label {
+    margin-bottom: 0.25rem;
+    font-size: 0.93rem;
+    font-weight: 400;
+    font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+      Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    color: rgb(48, 49, 61);
+  }
+`;
+
 export const CheckoutForm = ({ disabled }: CheckoutFormProps) => {
-  const { onSubmit, errors, register } = useCheckoutForm();
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  };
 
   return (
-    <form onSubmit={onSubmit} aria-label="Checkout Form">
+    <form method="post" onSubmit={onSubmit} aria-label="Checkout Form">
       <fieldset disabled={disabled}>
         <h2>Billing Details</h2>
-        <TextInput
-          id="name"
-          label="Name:"
-          error={errors.name?.message}
-          {...register("name")}
+        <AddressElement
+          options={{ mode: "billing", allowedCountries: ["AU"] }}
         />
-        <AddressFormSegment register={register} errors={errors} />
 
+        <CardElementContainer>
+          <label>Card details</label>
+          <div className="cardInput__container">
+            <CardElement id="card-element" />
+          </div>
+        </CardElementContainer>
         <ButtonStyles type="submit" primary>
           Checkout
         </ButtonStyles>

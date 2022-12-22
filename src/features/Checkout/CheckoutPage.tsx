@@ -107,7 +107,7 @@ export const CheckoutPage = ({ taskId }: { taskId: string }) => {
   const isLoading = query.isLoading;
 
   return (
-    <StyledDiv>
+    <StyledDiv aria-label="Checkout Page">
       <CheckoutDetails task={query.data} isLoading={isLoading} />
       <CheckoutForm disabled={isLoading} />
     </StyledDiv>
