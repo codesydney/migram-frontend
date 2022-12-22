@@ -143,7 +143,7 @@ export function TaskDetails({ selectedTask }: any) {
       <>
         {updatedTask?.status == "completed" && isMyTask && (
           <ButtonStyles onClick={handleReleasePayment} fullWidth>
-            Checkout
+            Finalize Payment
           </ButtonStyles>
         )}
         <SubmitFormStyles>
