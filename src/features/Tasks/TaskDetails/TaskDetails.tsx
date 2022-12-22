@@ -23,6 +23,7 @@ import ImageModal from "../../../components/common/ImageModal";
 import ButtonStyles from "../../../components/styles/ButtonStyles";
 import SubmitFormStyles from "../../../components/styles/SubmitFormStyles";
 import FormStyles from "../../../components/styles/FormStyles";
+import Link from "next/link";
 
 export function TaskDetails({ selectedTask }: any) {
   // const { selectedTask } = useContext(DashboardContext);
@@ -81,22 +82,6 @@ export function TaskDetails({ selectedTask }: any) {
       .then(function (result) {});
   }
 
-  async function handleReleasePayment(e: any) {
-    e.preventDefault();
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}api/v1/releasePayment`, {
-        taskId: selectedTask.id,
-      })
-      .then((response) => {
-        const { client_secret, payment_method } = response.data.data;
-        handleStripeSubmit(client_secret, payment_method);
-        router.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
   useEffect(() => {
     if (!selectedTask) {
       return;
@@ -142,9 +127,9 @@ export function TaskDetails({ selectedTask }: any) {
     selectedTask && (
       <>
         {updatedTask?.status == "completed" && isMyTask && (
-          <ButtonStyles onClick={handleReleasePayment} fullWidth>
-            Finalize Payment
-          </ButtonStyles>
+          <Link href={`/checkout/${selectedTask._id}`}>
+            <ButtonStyles fullWidth>Finalize Payment</ButtonStyles>
+          </Link>
         )}
         <SubmitFormStyles>
           <div className="section-1">
