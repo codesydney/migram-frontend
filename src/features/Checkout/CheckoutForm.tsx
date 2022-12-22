@@ -23,7 +23,7 @@ export const CheckoutForm = ({ disabled }: CheckoutFormProps) => {
   const { onSubmit, errors, register } = useCheckoutForm();
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} aria-label="Checkout Form">
       <fieldset disabled={disabled}>
         <h2>Billing Details</h2>
         <TextInput

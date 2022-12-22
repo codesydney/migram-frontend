@@ -1,8 +1,16 @@
-import { act, render } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { CheckoutForm } from "../CheckoutForm";
 
 describe("CheckoutForm", () => {
+  test("Smoke test if it renders", () => {
+    render(<CheckoutForm disabled={false} />);
+
+    expect(
+      screen.queryByRole("form", { name: /^checkout form$/i })
+    ).toBeTruthy();
+  });
+
   it("should validate billing details onSubmit", async () => {
     const user = userEvent.setup();
     const container = render(<CheckoutForm disabled={false} />);
