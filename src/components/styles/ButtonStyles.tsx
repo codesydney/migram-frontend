@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 
-interface ButtonProps {
+export type ButtonProps = {
   primary?: boolean;
   fullWidth?: boolean;
   inLine?: boolean;
-}
+} & React.ComponentPropsWithoutRef<"button">;
 
 const ButtonStyles = styled.button<ButtonProps>`
   min-width: 160px;
