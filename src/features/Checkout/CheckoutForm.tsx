@@ -3,9 +3,11 @@ import ButtonStyles from "../../components/styles/ButtonStyles";
 import { AddressElement, CardElement } from "@stripe/react-stripe-js";
 import styled from "styled-components";
 import React from "react";
+import { useCreatePaymentIntent } from "./hooks";
 
 interface CheckoutFormProps {
   disabled: boolean;
+  taskId: string;
 }
 
 const CardElementContainer = styled.div`
@@ -28,7 +30,9 @@ const CardElementContainer = styled.div`
   }
 `;
 
-export const CheckoutForm = ({ disabled }: CheckoutFormProps) => {
+export const CheckoutForm = ({ disabled, taskId }: CheckoutFormProps) => {
+  const { clientSecret } = useCreatePaymentIntent(taskId);
+
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
   };
