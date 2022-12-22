@@ -48,7 +48,7 @@ export const CheckoutForm = ({ disabled, taskId }: CheckoutFormProps) => {
         <CardElementContainer>
           <label>Card details</label>
           <div className="cardInput__container">
-            <CardElement id="card-element" />
+            <CardElement id="card-element" options={{ hidePostalCode: true }} />
           </div>
         </CardElementContainer>
         <ButtonStyles type="submit" primary>
