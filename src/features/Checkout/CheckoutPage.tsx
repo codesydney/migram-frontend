@@ -109,7 +109,7 @@ export const CheckoutPage = ({ taskId }: { taskId: string }) => {
   return (
     <StyledDiv aria-label="Checkout Page">
       <CheckoutDetails task={query.data} isLoading={isLoading} />
-      <CheckoutForm disabled={isLoading} taskId={taskId} />
+      <CheckoutForm isPageLoading={isLoading} taskId={taskId} />
     </StyledDiv>
   );
 };

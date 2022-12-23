@@ -4,7 +4,7 @@ import { CheckoutForm } from "../CheckoutForm";
 
 describe("CheckoutForm", () => {
   test("Smoke test if it renders", () => {
-    render(<CheckoutForm disabled={false} taskId="0" />, {
+    render(<CheckoutForm isPageLoading={false} taskId="0" />, {
       wrapper: ElementsWrapper,
     });
 

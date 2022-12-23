@@ -12,16 +12,18 @@ import { StripeCardElement } from "@stripe/stripe-js";
 import { CardElement } from "./CardElement";
 
 interface CheckoutFormProps {
-  disabled: boolean;
+  isPageLoading: boolean;
   taskId: string;
 }
 
-export const CheckoutForm = ({ disabled, taskId }: CheckoutFormProps) => {
+export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const { clientSecret } = useCreatePaymentIntent(taskId);
+
+  const disabled = isPageLoading || isLoading;
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
