@@ -20,8 +20,8 @@ export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState<string | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState(false);
-  const { clientSecret } = useCreatePaymentIntent(taskId);
+  const [isLoading, setIsLoading] = useState(true);
+  const { clientSecret } = useCreatePaymentIntent(taskId, setIsLoading);
 
   const disabled = isPageLoading || isLoading;
 
