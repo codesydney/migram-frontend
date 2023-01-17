@@ -7,7 +7,8 @@
       "@Components/*": ["src/components/*"],
       "@Billing/*": ["src/billing/*"],
       "@Tasks/*": ["src/tasks/*"],
-      "@Users/*": ["src/users/*"]
+      "@Users/*": ["src/users/*"],
+      "@Types/*": ["src/types/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,
