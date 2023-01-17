@@ -1,9 +1,9 @@
 import { TopBar as TopBarPrimitive, Icon, Frame, Text } from "@shopify/polaris";
-import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 
 import { signOut } from "@Users/Auth/api";
+import { useSetAuthHeader } from "@Users/Auth/hooks";
 import { routerPush } from "@Utils/index";
 
 /**
@@ -29,13 +29,7 @@ export const TopBar = () => {
   const [isSecondaryMenuOpen, setIsSecondaryMenuOpen] = useState(false);
 
   // TODO Refactor into App
-  useEffect(() => {
-    if (session && !axios.defaults.headers.common["authorization"]) {
-      axios.defaults.headers.common[
-        "authorization"
-      ] = `Bearer ${session?.accessToken}`;
-    }
-  }, [session]);
+  useSetAuthHeader(session);
 
   const toggleIsUserMenuOpen = useCallback(
     () => setIsUserMenuOpen((isUserMenuOpen) => !isUserMenuOpen),
