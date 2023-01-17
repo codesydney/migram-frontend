@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { getTaskURL } from "src/domains/billing/features/Checkout/hooks";
+import { getTaskURL } from "@Billing/Checkout/hooks";
 
 const getTaskResponse = {
   location: {

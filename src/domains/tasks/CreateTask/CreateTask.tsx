@@ -1,11 +1,11 @@
 import { useState } from "react";
-import useForm from "../../../../../lib/useForm";
+import useForm from "../../../lib/useForm";
 import Section1 from "./sections/Section1";
 import Section2 from "./sections/Section2";
 import Section3 from "./sections/Section3";
 
 import SubmitForm from "./SubmitForm";
-import { validate } from "../../../../../lib/validator";
+import { validate } from "../../../lib/validator";
 
 import BodyStyles from "@Components/styles/BodyStyles";
 import ButtonStyles from "@Components/styles/ButtonStyles";

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import TasksDashboard from "@Tasks/features/Tasks/TasksDashboard";
+import TasksDashboard from "@Tasks/TasksDashboard";
 
 const TasksPage = () => {
   const router = useRouter();

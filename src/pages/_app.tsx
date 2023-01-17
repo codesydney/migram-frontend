@@ -5,8 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "nprogress/nprogress.css";
 
 import type { AppProps } from "next/app";
-import Layout from "../components/common/Layout";
-import { ElementsWrapper } from "../components/utils/ElementsWraper";
+import Layout from "@Components/common/Layout";
+import { ElementsWrapper } from "@Components/utils/ElementsWraper";
 
 if (process.env.NODE_ENV === "test") {
   require("../mocks");

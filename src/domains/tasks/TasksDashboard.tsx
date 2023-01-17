@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-import BodyStyles from "../../../../components/styles/BodyStyles";
 import { FilterTasks, TaskCategory, TasksList, TaskStatus } from "./TaskList";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { TaskDetails } from "./TaskDetails";
+import BodyStyles from "@Components/styles/BodyStyles";
 
 // use provider to set singletask from inside tasks component
 
