@@ -1,10 +1,10 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TextInput } from "../../../components/common/TextInput";
-import { AddressFormSegment } from "../../FormSegments/AddressFormSegment";
 import { FormValues, formSchema } from "../types";
-import ButtonStyles from "../../../components/styles/ButtonStyles";
+import { TextInput } from "@Components/common/TextInput";
+import ButtonStyles from "@Components/styles/ButtonStyles";
+import { AddressFormSegment } from "src/features/FormSegments/AddressFormSegment";
 
 const StyledForm = styled.form`
   padding-bottom: 2rem;

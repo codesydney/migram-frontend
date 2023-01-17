@@ -1,5 +1,5 @@
+import { addressSchema } from "@Types/schemas";
 import { z } from "zod";
-import { addressSchema } from "../../../types/schemas";
 
 export interface User {
   name: string;
