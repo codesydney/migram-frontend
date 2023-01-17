@@ -1,9 +1,21 @@
 import { TopBar as TopBarPrimitive, Icon, Frame, Text } from "@shopify/polaris";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+
 
 export const TopBar = () => {
+  const { data: session } = useSession();
+
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isSecondaryMenuOpen, setIsSecondaryMenuOpen] = useState(false);
+
+  // TODO Refactor into App
+  useEffect(() => {
+    if (session && !axios.defaults.headers.common["authorization"]) {
+      axios.defaults.headers.common[
+        "authorization"
+      ] = `Bearer ${session?.accessToken}`;
+    }
+  }, [session]);
 
   const toggleIsUserMenuOpen = useCallback(
     () => setIsUserMenuOpen((isUserMenuOpen) => !isUserMenuOpen),
@@ -29,8 +41,7 @@ export const TopBar = () => {
           items: [{ content: "Sign Out" }],
         },
       ]}
-      name="Dharma"
-      detail="Jaded Pixel"
+      name={session?.user?.firstName as string}
       initials="D"
       open={isUserMenuOpen}
       onToggle={toggleIsUserMenuOpen}
