@@ -5,9 +5,9 @@
     "baseUrl": ".",
     "paths": {
       "@Components/*": ["src/components/*"],
-      "@Billing/*": ["src/billing/*"],
-      "@Tasks/*": ["src/tasks/*"],
-      "@Users/*": ["src/users/*"],
+      "@Billing/*": ["src/domains/billing/*"],
+      "@Tasks/*": ["src/domains/tasks/*"],
+      "@Users/*": ["src/domains/users/*"],
       "@Types/*": ["src/types/*"]
     },
     "allowJs": true,
