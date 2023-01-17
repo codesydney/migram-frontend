@@ -2,9 +2,10 @@ import { TopBar as TopBarPrimitive, Icon, Frame, Text } from "@shopify/polaris";
 import { useSession } from "next-auth/react";
 import { useState, useCallback } from "react";
 
-import { signOut } from "@Users/Auth/api";
-import { useSetAuthHeader } from "@Users/Auth/hooks";
 import { routerPush } from "@Utils/index";
+import { getUserType, signOut } from "@Users/Auth/api";
+import { useSetAuthHeader } from "@Users/Auth/hooks";
+import { UserType } from "@Users/Auth/types";
 
 /**
  * Shows when the User is not signed in.
@@ -59,6 +60,7 @@ export const TopBar = () => {
       ]}
       name={session?.user?.firstName as string}
       initials="D"
+      detail={UserType[getUserType(session?.user)]}
       open={isUserMenuOpen}
       onToggle={toggleIsUserMenuOpen}
     />
