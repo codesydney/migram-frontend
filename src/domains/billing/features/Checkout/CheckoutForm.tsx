@@ -1,5 +1,4 @@
 "use client";
-import ButtonStyles from "../../components/styles/ButtonStyles";
 import {
   AddressElement,
   CardElement as CardElementPrimitive,
@@ -10,6 +9,7 @@ import React, { useState } from "react";
 import { useCreatePaymentIntent } from "./hooks";
 import { StripeCardElement } from "@stripe/stripe-js";
 import { CardElement } from "./CardElement";
+import ButtonStyles from "@Components/styles/ButtonStyles";
 
 interface CheckoutFormProps {
   isPageLoading: boolean;
