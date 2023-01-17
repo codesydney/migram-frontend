@@ -1,12 +1,12 @@
 import { PropsWithChildren } from "react";
-import { AppProvider, Frame } from "@shopify/polaris";
-import { HomeMinor, OrdersMinor, ProductsMinor } from "@shopify/polaris-icons";
+import { useSession } from "next-auth/react";
 
+import { AppProvider, Frame } from "@shopify/polaris";
 import { TopBar } from "./";
 import { Navigation } from "./Navigation";
 
-import "@shopify/polaris/build/esm/styles.css";
 import Layout from "@Components/common/Layout";
+import "@shopify/polaris/build/esm/styles.css";
 
 const logo = {
   width: 124,
@@ -16,8 +16,9 @@ const logo = {
 } as const;
 
 export const LayoutV2 = ({ children }: PropsWithChildren<{}>) => {
+  const { data: session } = useSession();
   const TopBarMarkup = <TopBar />;
-  const NavigationMarkup = <Navigation />;
+  const NavigationMarkup = session ? <Navigation /> : undefined;
 
   return (
     <AppProvider i18n={{}}>
