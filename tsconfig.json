@@ -7,8 +7,9 @@
       "@Components/*": ["src/components/*"],
       "@Billing/*": ["src/domains/billing/*"],
       "@Tasks/*": ["src/domains/tasks/*"],
-      "@Users/*": ["src/domains/users/*"],
       "@Types/*": ["src/types/*"],
+      "@Users/*": ["src/domains/users/*"],
+      "@Utils/*": ["src/utils/*"],
       "@ComponentsV2/*": ["src/v2/*"]
     },
     "allowJs": true,
