@@ -3,7 +3,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useState, useCallback, useEffect } from "react";
 
-const signOut = () => alert("Signing Out, Dave");
+import { signOut } from "@Users/Auth/api";
 const navigate = (url: string) => alert(url);
 
 export const TopBar = () => {
