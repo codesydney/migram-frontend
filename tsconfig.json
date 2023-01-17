@@ -8,7 +8,8 @@
       "@Billing/*": ["src/domains/billing/*"],
       "@Tasks/*": ["src/domains/tasks/*"],
       "@Users/*": ["src/domains/users/*"],
-      "@Types/*": ["src/types/*"]
+      "@Types/*": ["src/types/*"],
+      "@ComponentsV2/*": ["src/v2/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,

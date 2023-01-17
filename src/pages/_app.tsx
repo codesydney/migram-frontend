@@ -6,8 +6,8 @@ import "nprogress/nprogress.css";
 
 import type { AppProps } from "next/app";
 import Layout from "@Components/common/Layout";
-import { LayoutV2 } from "@Components/v2";
 import { ElementsWrapper } from "@Components/utils/ElementsWrapper";
+import { LayoutV2 } from "@ComponentsV2/components";
 
 if (process.env.NODE_ENV === "test") {
   require("../mocks");
