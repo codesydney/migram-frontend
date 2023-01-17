@@ -6,6 +6,7 @@ import { TopBar } from "./";
 import { Navigation } from "./Navigation";
 
 import "@shopify/polaris/build/esm/styles.css";
+import Layout from "@Components/common/Layout";
 
 const logo = {
   width: 124,
@@ -21,7 +22,7 @@ export const LayoutV2 = ({ children }: PropsWithChildren<{}>) => {
   return (
     <AppProvider i18n={{}}>
       <Frame logo={logo} topBar={TopBarMarkup} navigation={NavigationMarkup}>
-        {children}
+        <Layout>{children}</Layout>
       </Frame>
     </AppProvider>
   );
