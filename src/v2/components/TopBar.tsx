@@ -19,13 +19,6 @@ export const TopBar = () => {
     console.log("toggle navigation visibility");
   }, []);
 
-  const logo = {
-    width: 124,
-    topBarSource: "/logo.png",
-    url: "/",
-    accessibilityLabel: "Migram",
-  };
-
   const userMenuMarkup = (
     <TopBarPrimitive.UserMenu
       actions={[
@@ -75,7 +68,7 @@ export const TopBar = () => {
 
   return (
     <div style={{ height: "250px" }}>
-      <Frame topBar={topBarMarkup} logo={logo} />
+      <Frame topBar={topBarMarkup} />
     </div>
   );
 };
