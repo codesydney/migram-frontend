@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button, Checkbox, Form, FormLayout, Page } from "@shopify/polaris";
 import { routerPush } from "@Utils/router";
-import { TextField } from "./TextField";
+import { TextField } from "../Login/TextField";
 
 const formSchema = z.object({
   email: z
@@ -33,7 +33,7 @@ const handleLogin = async (formValues: LoginFormState) => {
   return data;
 };
 
-export const LoginFormV2 = () => {
+export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { control, handleSubmit } = useForm<LoginFormState>({
     mode: "onBlur",
