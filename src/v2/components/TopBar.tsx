@@ -1,6 +1,10 @@
 import { TopBar as TopBarPrimitive, Icon, Frame, Text } from "@shopify/polaris";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 import { useState, useCallback, useEffect } from "react";
 
+const signOut = () => alert("Signing Out, Dave");
+const navigate = (url: string) => alert(url);
 
 export const TopBar = () => {
   const { data: session } = useSession();
@@ -35,10 +39,10 @@ export const TopBar = () => {
     <TopBarPrimitive.UserMenu
       actions={[
         {
-          items: [{ content: "Account" }],
+          items: [{ content: "Account", onAction: () => navigate("/account") }],
         },
         {
-          items: [{ content: "Sign Out" }],
+          items: [{ content: "Sign Out", onAction: signOut }],
         },
       ]}
       name={session?.user?.firstName as string}
