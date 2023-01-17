@@ -6,6 +6,7 @@ import "nprogress/nprogress.css";
 
 import type { AppProps } from "next/app";
 import Layout from "@Components/common/Layout";
+import { LayoutV2 } from "@Components/v2";
 import { ElementsWrapper } from "@Components/utils/ElementsWrapper";
 
 if (process.env.NODE_ENV === "test") {
@@ -23,9 +24,15 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <ElementsWrapper>
       <SessionProvider session={pageProps.session}>
         <QueryClientProvider client={queryClient}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          {process.env.NEXT_PUBLIC_UI_VERSION === "v2" ? (
+            <LayoutV2>
+              <Component {...pageProps} />
+            </LayoutV2>
+          ) : (
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          )}
         </QueryClientProvider>
       </SessionProvider>
     </ElementsWrapper>
