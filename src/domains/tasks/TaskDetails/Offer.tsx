@@ -1,12 +1,12 @@
 import Image from "next/legacy/image";
 import { useSession } from "next-auth/react";
 
-import UserIconStyles from "../../../components/styles/UserIconStyles";
-import ButtonStyles from "../../../components/styles/ButtonStyles";
 import axios from "axios";
 import { useRouter } from "next/router";
 
 import styled from "styled-components";
+import ButtonStyles from "@Components/styles/ButtonStyles";
+import UserIconStyles from "@Components/styles/UserIconStyles";
 
 const StyledDiv = styled.div`
   border: 1px solid #c4c4c4;

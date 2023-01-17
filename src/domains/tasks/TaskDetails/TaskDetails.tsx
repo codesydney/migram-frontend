@@ -13,17 +13,17 @@ import {
   faHourglassStart,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/legacy/image";
-import useForm from "../../../lib/useForm";
 import { OffersList } from "./OffersList";
-import ErrorMessage from "../../../components/common/ErrorMessage";
-import Loading from "../../../components/common/Loading";
-import { validate } from "../../../lib/validator";
-import ImageModal from "../../../components/common/ImageModal";
 
-import ButtonStyles from "../../../components/styles/ButtonStyles";
-import SubmitFormStyles from "../../../components/styles/SubmitFormStyles";
-import FormStyles from "../../../components/styles/FormStyles";
 import Link from "next/link";
+import ErrorMessage from "@Components/common/ErrorMessage";
+import ImageModal from "@Components/common/ImageModal";
+import Loading from "@Components/common/Loading";
+import ButtonStyles from "@Components/styles/ButtonStyles";
+import FormStyles from "@Components/styles/FormStyles";
+import SubmitFormStyles from "@Components/styles/SubmitFormStyles";
+import useForm from "src/lib/useForm";
+import { validate } from "src/lib/validator";
 
 export function TaskDetails({ selectedTask }: any) {
   // const { selectedTask } = useContext(DashboardContext);

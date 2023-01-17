@@ -1,18 +1,17 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { useState } from "react";
 
-import ErrorMessage from "../components/common/ErrorMessage";
-import Loading from "../components/common/Loading";
-import BodyStyles from "../components/styles/BodyStyles";
-import ButtonStyles from "../components/styles/ButtonStyles";
-import FormStyles from "../components/styles/FormStyles";
 import { validate } from "../lib/validator";
 import useForm from "../lib/useForm";
 import axios from "axios";
-import { getSession } from "next-auth/react";
+import ErrorMessage from "@Components/common/ErrorMessage";
+import Loading from "@Components/common/Loading";
+import BodyStyles from "@Components/styles/BodyStyles";
+import ButtonStyles from "@Components/styles/ButtonStyles";
+import FormStyles from "@Components/styles/FormStyles";
 
 const LoginPage: NextPage = () => {
   const router = useRouter();

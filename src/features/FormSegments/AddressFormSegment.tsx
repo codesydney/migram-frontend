@@ -1,5 +1,6 @@
 import { FieldErrorsImpl, UseFormRegister } from "react-hook-form";
-import { TextInput } from "../../components/common/TextInput";
+import { TextInput } from "@Components/common/TextInput";
+
 import { AddressSchema } from "../../types/schemas";
 
 interface AddressFormSegmentProps<T extends AddressSchema> {

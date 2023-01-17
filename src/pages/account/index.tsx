@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import Image from "next/legacy/image";
 import useForm from "../../lib/useForm";
 import axios from "axios";
-import BodyStyles from "../../components/styles/BodyStyles";
-import ButtonStyles from "../../components/styles/ButtonStyles";
-import FormStyles from "../../components/styles/FormStyles";
+import BodyStyles from "@Components/styles/BodyStyles";
+import ButtonStyles from "@Components/styles/ButtonStyles";
+import FormStyles from "@Components/styles/FormStyles";
 
 export function AccountPage() {
   const { data: session, status } = useSession();

@@ -1,8 +1,7 @@
 import Image from "next/legacy/image";
 import { faClock, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import FormStyles from "../../../../components/styles/FormStyles";
+import FormStyles from "@Components/styles/FormStyles";
 
 export default function Section2({
   currentStep,

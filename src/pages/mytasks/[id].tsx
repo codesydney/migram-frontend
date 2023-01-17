@@ -1,8 +1,7 @@
-import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import TasksDashboard from "../../features/Tasks/TasksDashboard";
+import TasksDashboard from "@Tasks/TasksDashboard";
 
-const TasksPage: NextPage = () => {
+const TasksPage = () => {
   const router = useRouter();
   const { id } = router.query;
   return <TasksDashboard myTasks={true} id={id} />;

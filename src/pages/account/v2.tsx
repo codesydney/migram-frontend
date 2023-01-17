@@ -1,7 +1,7 @@
 import { User } from "next-auth";
 import { useSession } from "next-auth/react";
 import { FeatureFlag } from "../../utils/FeatureFlag";
-import { ManageBillingButton } from "../../features/Accounts";
+import { ManageBillingButton } from "@Users/Accounts";
 
 type AccountPageV2Props = {
   user: User | undefined;

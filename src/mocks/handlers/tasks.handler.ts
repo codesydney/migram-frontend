@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { getTaskURL } from "../../features/Checkout/hooks/useTaskFetch";
+import { getTaskURL } from "@Billing/Checkout/hooks";
 
 const getTaskResponse = {
   location: {

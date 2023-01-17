@@ -1,5 +1,5 @@
+import Task from "src/types/task";
 import styled from "styled-components";
-import Task from "../../types/task";
 
 const StyledDiv = styled.div`
   display: flex;

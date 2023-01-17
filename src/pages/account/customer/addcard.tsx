@@ -5,11 +5,11 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useRouter } from "next/router";
 import useForm from "../../../lib/useForm";
 import wait from "../../../lib/wait";
-import BodyStyles from "../../../components/styles/BodyStyles";
-import ErrorMessage from "../../../components/common/ErrorMessage";
-import SuccessMessage from "../../../components/common/SuccessMessage";
-import ButtonStyles from "../../../components/styles/ButtonStyles";
-import FormStyles from "../../../components/styles/FormStyles";
+import ErrorMessage from "@Components/common/ErrorMessage";
+import SuccessMessage from "@Components/common/SuccessMessage";
+import BodyStyles from "@Components/styles/BodyStyles";
+import ButtonStyles from "@Components/styles/ButtonStyles";
+import FormStyles from "@Components/styles/FormStyles";
 
 const MessageContainerStyle = styled.div`
   margin-top: 1rem;

@@ -2,9 +2,9 @@ import { render, screen } from "@testing-library/react";
 
 import { CheckoutPage } from "../CheckoutPage";
 
-import { QueryClientWrapper } from "../../../test/utils";
 import { PropsWithChildren } from "react";
-import { ElementsWrapper } from "../../../components/utils/ElementsWraper";
+import { ElementsWrapper } from "@Components/utils/ElementsWrapper";
+import { QueryClientWrapper } from "src/test/utils";
 
 const Wrapper = ({ children }: PropsWithChildren<{}>) => {
   return (

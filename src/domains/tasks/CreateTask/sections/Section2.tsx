@@ -4,8 +4,8 @@ import {
   faCalendarDay,
 } from "@fortawesome/free-solid-svg-icons";
 
-import ErrorMessage from "../../../../components/common/ErrorMessage";
-import FormStyles from "../../../../components/styles/FormStyles";
+import ErrorMessage from "@Components/common/ErrorMessage";
+import FormStyles from "@Components/styles/FormStyles";
 
 export default function Section2({
   currentStep,
