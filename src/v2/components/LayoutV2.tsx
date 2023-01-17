@@ -22,7 +22,11 @@ export const LayoutV2 = ({ children }: PropsWithChildren<{}>) => {
   return (
     <AppProvider i18n={{}}>
       <Frame logo={logo} topBar={TopBarMarkup} navigation={NavigationMarkup}>
-        <Layout>{children}</Layout>
+        {process.env.NEXT_PUBLIC_REMOVE_LEGACY_STYLES === "true" ? (
+          <>{children}</>
+        ) : (
+          <Layout>{children}</Layout>
+        )}
       </Frame>
     </AppProvider>
   );
