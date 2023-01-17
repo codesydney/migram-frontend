@@ -4,9 +4,9 @@ import Image from "next/legacy/image";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 
-import BodyStyles from "../components/styles/BodyStyles";
-import ButtonStyles from "../components/styles/ButtonStyles";
 import { useEffect } from "react";
+import BodyStyles from "@Components/styles/BodyStyles";
+import ButtonStyles from "@Components/styles/ButtonStyles";
 
 const Home: NextPage = () => {
   const { data: session } = useSession();

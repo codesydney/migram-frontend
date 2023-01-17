@@ -4,12 +4,12 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import useForm from "../lib/useForm";
-import ErrorMessage from "../components/common/ErrorMessage";
-import Loading from "../components/common/Loading";
-import BodyStyles from "../components/styles/BodyStyles";
-import ButtonStyles from "../components/styles/ButtonStyles";
-import FormStyles from "../components/styles/FormStyles";
 import { validate } from "../lib/validator";
+import ErrorMessage from "@Components/common/ErrorMessage";
+import Loading from "@Components/common/Loading";
+import BodyStyles from "@Components/styles/BodyStyles";
+import ButtonStyles from "@Components/styles/ButtonStyles";
+import FormStyles from "@Components/styles/FormStyles";
 
 export function ProviderSignupPage() {
   const [loading, setLoading] = useState(false);

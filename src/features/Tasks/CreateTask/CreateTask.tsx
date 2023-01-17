@@ -7,10 +7,10 @@ import Section3 from "./sections/Section3";
 import SubmitForm from "./SubmitForm";
 import { validate } from "../../../lib/validator";
 
-import BodyStyles from "../../../components/styles/BodyStyles";
-import ButtonStyles from "../../../components/styles/ButtonStyles";
-import ProgressStyles from "../../../components/styles/ProgressStyles";
-import FormControlStyles from "../../../components/styles/FormControlStyles";
+import BodyStyles from "@Components/styles/BodyStyles";
+import ButtonStyles from "@Components/styles/ButtonStyles";
+import FormControlStyles from "@Components/styles/FormControlStyles";
+import ProgressStyles from "@Components/styles/ProgressStyles";
 
 export default function CreateTask() {
   const [currentStep, setCurrentStep] = useState(1);

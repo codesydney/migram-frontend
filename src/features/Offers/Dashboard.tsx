@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import { TaskDetails } from "../Tasks/TaskDetails";
-import BodyStyles from "../../components/styles/BodyStyles";
 import { FilterOffers, Offers } from ".";
+import { TaskDetails } from "../Tasks/TaskDetails";
+import BodyStyles from "@Components/styles/BodyStyles";
 
 export function Dashboard() {
   const [selectedTask, setSelectedTask] = useState(null);

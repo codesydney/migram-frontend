@@ -8,12 +8,12 @@ import {
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
 
-import SubmitFormStyles from "../../../components/styles/SubmitFormStyles";
-import ButtonStyles from "../../../components/styles/ButtonStyles";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import ErrorMessageStyles from "../../../components/styles/ErrorMessage";
+import ButtonStyles from "@Components/styles/ButtonStyles";
+import ErrorMessageStyles from "@Components/styles/ErrorMessage";
+import SubmitFormStyles from "@Components/styles/SubmitFormStyles";
 
 export default function SubmitForm({
   formData,
