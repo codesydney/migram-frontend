@@ -1,6 +1,5 @@
 import axios from "axios";
 import { Session } from "next-auth";
-
 import { deleteAuthHeader, setAuthHeader } from "..";
 
 describe("setAuthHeader util", () => {

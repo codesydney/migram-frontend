@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Session } from "next-auth";
-import { setAuthHeader } from "../api";
+import { setAuthHeader } from "../utils";
 
 /**
  * Auto logins the User when they have a valid session.
