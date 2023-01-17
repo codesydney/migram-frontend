@@ -13,10 +13,26 @@ import { UserType } from "@Users/Auth/types";
 const defaultUserMenu = (
   <TopBarPrimitive.UserMenu
     actions={[]}
-    name="Login"
+    name="Sign Up"
     initials={undefined}
     open={false}
-    onToggle={() => routerPush("/login")}
+    onToggle={() => routerPush("/signup")}
+  />
+);
+
+const secondaryMenuMarkup = (
+  <TopBarPrimitive.Menu
+    activatorContent={
+      <span>
+        <Text variant="bodyMd" fontWeight="medium" as="span">
+          Login
+        </Text>
+      </span>
+    }
+    open={false}
+    onOpen={() => routerPush("/login")}
+    onClose={() => {}}
+    actions={[]}
   />
 );
 
@@ -25,20 +41,15 @@ const defaultUserMenu = (
  */
 export const TopBar = () => {
   const { data: session } = useSession();
+  const showLoginButton = !session ? secondaryMenuMarkup : null;
 
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [isSecondaryMenuOpen, setIsSecondaryMenuOpen] = useState(false);
 
   // TODO Refactor into App
   useSetAuthHeader(session);
 
   const toggleIsUserMenuOpen = useCallback(
     () => setIsUserMenuOpen((isUserMenuOpen) => !isUserMenuOpen),
-    []
-  );
-
-  const toggleIsSecondaryMenuOpen = useCallback(
-    () => setIsSecondaryMenuOpen((isSecondaryMenuOpen) => !isSecondaryMenuOpen),
     []
   );
 
@@ -68,31 +79,11 @@ export const TopBar = () => {
     defaultUserMenu
   );
 
-  const secondaryMenuMarkup = (
-    <TopBarPrimitive.Menu
-      activatorContent={
-        <span>
-          <Text variant="bodySm" as="span" visuallyHidden>
-            Secondary menu
-          </Text>
-        </span>
-      }
-      open={isSecondaryMenuOpen}
-      onOpen={toggleIsSecondaryMenuOpen}
-      onClose={toggleIsSecondaryMenuOpen}
-      actions={[
-        {
-          items: [{ content: "Community forums" }],
-        },
-      ]}
-    />
-  );
-
   return (
     <TopBarPrimitive
       showNavigationToggle
       userMenu={userMenuMarkup}
-      secondaryMenu={secondaryMenuMarkup}
+      secondaryMenu={showLoginButton}
       onNavigationToggle={handleNavigationToggle}
     />
   );
