@@ -57,18 +57,12 @@ export const TopBar = () => {
     />
   );
 
-  const topBarMarkup = (
+  return (
     <TopBarPrimitive
       showNavigationToggle
       userMenu={userMenuMarkup}
       secondaryMenu={secondaryMenuMarkup}
       onNavigationToggle={handleNavigationToggle}
     />
-  );
-
-  return (
-    <div style={{ height: "250px" }}>
-      <Frame topBar={topBarMarkup} />
-    </div>
   );
 };
