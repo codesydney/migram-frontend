@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useState, useCallback, useEffect } from "react";
 
 import { signOut } from "@Users/Auth/api";
-const navigate = (url: string) => alert(url);
+import { routerPush } from "@Utils/index";
 
 /**
  * Shows when the User is not signed in.
@@ -15,7 +15,7 @@ const defaultUserMenu = (
     name="Login"
     initials={undefined}
     open={false}
-    onToggle={() => navigate("/login")}
+    onToggle={() => routerPush("/login")}
   />
 );
 
@@ -55,7 +55,9 @@ export const TopBar = () => {
     <TopBarPrimitive.UserMenu
       actions={[
         {
-          items: [{ content: "Account", onAction: () => navigate("/account") }],
+          items: [
+            { content: "Account", onAction: () => routerPush("/account") },
+          ],
         },
         {
           items: [{ content: "Sign Out", onAction: signOut }],
