@@ -1,8 +1,8 @@
 import Image from "next/legacy/image";
 import { useSession } from "next-auth/react";
 
-import UserIconStyles from "../../../components/styles/UserIconStyles";
-import ButtonStyles from "../../../components/styles/ButtonStyles";
+import UserIconStyles from "../../../../../components/styles/UserIconStyles";
+import ButtonStyles from "../../../../../components/styles/ButtonStyles";
 import axios from "axios";
 import { useRouter } from "next/router";
 

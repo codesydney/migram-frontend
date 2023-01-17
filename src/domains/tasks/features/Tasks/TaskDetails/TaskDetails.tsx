@@ -13,9 +13,9 @@ import {
   faHourglassStart,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/legacy/image";
-import useForm from "../../../lib/useForm";
+import useForm from "../../../../../lib/useForm";
 import { OffersList } from "./OffersList";
-import { validate } from "../../../lib/validator";
+import { validate } from "../../../../../lib/validator";
 
 import Link from "next/link";
 import ErrorMessage from "@Components/common/ErrorMessage";
