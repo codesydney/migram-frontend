@@ -6,6 +6,22 @@ import { useState, useCallback, useEffect } from "react";
 import { signOut } from "@Users/Auth/api";
 const navigate = (url: string) => alert(url);
 
+/**
+ * Shows when the User is not signed in.
+ */
+const defaultUserMenu = (
+  <TopBarPrimitive.UserMenu
+    actions={[]}
+    name="Login"
+    initials={undefined}
+    open={false}
+    onToggle={() => navigate("/login")}
+  />
+);
+
+/**
+ * Top Navigation Bar
+ */
 export const TopBar = () => {
   const { data: session } = useSession();
 
@@ -51,13 +67,7 @@ export const TopBar = () => {
       onToggle={toggleIsUserMenuOpen}
     />
   ) : (
-    <TopBarPrimitive.UserMenu
-      actions={[]}
-      name="Login"
-      initials={undefined}
-      open={false}
-      onToggle={() => navigate("/login")}
-    />
+    defaultUserMenu
   );
 
   const secondaryMenuMarkup = (
