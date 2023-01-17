@@ -35,7 +35,7 @@ export const TopBar = () => {
     console.log("toggle navigation visibility");
   }, []);
 
-  const userMenuMarkup = (
+  const userMenuMarkup = session ? (
     <TopBarPrimitive.UserMenu
       actions={[
         {
@@ -49,6 +49,14 @@ export const TopBar = () => {
       initials="D"
       open={isUserMenuOpen}
       onToggle={toggleIsUserMenuOpen}
+    />
+  ) : (
+    <TopBarPrimitive.UserMenu
+      actions={[]}
+      name="Login"
+      initials={undefined}
+      open={false}
+      onToggle={() => navigate("/login")}
     />
   );
 
