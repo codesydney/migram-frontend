@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Checkbox, Form, FormLayout, Page } from "@shopify/polaris";
 import { routerPush } from "@Utils/router";
 import { TextField } from "@ComponentsV2/components/TextField";
+import { createUser } from "@Users/Auth/api/AuthService";
 
 const formSchema = z
   .object({
@@ -26,21 +27,6 @@ const formSchema = z
 
 export type SignUpFormState = z.infer<typeof formSchema>;
 
-const signIn = async (formValues: SignUpFormState) => {
-  return nextAuthSignIn("credentials", {
-    ...formValues,
-    redirect: false,
-    callbackUrl: "/",
-  });
-};
-
-const handleSignUp = async (formValues: SignUpFormState) => {
-  const data = await signIn(formValues);
-  if (!data?.error && data?.url) return routerPush(data?.url);
-
-  return data;
-};
-
 export const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { control, handleSubmit } = useForm<SignUpFormState>({
@@ -50,7 +36,7 @@ export const SignUpPage = () => {
 
   return (
     <Page title="Sign Up">
-      <Form onSubmit={handleSubmit(handleSignUp)}>
+      <Form onSubmit={handleSubmit(createUser)}>
         <FormLayout>
           <TextField<SignUpFormState>
             name="name"
