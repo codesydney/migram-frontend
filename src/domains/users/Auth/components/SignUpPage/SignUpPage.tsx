@@ -13,7 +13,8 @@ import {
   Text,
 } from "@shopify/polaris";
 import { TextField } from "@ComponentsV2/components/TextField";
-import { createUser } from "@Users/Auth/api/AuthService";
+import { createUser, loginAndRedirect } from "@Users/Auth/api/AuthService";
+import { createCustomer } from "@Billing/Customers/api";
 
 const formSchema = z
   .object({
@@ -40,9 +41,18 @@ export const SignUpPage = () => {
     resolver: zodResolver(formSchema),
   });
 
+  const onSubmit = async (data: SignUpFormState) => {
+    await createUser(data);
+
+    const { email, name, password } = data;
+    await createCustomer({ email, name });
+
+    await loginAndRedirect({ email, password });
+  };
+
   return (
     <Page title="Sign Up">
-      <Form onSubmit={handleSubmit(createUser)}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <FormLayout>
           <TextField<SignUpFormState>
             name="name"
