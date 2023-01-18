@@ -1,1 +1,1 @@
-export * from "./SignUpPage";
+export * from "./components";
