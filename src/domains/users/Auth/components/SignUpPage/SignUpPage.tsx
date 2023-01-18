@@ -34,25 +34,31 @@ const formSchema = z
 
 export type SignUpFormState = z.infer<typeof formSchema>;
 
-export const SignUpPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
+export const submitHandler = async (data: SignUpFormState) => {
+  await createUser(data);
+
+  const { email, name, password } = data;
+  await createCustomer({ email, name });
+
+  await loginAndRedirect({ email, password });
+};
+
+export const useSignUpForm = () => {
   const { control, handleSubmit } = useForm<SignUpFormState>({
     mode: "onBlur",
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = async (data: SignUpFormState) => {
-    await createUser(data);
+  return { control, onSubmit: handleSubmit(submitHandler) };
+};
 
-    const { email, name, password } = data;
-    await createCustomer({ email, name });
-
-    await loginAndRedirect({ email, password });
-  };
+export const SignUpPage = () => {
+  const { control, onSubmit } = useSignUpForm();
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <Page title="Sign Up">
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={onSubmit}>
         <FormLayout>
           <TextField<SignUpFormState>
             name="name"
