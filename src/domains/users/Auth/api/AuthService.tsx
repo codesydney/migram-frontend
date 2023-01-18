@@ -1,11 +1,23 @@
 import axios from "axios";
-import { getSession, signOut as nextAuthSignOut } from "next-auth/react";
+import {
+  getSession,
+  signOut as nextAuthSignOut,
+  signIn as nextAuthSignIn,
+} from "next-auth/react";
 import router from "next/router";
 
-import { SignUpFormState } from "../components";
+import { LoginFormState, SignUpFormState } from "../components";
 import { deleteAuthHeader, setAuthHeader } from "../utils";
-import { signin } from "@Users/CustomerSignupPage";
 import { routerPush } from "@Utils/router";
+import { PasswordLoginCredentials } from "../types";
+
+export const signIn = async (formValues: LoginFormState) => {
+  return nextAuthSignIn("credentials", {
+    ...formValues,
+    redirect: false,
+    callbackUrl: "/",
+  });
+};
 
 export const createUser = async (user: SignUpFormState) => {
   const credentials = {
@@ -20,13 +32,19 @@ export const createUser = async (user: SignUpFormState) => {
         /**
          * NextAuth's JWTs are not valid so we have to sign in again via the backend
          */
-        await signin(credentials);
-        const session = await getSession();
-
-        await setAuthHeader(session);
-        routerPush("/");
+        await loginAndRedirect(credentials);
       }
     });
+};
+
+export const loginAndRedirect = async (
+  credentials: PasswordLoginCredentials
+) => {
+  await signIn(credentials);
+  const session = await getSession();
+
+  await setAuthHeader(session);
+  routerPush("/");
 };
 
 export const signOut = async () => {

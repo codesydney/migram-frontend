@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Checkbox, Form, FormLayout, Page } from "@shopify/polaris";
 import { routerPush } from "@Utils/router";
 import { TextField } from "@ComponentsV2/components/TextField";
+import { signIn } from "@Users/Auth/api/AuthService";
 
 const formSchema = z.object({
   email: z
@@ -17,14 +18,6 @@ const formSchema = z.object({
     .min(8, { message: "Password must be 8 or more characters" }),
 });
 export type LoginFormState = z.infer<typeof formSchema>;
-
-const signIn = async (formValues: LoginFormState) => {
-  return nextAuthSignIn("credentials", {
-    ...formValues,
-    redirect: false,
-    callbackUrl: "/",
-  });
-};
 
 const handleLogin = async (formValues: LoginFormState) => {
   const data = await signIn(formValues);

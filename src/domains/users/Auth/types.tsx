@@ -3,3 +3,5 @@ export const UserType = {
   CUSTOMER: "Customer",
   PROVIDER: "Provider",
 } as const;
+
+export type PasswordLoginCredentials = { email: string; password: string };
