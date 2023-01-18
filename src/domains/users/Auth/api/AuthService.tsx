@@ -6,7 +6,7 @@ import {
 } from "next-auth/react";
 import router from "next/router";
 
-import { LoginFormState, SignUpFormState } from "../components";
+import { LoginFormState, SignUpFormState } from "../features";
 import { deleteAuthHeader, setAuthHeader } from "../utils";
 import { routerPush } from "@Utils/router";
 import { PasswordLoginCredentials } from "../types";
