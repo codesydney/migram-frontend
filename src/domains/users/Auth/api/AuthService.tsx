@@ -12,11 +12,16 @@ import { routerPush } from "@Utils/router";
 import { PasswordLoginCredentials } from "../types";
 
 export const signIn = async (formValues: LoginFormState) => {
-  return nextAuthSignIn("credentials", {
+  const signInResponse = nextAuthSignIn("credentials", {
     ...formValues,
     redirect: false,
     callbackUrl: "/",
   });
+
+  const session = await getSession();
+  await setAuthHeader(session);
+
+  return signInResponse;
 };
 
 export const createUser = async (user: SignUpFormState) => {
@@ -37,13 +42,14 @@ export const createUser = async (user: SignUpFormState) => {
     });
 };
 
-export const loginAndRedirect = async (
+export const signInAndRedirectHome = async (
   credentials: PasswordLoginCredentials
 ) => {
   await signIn(credentials);
   const session = await getSession();
 
   await setAuthHeader(session);
+
   routerPush("/");
 };
 

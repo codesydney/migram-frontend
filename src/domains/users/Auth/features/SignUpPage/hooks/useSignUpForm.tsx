@@ -29,7 +29,7 @@ export const submitHandler = async (data: SignUpFormState) => {
   const { email, name, password } = data;
   await createCustomer({ email, name });
 
-  await loginAndRedirect({ email, password });
+  await signInAndRedirectHome({ email, password });
 };
 
 export const useSignUpForm = () => {
