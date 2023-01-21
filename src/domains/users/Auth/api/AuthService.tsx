@@ -6,10 +6,11 @@ import {
 } from "next-auth/react";
 import router from "next/router";
 
-import { LoginFormState, SignUpFormState } from "../features";
+import { LoginFormState } from "../features";
 import { deleteAuthHeader, setAuthHeader } from "../utils";
 import { routerPush } from "@Utils/router";
 import { PasswordLoginCredentials } from "../types";
+import { SignUpFormState } from "../features/SignUpPage/hooks";
 
 export const signIn = async (formValues: LoginFormState) => {
   const signInResponse = nextAuthSignIn("credentials", {
@@ -30,16 +31,14 @@ export const createUser = async (user: SignUpFormState) => {
     password: user.password,
   };
 
-  return axios
-    .post(`${process.env.NEXT_PUBLIC_API_URL}api/v1/users/signUp`, user)
-    .then(async (response) => {
-      if (response.data) {
-        /**
-         * NextAuth's JWTs are not valid so we have to sign in again via the backend
-         */
-        await loginAndRedirect(credentials);
-      }
-    });
+  const signUpResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_API_URL}api/v1/users/signUp`,
+    user
+  );
+
+  await signIn(credentials);
+
+  return signUpResponse.data.data.user._id;
 };
 
 export const signInAndRedirectHome = async (

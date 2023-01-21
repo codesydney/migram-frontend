@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const createCustomer = async (customer: {
+  id: string;
   name: string;
   email: string;
 }) => {

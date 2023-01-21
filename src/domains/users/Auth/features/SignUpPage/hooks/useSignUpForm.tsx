@@ -2,10 +2,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { createUser, loginAndRedirect } from "@Users/Auth/api/AuthService";
+import { createUser, signInAndRedirectHome } from "@Users/Auth/api/AuthService";
 import { createCustomer } from "@Billing/Customers/api";
 
-const formSchema = z
+export const formSchema = z
   .object({
     name: z.string({ required_error: "Name is required" }),
     email: z
@@ -24,10 +24,11 @@ const formSchema = z
 export type SignUpFormState = z.infer<typeof formSchema>;
 
 export const submitHandler = async (data: SignUpFormState) => {
-  await createUser(data);
+  const userId = await createUser(data);
 
   const { email, name, password } = data;
-  await createCustomer({ email, name });
+
+  await createCustomer({ id: userId, email, name });
 
   await signInAndRedirectHome({ email, password });
 };
