@@ -18,9 +18,11 @@ export const deleteAuthHeader = () => {
 };
 
 export const setAuthHeader = async (session: Session | null) => {
-  if (session && !axios.defaults.headers.common["authorization"]) {
-    axios.defaults.headers.common[
-      "authorization"
-    ] = `Bearer ${session?.accessToken}`;
+  const newToken = `Bearer ${session?.accessToken}`;
+  const isNotSameToken =
+    newToken !== axios.defaults.headers.common["authorization"];
+
+  if (session && isNotSameToken) {
+    axios.defaults.headers.common["authorization"] = newToken;
   }
 };
