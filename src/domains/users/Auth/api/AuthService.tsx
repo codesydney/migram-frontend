@@ -25,6 +25,9 @@ export const signIn = async (formValues: LoginFormState) => {
   return signInResponse;
 };
 
+/**
+ * Original signup endpoint for all users
+ */
 export const createUser = async (user: SignUpFormState) => {
   const credentials = {
     email: user.email,
@@ -39,6 +42,20 @@ export const createUser = async (user: SignUpFormState) => {
   await signIn(credentials);
 
   return signUpResponse.data.data.user._id;
+};
+
+/**
+ * Consolidated signup request for creating a new User and a Stripe Customer
+ */
+export const createCustomerUser = async (user: SignUpFormState) => {
+  const signUpResponse = await axios.post(
+    `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers`,
+    user
+  );
+
+  debugger;
+
+  return signUpResponse.data.data;
 };
 
 export const signInAndRedirectHome = async (
