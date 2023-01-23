@@ -1,12 +1,28 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
-import { FilterTasks, TaskCategory, TasksList, TaskStatus } from "./TaskList";
+import { TaskCategory, TaskStatus } from "./TaskList";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { TaskDetails } from "./TaskDetails";
-import BodyStyles from "@Components/styles/BodyStyles";
 
-// use provider to set singletask from inside tasks component
+import { Card } from "@shopify/polaris";
+
+const StyledDiv = styled.div`
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+
+  .Polaris-Card {
+    margin-top: 0rem;
+  }
+
+  @media (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+`;
 
 export default function TasksDashboard({ myTasks }: any) {
   const [selectedTask, setSelectedTask] = useState(null);
@@ -51,35 +67,16 @@ export default function TasksDashboard({ myTasks }: any) {
   }, [currentPage, status, myTasks]);
 
   return (
-    <>
-      <FilterTasks
-        setCurrentPage={setCurrentPage}
-        filter={filter}
-        setFilter={setFilter}
-        filterItems={filterItems}
-      />
-      <BodyStyles dashboard topBar>
-        <div className="primary">
-          <TasksList
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            myTasks={myTasks}
-            setSelectedTask={setSelectedTask}
-            selectedTask={selectedTask}
-            tasks={filter !== "" ? filteredTasks : tasks}
-            getTasks={getTasks}
-          />
-        </div>
-        <div
-          style={{
-            paddingTop: 32,
-            borderColor: selectedTask ? "var(--focus)" : "var(--lightGrey)",
-          }}
-          className="secondary"
+    <StyledDiv>
+      {tasks.map((task: any) => (
+        <Card
+          key={task.id}
+          title={task.title}
+          primaryFooterAction={{ content: "View Details" }}
         >
-          <TaskDetails selectedTask={selectedTask} />
-        </div>
-      </BodyStyles>
-    </>
+          <Card.Section title="Items">{task.details}</Card.Section>
+        </Card>
+      ))}
+    </StyledDiv>
   );
 }
