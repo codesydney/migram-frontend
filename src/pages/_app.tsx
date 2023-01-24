@@ -5,8 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "nprogress/nprogress.css";
 
 import type { AppProps } from "next/app";
-import Layout from "@Components/common/Layout";
 import { ElementsWrapper } from "@Components/utils/ElementsWrapper";
+import { LayoutV2 } from "@ComponentsV2/components";
 
 if (process.env.NODE_ENV === "test") {
   require("../mocks");
@@ -23,9 +23,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <ElementsWrapper>
       <SessionProvider session={pageProps.session}>
         <QueryClientProvider client={queryClient}>
-          <Layout>
+          <LayoutV2>
             <Component {...pageProps} />
-          </Layout>
+          </LayoutV2>
         </QueryClientProvider>
       </SessionProvider>
     </ElementsWrapper>
