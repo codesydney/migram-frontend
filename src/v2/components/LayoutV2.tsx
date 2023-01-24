@@ -5,7 +5,6 @@ import { AppProvider, Frame } from "@shopify/polaris";
 import { TopBar } from "./";
 import { Navigation } from "./Navigation";
 
-import Layout from "@Components/common/Layout";
 import "@shopify/polaris/build/esm/styles.css";
 
 const logo = {
@@ -23,11 +22,7 @@ export const LayoutV2 = ({ children }: PropsWithChildren<{}>) => {
   return (
     <AppProvider i18n={{}}>
       <Frame logo={logo} topBar={TopBarMarkup} navigation={NavigationMarkup}>
-        {process.env.NEXT_PUBLIC_REMOVE_LEGACY_STYLES === "true" ? (
-          <>{children}</>
-        ) : (
-          <Layout>{children}</Layout>
-        )}
+        {children}
       </Frame>
     </AppProvider>
   );

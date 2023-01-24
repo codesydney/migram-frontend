@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "nprogress/nprogress.css";
 
 import type { AppProps } from "next/app";
-import Layout from "@Components/common/Layout";
 import { ElementsWrapper } from "@Components/utils/ElementsWrapper";
 import { LayoutV2 } from "@ComponentsV2/components";
 
@@ -24,15 +23,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <ElementsWrapper>
       <SessionProvider session={pageProps.session}>
         <QueryClientProvider client={queryClient}>
-          {process.env.NEXT_PUBLIC_UI_VERSION === "v2" ? (
-            <LayoutV2>
-              <Component {...pageProps} />
-            </LayoutV2>
-          ) : (
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          )}
+          <LayoutV2>
+            <Component {...pageProps} />
+          </LayoutV2>
         </QueryClientProvider>
       </SessionProvider>
     </ElementsWrapper>
