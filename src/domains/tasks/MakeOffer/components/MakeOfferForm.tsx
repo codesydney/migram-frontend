@@ -3,7 +3,7 @@ import {
   MakeAnOfferFormState,
   MakeAnOfferSubmitHandler,
   useMakeAnOfferForm,
-} from "../hooks/useMakeAnOfferForm";
+} from "../hooks/useMakeOfferForm";
 import { TextField } from "@ComponentsV2/components/TextField";
 
 type MakeAnOfferFormProps = {

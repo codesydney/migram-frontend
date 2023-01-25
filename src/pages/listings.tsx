@@ -1,3 +1,3 @@
-import { ListingsPage } from "@Tasks/ListingsPage";
+import { ListingsPage } from "@Tasks/ViewListings";
 
 export default ListingsPage;

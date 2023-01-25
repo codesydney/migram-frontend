@@ -4,7 +4,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 
 import { Button, Layout, Page } from "@shopify/polaris";
-import { MakeAnOfferModal } from "@Tasks/MakeAnOfferForm";
+import { MakeAnOfferModal } from "@Tasks/MakeOffer";
 import { ListingCard } from "./ListingCard";
 
 export function ListingsPage({ myTasks }: any) {
