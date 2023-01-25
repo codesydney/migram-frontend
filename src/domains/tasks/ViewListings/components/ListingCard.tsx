@@ -1,6 +1,6 @@
 import { Card, Stack, TextContainer, Text } from "@shopify/polaris";
 
-import { TaskStatus } from "../types";
+import { TaskStatus } from "../../types";
 import { TaskCategoryBadge } from "@Tasks/components";
 
 export const ListingCard = ({ task, onMakeAnOfferClick }: any) => {

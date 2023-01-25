@@ -1,7 +1,6 @@
+import { CategoryStatusMap, TaskStatus } from "@Tasks/types";
 import { Badge } from "@shopify/polaris";
 import { Status } from "@shopify/polaris/build/ts/latest/src/components/Badge";
-
-import { TaskStatus, CategoryStatusMap } from "@Tasks/ViewListings/types";
 
 export type TaskCategoryBadgeProps = {
   status: TaskStatus;
