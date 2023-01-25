@@ -17,20 +17,20 @@ export const Navigation = () => {
             icon: HomeMajor,
           },
           {
+            url: "/listings",
+            label: "Lists",
+            icon: ListMajor,
+          },
+          {
+            // todo
             url: "/tasks",
             label: "Tasks",
-            icon: ListMajor,
+            icon: JobsMajor,
           },
           {
             url: "/offers",
             label: "Offers",
             icon: FinancesMajor,
-          },
-          {
-            // todo
-            url: "/jobs",
-            label: "Jobs",
-            icon: JobsMajor,
           },
         ]}
       />
