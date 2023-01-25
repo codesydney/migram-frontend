@@ -1,23 +1,20 @@
 import { Button, Form, FormLayout } from "@shopify/polaris";
 import {
   MakeAnOfferFormState,
+  MakeAnOfferSubmitHandler,
   useMakeAnOfferForm,
 } from "../hooks/useMakeAnOfferForm";
 import { TextField } from "@ComponentsV2/components/TextField";
 
 type MakeAnOfferFormProps = {
-  taskId: string;
-  onSubmitSuccess: () => void;
+  submitHandler: MakeAnOfferSubmitHandler;
 };
 
-export const MakeAnOfferForm = ({
-  taskId,
-  onSubmitSuccess,
-}: MakeAnOfferFormProps) => {
-  const { control, onSubmit } = useMakeAnOfferForm(taskId);
+export const MakeAnOfferForm = ({ submitHandler }: MakeAnOfferFormProps) => {
+  const { control, onSubmit } = useMakeAnOfferForm(submitHandler);
 
   return (
-    <Form onSubmit={() => onSubmit().then(() => onSubmitSuccess())}>
+    <Form onSubmit={onSubmit}>
       <FormLayout>
         <TextField<MakeAnOfferFormState>
           name="offerAmt"

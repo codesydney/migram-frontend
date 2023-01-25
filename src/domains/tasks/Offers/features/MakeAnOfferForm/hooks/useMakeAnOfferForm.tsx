@@ -12,14 +12,19 @@ export const formSchema = z.object({
 
 export type MakeAnOfferFormState = z.infer<typeof formSchema>;
 
-export const useMakeAnOfferForm = (taskId: string) => {
-  const { control, handleSubmit } = useForm<MakeAnOfferFormState>({
+export type MakeAnOfferSubmitHandler = (
+  data: MakeAnOfferFormState
+) => Promise<void>;
+
+export const useMakeAnOfferForm = (submitHandler: MakeAnOfferSubmitHandler) => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<MakeAnOfferFormState>({
     mode: "onBlur",
+    resolver: zodResolver(formSchema),
   });
 
-  const submitHandler = async (data: MakeAnOfferFormState) => {
-    console.log(data);
-  };
-
-  return { control, onSubmit: handleSubmit(submitHandler) };
+  return { control, onSubmit: handleSubmit(submitHandler), errors };
 };

@@ -1,5 +1,7 @@
 import { Modal } from "@shopify/polaris";
 import { MakeAnOfferForm } from "./MakeAnOfferForm";
+import { createOffer } from "../api";
+import { MakeAnOfferFormState } from "../hooks";
 
 type MakeAnOfferModalProps = {
   taskId: string;
@@ -10,11 +12,16 @@ export const MakeAnOfferModal = ({
   taskId,
   onClose,
 }: MakeAnOfferModalProps) => {
+  const submitHandler = async (data: MakeAnOfferFormState) => {
+    const response = await createOffer(taskId, data);
+    onClose();
+  };
+
   return (
     <div>
       <Modal open={true} title="Make an Offer" onClose={onClose}>
         <Modal.Section>
-          <MakeAnOfferForm taskId={taskId} onSubmitSuccess={onClose} />
+          <MakeAnOfferForm submitHandler={submitHandler} />
         </Modal.Section>
       </Modal>
     </div>
