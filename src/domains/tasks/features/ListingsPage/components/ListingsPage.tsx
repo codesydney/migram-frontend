@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 
-import { Layout, Page } from "@shopify/polaris";
+import { Button, Layout, Page } from "@shopify/polaris";
 import { MakeAnOfferModal } from "@Tasks/Offers/features/MakeAnOfferForm";
 import { ListingCard } from "./ListingCard";
 
@@ -44,7 +44,11 @@ export function ListingsPage({ myTasks }: any) {
   }, [currentPage, status, myTasks]);
 
   return (
-    <Page title="Listings" fullWidth>
+    <Page
+      title="Listings"
+      fullWidth
+      primaryAction={<Button primary>Create Task</Button>}
+    >
       <Layout>
         {tasks.map((task: any) => (
           <Layout.Section oneHalf key={task.id}>
