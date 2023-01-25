@@ -1,8 +1,7 @@
 import { Card, Stack, TextContainer, Text } from "@shopify/polaris";
 
-import { TaskCategoryBadge } from "@Tasks/features/Tasks/components/TaskCategoryBadge";
-
 import { TaskStatus } from "../types";
+import { TaskCategoryBadge } from "@Tasks/components";
 
 export const ListingCard = ({ task, onMakeAnOfferClick }: any) => {
   const hideMakeOfferButton = task.status !== "open";
