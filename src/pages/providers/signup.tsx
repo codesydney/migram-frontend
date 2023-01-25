@@ -1,3 +1,3 @@
-import { ProviderSignUpPage } from "@Users/Auth/features";
+import { ProviderSignUpPage } from "@Users/ProviderSignUp";
 
 export default ProviderSignUpPage;

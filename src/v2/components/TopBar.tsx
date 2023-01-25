@@ -1,12 +1,12 @@
-import { TopBar as TopBarPrimitive, Icon, Frame, Text } from "@shopify/polaris";
+import { TopBar as TopBarPrimitive, Text } from "@shopify/polaris";
 import { useSession } from "next-auth/react";
 import { useState, useCallback } from "react";
 
 import { routerPush } from "@Utils/index";
-import { useSetAuthHeader } from "@Users/Auth/hooks";
-import { UserType } from "@Users/Auth/types";
-import { signOut } from "@Users/Auth/api/AuthService";
-import { getUserType } from "@Users/Auth/utils";
+import { useSetAuthHeader } from "@Users/hooks";
+import { UserType } from "@Users/types";
+import { getUserType } from "@Users/utils";
+import { signOut } from "@Users/api";
 
 /**
  * Shows when the User is not signed in.
