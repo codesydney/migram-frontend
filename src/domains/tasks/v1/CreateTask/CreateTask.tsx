@@ -1,16 +1,16 @@
 import { useState } from "react";
-import useForm from "../../../lib/useForm";
 import Section1 from "./sections/Section1";
 import Section2 from "./sections/Section2";
 import Section3 from "./sections/Section3";
 
 import SubmitForm from "./SubmitForm";
-import { validate } from "../../../lib/validator";
 
 import BodyStyles from "@Components/styles/BodyStyles";
 import ButtonStyles from "@Components/styles/ButtonStyles";
 import FormControlStyles from "@Components/styles/FormControlStyles";
 import ProgressStyles from "@Components/styles/ProgressStyles";
+import useForm from "src/lib/useForm";
+import { validate } from "src/lib/validator";
 
 export default function CreateTask() {
   const [currentStep, setCurrentStep] = useState(1);

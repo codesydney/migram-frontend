@@ -1,5 +1,3 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export const formSchema = z.object({
@@ -15,16 +13,3 @@ export type MakeAnOfferFormState = z.infer<typeof formSchema>;
 export type MakeAnOfferSubmitHandler = (
   data: MakeAnOfferFormState
 ) => Promise<void>;
-
-export const useMakeAnOfferForm = (submitHandler: MakeAnOfferSubmitHandler) => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<MakeAnOfferFormState>({
-    mode: "onBlur",
-    resolver: zodResolver(formSchema),
-  });
-
-  return { control, onSubmit: handleSubmit(submitHandler), errors };
-};

@@ -1,7 +1,8 @@
 import { Modal } from "@shopify/polaris";
-import { MakeAnOfferForm } from "./MakeAnOfferForm";
+
+import { MakeAnOfferForm } from "./MakeOfferForm";
 import { createOffer } from "../api";
-import { MakeAnOfferFormState } from "../hooks";
+import { MakeAnOfferFormState } from "../types";
 
 type MakeAnOfferModalProps = {
   taskId: string;

@@ -1,10 +1,9 @@
 import { Button, Form, FormLayout } from "@shopify/polaris";
-import {
-  MakeAnOfferFormState,
-  MakeAnOfferSubmitHandler,
-  useMakeAnOfferForm,
-} from "../hooks/useMakeAnOfferForm";
+
 import { TextField } from "@ComponentsV2/components/TextField";
+
+import { useMakeAnOfferForm } from "../hooks/useMakeOfferForm";
+import { MakeAnOfferFormState, MakeAnOfferSubmitHandler } from "../types";
 
 type MakeAnOfferFormProps = {
   submitHandler: MakeAnOfferSubmitHandler;
