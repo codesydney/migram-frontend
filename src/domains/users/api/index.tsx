@@ -6,11 +6,11 @@ import {
 } from "next-auth/react";
 import router from "next/router";
 
-import { LoginFormState } from "../features";
 import { deleteAuthHeader, setAuthHeader } from "../utils";
 import { routerPush } from "@Utils/router";
 import { PasswordLoginCredentials } from "../types";
-import { SignUpFormState } from "../features/SignUpPage/hooks";
+import { LoginFormState } from "../Login";
+import { SignUpFormState } from "../ProviderSignUp/hooks";
 
 export const signIn = async (formValues: LoginFormState) => {
   const signInResponse = nextAuthSignIn("credentials", {

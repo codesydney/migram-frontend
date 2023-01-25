@@ -2,8 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { createUser } from "@Users/Auth/api/AuthService";
-import axios from "axios";
+import { routerPush } from "@Utils/index";
+import { createCustomerUser } from "@Users/api";
 
 export const formSchema = z
   .object({
@@ -23,24 +23,12 @@ export const formSchema = z
 
 export type SignUpFormState = z.infer<typeof formSchema>;
 
-const fetchProviderOnboardingUrl = async (userId: string) => {
-  const response = await axios.post(
-    `${process.env.NEXT_PUBLIC_API_URL}api/v1/providers`,
-    {
-      UserId: userId,
-    }
-  );
-
-  return response.data.data.accountLink.url;
-};
-
 export const submitHandler = async (data: SignUpFormState) => {
-  const userId = await createUser(data);
-  const providerOnboardingUrl = await fetchProviderOnboardingUrl(userId);
-  window.location.assign(providerOnboardingUrl);
+  await createCustomerUser(data);
+  routerPush("/");
 };
 
-export const useProviderSignUpForm = () => {
+export const useSignUpForm = () => {
   const { control, handleSubmit } = useForm<SignUpFormState>({
     mode: "onBlur",
     resolver: zodResolver(formSchema),
