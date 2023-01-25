@@ -18,7 +18,7 @@ export const Navigation = () => {
           },
           {
             url: "/listings",
-            label: "Lists",
+            label: "Listings",
             icon: ListMajor,
           },
           {
