@@ -29,7 +29,7 @@ export const CreateTaskPage = () => {
             <TextField<CreateTaskFormState>
               name="budget"
               label="Budget"
-              type="number"
+              type="currency"
               autoComplete="off"
               control={control}
             />
