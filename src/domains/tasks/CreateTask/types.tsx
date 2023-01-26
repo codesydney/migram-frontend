@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { AddressSchema } from "@Types/schemas";
 
 export const offerSchema = z.object({});
 
@@ -54,13 +55,7 @@ export const CreateTaskFormSchema = z.object({
     .date({ invalid_type_error: "Due date must be a date" })
     .min(new Date(), { message: "Due date must be in the future" }),
   photos: z.optional(z.array(z.string())),
-  location: z
-    .object({
-      name: z.string(),
-      type: z.string(),
-      coordinates: z.tuple([z.number(), z.number()]),
-    })
-    .optional(),
+  location: AddressSchema,
 });
 
 export type CreateTaskFormState = z.infer<typeof CreateTaskFormSchema>;

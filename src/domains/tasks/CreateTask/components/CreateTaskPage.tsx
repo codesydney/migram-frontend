@@ -9,6 +9,7 @@ import {
   TaskTimeOfArrivalSchema,
   TaskTimeEstimateSchema,
 } from "../types";
+import { StateSchema } from "@Types/schemas";
 
 export const CreateTaskPage = () => {
   const { control, onSubmit } = useCreateTaskForm();
@@ -75,14 +76,42 @@ export const CreateTaskPage = () => {
               options={TaskTimeEstimateSchema.options}
               control={control}
             />
-            {/*
-                photos: z.optional(z.array(z.string())),
-                location: z.object({
-                  name: z.string(),
-                  type: z.string(),
-                  coordinates: z.tuple([z.number(), z.number()]),
-                }),
-            */}
+            <TextField<CreateTaskFormState>
+              name="location.line1"
+              label="Line 1"
+              requiredIndicator
+              autoComplete="off"
+              control={control}
+            />
+            <TextField<CreateTaskFormState>
+              name="location.line2"
+              label="Line 2"
+              autoComplete="off"
+              control={control}
+            />
+            <FormLayout.Group condensed>
+              <TextField<CreateTaskFormState>
+                name="location.city"
+                label="City"
+                requiredIndicator
+                autoComplete="off"
+                control={control}
+              />
+              <Select<CreateTaskFormState>
+                name="location.state"
+                label="State"
+                requiredIndicator
+                options={StateSchema.options}
+                control={control}
+              />
+              <TextField<CreateTaskFormState>
+                name="location.postal_code"
+                label="Postcode"
+                requiredIndicator
+                autoComplete="off"
+                control={control}
+              />
+            </FormLayout.Group>
             <Button primary submit size="large">
               Submit
             </Button>
