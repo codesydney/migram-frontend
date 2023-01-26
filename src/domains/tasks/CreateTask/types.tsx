@@ -40,7 +40,9 @@ export const CreateTaskFormSchema = z.object({
   timeOfArrival: TaskTimeOfArrivalSchema.default("7am-10am"),
   timeEstimate: TaskTimeEstimateSchema.default("1-3hrs"),
   status: TaskStatusSchema.default("open"),
-  dueDate: z.string(),
+  dueDate: z
+    .date()
+    .min(new Date(), { message: "Due date must be in the future" }),
   photos: z.optional(z.array(z.string())),
   location: z.object({
     name: z.string(),
