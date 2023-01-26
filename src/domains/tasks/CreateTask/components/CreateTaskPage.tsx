@@ -22,6 +22,7 @@ export const CreateTaskPage = () => {
               name="title"
               label="Title"
               type="text"
+              requiredIndicator
               autoComplete="off"
               control={control}
             />
@@ -30,6 +31,7 @@ export const CreateTaskPage = () => {
               name="budget"
               label="Budget"
               type="currency"
+              requiredIndicator
               autoComplete="off"
               control={control}
             />
@@ -37,6 +39,7 @@ export const CreateTaskPage = () => {
             <Select<CreateTaskFormState>
               options={TaskCategorySchema.options}
               label="Category"
+              requiredIndicator
               name="category"
               control={control}
             />
@@ -44,7 +47,7 @@ export const CreateTaskPage = () => {
             <TextField<CreateTaskFormState>
               name="details"
               label="Details"
-              type="text"
+              requiredIndicator
               autoComplete="off"
               control={control}
             />
@@ -53,6 +56,7 @@ export const CreateTaskPage = () => {
               name="dueDate"
               label="Due Date"
               type="date"
+              requiredIndicator
               autoComplete="off"
               control={control}
             />
@@ -60,12 +64,14 @@ export const CreateTaskPage = () => {
             <Select<CreateTaskFormState>
               name="timeOfArrival"
               label="Time of Arrival"
+              requiredIndicator
               options={TaskTimeOfArrivalSchema.options}
               control={control}
             />
             <Select<CreateTaskFormState>
               name="timeEstimate"
               label="Estimated Time"
+              requiredIndicator
               options={TaskTimeEstimateSchema.options}
               control={control}
             />
