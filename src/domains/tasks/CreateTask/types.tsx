@@ -33,13 +33,13 @@ export const TaskTimeEstimateSchema = z.enum([
 ] as const);
 
 export const CreateTaskFormSchema = z.object({
-  category: TaskCategorySchema,
+  category: TaskCategorySchema.default("Cleaning"),
   title: z.string().min(10),
   details: z.string().min(25),
   budget: z.number().gt(5),
-  timeOfArrival: TaskTimeOfArrivalSchema,
-  timeEstimate: TaskTimeEstimateSchema,
-  status: TaskStatusSchema,
+  timeOfArrival: TaskTimeOfArrivalSchema.default("7am-10am"),
+  timeEstimate: TaskTimeEstimateSchema.default("1-3hrs"),
+  status: TaskStatusSchema.default("open"),
   dueDate: z.string(),
   photos: z.optional(z.array(z.string())),
   location: z.object({
