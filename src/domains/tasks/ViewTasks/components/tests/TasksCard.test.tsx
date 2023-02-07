@@ -10,20 +10,28 @@ const renderTaskCard = () => {
 
 test("Smoke Test if it renders", () => {
   renderTaskCard();
-  expect(screen.getByLabelText("Task Card")).toBeTruthy();
+
+  const taskCard = screen.queryByLabelText("Task Card");
+  expect(taskCard).toBeTruthy();
 });
 
 it("renders a 'Details' section", () => {
   renderTaskCard();
-  expect(screen.getByRole("heading", { name: /^details$/i })).toBeTruthy();
+
+  const detailsHeading = screen.queryByRole("heading", { name: /^details$/i });
+  expect(detailsHeading).toBeTruthy();
 });
 
 it("renders an 'Offers' section", () => {
   renderTaskCard();
-  expect(screen.getByRole("heading", { name: /^offers$/i })).toBeTruthy();
+
+  const offersHeading = screen.queryByRole("heading", { name: /^offers$/i });
+  expect(offersHeading).toBeTruthy();
 });
 
 it("renders a View Offers button", () => {
   renderTaskCard();
-  expect(screen.getByRole("button", { name: /^view$/i })).toBeTruthy();
+
+  const viewOffersButton = screen.queryByRole("button", { name: /^view$/i });
+  expect(viewOffersButton).toBeTruthy();
 });
