@@ -21,7 +21,9 @@ export const TaskCard = () => {
       <Card sectioned>
         <Card.Header title={"Title"}></Card.Header>
         <Card.Section title="Details"></Card.Section>
-        <Card.Section title={<OffersSectionTitle />}></Card.Section>
+        <Card.Section title={<OffersSectionTitle />}>
+          <div aria-label="Offers List"></div>
+        </Card.Section>
       </Card>
     </article>
   );
