@@ -42,7 +42,7 @@ it("renders OffersList when View Offers button is clicked", async () => {
   const user = userEvent.setup();
   const viewOffersButton = screen.getByRole("button", { name: /^view$/i });
 
-  user.click(viewOffersButton);
+  await user.click(viewOffersButton);
 
   const offersList = screen.queryByLabelText("Offers List");
   expect(offersList).toBeTruthy();
