@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { routerPush } from "@Utils/index";
-import { createCustomerUser } from "@Users/api";
+import { createCustomerUser } from "@Users/common/api";
 
 export const formSchema = z
   .object({

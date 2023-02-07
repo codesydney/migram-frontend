@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Checkbox, Form, FormLayout, Page } from "@shopify/polaris";
 import { routerPush } from "@Utils/router";
 import { TextField } from "@ComponentsV2/components/TextField";
-import { signIn } from "../api";
+import { signIn } from "../common/api";
 
 const formSchema = z.object({
   email: z
