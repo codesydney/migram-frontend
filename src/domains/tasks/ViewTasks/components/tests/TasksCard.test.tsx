@@ -37,6 +37,13 @@ it("renders a View Offers button", () => {
   expect(viewOffersButton).toBeTruthy();
 });
 
+it("does not initially render OffersList", () => {
+  renderTaskCard();
+
+  const offersList = screen.queryByLabelText("Offers List");
+  expect(offersList).toBeNull();
+});
+
 it("renders OffersList when View Offers button is clicked", async () => {
   renderTaskCard();
   const user = userEvent.setup();

@@ -1,6 +1,7 @@
 import { Button, Card, Stack, Text } from "@shopify/polaris";
+import { useState } from "react";
 
-const OffersSectionTitle = () => {
+const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
   return (
     <Stack>
       <Stack.Item fill>
@@ -9,20 +10,26 @@ const OffersSectionTitle = () => {
         </Text>
       </Stack.Item>
       <Stack.Item>
-        <Button>View</Button>
+        <Button onClick={onClick}>View</Button>
       </Stack.Item>
     </Stack>
   );
 };
 
 export const TaskCard = () => {
+  const [showOffers, setShowOffers] = useState(false);
+
   return (
     <article aria-label="Task Card">
       <Card sectioned>
         <Card.Header title={"Title"}></Card.Header>
         <Card.Section title="Details"></Card.Section>
-        <Card.Section title={<OffersSectionTitle />}>
-          <div aria-label="Offers List"></div>
+        <Card.Section
+          title={
+            <OffersSectionTitle onClick={() => setShowOffers(!showOffers)} />
+          }
+        >
+          {showOffers ? <div aria-label="Offers List">offers list</div> : null}
         </Card.Section>
       </Card>
     </article>
