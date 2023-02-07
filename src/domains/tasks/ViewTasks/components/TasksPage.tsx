@@ -1,4 +1,19 @@
-import { Card } from "@shopify/polaris";
+import { Button, Card, Stack, Text } from "@shopify/polaris";
+
+const OffersSectionTitle = () => {
+  return (
+    <Stack>
+      <Stack.Item fill>
+        <Text as="h3" variant="headingSm">
+          Offers
+        </Text>
+      </Stack.Item>
+      <Stack.Item>
+        <Button>View</Button>
+      </Stack.Item>
+    </Stack>
+  );
+};
 
 export const TaskCard = () => {
   return (
@@ -6,7 +21,7 @@ export const TaskCard = () => {
       <Card sectioned>
         <Card.Header title={"Title"}></Card.Header>
         <Card.Section title="Details"></Card.Section>
-        <Card.Section title="Offers"></Card.Section>
+        <Card.Section title={<OffersSectionTitle />}></Card.Section>
       </Card>
     </article>
   );
