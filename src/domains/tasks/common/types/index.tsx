@@ -66,3 +66,5 @@ export const TaskSchema = z.object({
   photos: z.optional(z.array(z.string())),
   location: AddressSchema,
 });
+
+export type Task = z.infer<typeof TaskSchema>;
