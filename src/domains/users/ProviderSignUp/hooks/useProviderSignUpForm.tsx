@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import axios from "axios";
-import { createUser } from "@Users/api";
+import { createUser } from "@Users/common/api";
 
 export const formSchema = z
   .object({

@@ -3,10 +3,10 @@ import { useSession } from "next-auth/react";
 import { useState, useCallback } from "react";
 
 import { routerPush } from "@Utils/index";
-import { useSetAuthHeader } from "@Users/hooks";
-import { UserType } from "@Users/types";
-import { getUserType } from "@Users/utils";
-import { signOut } from "@Users/api";
+import { useSetAuthHeader } from "@Users/common/hooks";
+import { UserType } from "@Users/common/types";
+import { getUserType } from "@Users/common/utils";
+import { signOut } from "@Users/common/api";
 
 /**
  * Shows when the User is not signed in.
