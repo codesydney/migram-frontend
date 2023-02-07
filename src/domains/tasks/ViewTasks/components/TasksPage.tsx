@@ -3,5 +3,9 @@ export const TaskCard = () => {
 };
 
 export const TasksPage = () => {
-  return <div aria-label="Customer Tasks Page"></div>;
+  return (
+    <div aria-label="Customer Tasks Page">
+      <TaskCard />
+    </div>
+  );
 };
