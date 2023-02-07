@@ -9,17 +9,17 @@ test("Smoke Test if it renders", () => {
   expect(screen.getByLabelText("Task Card")).toBeTruthy();
 });
 
-test("Renders a 'Details' section", () => {
+it("renders a 'Details' section", () => {
   render(<TaskCard />, { wrapper: PolarisTestProvider });
   expect(screen.getByRole("heading", { name: /^details$/i })).toBeTruthy();
 });
 
-test("Renders an 'Offers' section", () => {
+it("renders an 'Offers' section", () => {
   render(<TaskCard />, { wrapper: PolarisTestProvider });
   expect(screen.getByRole("heading", { name: /^offers$/i })).toBeTruthy();
 });
 
-test("Renders a View Offers button", () => {
+it("renders a View Offers button", () => {
   render(<TaskCard />, { wrapper: PolarisTestProvider });
   expect(screen.getByRole("button", { name: /^view$/i })).toBeTruthy();
 });
