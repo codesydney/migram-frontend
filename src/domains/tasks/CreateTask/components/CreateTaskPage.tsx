@@ -3,13 +3,13 @@ import { Page, Form, FormLayout, Button } from "@shopify/polaris";
 import { TextField, Select } from "@ComponentsV2/components";
 
 import { useCreateTaskForm } from "../hooks/useCreateTaskForm";
-import {
-  CreateTaskFormState,
-  TaskCategorySchema,
-  TaskTimeOfArrivalSchema,
-  TaskTimeEstimateSchema,
-} from "../types";
 import { StateSchema } from "@Types/schemas";
+import { CreateTaskFormState } from "../types";
+import {
+  TaskCategorySchema,
+  TaskTimeEstimateSchema,
+  TaskTimeOfArrivalSchema,
+} from "@Tasks/common/types";
 
 export const CreateTaskPage = () => {
   const { control, onSubmit } = useCreateTaskForm();
