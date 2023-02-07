@@ -1,18 +1,20 @@
 import { MakeAnOfferModal } from "@Tasks/MakeOffer";
-import { ListingCard } from "@Tasks/ViewListings/components";
 import { Page, Button, Layout } from "@shopify/polaris";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { TaskCard } from "./TaskCard";
+import { useSession } from "next-auth/react";
 
 /**
  * Customer Admin view for the Tasks that they own.
  */
 export const TasksPage = () => {
   const [currentPage, setCurrentPage]: any = useState(1);
+  const { status } = useSession();
   const [tasks, setTasks]: any[] = useState([]);
   const [selectedTaskId, setSelectedTaskId] = useState<string | undefined>();
 
-  function getTasks(currentPage: number, myTasks: boolean) {
+  function getTasks(currentPage: number, myTasks: boolean = true) {
     const params = myTasks
       ? { my_tasks: true }
       : { page: currentPage, limit: 6 };
@@ -37,8 +39,10 @@ export const TasksPage = () => {
 
   // dedupes requests while loading
   useEffect(() => {
-    getTasks(currentPage, false);
-  }, [currentPage]);
+    if (status === "loading") return;
+
+    getTasks(currentPage);
+  }, [currentPage, status]);
 
   return (
     <div aria-label="View Tasks Page">
@@ -50,7 +54,7 @@ export const TasksPage = () => {
         <Layout>
           {tasks.map((task: any) => (
             <Layout.Section oneHalf key={task.id}>
-              <ListingCard
+              <TaskCard
                 task={task}
                 onMakeAnOfferClick={() => setSelectedTaskId(task.id)}
               />
