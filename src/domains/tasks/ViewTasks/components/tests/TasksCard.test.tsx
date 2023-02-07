@@ -8,3 +8,13 @@ test("Smoke Test if it renders", () => {
   render(<TaskCard />, { wrapper: PolarisTestProvider });
   expect(screen.getByLabelText("Task Card")).toBeTruthy();
 });
+
+test("Renders a 'Details' section", () => {
+  render(<TaskCard />, { wrapper: PolarisTestProvider });
+  expect(screen.getByRole("heading", { name: /^details$/i })).toBeTruthy();
+});
+
+test("Renders an 'Offers' section", () => {
+  render(<TaskCard />, { wrapper: PolarisTestProvider });
+  expect(screen.getByRole("heading", { name: /^offers$/i })).toBeTruthy();
+});
