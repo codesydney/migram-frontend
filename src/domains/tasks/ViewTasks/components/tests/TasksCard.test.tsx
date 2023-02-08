@@ -1,12 +1,11 @@
-import { render, screen } from "@testing-library/react";
-
-import { PolarisTestProvider } from "@shopify/polaris";
+import { screen } from "@testing-library/react";
 
 import { TaskCard } from "../TasksPage";
-import userEvent from "@testing-library/user-event";
+
+import { renderWithPolarisTestProvider } from "src/test/utils";
 
 const renderTaskCard = () => {
-  render(<TaskCard />, { wrapper: PolarisTestProvider });
+  return renderWithPolarisTestProvider(<TaskCard />);
 };
 
 test("Smoke Test if it renders", () => {

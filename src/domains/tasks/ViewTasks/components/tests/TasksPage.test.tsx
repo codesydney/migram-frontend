@@ -1,14 +1,15 @@
-import { render, screen } from "@testing-library/react";
-import { PolarisTestProvider } from "@shopify/polaris";
+import { screen } from "@testing-library/react";
 
 import { TasksPage } from "../TasksPage";
 
+import { renderWithPolarisTestProvider } from "src/test/utils";
+
 test("Smoke Test if it renders", () => {
-  render(<TasksPage />, { wrapper: PolarisTestProvider });
+  renderWithPolarisTestProvider(<TasksPage />);
   expect(screen.getByLabelText("Customer Tasks Page")).toBeTruthy();
 });
 
 test("It renders TaskCard as a child", () => {
-  render(<TasksPage />, { wrapper: PolarisTestProvider });
+  renderWithPolarisTestProvider(<TasksPage />);
   expect(screen.getByLabelText("Task Card")).toBeTruthy();
 });

@@ -1,11 +1,12 @@
-import { render, screen } from "@testing-library/react";
-import { PolarisTestProvider } from "@shopify/polaris";
-
-import { OffersSection } from "../TasksPage";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { OffersSection } from "../TasksPage";
+
+import { renderWithPolarisTestProvider } from "src/test/utils";
+
 const renderOffersSection = () => {
-  return render(<OffersSection />, { wrapper: PolarisTestProvider });
+  return renderWithPolarisTestProvider(<OffersSection />);
 };
 
 test("Smoke test if it renders", () => {
