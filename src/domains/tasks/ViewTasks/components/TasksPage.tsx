@@ -88,7 +88,7 @@ export const OffersTable = ({ offers }: { offers: unknown[] }) => {
 
 export const OffersSection = () => {
   const [showOffers, setShowOffers] = useState(false);
-  const offers: unknown[] = [offer, offer];
+  const offers: unknown[] = [offer, { ...offer, id: "2" }];
 
   return (
     <Card.Section
