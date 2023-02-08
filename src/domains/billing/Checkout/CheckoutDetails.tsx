@@ -1,4 +1,4 @@
-import Task from "src/types/task";
+import { Task } from "@Tasks/common/types";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
