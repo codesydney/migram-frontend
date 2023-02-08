@@ -5,8 +5,14 @@ import { OffersSection } from "../TasksPage";
 import userEvent from "@testing-library/user-event";
 
 const renderOffersSection = () => {
-  render(<OffersSection />, { wrapper: PolarisTestProvider });
+  return render(<OffersSection />, { wrapper: PolarisTestProvider });
 };
+
+test("Smoke test if it renders", () => {
+  const { baseElement } = renderOffersSection();
+
+  expect(baseElement).toBeInTheDocument();
+});
 
 it("renders a View Offers button", () => {
   renderOffersSection();
