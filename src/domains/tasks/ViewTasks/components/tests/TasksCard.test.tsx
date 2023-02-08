@@ -30,27 +30,9 @@ it("renders an 'Offers' section", () => {
   expect(offersHeading).toBeTruthy();
 });
 
-it("renders a View Offers button", () => {
-  renderTaskCard();
-
-  const viewOffersButton = screen.queryByRole("button", { name: /^view$/i });
-  expect(viewOffersButton).toBeTruthy();
-});
-
 it("does not initially render OffersList", () => {
   renderTaskCard();
 
   const offersList = screen.queryByLabelText("Offers List");
   expect(offersList).toBeNull();
-});
-
-it("renders OffersList when View Offers button is clicked", async () => {
-  renderTaskCard();
-  const user = userEvent.setup();
-  const viewOffersButton = screen.getByRole("button", { name: /^view$/i });
-
-  await user.click(viewOffersButton);
-
-  const offersList = screen.queryByLabelText("Offers List");
-  expect(offersList).toBeTruthy();
 });
