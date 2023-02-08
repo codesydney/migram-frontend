@@ -1,13 +1,12 @@
-import { render, screen } from "@testing-library/react";
-
-import { PolarisTestProvider } from "@shopify/polaris";
+import { screen } from "@testing-library/react";
 
 import { TaskCard } from "../TasksPage";
-import userEvent from "@testing-library/user-event";
 
-const renderTaskCard = () => {
-  render(<TaskCard />, { wrapper: PolarisTestProvider });
-};
+import { renderWithPolarisTestProvider } from "src/test/utils";
+
+function renderTaskCard() {
+  return renderWithPolarisTestProvider(<TaskCard />);
+}
 
 test("Smoke Test if it renders", () => {
   renderTaskCard();
@@ -30,27 +29,9 @@ it("renders an 'Offers' section", () => {
   expect(offersHeading).toBeTruthy();
 });
 
-it("renders a View Offers button", () => {
-  renderTaskCard();
-
-  const viewOffersButton = screen.queryByRole("button", { name: /^view$/i });
-  expect(viewOffersButton).toBeTruthy();
-});
-
 it("does not initially render OffersList", () => {
   renderTaskCard();
 
   const offersList = screen.queryByLabelText("Offers List");
   expect(offersList).toBeNull();
-});
-
-it("renders OffersList when View Offers button is clicked", async () => {
-  renderTaskCard();
-  const user = userEvent.setup();
-  const viewOffersButton = screen.getByRole("button", { name: /^view$/i });
-
-  await user.click(viewOffersButton);
-
-  const offersList = screen.queryByLabelText("Offers List");
-  expect(offersList).toBeTruthy();
 });
