@@ -1,4 +1,11 @@
-import { Button, Card, IndexTable, Stack, Text } from "@shopify/polaris";
+import {
+  Button,
+  Card,
+  IndexTable,
+  Stack,
+  Text,
+  TextContainer,
+} from "@shopify/polaris";
 import { useState } from "react";
 
 const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
@@ -33,18 +40,33 @@ const offer = {
 type Offer = typeof offer;
 
 export const OfferItemRow = ({
-  id,
   offer,
   position,
 }: {
-  id: string;
   offer: unknown;
   position: number;
 }) => {
+  const { id, offerAmt, status, comments, providerId } = offer as any;
+
   return (
     <IndexTable.Row id={id} position={position}>
       <IndexTable.Cell>
-        <p>Offer</p>
+        <div style={{ padding: "12px 16px" }}>
+          <Stack>
+            <Stack.Item fill>
+              <Text variant="bodyMd" fontWeight="bold" as="span">
+                ${offerAmt}
+              </Text>
+            </Stack.Item>
+            <Stack.Item>{status}</Stack.Item>
+          </Stack>
+          <TextContainer>
+            <Text variant="bodyMd" color="subdued" as="p">
+              {providerId}
+            </Text>
+            <p>{comments}</p>
+          </TextContainer>
+        </div>
       </IndexTable.Cell>
     </IndexTable.Row>
   );
@@ -56,14 +78,7 @@ export const OffersTable = ({ offers }: { offers: unknown[] }) => {
       <Card>
         <IndexTable headings={[{ title: "Offer" }]} itemCount={2}>
           {offers.map((item, idx) => {
-            return (
-              <OfferItemRow
-                key={idx}
-                id={idx.toString()}
-                offer={item}
-                position={0}
-              />
-            );
+            return <OfferItemRow key={idx} offer={item} position={0} />;
           })}
         </IndexTable>
       </Card>
@@ -73,7 +88,7 @@ export const OffersTable = ({ offers }: { offers: unknown[] }) => {
 
 export const OffersSection = () => {
   const [showOffers, setShowOffers] = useState(false);
-  const offers: unknown[] = [{}, {}];
+  const offers: unknown[] = [offer, offer];
 
   return (
     <Card.Section
