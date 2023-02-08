@@ -6,7 +6,7 @@ import {
   Text,
   TextContainer,
 } from "@shopify/polaris";
-import { useState } from "react";
+import { ComponentProps, useState } from "react";
 
 const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
   return (
@@ -39,17 +39,17 @@ const offer = {
 
 type Offer = typeof offer;
 
-export const OfferItemRow = ({
-  offer,
-  position,
-}: {
-  offer: unknown;
-  position: number;
-}) => {
+type IndexTableRowProps = ComponentProps<typeof IndexTable.Row>;
+
+type OfferItemRowProsp = {
+  offer: Offer;
+} & Omit<IndexTableRowProps, "id" | "children">;
+
+export const OfferItemRow = ({ offer, ...props }: OfferItemRowProsp) => {
   const { id, offerAmt, status, comments, providerId } = offer as any;
 
   return (
-    <IndexTable.Row id={id} position={position}>
+    <IndexTable.Row {...props} id={id}>
       <IndexTable.Cell>
         <div style={{ padding: "12px 16px" }}>
           <Stack>
@@ -72,13 +72,15 @@ export const OfferItemRow = ({
   );
 };
 
-export const OffersTable = ({ offers }: { offers: unknown[] }) => {
+export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
   return (
     <div aria-label="Offers Table">
       <Card>
         <IndexTable headings={[{ title: "Offer" }]} itemCount={2}>
           {offers.map((item, idx) => {
-            return <OfferItemRow key={idx} offer={item} position={0} />;
+            return (
+              <OfferItemRow key={idx} offer={item} position={idx} selected />
+            );
           })}
         </IndexTable>
       </Card>
@@ -88,7 +90,7 @@ export const OffersTable = ({ offers }: { offers: unknown[] }) => {
 
 export const OffersSection = () => {
   const [showOffers, setShowOffers] = useState(false);
-  const offers: unknown[] = [offer, { ...offer, id: "2" }];
+  const offers: Offer[] = [offer, { ...offer, id: "2" }];
 
   return (
     <Card.Section
