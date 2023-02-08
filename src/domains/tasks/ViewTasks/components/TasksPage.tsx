@@ -20,11 +20,10 @@ export const OffersTable = () => {
   return (
     <div aria-label="Offers Table">
       <Card>
-        <IndexTable
-          headings={[{ title: "Offer" }]}
-          itemCount={0}
-          loading
-        ></IndexTable>
+        <IndexTable headings={[{ title: "Offer" }]} itemCount={2}>
+          <tr />
+          <tr />
+        </IndexTable>
       </Card>
     </div>
   );
