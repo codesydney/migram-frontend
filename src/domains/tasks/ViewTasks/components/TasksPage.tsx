@@ -16,21 +16,25 @@ const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
   );
 };
 
-export const TaskCard = () => {
+export const OffersSection = () => {
   const [showOffers, setShowOffers] = useState(false);
 
+  return (
+    <Card.Section
+      title={<OffersSectionTitle onClick={() => setShowOffers(!showOffers)} />}
+    >
+      {showOffers ? <div aria-label="Offers List">offers list</div> : null}
+    </Card.Section>
+  );
+};
+
+export const TaskCard = () => {
   return (
     <article aria-label="Task Card">
       <Card sectioned>
         <Card.Header title={"Title"}></Card.Header>
         <Card.Section title="Details"></Card.Section>
-        <Card.Section
-          title={
-            <OffersSectionTitle onClick={() => setShowOffers(!showOffers)} />
-          }
-        >
-          {showOffers ? <div aria-label="Offers List">offers list</div> : null}
-        </Card.Section>
+        <OffersSection />
       </Card>
     </article>
   );
