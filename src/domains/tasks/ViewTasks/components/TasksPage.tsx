@@ -16,13 +16,38 @@ const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
   );
 };
 
+export const OfferItemRow = ({
+  id,
+  offer,
+  position,
+}: {
+  id: string;
+  offer: unknown;
+  position: number;
+}) => {
+  return (
+    <IndexTable.Row id={id} position={position}>
+      <IndexTable.Cell>
+        <p>Offer</p>
+      </IndexTable.Cell>
+    </IndexTable.Row>
+  );
+};
+
 export const OffersTable = ({ offers }: { offers: unknown[] }) => {
   return (
     <div aria-label="Offers Table">
       <Card>
         <IndexTable headings={[{ title: "Offer" }]} itemCount={2}>
           {offers.map((item, idx) => {
-            return <tr key={idx} />;
+            return (
+              <OfferItemRow
+                key={idx}
+                id={idx.toString()}
+                offer={item}
+                position={0}
+              />
+            );
           })}
         </IndexTable>
       </Card>
@@ -32,7 +57,7 @@ export const OffersTable = ({ offers }: { offers: unknown[] }) => {
 
 export const OffersSection = () => {
   const [showOffers, setShowOffers] = useState(false);
-  const offers: unknown[] = [];
+  const offers: unknown[] = [{}, {}];
 
   return (
     <Card.Section
