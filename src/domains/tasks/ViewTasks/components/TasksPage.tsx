@@ -16,13 +16,14 @@ const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
   );
 };
 
-export const OffersTable = () => {
+export const OffersTable = ({ offers }: { offers: unknown[] }) => {
   return (
     <div aria-label="Offers Table">
       <Card>
         <IndexTable headings={[{ title: "Offer" }]} itemCount={2}>
-          <tr />
-          <tr />
+          {offers.map((item, idx) => {
+            return <tr key={idx} />;
+          })}
         </IndexTable>
       </Card>
     </div>
@@ -31,12 +32,13 @@ export const OffersTable = () => {
 
 export const OffersSection = () => {
   const [showOffers, setShowOffers] = useState(false);
+  const offers: unknown[] = [];
 
   return (
     <Card.Section
       title={<OffersSectionTitle onClick={() => setShowOffers(!showOffers)} />}
     >
-      {showOffers ? <OffersTable /> : null}
+      {showOffers ? <OffersTable offers={offers} /> : null}
     </Card.Section>
   );
 };
