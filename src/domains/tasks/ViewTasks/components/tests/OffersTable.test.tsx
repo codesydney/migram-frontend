@@ -3,9 +3,9 @@ import { OffersTable } from "../TasksPage";
 
 import { renderWithPolarisTestProvider } from "src/test/utils";
 
-const renderOffersTable = () => {
+function renderOffersTable() {
   return renderWithPolarisTestProvider(<OffersTable />);
-};
+}
 
 function setupWithTwoOffers() {
   renderOffersTable();

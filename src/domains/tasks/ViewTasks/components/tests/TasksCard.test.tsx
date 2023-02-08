@@ -4,9 +4,9 @@ import { TaskCard } from "../TasksPage";
 
 import { renderWithPolarisTestProvider } from "src/test/utils";
 
-const renderTaskCard = () => {
+function renderTaskCard() {
   return renderWithPolarisTestProvider(<TaskCard />);
-};
+}
 
 test("Smoke Test if it renders", () => {
   renderTaskCard();

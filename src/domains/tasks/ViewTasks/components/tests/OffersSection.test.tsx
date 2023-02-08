@@ -5,9 +5,9 @@ import { OffersSection } from "../TasksPage";
 
 import { renderWithPolarisTestProvider } from "src/test/utils";
 
-const renderOffersSection = () => {
+function renderOffersSection() {
   return renderWithPolarisTestProvider(<OffersSection />);
-};
+}
 
 test("Smoke test if it renders", () => {
   const { baseElement } = renderOffersSection();
