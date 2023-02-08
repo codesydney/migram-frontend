@@ -21,13 +21,13 @@ it("renders a View Offers button", () => {
   expect(viewOffersButton).toBeTruthy();
 });
 
-it("renders OffersList when View Offers button is clicked", async () => {
+it("renders OffersTable when View Offers button is clicked", async () => {
   renderOffersSection();
   const user = userEvent.setup();
   const viewOffersButton = screen.getByRole("button", { name: /^view$/i });
 
   await user.click(viewOffersButton);
 
-  const offersList = screen.queryByLabelText("Offers List");
+  const offersList = screen.queryByLabelText("Offers Table");
   expect(offersList).toBeTruthy();
 });

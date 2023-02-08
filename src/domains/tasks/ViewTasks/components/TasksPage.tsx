@@ -1,4 +1,4 @@
-import { Button, Card, Stack, Text } from "@shopify/polaris";
+import { Button, Card, IndexTable, Stack, Text } from "@shopify/polaris";
 import { useState } from "react";
 
 const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
@@ -16,6 +16,20 @@ const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
   );
 };
 
+export const OffersTable = () => {
+  return (
+    <div aria-label="Offers Table">
+      <Card>
+        <IndexTable
+          headings={[{ title: "Offer" }]}
+          itemCount={0}
+          loading
+        ></IndexTable>
+      </Card>
+    </div>
+  );
+};
+
 export const OffersSection = () => {
   const [showOffers, setShowOffers] = useState(false);
 
@@ -23,7 +37,7 @@ export const OffersSection = () => {
     <Card.Section
       title={<OffersSectionTitle onClick={() => setShowOffers(!showOffers)} />}
     >
-      {showOffers ? <div aria-label="Offers List">offers list</div> : null}
+      {showOffers ? <OffersTable /> : null}
     </Card.Section>
   );
 };
