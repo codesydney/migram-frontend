@@ -31,7 +31,10 @@ function setupWithOneOffer() {
 }
 
 function setupWithTwoOffers() {
-  const offers = [testOffer, { ...testOffer, id: "2" }];
+  const offers = [
+    testOffer,
+    { ...testOffer, id: "2", comments: "Second Offer" },
+  ];
 
   renderOffersTable({ offers });
 }
@@ -65,4 +68,19 @@ test("checkbox is checked when a row is clicked", async () => {
   const checkboxes = screen.getAllByRole("checkbox", { checked: true });
 
   expect(checkboxes.length).toBe(1);
+});
+
+it("only allows one row to be selected at a time", async () => {
+  setupWithTwoOffers();
+
+  const user = userEvent.setup();
+  const firstOfferDescription = screen.getByText(/^first offer$/i);
+  const secondOfferDescription = screen.getByText(/^second offer$/i);
+
+  await user.click(firstOfferDescription);
+  await user.click(secondOfferDescription);
+
+  const checkbox = screen.getByRole("checkbox", { checked: true });
+
+  expect(checkbox).toBeChecked();
 });

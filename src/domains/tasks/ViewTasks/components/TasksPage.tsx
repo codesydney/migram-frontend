@@ -2,6 +2,7 @@ import {
   Button,
   Card,
   IndexTable,
+  IndexTableSelectionType,
   Stack,
   Text,
   TextContainer,
@@ -74,8 +75,17 @@ export const OfferItemRow = ({ offer, ...props }: OfferItemRowProps) => {
 };
 
 export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
-  const { allResourcesSelected, handleSelectionChange, selectedResources } =
+  const { handleSelectionChange, selectedResources, clearSelection } =
     useIndexResourceState(offers);
+
+  const customHandleSelectionChange = (
+    selectionType: IndexTableSelectionType = IndexTableSelectionType.Single,
+    isSelecting: boolean,
+    selection?: string | [number, number] | undefined
+  ) => {
+    clearSelection();
+    handleSelectionChange(selectionType, isSelecting, selection);
+  };
 
   return (
     <div aria-label="Offers Table">
@@ -83,7 +93,7 @@ export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
         <IndexTable
           headings={[{ title: "Offer" }]}
           itemCount={2}
-          onSelectionChange={handleSelectionChange}
+          onSelectionChange={customHandleSelectionChange}
         >
           {offers.map((item, idx) => {
             return (
