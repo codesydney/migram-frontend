@@ -37,7 +37,7 @@ function setupWithTwoOffers() {
 }
 
 // one rows plus another for the header
-test("it displays two rows when given one offers", () => {
+it("displays two rows when given one offers", () => {
   setupWithOneOffer();
 
   const rows = screen.getAllByRole("row");
@@ -46,7 +46,7 @@ test("it displays two rows when given one offers", () => {
 });
 
 // two rows plus one for the header
-test("it displays three rows when given two offers", () => {
+it("displays three rows when given two offers", () => {
   setupWithTwoOffers();
 
   const rows = screen.getAllByRole("row");
