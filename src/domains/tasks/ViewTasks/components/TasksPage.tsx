@@ -42,11 +42,11 @@ type Offer = typeof offer;
 
 type IndexTableRowProps = ComponentProps<typeof IndexTable.Row>;
 
-type OfferItemRowProsp = {
+type OfferItemRowProps = {
   offer: Offer;
 } & Omit<IndexTableRowProps, "id" | "children">;
 
-export const OfferItemRow = ({ offer, ...props }: OfferItemRowProsp) => {
+export const OfferItemRow = ({ offer, ...props }: OfferItemRowProps) => {
   const { id, offerAmt, status, comments, providerId } = offer as any;
 
   return (
