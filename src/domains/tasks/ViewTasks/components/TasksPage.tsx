@@ -69,7 +69,7 @@ export const OfferItemRow = ({ offer, ...props }: OfferItemRowProps) => {
             </Stack.Item>
             <Stack.Item>{status}</Stack.Item>
           </Stack>
-          <TextContainer>
+          <TextContainer spacing="tight">
             <Text variant="bodyMd" color="subdued" as="p">
               {firstName}
             </Text>
@@ -192,7 +192,7 @@ export const TaskCard = ({ task }: { task: Task }) => {
               </Text>
             }
           >
-            <TextContainer>
+            <TextContainer spacing="tight">
               <Text as="h3" variant="headingSm">
                 ${task.budget}
               </Text>
