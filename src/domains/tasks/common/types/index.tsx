@@ -44,6 +44,7 @@ export const TaskTimeEstimateSchema = z.enum([
 
 export const TaskSchema = z.object({
   id: z.string(),
+  customerId: z.string(),
   category: TaskCategorySchema.default("Cleaning"),
   title: z
     .string({
