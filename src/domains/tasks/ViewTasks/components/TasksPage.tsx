@@ -8,6 +8,8 @@ import {
   TextContainer,
   useIndexResourceState,
 } from "@shopify/polaris";
+import styled from "styled-components";
+
 import { ComponentProps, useState } from "react";
 
 const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
@@ -136,10 +138,16 @@ export const TaskCard = () => {
   );
 };
 
+const StyledDiv = styled.div`
+  .Polaris-IndexTable__ColumnHeaderCheckboxWrapper {
+    display: none;
+  }
+`;
+
 export const TasksPage = () => {
   return (
-    <div aria-label="Customer Tasks Page">
+    <StyledDiv aria-label="Customer Tasks Page">
       <TaskCard />
-    </div>
+    </StyledDiv>
   );
 };
