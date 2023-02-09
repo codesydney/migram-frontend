@@ -5,6 +5,7 @@ import {
   Stack,
   Text,
   TextContainer,
+  useIndexResourceState,
 } from "@shopify/polaris";
 import { ComponentProps, useState } from "react";
 
@@ -73,13 +74,25 @@ export const OfferItemRow = ({ offer, ...props }: OfferItemRowProsp) => {
 };
 
 export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
+  const { allResourcesSelected, handleSelectionChange, selectedResources } =
+    useIndexResourceState(offers);
+
   return (
     <div aria-label="Offers Table">
       <Card>
-        <IndexTable headings={[{ title: "Offer" }]} itemCount={2}>
+        <IndexTable
+          headings={[{ title: "Offer" }]}
+          itemCount={2}
+          onSelectionChange={handleSelectionChange}
+        >
           {offers.map((item, idx) => {
             return (
-              <OfferItemRow key={idx} offer={item} position={idx} selected />
+              <OfferItemRow
+                key={item.id}
+                offer={item}
+                position={idx}
+                selected={selectedResources.includes(item.id)}
+              />
             );
           })}
         </IndexTable>
