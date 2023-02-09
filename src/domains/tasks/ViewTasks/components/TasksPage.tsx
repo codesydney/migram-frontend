@@ -3,6 +3,8 @@ import {
   Card,
   IndexTable,
   IndexTableSelectionType,
+  Layout,
+  Page,
   Stack,
   Text,
   TextContainer,
@@ -255,9 +257,13 @@ export const TasksPage = ({
 
   return (
     <StyledDiv aria-label="Customer Tasks Page">
-      {tasks.map((item) => {
-        return <TaskCard task={item} key={item.id} />;
-      })}
+      <Page title="Tasks" fullWidth>
+        <Layout>
+          {tasks.map((item) => {
+            return <TaskCard task={item} key={item.id} />;
+          })}
+        </Layout>
+      </Page>
     </StyledDiv>
   );
 };
