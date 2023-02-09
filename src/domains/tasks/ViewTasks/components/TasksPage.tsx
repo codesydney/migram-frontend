@@ -14,7 +14,7 @@ import styled from "styled-components";
 
 import { ComponentProps, useEffect, useState } from "react";
 import axios from "axios";
-import { Task } from "@Tasks/common/types";
+import { Offer, Task } from "@Tasks/common/types";
 
 const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
   return (
@@ -64,18 +64,19 @@ export const OfferItemRow = ({ offer, ...props }: OfferItemRowProps) => {
   );
 };
 
-const promotedBulkActions = [
-  {
-    content: "View Contact Details",
-    onAction: () => console.log("Todo: implement bulk add tags"),
-  },
-  {
-    content: "Accept Offer",
-    onAction: () => console.log("Todo: implement bulk add tags"),
-  },
-];
+const acceptOfferMutation = (taskId: string, offerId: string) => {
+  axios
+    .post(`${process.env.NEXT_PUBLIC_API_URL}api/v1/acceptoffer/`, {
+      taskId,
+      offerId,
+    })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => console.log(error));
+};
 
-export const OffersTable = ({ offers }: { offers: Array<any> }) => {
+export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
   const { handleSelectionChange, selectedResources, clearSelection } =
     useIndexResourceState(offers);
 
@@ -99,6 +100,28 @@ export const OffersTable = ({ offers }: { offers: Array<any> }) => {
       selection
     );
   };
+
+  const promotedBulkActions = [
+    {
+      content: "View Contact Details",
+      onAction: () => console.log("Todo: implement bulk add tags"),
+    },
+    {
+      content: "Accept Offer",
+      onAction: () => {
+        const offer = offers.find((item) => {
+          return item.id === selectedResources[0];
+        });
+
+        const body = {
+          taskId: offer?.task as string,
+          offerId: selectedResources[0],
+        };
+
+        acceptOfferMutation(body.taskId, body.offerId);
+      },
+    },
+  ];
 
   return (
     <div aria-label="Offers Table">
