@@ -27,7 +27,7 @@ function renderOffersTable(props: ComponentProps<typeof OffersTable>) {
 function setupWithOneOffer() {
   const offers = [testOffer];
 
-  renderOffersTable({ offers });
+  return renderOffersTable({ offers });
 }
 
 function setupWithTwoOffers() {
@@ -36,8 +36,14 @@ function setupWithTwoOffers() {
     { ...testOffer, id: "2", comments: "Second Offer" },
   ];
 
-  renderOffersTable({ offers });
+  return renderOffersTable({ offers });
 }
+
+test("Smoke test if it renders", () => {
+  const { baseElement } = setupWithOneOffer();
+
+  expect(baseElement).toBeInTheDocument();
+});
 
 // one rows plus another for the header
 it("displays two rows when given one offers", () => {
