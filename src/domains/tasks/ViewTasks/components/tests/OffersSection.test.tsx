@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { OffersSection } from "../TasksPage";
+import { OffersSection } from "../OffersSection";
 
 import { renderWithPolarisTestProvider } from "src/test/utils";
 import { Task } from "@Tasks/common/types";
