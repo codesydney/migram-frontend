@@ -49,11 +49,11 @@ type Offer = typeof offer;
 type IndexTableRowProps = ComponentProps<typeof IndexTable.Row>;
 
 type OfferItemRowProps = {
-  offer: Offer;
+  offer: any;
 } & Omit<IndexTableRowProps, "id" | "children">;
 
 export const OfferItemRow = ({ offer, ...props }: OfferItemRowProps) => {
-  const { id, offerAmt, status, comments, providerId } = offer as any;
+  const { id, offerAmt, status, comments, firstName } = offer as any;
 
   return (
     <IndexTable.Row {...props} id={id}>
@@ -69,7 +69,7 @@ export const OfferItemRow = ({ offer, ...props }: OfferItemRowProps) => {
           </Stack>
           <TextContainer>
             <Text variant="bodyMd" color="subdued" as="p">
-              {providerId}
+              {firstName}
             </Text>
             <p>{comments}</p>
           </TextContainer>
@@ -95,7 +95,7 @@ const resourceName = {
   plural: "customers",
 };
 
-export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
+export const OffersTable = ({ offers }: { offers: Array<any> }) => {
   const { handleSelectionChange, selectedResources, clearSelection } =
     useIndexResourceState(offers);
 
@@ -146,15 +146,31 @@ export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
   );
 };
 
-export const OffersSection = () => {
+export const OffersSection = ({ task }: { task: Task }) => {
+  const { id: taskId } = task;
+
   const [showOffers, setShowOffers] = useState(false);
-  const offers: Offer[] = [offer, { ...offer, id: "2" }];
+  const [offers, setOffers] = useState(new Array<any>());
+  const [updatedTask, setUpdatedTask] = useState<any>(task);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${taskId}`, {})
+      .then((response) => {
+        if (taskId == response.data.data.task._id) {
+          setUpdatedTask(response.data.data.task);
+        }
+      })
+      .catch((error) => {
+        setUpdatedTask(task);
+      });
+  }, [task, taskId]);
 
   return (
     <Card.Section
       title={<OffersSectionTitle onClick={() => setShowOffers(!showOffers)} />}
     >
-      {showOffers ? <OffersTable offers={offers} /> : null}
+      {showOffers ? <OffersTable offers={updatedTask.offers} /> : null}
     </Card.Section>
   );
 };
