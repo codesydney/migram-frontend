@@ -57,7 +57,7 @@ it("displays three rows when given two offers", () => {
   expect(rows.length).toBe(3);
 });
 
-test("checkbox is checked when a row is clicked", async () => {
+test("checkbox is checked when a offer is clicked", async () => {
   setupWithOneOffer();
 
   const user = userEvent.setup();
