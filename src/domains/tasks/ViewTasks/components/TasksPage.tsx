@@ -13,7 +13,6 @@ import {
 import styled from "styled-components";
 
 import { ComponentProps, useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 import axios from "axios";
 import { Task } from "@Tasks/common/types";
 
@@ -76,11 +75,6 @@ const promotedBulkActions = [
   },
 ];
 
-const resourceName = {
-  singular: "customer",
-  plural: "customers",
-};
-
 export const OffersTable = ({ offers }: { offers: Array<any> }) => {
   const { handleSelectionChange, selectedResources, clearSelection } =
     useIndexResourceState(offers);
@@ -136,7 +130,6 @@ export const OffersSection = ({ task }: { task: Task }) => {
   const { id: taskId } = task;
 
   const [showOffers, setShowOffers] = useState(false);
-  const [offers, setOffers] = useState(new Array<any>());
   const [updatedTask, setUpdatedTask] = useState<any>(task);
 
   useEffect(() => {
