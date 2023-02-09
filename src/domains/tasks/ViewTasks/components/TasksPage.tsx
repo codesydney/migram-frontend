@@ -2,11 +2,15 @@ import {
   Button,
   Card,
   IndexTable,
+  IndexTableSelectionType,
   Stack,
   Text,
   TextContainer,
+  useIndexResourceState,
 } from "@shopify/polaris";
-import { useState } from "react";
+import styled from "styled-components";
+
+import { ComponentProps, useState } from "react";
 
 const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
   return (
@@ -39,17 +43,17 @@ const offer = {
 
 type Offer = typeof offer;
 
-export const OfferItemRow = ({
-  offer,
-  position,
-}: {
-  offer: unknown;
-  position: number;
-}) => {
+type IndexTableRowProps = ComponentProps<typeof IndexTable.Row>;
+
+type OfferItemRowProps = {
+  offer: Offer;
+} & Omit<IndexTableRowProps, "id" | "children">;
+
+export const OfferItemRow = ({ offer, ...props }: OfferItemRowProps) => {
   const { id, offerAmt, status, comments, providerId } = offer as any;
 
   return (
-    <IndexTable.Row id={id} position={position}>
+    <IndexTable.Row {...props} id={id}>
       <IndexTable.Cell>
         <div style={{ padding: "12px 16px" }}>
           <Stack>
@@ -72,13 +76,36 @@ export const OfferItemRow = ({
   );
 };
 
-export const OffersTable = ({ offers }: { offers: unknown[] }) => {
+export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
+  const { handleSelectionChange, selectedResources, clearSelection } =
+    useIndexResourceState(offers);
+
+  const customHandleSelectionChange = (
+    selectionType: IndexTableSelectionType = IndexTableSelectionType.Single,
+    isSelecting: boolean,
+    selection?: string | [number, number] | undefined
+  ) => {
+    clearSelection();
+    handleSelectionChange(selectionType, isSelecting, selection);
+  };
+
   return (
     <div aria-label="Offers Table">
       <Card>
-        <IndexTable headings={[{ title: "Offer" }]} itemCount={2}>
+        <IndexTable
+          headings={[{ title: "Offer" }]}
+          itemCount={2}
+          onSelectionChange={customHandleSelectionChange}
+        >
           {offers.map((item, idx) => {
-            return <OfferItemRow key={idx} offer={item} position={0} />;
+            return (
+              <OfferItemRow
+                key={item.id}
+                offer={item}
+                position={idx}
+                selected={selectedResources.includes(item.id)}
+              />
+            );
           })}
         </IndexTable>
       </Card>
@@ -88,7 +115,7 @@ export const OffersTable = ({ offers }: { offers: unknown[] }) => {
 
 export const OffersSection = () => {
   const [showOffers, setShowOffers] = useState(false);
-  const offers: unknown[] = [offer, { ...offer, id: "2" }];
+  const offers: Offer[] = [offer, { ...offer, id: "2" }];
 
   return (
     <Card.Section
@@ -111,10 +138,16 @@ export const TaskCard = () => {
   );
 };
 
+const StyledDiv = styled.div`
+  .Polaris-IndexTable__ColumnHeaderCheckboxWrapper {
+    display: none;
+  }
+`;
+
 export const TasksPage = () => {
   return (
-    <div aria-label="Customer Tasks Page">
+    <StyledDiv aria-label="Customer Tasks Page">
       <TaskCard />
-    </div>
+    </StyledDiv>
   );
 };
