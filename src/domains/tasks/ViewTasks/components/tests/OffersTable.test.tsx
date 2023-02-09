@@ -1,5 +1,5 @@
 import { ComponentProps } from "react";
-import { screen } from "@testing-library/react";
+import { getAllByRole, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { OffersTable } from "../TasksPage";
@@ -71,7 +71,10 @@ test("checkbox is checked when a offer is clicked", async () => {
 
   await user.click(offerDescription);
 
-  const checkboxes = screen.getAllByRole("checkbox", { checked: true });
+  const tableBody = document.querySelector("tbody") as HTMLElement;
+  const checkboxes = getAllByRole(tableBody, "checkbox", {
+    checked: true,
+  });
 
   expect(checkboxes.length).toBe(1);
 });
@@ -89,4 +92,19 @@ it("only allows one row to be selected at a time", async () => {
   const checkbox = screen.getByRole("checkbox", { checked: true });
 
   expect(checkbox).toBeChecked();
+});
+
+it("displays an 'Accept Offer' button when an offer is clicked", async () => {
+  setupWithTwoOffers();
+
+  const user = userEvent.setup();
+  const firstOfferDescription = screen.getByText(/^first offer$/i);
+
+  await user.click(firstOfferDescription);
+
+  const acceptOfferButton = screen.queryByRole("button", {
+    name: /^Accept Offer$/i,
+  });
+
+  expect(acceptOfferButton).toBeTruthy();
 });
