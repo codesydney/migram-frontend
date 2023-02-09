@@ -13,8 +13,12 @@ import {
 import styled from "styled-components";
 
 import { ComponentProps, useEffect, useState } from "react";
-import axios from "axios";
 import { Offer, Task } from "@Tasks/common/types";
+import {
+  acceptOfferMutation,
+  getOffersOfTaskQuery,
+  getTasksOfCustomerQuery,
+} from "../api";
 
 const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
   return (
@@ -62,18 +66,6 @@ export const OfferItemRow = ({ offer, ...props }: OfferItemRowProps) => {
       </IndexTable.Cell>
     </IndexTable.Row>
   );
-};
-
-const acceptOfferMutation = (taskId: string, offerId: string) => {
-  axios
-    .post(`${process.env.NEXT_PUBLIC_API_URL}api/v1/acceptoffer/`, {
-      taskId,
-      offerId,
-    })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => console.log(error));
 };
 
 export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
@@ -158,14 +150,13 @@ export const OffersSection = ({ task }: { task: Task }) => {
   const [updatedTask, setUpdatedTask] = useState<any>(task);
 
   useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${taskId}`, {})
-      .then((response) => {
+    getOffersOfTaskQuery(task.id)
+      .then((response: any) => {
         if (taskId == response.data.data.task._id) {
           setUpdatedTask(response.data.data.task);
         }
       })
-      .catch((error) => {
+      .catch((error: any) => {
         setUpdatedTask(task);
       });
   }, [task, taskId]);
@@ -235,12 +226,7 @@ export const TasksPage = ({
   const [tasks, setTasks] = useState(Array<Task>);
 
   function getTasks(currentPage: number) {
-    const params = { my_tasks: true };
-
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
-        params,
-      })
+    getTasksOfCustomerQuery()
       .then((response) => {
         if (response.data.data.tasks.length == 0) {
           setCurrentPage(currentPage - 1);
