@@ -62,9 +62,7 @@ test("checkbox is checked when a row is clicked", async () => {
 
   await user.click(offerDescription);
 
-  const checkbox = screen.getByRole("checkbox", { checked: true });
+  const checkboxes = screen.getAllByRole("checkbox", { checked: true });
 
-  expect(checkbox).toBeChecked();
+  expect(checkboxes.length).toBe(1);
 });
-
-//
