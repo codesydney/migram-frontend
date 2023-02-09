@@ -69,3 +69,19 @@ export const TaskSchema = z.object({
 });
 
 export type Task = z.infer<typeof TaskSchema>;
+
+const offer = {
+  status: "open",
+  _id: "63d32618c1ec5257ad7db4f6",
+  offerAmt: 205,
+  comments: "Second offer hello world david",
+  providerId: "acct_1Lur4rIWxYvLVjGY",
+  task: "63d26e6651167241c5f238a4",
+  createdAt: "2023-01-27T01:17:12.653Z",
+  updatedAt: "2023-01-27T01:17:12.653Z",
+  __v: 0,
+  timeElapsed: "12 days ago",
+  id: "63d32618c1ec5257ad7db4f6",
+};
+
+export type Offer = typeof offer;
