@@ -217,9 +217,12 @@ const StyledDiv = styled.div`
   }
 `;
 
-export const TasksPage = () => {
+export const TasksPage = ({
+  status,
+}: {
+  status: "authenticated" | "loading" | "unauthenticated";
+}) => {
   const [currentPage, setCurrentPage]: any = useState(1);
-  const { status } = useSession();
   const [tasks, setTasks] = useState(Array<Task>);
 
   function getTasks(currentPage: number) {
