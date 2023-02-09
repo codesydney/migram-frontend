@@ -10,7 +10,10 @@ import {
 } from "@shopify/polaris";
 import styled from "styled-components";
 
-import { ComponentProps, useState } from "react";
+import { ComponentProps, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import axios from "axios";
+import { Task } from "@Tasks/common/types";
 
 const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
   return (
@@ -175,6 +178,38 @@ const StyledDiv = styled.div`
 `;
 
 export const TasksPage = () => {
+  const [currentPage, setCurrentPage]: any = useState(1);
+  const { status } = useSession();
+  const [tasks, setTasks] = useState(Array<Task>);
+
+  function getTasks(currentPage: number) {
+    const params = { my_tasks: true };
+
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
+        params,
+      })
+      .then((response) => {
+        if (response.data.data.tasks.length == 0) {
+          setCurrentPage(currentPage - 1);
+        } else {
+          setTasks(response.data.data.tasks);
+        }
+      })
+      .catch((error) => {
+        if (error.response.data.message == "This page does not exist.") {
+          setCurrentPage(currentPage - 1);
+        }
+      });
+  }
+
+  // dedupes requests while loading
+  useEffect(() => {
+    if (status === "loading") return;
+
+    getTasks(currentPage);
+  }, [currentPage, status]);
+
   return (
     <StyledDiv aria-label="Customer Tasks Page">
       <TaskCard />
