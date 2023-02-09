@@ -105,21 +105,23 @@ export const OffersTable = ({ offers }: { offers: Array<any> }) => {
       <Card>
         <IndexTable
           headings={[{ title: "Offer" }]}
-          itemCount={offers.length}
+          itemCount={offers?.length ?? 0}
           selectedItemsCount={selectedResources.length}
           onSelectionChange={customHandleSelectionChange}
           promotedBulkActions={promotedBulkActions}
         >
-          {offers.map((item, idx) => {
-            return (
-              <OfferItemRow
-                key={item.id}
-                offer={item}
-                position={idx}
-                selected={selectedResources.includes(item.id)}
-              />
-            );
-          })}
+          {offers?.length > 0
+            ? offers.map((item, idx) => {
+                return (
+                  <OfferItemRow
+                    key={item.id}
+                    offer={item}
+                    position={idx}
+                    selected={selectedResources.includes(item.id)}
+                  />
+                );
+              })
+            : null}
         </IndexTable>
       </Card>
     </div>
