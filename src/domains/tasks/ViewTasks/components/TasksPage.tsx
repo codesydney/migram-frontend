@@ -192,6 +192,9 @@ export const TaskCard = ({ task }: { task: Task }) => {
   );
 };
 
+/**
+ * Hides the heading checkbox in the IndexTable
+ */
 const StyledDiv = styled.div`
   .Polaris-IndexTable__ColumnHeaderCheckboxWrapper {
     display: none;
