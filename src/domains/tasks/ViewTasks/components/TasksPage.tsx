@@ -230,7 +230,6 @@ export const TasksPage = ({
       });
   }
 
-  // dedupes requests while loading
   useEffect(() => {
     if (status === "loading") return;
 
