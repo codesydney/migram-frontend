@@ -76,17 +76,45 @@ export const OfferItemRow = ({ offer, ...props }: OfferItemRowProps) => {
   );
 };
 
+const promotedBulkActions = [
+  {
+    content: "View Contact Details",
+    onAction: () => console.log("Todo: implement bulk add tags"),
+  },
+  {
+    content: "Accept Offer",
+    onAction: () => console.log("Todo: implement bulk add tags"),
+  },
+];
+
+const resourceName = {
+  singular: "customer",
+  plural: "customers",
+};
+
 export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
   const { handleSelectionChange, selectedResources, clearSelection } =
     useIndexResourceState(offers);
 
   const customHandleSelectionChange = (
-    selectionType: IndexTableSelectionType = IndexTableSelectionType.Single,
+    selectionType: IndexTableSelectionType,
     isSelecting: boolean,
     selection?: string | [number, number] | undefined
   ) => {
+    const isPageSelect = selectionType === IndexTableSelectionType.Page;
     clearSelection();
-    handleSelectionChange(selectionType, isSelecting, selection);
+
+    // disable multi-select
+    if (isPageSelect) {
+      handleSelectionChange(selectionType, false, selection);
+      return;
+    }
+
+    handleSelectionChange(
+      IndexTableSelectionType.Single,
+      isSelecting,
+      selection
+    );
   };
 
   return (
@@ -94,8 +122,10 @@ export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
       <Card>
         <IndexTable
           headings={[{ title: "Offer" }]}
-          itemCount={2}
+          itemCount={offers.length}
+          selectedItemsCount={selectedResources.length}
           onSelectionChange={customHandleSelectionChange}
+          promotedBulkActions={promotedBulkActions}
         >
           {offers.map((item, idx) => {
             return (
