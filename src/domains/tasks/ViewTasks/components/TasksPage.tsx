@@ -159,13 +159,37 @@ export const OffersSection = () => {
   );
 };
 
-export const TaskCard = () => {
+export const TaskCard = ({ task }: { task: Task }) => {
+  const { location } = task;
+
   return (
     <article aria-label="Task Card">
       <Card sectioned>
-        <Card.Header title={"Title"}></Card.Header>
-        <Card.Section title="Details"></Card.Section>
-        <OffersSection />
+        <Card.Header title={task.title}></Card.Header>
+        <Card.Section
+          title={
+            <Text as="h3" variant="headingMd">
+              Details
+            </Text>
+          }
+        >
+          <TextContainer>
+            <Text as="h3" variant="headingSm">
+              ${task.budget}
+            </Text>
+            <Text as="p" variant="bodyMd">
+              {task.category}
+            </Text>
+            <Text as="p" variant="bodyMd">
+              {task.details}
+            </Text>
+            <Text as="p" variant="bodyMd">
+              {location.line1} {location.line2}, {location.city}{" "}
+              {location.state} {location.postal_code}
+            </Text>
+          </TextContainer>
+        </Card.Section>
+        <OffersSection task={task} />
       </Card>
     </article>
   );
@@ -212,7 +236,9 @@ export const TasksPage = () => {
 
   return (
     <StyledDiv aria-label="Customer Tasks Page">
-      <TaskCard />
+      {tasks.map((item) => {
+        return <TaskCard task={item} key={item.id} />;
+      })}
     </StyledDiv>
   );
 };
