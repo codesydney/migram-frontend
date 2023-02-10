@@ -143,6 +143,18 @@ async function getTaskQuery(taskId: string) {
 
   return response.data.data.task as Task;
 }
+
+async function getOffersOfProviderQuery() {
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}api/v1/offers`,
+    {
+      params: { my_offers: true },
+    }
+  );
+
+  return response.data.data.offers as Array<Offer>;
+}
+
 export function ViewOffersPage({
   status,
 }: {
@@ -164,12 +176,9 @@ export function ViewOffersPage({
   useEffect(() => {
     if (status === "loading") return;
 
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/offers`, {
-        params: { my_offers: true },
-      })
-      .then((response) => {
-        setOffers(response.data.data.offers);
+    getOffersOfProviderQuery()
+      .then((offers) => {
+        setOffers(offers);
       })
       .catch((error) => {
         console.log(error);
