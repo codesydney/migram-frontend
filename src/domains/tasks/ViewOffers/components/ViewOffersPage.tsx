@@ -14,7 +14,7 @@ import {
 } from "@shopify/polaris";
 
 import { Offer, Task, TaskStatus } from "@Tasks/common/types";
-import { TaskStatusBadge } from "@Tasks/common/components";
+import { OfferStatusBadge, TaskStatusBadge } from "@Tasks/common/components";
 import {
   completeOfferMutation,
   getTaskQuery,
@@ -39,7 +39,7 @@ export function OfferCard({
             </Text>
           </Stack.Item>
           <Stack.Item>
-            <Badge status="success">Accepted</Badge>
+            <OfferStatusBadge status={offer.status} />
           </Stack.Item>
         </Stack>
       }
