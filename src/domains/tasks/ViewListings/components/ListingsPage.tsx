@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { Button, Layout, Page } from "@shopify/polaris";
 import { MakeAnOfferModal } from "@Tasks/MakeOffer";
 import { ListingCard } from "./ListingCard";
+import { routerPush } from "@Utils/router";
 
 export function ListingsPage({ myTasks }: any) {
   const [currentPage, setCurrentPage]: any = useState(1);
@@ -47,7 +48,11 @@ export function ListingsPage({ myTasks }: any) {
     <Page
       title="Listings"
       fullWidth
-      primaryAction={<Button primary>Create Task</Button>}
+      primaryAction={
+        <Button primary onClick={() => routerPush("/tasks/new")}>
+          Create Task
+        </Button>
+      }
     >
       <Layout>
         {tasks.map((task: any) => (
