@@ -10,10 +10,10 @@ import {
   useIndexResourceState,
 } from "@shopify/polaris";
 
-import { Offer, Task, TaskStatus } from "@Tasks/common/types";
+import { Offer, OfferStatus, Task } from "@Tasks/common/types";
 
 import { acceptOfferMutation, getOffersOfTaskQuery } from "../api";
-import { OfferStatusBadge, TaskCategoryBadge } from "@Tasks/common/components";
+import { OfferStatusBadge } from "@Tasks/common/components";
 
 const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
   return (
@@ -50,7 +50,7 @@ export const OfferItemRow = ({ offer, ...props }: OfferItemRowProps) => {
               </Text>
             </Stack.Item>
             <Stack.Item>
-              <OfferStatusBadge status={status as TaskStatus} />
+              <OfferStatusBadge status={status as OfferStatus} />
             </Stack.Item>
           </Stack>
           <TextContainer spacing="tight">
