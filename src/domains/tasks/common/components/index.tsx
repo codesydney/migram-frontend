@@ -1,2 +1,2 @@
-export * from "./TaskCategoryBadge";
+export * from "./TaskStatusBadge";
 export * from "./OfferStatusBadge";
