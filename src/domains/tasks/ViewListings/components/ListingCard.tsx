@@ -1,9 +1,19 @@
 import { Card, Stack, TextContainer, Text } from "@shopify/polaris";
 
-import { TaskStatus } from "../../common/types";
+import { Task, TaskStatus } from "../../common/types";
 import { TaskStatusBadge } from "@Tasks/common/components";
 
-export const ListingCard = ({ task, onMakeAnOfferClick, isProvider }: any) => {
+export type ListingCardProps = {
+  task: Task;
+  onMakeAnOfferClick(): void;
+  isProvider: boolean;
+};
+
+export const ListingCard = ({
+  task,
+  onMakeAnOfferClick,
+  isProvider,
+}: ListingCardProps) => {
   const hideMakeOfferButton = task.status !== "open";
   const primaryFooterAction = {
     disabled: hideMakeOfferButton,
