@@ -15,7 +15,7 @@ export const AddressSchema = z.object({
   line1: z.string().min(1, "Please enter address line 1"),
   line2: z.string().optional(),
   city: z.string().min(1, "Please enter a city"),
-  state: StateSchema,
+  state: StateSchema.default("NSW"),
   postal_code: z
     .string()
     .min(1, "Please enter a postcode")
