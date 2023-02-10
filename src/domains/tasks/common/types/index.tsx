@@ -76,8 +76,6 @@ const offer = {
   id: "63d32618c1ec5257ad7db4f6",
 };
 
-export type Offer = typeof offer;
-
 export const OfferStatusSchema = z.enum([
   "open",
   "accepted",
@@ -98,3 +96,5 @@ export const OfferSchema = z.object({
     .min(25, "Comments must have 25 or more characters")
     .max(1500, "Comments cannot have more than 1500 characters"),
 });
+
+export type Offer = z.infer<typeof OfferSchema>;
