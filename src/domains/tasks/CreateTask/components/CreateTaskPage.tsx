@@ -1,4 +1,4 @@
-import { Page, Form, FormLayout, Button } from "@shopify/polaris";
+import { Page, Form, FormLayout, Button, Text } from "@shopify/polaris";
 
 import { TextField, Select } from "@ComponentsV2/components";
 
@@ -76,6 +76,10 @@ export const CreateTaskPage = () => {
               options={TaskTimeEstimateSchema.options}
               control={control}
             />
+
+            <Text as="h3" variant="headingMd">
+              Address:
+            </Text>
             <TextField<CreateTaskFormState>
               name="location.line1"
               label="Line 1"

@@ -6,17 +6,19 @@ import { useSession } from "next-auth/react";
 import { Button, Layout, Page } from "@shopify/polaris";
 import { MakeAnOfferModal } from "@Tasks/MakeOffer";
 import { ListingCard } from "./ListingCard";
+import { routerPush } from "@Utils/router";
+import Link from "next/link";
 
-export function ListingsPage({ myTasks }: any) {
+export function ListingsPage() {
   const [currentPage, setCurrentPage]: any = useState(1);
-  const { status } = useSession();
+  const { status, data } = useSession();
   const [tasks, setTasks]: any[] = useState([]);
   const [selectedTaskId, setSelectedTaskId] = useState<string | undefined>();
 
-  function getTasks(currentPage: number, myTasks: boolean) {
-    const params = myTasks
-      ? { my_tasks: true }
-      : { page: currentPage, limit: 6 };
+  const isProvider = data?.user.providerId ? true : false;
+
+  function getTasks(currentPage: number) {
+    const params = { page: currentPage, limit: 6 };
 
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
@@ -40,19 +42,31 @@ export function ListingsPage({ myTasks }: any) {
   useEffect(() => {
     if (status === "loading") return;
 
-    getTasks(currentPage, myTasks);
-  }, [currentPage, status, myTasks]);
+    getTasks(currentPage);
+  }, [currentPage, status]);
 
   return (
     <Page
       title="Listings"
       fullWidth
-      primaryAction={<Button primary>Create Task</Button>}
+      primaryAction={
+        <Button primary onClick={() => routerPush("/tasks/new")}>
+          Create Task
+        </Button>
+      }
     >
+      {data ? null : (
+        <>
+          Please <Link href="/login">login</Link> or{" "}
+          <Link href="/signup">signup</Link> to view listings.
+        </>
+      )}
+
       <Layout>
         {tasks.map((task: any) => (
           <Layout.Section oneHalf key={task.id}>
             <ListingCard
+              isProvider={isProvider}
               task={task}
               onMakeAnOfferClick={() => setSelectedTaskId(task.id)}
             />
