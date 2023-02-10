@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  Button,
   Card,
   Layout,
   Page,
@@ -14,6 +15,7 @@ import { Task, TaskStatus } from "@Tasks/common/types";
 
 import { OffersSection } from "./OffersSection";
 import { getTasksOfCustomerQuery } from "../api";
+import { routerPush } from "@Utils/router";
 
 export const TaskCard = ({ task }: { task: Task }) => {
   const { location } = task;
@@ -107,7 +109,15 @@ export const TasksPage = ({
 
   return (
     <StyledDiv aria-label="Customer Tasks Page">
-      <Page title="Tasks" fullWidth>
+      <Page
+        title="Tasks"
+        fullWidth
+        primaryAction={
+          <Button primary onClick={() => routerPush("/tasks/new")}>
+            Create Task
+          </Button>
+        }
+      >
         <Layout>
           {tasks.map((item) => {
             return <TaskCard task={item} key={item.id} />;
