@@ -69,23 +69,27 @@ export function OfferCard({
   );
 }
 
+function EmptyTaskCardBody() {
+  return (
+    <Card sectioned>
+      <EmptyState
+        heading="View Task Details Here"
+        action={{ content: "Add transfer" }}
+        secondaryAction={{
+          content: "Learn more",
+          url: "https://help.shopify.com",
+        }}
+        image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
+      >
+        <p>Click on the &quot;View Task Details&quot; button.</p>
+      </EmptyState>
+    </Card>
+  );
+}
+
 export function TaskCard({ task }: { task: Task | undefined }) {
   if (!task) {
-    return (
-      <Card sectioned>
-        <EmptyState
-          heading="View Task Details Here"
-          action={{ content: "Add transfer" }}
-          secondaryAction={{
-            content: "Learn more",
-            url: "https://help.shopify.com",
-          }}
-          image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
-        >
-          <p>Click on the &quot;View Task Details&quot; button.</p>
-        </EmptyState>
-      </Card>
-    );
+    return <EmptyTaskCardBody />;
   }
 
   const { location } = task;
