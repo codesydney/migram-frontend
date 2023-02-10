@@ -8,7 +8,7 @@ export default function TasksPage() {
 
   if (data?.user.providerId) {
     return (
-      <Page title="Offers" fullWidth>
+      <Page title="Tasks" fullWidth>
         <Layout>
           <Layout.Section>
             <Card sectioned>
