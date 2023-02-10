@@ -1,15 +1,6 @@
 import { AddressSchema } from "@Types/schemas";
 import { z } from "zod";
 
-export const CategoryStatusMap = {
-  open: "success",
-  assigned: "info",
-  completed: "attention",
-  paid: "info",
-  pay_decline: "critical",
-  pay_in_processing: "info",
-} as const;
-
 export const TaskStatusSchema = z.enum([
   "open",
   "assigned",
@@ -86,3 +77,24 @@ const offer = {
 };
 
 export type Offer = typeof offer;
+
+export const OfferStatusSchema = z.enum([
+  "open",
+  "accepted",
+  "outbidded",
+  "completed",
+] as const);
+
+export type OfferStatus = z.infer<typeof OfferStatusSchema>;
+
+export const OfferSchema = z.object({
+  id: z.string(),
+  providerId: z.string(),
+  task: z.string(),
+  status: OfferStatusSchema.default("open"),
+  offerAmt: z.coerce.number({ required_error: "Offer Amount is required" }),
+  comments: z
+    .string({ required_error: "Description is required" })
+    .min(25, "Comments must have 25 or more characters")
+    .max(1500, "Comments cannot have more than 1500 characters"),
+});

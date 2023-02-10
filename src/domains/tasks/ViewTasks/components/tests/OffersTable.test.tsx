@@ -2,7 +2,7 @@ import { ComponentProps } from "react";
 import { getAllByRole, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { OffersTable } from "../TasksPage";
+import { OffersTable } from "../OffersSection";
 
 import { renderWithPolarisTestProvider } from "src/test/utils";
 
