@@ -98,8 +98,15 @@ export function ViewOffersPage({
   const [offers, setOffers] = useState(new Array<Offer>());
   const [selectedTask, setSelectedTask] = useState<Task | undefined>();
 
-  const onViewTaskClick = (taskId: string) => {
-    console.log(taskId);
+  const onViewTaskClick = async (taskId: string) => {
+    await axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${taskId}`)
+      .then((response) => {
+        setSelectedTask(response.data.data.task);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
