@@ -13,7 +13,8 @@ import {
   Badge,
 } from "@shopify/polaris";
 
-import { Offer, Task } from "@Tasks/common/types";
+import { Offer, Task, TaskStatus } from "@Tasks/common/types";
+import { TaskStatusBadge } from "@Tasks/common/components";
 
 export function OfferCard({
   offer,
@@ -81,10 +82,46 @@ export function TaskCard({ task }: { task: Task | undefined }) {
     );
   }
 
+  const { location } = task;
+  const addressText = `${location.line1} ${location.line2}, ${location.city} ${location.state} ${location.postal_code}`;
+
   return (
-    <Card title="Task">
-      <Card.Section>
-        Click on the &quot;View Task Details&quot; button.
+    <Card sectioned>
+      <Card.Header
+        title={
+          <Stack>
+            <Stack.Item fill>
+              <Text variant="headingMd" as="h2">
+                {task.title}
+              </Text>
+            </Stack.Item>
+            <Stack.Item>
+              <TaskStatusBadge status={task.status as TaskStatus} />
+            </Stack.Item>
+          </Stack>
+        }
+      />
+      <Card.Section
+        title={
+          <Text as="h3" variant="headingMd">
+            Details
+          </Text>
+        }
+      >
+        <TextContainer spacing="tight">
+          <Text as="h3" variant="headingSm">
+            ${task.budget}
+          </Text>
+          <Text as="p" variant="bodyMd">
+            {task.category}
+          </Text>
+          <Text as="p" variant="bodyMd">
+            {task.details}
+          </Text>
+          <Text as="p" variant="bodyMd">
+            {addressText}
+          </Text>
+        </TextContainer>
       </Card.Section>
     </Card>
   );
