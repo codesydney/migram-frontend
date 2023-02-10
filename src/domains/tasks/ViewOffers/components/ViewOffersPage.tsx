@@ -6,6 +6,7 @@ import {
   EmptyState,
   Layout,
   Page,
+  Spinner,
   Stack,
   Text,
   TextContainer,
@@ -69,27 +70,31 @@ export function OfferCard({
   );
 }
 
-function EmptyTaskCardBody() {
+function EmptyTaskCardBody({ loading }: { loading: boolean }) {
+  console.log(loading);
+
   return (
     <Card sectioned>
-      <EmptyState
-        heading="View Task Details Here"
-        action={{ content: "Add transfer" }}
-        secondaryAction={{
-          content: "Learn more",
-          url: "https://help.shopify.com",
-        }}
-        image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
-      >
-        <p>Click on the &quot;View Task Details&quot; button.</p>
+      <EmptyState heading="View Task Details Here" image={""}>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <p>Click on the &quot;View Task Details&quot; button.</p>
+        )}
       </EmptyState>
     </Card>
   );
 }
 
-export function TaskCard({ task }: { task: Task | undefined }) {
-  if (!task) {
-    return <EmptyTaskCardBody />;
+export function TaskCard({
+  task,
+  loading,
+}: {
+  task: Task | undefined;
+  loading: boolean;
+}) {
+  if (!task || loading) {
+    return <EmptyTaskCardBody loading={loading} />;
   }
 
   const { location } = task;
@@ -144,14 +149,20 @@ export function ViewOffersPage({
 }) {
   const [offers, setOffers] = useState(new Array<Offer>());
   const [selectedTask, setSelectedTask] = useState<Task | undefined>();
+  const [loading, setLoading] = useState(false);
 
   const onViewTaskClick = async (taskId: string) => {
+    setLoading(true);
+
     getTaskQuery(taskId)
       .then((task) => {
         setSelectedTask(task);
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -185,7 +196,7 @@ export function ViewOffersPage({
             })}
           </Layout.Section>
           <Layout.Section oneHalf>
-            <TaskCard task={selectedTask} />
+            <TaskCard task={selectedTask} loading={loading} />
           </Layout.Section>
         </Layout>
       </Page>
