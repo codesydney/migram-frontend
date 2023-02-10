@@ -136,6 +136,13 @@ export function TaskCard({ task }: { task: Task | undefined }) {
   );
 }
 
+async function getTaskQuery(taskId: string) {
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${taskId}`
+  );
+
+  return response.data.data.task as Task;
+}
 export function ViewOffersPage({
   status,
 }: {
@@ -145,10 +152,9 @@ export function ViewOffersPage({
   const [selectedTask, setSelectedTask] = useState<Task | undefined>();
 
   const onViewTaskClick = async (taskId: string) => {
-    await axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${taskId}`)
-      .then((response) => {
-        setSelectedTask(response.data.data.task);
+    getTaskQuery(taskId)
+      .then((task) => {
+        setSelectedTask(task);
       })
       .catch((error) => {
         console.log(error);
