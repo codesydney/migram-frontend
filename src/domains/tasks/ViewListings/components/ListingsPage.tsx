@@ -10,9 +10,11 @@ import { routerPush } from "@Utils/router";
 
 export function ListingsPage({ myTasks }: any) {
   const [currentPage, setCurrentPage]: any = useState(1);
-  const { status } = useSession();
+  const { status, data } = useSession();
   const [tasks, setTasks]: any[] = useState([]);
   const [selectedTaskId, setSelectedTaskId] = useState<string | undefined>();
+
+  const isProvider = data?.user.providerId ? true : false;
 
   function getTasks(currentPage: number, myTasks: boolean) {
     const params = myTasks
@@ -58,6 +60,7 @@ export function ListingsPage({ myTasks }: any) {
         {tasks.map((task: any) => (
           <Layout.Section oneHalf key={task.id}>
             <ListingCard
+              isProvider={isProvider}
               task={task}
               onMakeAnOfferClick={() => setSelectedTaskId(task.id)}
             />
