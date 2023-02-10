@@ -16,6 +16,13 @@ import {
 import { Offer, Task, TaskStatus } from "@Tasks/common/types";
 import { TaskStatusBadge } from "@Tasks/common/components";
 
+async function handleCompleteOffer(taskId: string) {
+  axios
+    .patch(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${taskId}/completed`)
+    .then((response) => console.log(response))
+    .catch((error) => console.log(error));
+}
+
 export function OfferCard({
   offer,
   onViewTaskClick,
@@ -54,7 +61,9 @@ export function OfferCard({
               <Button plain onClick={onViewTaskClick}>
                 View Task Details
               </Button>
-              <Button>Mark as Complete</Button>
+              <Button onClick={() => handleCompleteOffer(offer.task)}>
+                Mark as Complete
+              </Button>
             </ButtonGroup>
           </Stack>
         </Stack>
