@@ -1,16 +1,14 @@
 import { Navigation as NavigationPrimitive } from "@shopify/polaris";
 import { FinancesMajor, HomeMajor, JobsMajor } from "@shopify/polaris-icons";
+import { useRouter } from "next/router";
 
 export const Navigation = () => {
+  const router = useRouter();
+
   return (
-    <NavigationPrimitive location="/">
+    <NavigationPrimitive location={router.asPath}>
       <NavigationPrimitive.Section
         items={[
-          {
-            url: "/",
-            label: "Home",
-            icon: HomeMajor,
-          },
           {
             url: "/tasks",
             label: "Tasks",
