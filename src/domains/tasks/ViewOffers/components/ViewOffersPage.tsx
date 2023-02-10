@@ -28,6 +28,8 @@ export function OfferCard({
   offer: Offer;
   onViewTaskClick(): void;
 }) {
+  const showMarkAsCompleteButton = offer.status === "accepted";
+
   return (
     <Card
       sectioned
@@ -59,9 +61,11 @@ export function OfferCard({
               <Button plain onClick={onViewTaskClick}>
                 View Task Details
               </Button>
-              <Button onClick={() => completeOfferMutation(offer.task)}>
-                Mark as Complete
-              </Button>
+              {showMarkAsCompleteButton ? (
+                <Button onClick={() => completeOfferMutation(offer.task)}>
+                  Mark as Complete
+                </Button>
+              ) : null}
             </ButtonGroup>
           </Stack>
         </Stack>
@@ -98,7 +102,6 @@ export function TaskCard({
   }
 
   const { location } = task;
-  const addressText = `${location.line1} ${location.line2}, ${location.city} ${location.state} ${location.postal_code}`;
 
   return (
     <Card sectioned>
@@ -134,7 +137,8 @@ export function TaskCard({
             {task.details}
           </Text>
           <Text as="p" variant="bodyMd">
-            {addressText}
+            {location.line1} {location.line2}, {location.city} {location.state}{" "}
+            {location.postal_code}
           </Text>
         </TextContainer>
       </Card.Section>
