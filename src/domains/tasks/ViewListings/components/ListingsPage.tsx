@@ -7,6 +7,7 @@ import { Button, Layout, Page } from "@shopify/polaris";
 import { MakeAnOfferModal } from "@Tasks/MakeOffer";
 import { ListingCard } from "./ListingCard";
 import { routerPush } from "@Utils/router";
+import Link from "next/link";
 
 export function ListingsPage() {
   const [currentPage, setCurrentPage]: any = useState(1);
@@ -54,6 +55,13 @@ export function ListingsPage() {
         </Button>
       }
     >
+      {data ? null : (
+        <>
+          Please <Link href="/login">login</Link> or{" "}
+          <Link href="/signup">signup</Link> to view listings.
+        </>
+      )}
+
       <Layout>
         {tasks.map((task: any) => (
           <Layout.Section oneHalf key={task.id}>
