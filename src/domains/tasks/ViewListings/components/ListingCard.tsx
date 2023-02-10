@@ -1,7 +1,7 @@
 import { Card, Stack, TextContainer, Text } from "@shopify/polaris";
 
 import { TaskStatus } from "../../common/types";
-import { TaskCategoryBadge } from "@Tasks/common/components";
+import { TaskStatusBadge } from "@Tasks/common/components";
 
 export const ListingCard = ({ task, onMakeAnOfferClick }: any) => {
   const hideMakeOfferButton = task.status !== "open";
@@ -21,7 +21,7 @@ export const ListingCard = ({ task, onMakeAnOfferClick }: any) => {
             </Text>
           </Stack.Item>
           <Stack.Item>
-            <TaskCategoryBadge status={task.status as TaskStatus} />
+            <TaskStatusBadge status={task.status as TaskStatus} />
           </Stack.Item>
         </Stack>
       }

@@ -1,15 +1,6 @@
 import { AddressSchema } from "@Types/schemas";
 import { z } from "zod";
 
-export const CategoryStatusMap = {
-  open: "success",
-  assigned: "info",
-  completed: "attention",
-  paid: "info",
-  pay_decline: "critical",
-  pay_in_processing: "info",
-} as const;
-
 export const TaskStatusSchema = z.enum([
   "open",
   "assigned",
