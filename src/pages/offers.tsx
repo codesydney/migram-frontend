@@ -1,8 +1,11 @@
-import type { NextPage } from "next";
-import { Dashboard } from "@Tasks/v1/Offers";
+import { useSession } from "next-auth/react";
 
-const OffersPage: NextPage = () => {
-  return <Dashboard />;
-};
+import { ViewOffersPage } from "@Tasks/ViewOffers/components/ViewOffersPage";
+import { FeatureFlag } from "@Components/utils/FeatureFlag";
 
-export default OffersPage;
+function OffersPage() {
+  const { status } = useSession();
+  return <ViewOffersPage status={status} />;
+}
+
+export default FeatureFlag(OffersPage, { isPage: true });
