@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
-import { Card, Layout, Page, Text, TextContainer } from "@shopify/polaris";
+import {
+  Card,
+  Layout,
+  Page,
+  Stack,
+  Text,
+  TextContainer,
+} from "@shopify/polaris";
 import styled from "styled-components";
 
-import { Task } from "@Tasks/common/types";
+import { TaskStatusBadge } from "@Tasks/common/components";
+import { Task, TaskStatus } from "@Tasks/common/types";
 
 import { OffersSection } from "./OffersSection";
 import { getTasksOfCustomerQuery } from "../api";
@@ -14,7 +22,20 @@ export const TaskCard = ({ task }: { task: Task }) => {
     <Layout.Section>
       <article aria-label="Task Card">
         <Card sectioned>
-          <Card.Header title={task.title}></Card.Header>
+          <Card.Header
+            title={
+              <Stack>
+                <Stack.Item fill>
+                  <Text variant="headingMd" as="h2">
+                    {task.title}
+                  </Text>
+                </Stack.Item>
+                <Stack.Item>
+                  <TaskStatusBadge status={task.status as TaskStatus} />
+                </Stack.Item>
+              </Stack>
+            }
+          />
           <Card.Section
             title={
               <Text as="h3" variant="headingMd">
