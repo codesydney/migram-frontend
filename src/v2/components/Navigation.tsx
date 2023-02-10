@@ -1,10 +1,5 @@
 import { Navigation as NavigationPrimitive } from "@shopify/polaris";
-import {
-  FinancesMajor,
-  HomeMajor,
-  JobsMajor,
-  ListMajor,
-} from "@shopify/polaris-icons";
+import { FinancesMajor, HomeMajor, JobsMajor } from "@shopify/polaris-icons";
 
 export const Navigation = () => {
   return (
@@ -17,12 +12,6 @@ export const Navigation = () => {
             icon: HomeMajor,
           },
           {
-            url: "/listings",
-            label: "Listings",
-            icon: ListMajor,
-          },
-          {
-            // todo
             url: "/tasks",
             label: "Tasks",
             icon: JobsMajor,
