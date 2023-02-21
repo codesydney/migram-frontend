@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import {
   Button,
   ButtonGroup,
@@ -21,7 +22,10 @@ import {
   getOffersOfProviderQuery,
   completeOfferMutation,
 } from "../api";
-import { TaskCard } from "./TaskCard";
+
+const TaskCard = dynamic(() =>
+  import("./TaskCard").then((mod) => mod.TaskCard)
+);
 
 export function OfferCard({
   offer,
