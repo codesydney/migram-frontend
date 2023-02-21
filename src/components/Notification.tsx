@@ -1,14 +1,12 @@
 import { Layout, Banner } from "@shopify/polaris";
+import { ComponentPropsWithRef } from "react";
 
-export function BaseNotification() {
+export type NotificationProps = ComponentPropsWithRef<typeof Banner>;
+
+export function BaseNotification(props: NotificationProps) {
   return (
     <Layout.Section fullWidth>
-      <Banner status="critical" onDismiss={() => {}}>
-        <p>
-          Use your finance report to get detailed information about your
-          business.
-        </p>
-      </Banner>
+      <Banner {...props} />
     </Layout.Section>
   );
 }
