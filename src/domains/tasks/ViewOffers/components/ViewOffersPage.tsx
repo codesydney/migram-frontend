@@ -90,17 +90,7 @@ function EmptyTaskCardBody({ loading }: { loading: boolean }) {
   );
 }
 
-export function TaskCard({
-  task,
-  loading,
-}: {
-  task: Task | undefined;
-  loading: boolean;
-}) {
-  if (!task || loading) {
-    return <EmptyTaskCardBody loading={loading} />;
-  }
-
+export function TaskCard({ task }: { task: Task }) {
   const { location } = task;
 
   return (
@@ -214,7 +204,11 @@ export function ViewOffersPage({
             })}
           </Layout.Section>
           <Layout.Section oneHalf>
-            <TaskCard task={selectedTask} loading={loading} />
+            {!selectedTask || loading ? (
+              <EmptyTaskCardBody loading={loading} />
+            ) : (
+              <TaskCard task={selectedTask} />
+            )}
           </Layout.Section>
         </Layout>
       </Page>
