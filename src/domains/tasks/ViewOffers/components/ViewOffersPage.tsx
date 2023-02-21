@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import {
   Button,
   ButtonGroup,
@@ -10,16 +11,21 @@ import {
   Stack,
   Text,
   TextContainer,
-  Badge,
 } from "@shopify/polaris";
+import styled from "styled-components";
 
-import { Offer, Task, TaskStatus } from "@Tasks/common/types";
-import { OfferStatusBadge, TaskStatusBadge } from "@Tasks/common/components";
+import { OfferStatusBadge } from "@Tasks/common/components";
+
+import { Offer, Task } from "@Tasks/common/types";
 import {
-  completeOfferMutation,
   getTaskQuery,
   getOffersOfProviderQuery,
+  completeOfferMutation,
 } from "../api";
+
+const TaskCard = dynamic(() =>
+  import("./TaskCard").then((mod) => mod.TaskCard)
+);
 
 export function OfferCard({
   offer,
@@ -75,8 +81,6 @@ export function OfferCard({
 }
 
 function EmptyTaskCardBody({ loading }: { loading: boolean }) {
-  console.log(loading);
-
   return (
     <Card sectioned>
       <EmptyState heading="View Task Details Here" image={""}>
@@ -90,61 +94,19 @@ function EmptyTaskCardBody({ loading }: { loading: boolean }) {
   );
 }
 
-export function TaskCard({
-  task,
-  loading,
-}: {
-  task: Task | undefined;
-  loading: boolean;
-}) {
-  if (!task || loading) {
-    return <EmptyTaskCardBody loading={loading} />;
+const StyledDiv = styled.div`
+  .Polaris-Layout {
+    flex-direction: column-reverse;
+
+    .Polaris-Layout__Section {
+      width: 100%;
+    }
+
+    @media (min-width: 1200px) {
+      flex-direction: row;
+    }
   }
-
-  const { location } = task;
-
-  return (
-    <Card sectioned>
-      <Card.Header
-        title={
-          <Stack>
-            <Stack.Item fill>
-              <Text variant="headingMd" as="h2">
-                {task.title}
-              </Text>
-            </Stack.Item>
-            <Stack.Item>
-              <TaskStatusBadge status={task.status as TaskStatus} />
-            </Stack.Item>
-          </Stack>
-        }
-      />
-      <Card.Section
-        title={
-          <Text as="h3" variant="headingMd">
-            Details
-          </Text>
-        }
-      >
-        <TextContainer spacing="tight">
-          <Text as="h3" variant="headingSm">
-            ${task.budget}
-          </Text>
-          <Text as="p" variant="bodyMd">
-            {task.category}
-          </Text>
-          <Text as="p" variant="bodyMd">
-            {task.details}
-          </Text>
-          <Text as="p" variant="bodyMd">
-            {location.line1} {location.line2}, {location.city} {location.state}{" "}
-            {location.postal_code}
-          </Text>
-        </TextContainer>
-      </Card.Section>
-    </Card>
-  );
-}
+`;
 
 export function ViewOffersPage({
   status,
@@ -183,7 +145,7 @@ export function ViewOffersPage({
   }, [status]);
 
   return (
-    <div aria-label="View Offers Page">
+    <StyledDiv aria-label="View Offers Page">
       <Page title="Offers" fullWidth>
         <Layout>
           <Layout.Section oneHalf>
@@ -200,10 +162,14 @@ export function ViewOffersPage({
             })}
           </Layout.Section>
           <Layout.Section oneHalf>
-            <TaskCard task={selectedTask} loading={loading} />
+            {!selectedTask || loading ? (
+              <EmptyTaskCardBody loading={loading} />
+            ) : (
+              <TaskCard task={selectedTask} />
+            )}
           </Layout.Section>
         </Layout>
       </Page>
-    </div>
+    </StyledDiv>
   );
 }
