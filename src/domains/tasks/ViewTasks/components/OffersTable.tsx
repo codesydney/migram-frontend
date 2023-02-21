@@ -1,6 +1,5 @@
-import { ComponentProps, useState, useEffect } from "react";
+import { ComponentProps } from "react";
 import {
-  Button,
   Card,
   IndexTable,
   IndexTableSelectionType,
@@ -10,25 +9,10 @@ import {
   useIndexResourceState,
 } from "@shopify/polaris";
 
-import { Offer, OfferStatus, Task } from "@Tasks/common/types";
+import { Offer, OfferStatus } from "@Tasks/common/types";
 
-import { acceptOfferMutation, getOffersOfTaskQuery } from "../api";
+import { acceptOfferMutation } from "../api";
 import { OfferStatusBadge } from "@Tasks/common/components";
-
-const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
-  return (
-    <Stack>
-      <Stack.Item fill>
-        <Text as="h3" variant="headingSm">
-          Offers
-        </Text>
-      </Stack.Item>
-      <Stack.Item>
-        <Button onClick={onClick}>View</Button>
-      </Stack.Item>
-    </Stack>
-  );
-};
 
 type IndexTableRowProps = ComponentProps<typeof IndexTable.Row>;
 
@@ -137,32 +121,5 @@ export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
         </IndexTable>
       </Card>
     </div>
-  );
-};
-
-export const OffersSection = ({ task }: { task: Task }) => {
-  const { id: taskId } = task;
-
-  const [showOffers, setShowOffers] = useState(false);
-  const [updatedTask, setUpdatedTask] = useState<any>(task);
-
-  useEffect(() => {
-    getOffersOfTaskQuery(task.id)
-      .then((response: any) => {
-        if (taskId == response.data.data.task._id) {
-          setUpdatedTask(response.data.data.task);
-        }
-      })
-      .catch((error: any) => {
-        setUpdatedTask(task);
-      });
-  }, [task, taskId]);
-
-  return (
-    <Card.Section
-      title={<OffersSectionTitle onClick={() => setShowOffers(!showOffers)} />}
-    >
-      {showOffers ? <OffersTable offers={updatedTask.offers} /> : null}
-    </Card.Section>
   );
 };

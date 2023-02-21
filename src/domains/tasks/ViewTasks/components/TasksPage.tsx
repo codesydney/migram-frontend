@@ -14,12 +14,54 @@ import styled from "styled-components";
 import { TaskStatusBadge } from "@Tasks/common/components";
 import { Task, TaskStatus } from "@Tasks/common/types";
 
-import { getTasksOfCustomerQuery } from "../api";
+import { getTasksOfCustomerQuery, getOffersOfTaskQuery } from "../api";
 import { routerPush } from "@Utils/router";
 
-const OffersSection = dynamic(() =>
-  import("./OffersSection").then((mod) => mod.OffersSection)
+const OffersTable = dynamic(() =>
+  import("./OffersTable").then((mod) => mod.OffersTable)
 );
+
+const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <Stack>
+      <Stack.Item fill>
+        <Text as="h3" variant="headingSm">
+          Offers
+        </Text>
+      </Stack.Item>
+      <Stack.Item>
+        <Button onClick={onClick}>View</Button>
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+export const OffersSection = ({ task }: { task: Task }) => {
+  const { id: taskId } = task;
+
+  const [showOffers, setShowOffers] = useState(false);
+  const [updatedTask, setUpdatedTask] = useState<any>(task);
+
+  useEffect(() => {
+    getOffersOfTaskQuery(task.id)
+      .then((response: any) => {
+        if (taskId == response.data.data.task._id) {
+          setUpdatedTask(response.data.data.task);
+        }
+      })
+      .catch((error: any) => {
+        setUpdatedTask(task);
+      });
+  }, [task, taskId]);
+
+  return (
+    <Card.Section
+      title={<OffersSectionTitle onClick={() => setShowOffers(!showOffers)} />}
+    >
+      {showOffers ? <OffersTable offers={updatedTask.offers} /> : null}
+    </Card.Section>
+  );
+};
 
 export const TaskCard = ({ task }: { task: Task }) => {
   const { location } = task;

@@ -2,21 +2,17 @@ import { ComponentProps } from "react";
 import { getAllByRole, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { OffersTable } from "../OffersSection";
+import { OffersTable } from "../OffersTable";
 
 import { renderWithPolarisTestProvider } from "src/test/utils";
+import { Offer } from "@Tasks/common/types";
 
 const testOffer = {
-  status: "open",
-  _id: "63d32618c1ec5257ad7db4f6",
+  status: "open" as const,
   offerAmt: 205,
   comments: "first offer",
   providerId: "acct_1Lur4rIWxYvLVjGY",
   task: "63d26e6651167241c5f238a4",
-  createdAt: "2023-01-27T01:17:12.653Z",
-  updatedAt: "2023-01-27T01:17:12.653Z",
-  __v: 0,
-  timeElapsed: "12 days ago",
   id: "63d32618c1ec5257ad7db4f6",
 };
 
@@ -25,7 +21,7 @@ function renderOffersTable(props: ComponentProps<typeof OffersTable>) {
 }
 
 function setupWithOneOffer() {
-  const offers = [testOffer];
+  const offers: Array<Offer> = [testOffer];
 
   return renderOffersTable({ offers });
 }
