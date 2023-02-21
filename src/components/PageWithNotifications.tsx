@@ -4,7 +4,7 @@ import { ComponentPropsWithoutRef } from "react";
 export type PageWithNotificationsProps = ComponentPropsWithoutRef<
   typeof Page
 > & {
-  notification?: React.ReactNode;
+  notification?: () => React.ReactNode;
 };
 
 export function PageWithNotifications({
@@ -15,7 +15,7 @@ export function PageWithNotifications({
   return (
     <Page {...otherProps}>
       <Layout>
-        {notification}
+        {notification ? notification() : null}
         {children}
       </Layout>
     </Page>

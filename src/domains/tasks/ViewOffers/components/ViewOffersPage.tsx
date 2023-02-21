@@ -22,6 +22,7 @@ import {
   getOffersOfProviderQuery,
   completeOfferMutation,
 } from "../api";
+import { BaseNotification, PageWithNotifications } from "src/components";
 
 const TaskCard = dynamic(() =>
   import("./TaskCard").then((mod) => mod.TaskCard)
@@ -146,30 +147,34 @@ export function ViewOffersPage({
 
   return (
     <StyledDiv aria-label="View Offers Page">
-      <Page title="Offers" fullWidth>
-        <Layout>
-          <Layout.Section oneHalf>
-            {offers.map((offer) => {
-              return (
-                <OfferCard
-                  offer={offer}
-                  key={offer.id}
-                  onViewTaskClick={() => {
-                    onViewTaskClick(offer.task);
-                  }}
-                />
-              );
-            })}
-          </Layout.Section>
-          <Layout.Section oneHalf>
-            {!selectedTask || loading ? (
-              <EmptyTaskCardBody loading={loading} />
-            ) : (
-              <TaskCard task={selectedTask} />
-            )}
-          </Layout.Section>
-        </Layout>
-      </Page>
+      <PageWithNotifications
+        title="Offers"
+        notification={() => (
+          <BaseNotification title="You done messed up" status="critical" />
+        )}
+        fullWidth
+      >
+        <Layout.Section oneHalf>
+          {offers.map((offer) => {
+            return (
+              <OfferCard
+                offer={offer}
+                key={offer.id}
+                onViewTaskClick={() => {
+                  onViewTaskClick(offer.task);
+                }}
+              />
+            );
+          })}
+        </Layout.Section>
+        <Layout.Section oneHalf>
+          {!selectedTask || loading ? (
+            <EmptyTaskCardBody loading={loading} />
+          ) : (
+            <TaskCard task={selectedTask} />
+          )}
+        </Layout.Section>
+      </PageWithNotifications>
     </StyledDiv>
   );
 }
