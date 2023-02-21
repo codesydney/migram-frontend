@@ -1,6 +1,6 @@
 import { NotificationProps } from "../Notification";
 import { renderWithPolarisTestProvider } from "src/test/utils";
-import { PageWithNotifications } from "../PageWithNotifcations";
+import { PageWithNotifications } from "../PageWithNotifications";
 
 function setupRender(componentProps?: NotificationProps) {
   return renderWithPolarisTestProvider(
