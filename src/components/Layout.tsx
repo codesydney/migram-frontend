@@ -14,7 +14,7 @@ const logo = {
   accessibilityLabel: "Migram",
 } as const;
 
-export const LayoutV2 = ({ children }: PropsWithChildren<{}>) => {
+export const Layout = ({ children }: PropsWithChildren<{}>) => {
   const { data: session } = useSession();
   const TopBarMarkup = <TopBar />;
   const NavigationMarkup = session ? <Navigation /> : undefined;

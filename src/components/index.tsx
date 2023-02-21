@@ -1,4 +1,4 @@
-export * from "./LayoutV2";
+export * from "./Layout";
 export * from "./Navigation";
 export * from "./TopBar";
 export * from "./Select";
