@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { CheckoutForm } from "../CheckoutForm";
-import { ElementsWrapper } from "@Components/utils/ElementsWrapper";
+import { ElementsWrapper } from "src/components/ElementsWrapper";
 
 describe("CheckoutForm", () => {
   test("Smoke test if it renders", () => {
