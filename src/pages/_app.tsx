@@ -1,12 +1,12 @@
+import type { AppProps } from "next/app";
 import Router from "next/router";
 import { SessionProvider } from "next-auth/react";
 import Nprogress from "nprogress";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "nprogress/nprogress.css";
 
-import type { AppProps } from "next/app";
-import { ElementsWrapper } from "@Components/utils/ElementsWrapper";
-import { LayoutV2 } from "@ComponentsV2/components";
+import { ElementsWrapper } from "src/components/ElementsWrapper";
+import { Layout } from "src/components";
 
 if (process.env.NODE_ENV === "test") {
   require("../mocks");
@@ -23,9 +23,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <ElementsWrapper>
       <SessionProvider session={pageProps.session}>
         <QueryClientProvider client={queryClient}>
-          <LayoutV2>
+          <Layout>
             <Component {...pageProps} />
-          </LayoutV2>
+          </Layout>
         </QueryClientProvider>
       </SessionProvider>
     </ElementsWrapper>

@@ -4,7 +4,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": ".",
     "paths": {
-      "@Components/*": ["src/components/*"],
+      "@Components/*": ["src/v2/components/*"],
       "@Billing/*": ["src/domains/billing/*"],
       "@Tasks/*": ["src/domains/tasks/*"],
       "@Types/*": ["src/types/*"],
@@ -25,6 +25,11 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/offers"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/v2/components/offers"
+  ],
   "exclude": ["node_modules"]
 }

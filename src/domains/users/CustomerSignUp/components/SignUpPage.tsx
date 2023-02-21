@@ -9,7 +9,7 @@ import {
   Page,
   Text,
 } from "@shopify/polaris";
-import { TextField } from "@ComponentsV2/components/TextField";
+import { TextField } from "src/components/TextField";
 import { useSignUpForm, SignUpFormState } from "../hooks";
 
 export const SignUpPage = () => {
