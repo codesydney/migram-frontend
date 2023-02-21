@@ -81,8 +81,6 @@ export function OfferCard({
 }
 
 function EmptyTaskCardBody({ loading }: { loading: boolean }) {
-  console.log(loading);
-
   return (
     <Card sectioned>
       <EmptyState heading="View Task Details Here" image={""}>
