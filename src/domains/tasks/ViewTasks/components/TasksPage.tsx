@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import {
   Button,
   Card,
@@ -13,9 +14,12 @@ import styled from "styled-components";
 import { TaskStatusBadge } from "@Tasks/common/components";
 import { Task, TaskStatus } from "@Tasks/common/types";
 
-import { OffersSection } from "./OffersSection";
 import { getTasksOfCustomerQuery } from "../api";
 import { routerPush } from "@Utils/router";
+
+const OffersSection = dynamic(() =>
+  import("./OffersSection").then((mod) => mod.OffersSection)
+);
 
 export const TaskCard = ({ task }: { task: Task }) => {
   const { location } = task;
