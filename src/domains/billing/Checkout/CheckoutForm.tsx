@@ -9,7 +9,6 @@ import React, { useState } from "react";
 import { useCreatePaymentIntent } from "./hooks";
 import { StripeCardElement } from "@stripe/stripe-js";
 import { CardElement } from "./CardElement";
-import ButtonStyles from "@Components/styles/ButtonStyles";
 
 interface CheckoutFormProps {
   isPageLoading: boolean;
@@ -73,9 +72,9 @@ export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
           options={{ mode: "billing", allowedCountries: ["AU"] }}
         />
         <CardElement />
-        <ButtonStyles type="submit" primary disabled={disabled}>
+        <button type="submit" disabled={disabled}>
           Checkout
-        </ButtonStyles>
+        </button>
       </fieldset>
     </form>
   );
