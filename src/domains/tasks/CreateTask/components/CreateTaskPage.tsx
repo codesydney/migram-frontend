@@ -1,6 +1,6 @@
 import { Page, Form, FormLayout, Button, Text } from "@shopify/polaris";
 
-import { TextField, Select } from "@ComponentsV2/components";
+import { TextField, Select } from "src/components/index";
 
 import { useCreateTaskForm } from "../hooks/useCreateTaskForm";
 import { StateSchema } from "@Types/schemas";

@@ -1,6 +1,6 @@
 import { Button, Form, FormLayout } from "@shopify/polaris";
 
-import { TextField } from "@ComponentsV2/components/TextField";
+import { TextField } from "src/components";
 
 import { useMakeAnOfferForm } from "../hooks/useMakeOfferForm";
 import { MakeAnOfferFormState, MakeAnOfferSubmitHandler } from "../types";

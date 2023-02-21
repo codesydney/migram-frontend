@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 import { useSession } from "next-auth/react";
 
 import { AppProvider, Frame } from "@shopify/polaris";
-import { TopBar } from "./";
+import { TopBar } from ".";
 import { Navigation } from "./Navigation";
 
 import "@shopify/polaris/build/esm/styles.css";
