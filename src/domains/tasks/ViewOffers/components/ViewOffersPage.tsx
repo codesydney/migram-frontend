@@ -10,8 +10,8 @@ import {
   Stack,
   Text,
   TextContainer,
-  Badge,
 } from "@shopify/polaris";
+import styled from "styled-components";
 
 import { Offer, Task, TaskStatus } from "@Tasks/common/types";
 import { OfferStatusBadge, TaskStatusBadge } from "@Tasks/common/components";
@@ -146,6 +146,20 @@ export function TaskCard({
   );
 }
 
+const StyledDiv = styled.div`
+  .Polaris-Layout {
+    flex-direction: column-reverse;
+
+    .Polaris-Layout__Section {
+      width: 100%;
+    }
+
+    @media (min-width: 1200px) {
+      flex-direction: row;
+    }
+  }
+`;
+
 export function ViewOffersPage({
   status,
 }: {
@@ -183,7 +197,7 @@ export function ViewOffersPage({
   }, [status]);
 
   return (
-    <div aria-label="View Offers Page">
+    <StyledDiv aria-label="View Offers Page">
       <Page title="Offers" fullWidth>
         <Layout>
           <Layout.Section oneHalf>
@@ -204,6 +218,6 @@ export function ViewOffersPage({
           </Layout.Section>
         </Layout>
       </Page>
-    </div>
+    </StyledDiv>
   );
 }
