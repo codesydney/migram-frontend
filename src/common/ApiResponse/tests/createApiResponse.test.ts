@@ -37,6 +37,31 @@ const Axios200Response_GetOffersList: AxiosResponse = {
   config: {},
 };
 
+const Axios201Response_CreateOffer: AxiosResponse = {
+  data: {
+    status: "success",
+    data: {
+      task: {
+        status: "open",
+        _id: "63f860b4250a0e93b760ef69",
+        offerAmt: 200,
+        comments: "Testing because I want the Axios Response",
+        providerId: "acct_1Lur4rIWxYvLVjGY",
+        task: "6350d7bc80c58772355d7625",
+        createdAt: "2023-02-24T07:01:08.013Z",
+        updatedAt: "2023-02-24T07:01:08.013Z",
+        __v: 0,
+        timeElapsed: "0 secs ago",
+        id: "63f860b4250a0e93b760ef69",
+      },
+    },
+  },
+  status: 201,
+  statusText: "Created",
+  headers: {},
+  config: {},
+};
+
 const Axios401Response: AxiosResponse = {
   data: {
     status: "error",
@@ -91,6 +116,37 @@ const axiosTestCases: AxiosTableTestCases = [
             },
           ],
         },
+      },
+    },
+  },
+  {
+    name: "handles 201 Created Axios Response",
+    input: Axios201Response_CreateOffer,
+    successMessage: "Successfully created Offer.",
+    expected: {
+      apiEvent: {
+        isError: false,
+        title: "Successfully created Offer.",
+        status: 201,
+        statusText: "Created",
+      },
+      data: {
+        data: {
+          task: {
+            status: "open",
+            _id: "63f860b4250a0e93b760ef69",
+            offerAmt: 200,
+            comments: "Testing because I want the Axios Response",
+            providerId: "acct_1Lur4rIWxYvLVjGY",
+            task: "6350d7bc80c58772355d7625",
+            createdAt: "2023-02-24T07:01:08.013Z",
+            updatedAt: "2023-02-24T07:01:08.013Z",
+            __v: 0,
+            timeElapsed: "0 secs ago",
+            id: "63f860b4250a0e93b760ef69",
+          },
+        },
+        status: "success",
       },
     },
   },

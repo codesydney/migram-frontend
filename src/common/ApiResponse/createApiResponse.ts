@@ -5,7 +5,7 @@ export function createApiResponse(
   result: AxiosResponse,
   successMessage: string
 ): ApiResponse<any> {
-  const isError = result.status !== 200;
+  const isError = Math.trunc(result.status / 100) !== 2;
 
   return {
     apiEvent: {
