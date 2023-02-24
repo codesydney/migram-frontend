@@ -63,11 +63,11 @@ const axiosTestCases: AxiosTableTestCases = [
   {
     name: "handles 200 OK Axios Response",
     input: Axios200Response_GetOffersList,
-    successMessage: "Successfully loaded Offers.",
+    successMessage: "Successfully loaded Offers list.",
     expected: {
       apiEvent: {
         isError: false,
-        title: "Successfully loaded Offers.",
+        title: "Successfully loaded Offers list.",
         status: 200,
         statusText: "OK",
       },
