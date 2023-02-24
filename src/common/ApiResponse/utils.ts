@@ -1,3 +1,4 @@
 export function isErrorStatusCode(statusCode: number) {
-  return Math.trunc(statusCode / 100) !== 2;
+  const firstDigit = Math.trunc(statusCode / 100);
+  return firstDigit === 4 || firstDigit === 5;
 }
