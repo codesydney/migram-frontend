@@ -1,11 +1,13 @@
 import { AxiosResponse } from "axios";
+
 import { ApiResponse } from "./types";
+import { isErrorStatusCode } from "./utils";
 
 export function createApiResponse(
   result: AxiosResponse,
   successMessage: string
 ): ApiResponse<any> {
-  const isError = Math.trunc(result.status / 100) !== 2;
+  const isError = isErrorStatusCode(result.status);
 
   return {
     apiEvent: {
