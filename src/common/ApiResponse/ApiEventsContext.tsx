@@ -1,17 +1,27 @@
 "use client";
 
-import { PropsWithChildren, createContext, useContext } from "react";
+import { PropsWithChildren, createContext, useContext, useState } from "react";
 import { ImmutableMap } from "map-immute";
 
 import { ApiEvent } from "./types";
 
 export type ApiEventsMap = ImmutableMap<string, ApiEvent>;
+export type ApiEventsContextValues = {
+  apiEvents: ApiEventsMap;
+  setApiEvents: (apiEvents: ApiEventsMap) => void;
+};
 
-const ApiEventsContext = createContext<ApiEventsMap | undefined>(undefined);
+const ApiEventsContext = createContext<ApiEventsContextValues | undefined>(
+  undefined
+);
 
 export function ApiEventsProvider({ children }: PropsWithChildren<{}>) {
+  const [apiEvents, setApiEvents] = useState<ApiEventsMap>(
+    () => new ImmutableMap<string, ApiEvent>()
+  );
+
   return (
-    <ApiEventsContext.Provider value={new ImmutableMap<string, ApiEvent>()}>
+    <ApiEventsContext.Provider value={{ apiEvents, setApiEvents }}>
       {children}
     </ApiEventsContext.Provider>
   );
