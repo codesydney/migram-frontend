@@ -1,11 +1,12 @@
 import { screen } from "@testing-library/react";
 
-import { BaseNotification } from "../Notification";
-import { renderWithPolarisTestProvider } from "src/test/utils";
 import {
   PageWithNotifications,
   PageWithNotificationsProps,
 } from "../PageWithNotifications";
+import { BaseNotification } from "..";
+
+import { renderWithPolarisTestProvider } from "src/test/utils";
 
 function setupRender(componentProps?: PageWithNotificationsProps) {
   return renderWithPolarisTestProvider(
