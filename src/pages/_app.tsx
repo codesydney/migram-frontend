@@ -7,6 +7,7 @@ import "nprogress/nprogress.css";
 
 import { ElementsWrapper } from "src/components/ElementsWrapper";
 import { Layout } from "src/components";
+import { ApiEventsProvider } from "src/common/ApiResponse/ApiEventsContext";
 
 if (process.env.NODE_ENV === "test") {
   require("../mocks");
@@ -21,13 +22,15 @@ const queryClient = new QueryClient();
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ElementsWrapper>
-      <SessionProvider session={pageProps.session}>
-        <QueryClientProvider client={queryClient}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </QueryClientProvider>
-      </SessionProvider>
+      <ApiEventsProvider>
+        <SessionProvider session={pageProps.session}>
+          <QueryClientProvider client={queryClient}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </QueryClientProvider>
+        </SessionProvider>
+      </ApiEventsProvider>
     </ElementsWrapper>
   );
 }
