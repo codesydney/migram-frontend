@@ -170,8 +170,6 @@ export function ViewOffersPage({ status }: ViewOffersPageProps) {
             event: apiEvent,
           });
         }
-
-        console.log(error);
       });
   }, [dispatchApiEvents, status]);
 
