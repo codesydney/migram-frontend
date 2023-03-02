@@ -62,6 +62,7 @@ const testEvents = [
       title: "string",
       status: 400,
       statusText: "Bad Request",
+      level: "error",
     },
   ],
   [
@@ -72,6 +73,7 @@ const testEvents = [
       title: "Event Two",
       status: 400,
       statusText: "Bad Request",
+      level: "error",
     },
   ],
 ] as const;

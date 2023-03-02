@@ -4,6 +4,7 @@ export type ApiEvent = {
   title: string;
   status: number;
   statusText: string;
+  level: "info" | "warn" | "error";
 };
 
 export type ApiResponse<TData> = {

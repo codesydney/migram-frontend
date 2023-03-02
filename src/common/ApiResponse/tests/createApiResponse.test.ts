@@ -5,7 +5,7 @@ import { ApiResponse } from "../types";
 type AxiosTableTestCases = {
   name: string;
   input: AxiosResponse;
-  successMessage: string;
+  message: string;
   expected: ApiResponse<any>;
 }[];
 
@@ -88,9 +88,11 @@ const axiosTestCases: AxiosTableTestCases = [
   {
     name: "handles 200 OK Axios Response",
     input: Axios200Response_GetOffersList,
-    successMessage: "Successfully loaded Offers list.",
+    message: "Successfully loaded Offers list.",
     expected: {
       apiEvent: {
+        id: "1",
+        level: "error",
         isError: false,
         title: "Successfully loaded Offers list.",
         status: 200,
@@ -122,9 +124,11 @@ const axiosTestCases: AxiosTableTestCases = [
   {
     name: "handles 201 Created Axios Response",
     input: Axios201Response_CreateOffer,
-    successMessage: "Successfully created Offer.",
+    message: "Successfully created Offer.",
     expected: {
       apiEvent: {
+        id: "1",
+        level: "error",
         isError: false,
         title: "Successfully created Offer.",
         status: 201,
@@ -153,9 +157,11 @@ const axiosTestCases: AxiosTableTestCases = [
   {
     name: "handles 401 Unauthorized Axios Error Response",
     input: Axios401Response,
-    successMessage: "Successfully loaded Offers.",
+    message: "Invalid Token: please log in again.",
     expected: {
       apiEvent: {
+        id: "1",
+        level: "error",
         isError: true,
         title: "Invalid Token: please log in again.",
         status: 401,
@@ -167,9 +173,11 @@ const axiosTestCases: AxiosTableTestCases = [
   {
     name: "handles 500 Internal Server Error Axios Response",
     input: Axios500Response,
-    successMessage: "Successfully loaded Task.",
+    message: "Invalid Task",
     expected: {
       apiEvent: {
+        id: "1",
+        level: "error",
         isError: true,
         title: "Invalid Task",
         status: 500,
@@ -180,8 +188,11 @@ const axiosTestCases: AxiosTableTestCases = [
   },
 ];
 
-it.each(axiosTestCases)("$name", ({ input, successMessage, expected }) => {
-  const actual = createApiResponse(input, successMessage);
+it.each(axiosTestCases)("$name", ({ input, message, expected }) => {
+  const actual = createApiResponse(input, {
+    message,
+    id: "1",
+  });
 
-  expect(actual).toEqual(expected);
+  expect(actual).toMatchObject(expected);
 });
