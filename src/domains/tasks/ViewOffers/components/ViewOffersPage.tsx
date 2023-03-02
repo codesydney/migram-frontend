@@ -6,7 +6,6 @@ import {
   Card,
   EmptyState,
   Layout,
-  Page,
   Spinner,
   Stack,
   Text,
@@ -22,7 +21,10 @@ import {
   getOffersOfProviderQuery,
   completeOfferMutation,
 } from "../api";
-import { BaseNotification, PageWithNotifications } from "src/components";
+import { PageWithNotifications } from "src/components";
+import { useApiEvents } from "src/common/ApiResponse/ApiEventsContext";
+import { createApiResponse } from "src/common/ApiResponse";
+import { AxiosError } from "axios";
 
 const TaskCard = dynamic(() =>
   import("./TaskCard").then((mod) => mod.TaskCard)
@@ -114,6 +116,8 @@ export function ViewOffersPage({
 }: {
   status: "authenticated" | "loading" | "unauthenticated";
 }) {
+  const { dispatchApiEvents } = useApiEvents();
+
   const [offers, setOffers] = useState(new Array<Offer>());
   const [selectedTask, setSelectedTask] = useState<Task | undefined>();
   const [loading, setLoading] = useState(false);
@@ -126,7 +130,14 @@ export function ViewOffersPage({
         setSelectedTask(task);
       })
       .catch((error) => {
-        console.log(error);
+        if (error instanceof AxiosError && error.response) {
+          dispatchApiEvents({
+            type: "set",
+            event: createApiResponse(error.response, {
+              message: error.response.data.message,
+            }).apiEvent,
+          });
+        }
       })
       .finally(() => {
         setLoading(false);
