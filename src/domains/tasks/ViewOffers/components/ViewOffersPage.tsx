@@ -173,7 +173,7 @@ export function ViewOffersPage({
 
         console.log(error);
       });
-  }, [status]);
+  }, [dispatchApiEvents, status]);
 
   return (
     <StyledDiv aria-label="View Offers Page">
