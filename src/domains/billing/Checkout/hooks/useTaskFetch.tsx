@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import fetch from "node-fetch";
 
-export const getTaskURL = `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/`;
+export const getTaskURL = `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`;
 
 export const useTaskFetch = (taskId: string) => {
   return useQuery({
