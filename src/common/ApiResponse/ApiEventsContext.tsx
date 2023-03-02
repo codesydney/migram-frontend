@@ -12,6 +12,7 @@ import { ImmutableMap } from "map-immute";
 import { ApiEvent } from "./types";
 
 export type ApiEventsMap = ImmutableMap<string, ApiEvent>;
+export type InitialApiEventsState = Iterable<readonly [string, ApiEvent]>;
 
 export type ApiEventAction =
   | {
@@ -54,16 +55,28 @@ const ApiEventsContext = createContext<ApiEventsContextValues | undefined>(
 );
 
 export type ApiEventsProviderProps = {
-  initialState?: ApiEventsMap;
+  initialState?: InitialApiEventsState;
 } & PropsWithChildren<{}>;
 
+/**
+ *
+ * @param initialState - iterables to initialize the state
+ * @param children
+ * @returns
+ */
 export function ApiEventsProvider({
   children,
-  initialState = new ImmutableMap<string, ApiEvent>(),
+  initialState,
 }: ApiEventsProviderProps) {
+  const setupInitialState = (intialState?: InitialApiEventsState) => {
+    return intialState instanceof ImmutableMap<string, ApiEvent>
+      ? intialState
+      : new ImmutableMap<string, ApiEvent>(intialState);
+  };
+
   const [apiEvents, dispatchApiEvents] = useReducer(
     apiEventsReducer,
-    initialState
+    setupInitialState(initialState)
   );
 
   return (
