@@ -24,3 +24,18 @@ export function createApiResponse(
     data: isError ? undefined : result.data,
   };
 }
+
+export type createDefaultApiErrorEventOptions = CreateApiResponseOptions;
+
+export function createDefaultApiErrorEvent(
+  options: createDefaultApiErrorEventOptions
+) {
+  return {
+    id: options?.id || uuid(),
+    isError: true,
+    title: options.message,
+    status: 500,
+    statusText: "Internal Server Error",
+    level: "error",
+  } as const;
+}
