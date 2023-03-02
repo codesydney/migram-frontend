@@ -20,6 +20,7 @@ export function ApiEventsProvider({ children }: PropsWithChildren<{}>) {
     [
       "1",
       {
+        id: "1",
         isError: true,
         title: "string",
         status: 400,
@@ -29,6 +30,7 @@ export function ApiEventsProvider({ children }: PropsWithChildren<{}>) {
     [
       "2",
       {
+        id: "2",
         isError: true,
         title: "Event Two",
         status: 400,

@@ -11,14 +11,14 @@ export function PageWithNotifications({
   ...otherProps
 }: PageWithNotificationsProps) {
   const { apiEvents } = useApiEvents();
-  const events = [...apiEvents.entries()];
+  const events = [...apiEvents.values()];
 
   return (
     <Page {...otherProps}>
       <Layout>
-        {events.map(([eventId, event]) => (
+        {events.map((event) => (
           <BaseNotification
-            key={eventId}
+            key={event.id}
             title={event.title}
             status="critical"
           />
