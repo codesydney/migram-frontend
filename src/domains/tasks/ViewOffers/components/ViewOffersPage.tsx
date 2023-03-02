@@ -147,13 +147,7 @@ export function ViewOffersPage({
 
   return (
     <StyledDiv aria-label="View Offers Page">
-      <PageWithNotifications
-        title="Offers"
-        notification={() => (
-          <BaseNotification title="You done messed up" status="critical" />
-        )}
-        fullWidth
-      >
+      <PageWithNotifications title="Offers" fullWidth>
         <Layout.Section oneHalf>
           {offers.map((offer) => {
             return (

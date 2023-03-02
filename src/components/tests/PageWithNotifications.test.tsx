@@ -6,10 +6,13 @@ import {
   PageWithNotifications,
   PageWithNotificationsProps,
 } from "../PageWithNotifications";
+import { ApiEventsProvider } from "src/common/ApiResponse/ApiEventsContext";
 
 function setupRender(componentProps?: PageWithNotificationsProps) {
   return renderWithPolarisTestProvider(
-    <PageWithNotifications {...componentProps} />
+    <ApiEventsProvider>
+      <PageWithNotifications {...componentProps} />
+    </ApiEventsProvider>
   );
 }
 
