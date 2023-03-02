@@ -23,7 +23,10 @@ import {
 } from "../api";
 import { PageWithNotifications } from "src/components";
 import { useApiEvents } from "src/common/ApiResponse/ApiEventsContext";
-import { createApiResponse } from "src/common/ApiResponse";
+import {
+  createApiResponse,
+  createDefaultApiErrorEvent,
+} from "src/common/ApiResponse";
 import { AxiosError } from "axios";
 
 const TaskCard = dynamic(() =>
@@ -152,6 +155,24 @@ export function ViewOffersPage({
         setOffers(offers);
       })
       .catch((error) => {
+        if (error instanceof AxiosError) {
+          const errorMessage =
+            "Failed to load offers. Please contact support if refreshing the page does not work.";
+
+          const apiEvent = error.response
+            ? createApiResponse(error.response, {
+                message: errorMessage,
+              }).apiEvent
+            : createDefaultApiErrorEvent({
+                message: errorMessage,
+              });
+
+          dispatchApiEvents({
+            type: "set",
+            event: apiEvent,
+          });
+        }
+
         console.log(error);
       });
   }, [status]);
