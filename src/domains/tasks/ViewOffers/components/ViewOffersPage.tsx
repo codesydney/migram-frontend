@@ -112,11 +112,11 @@ const StyledDiv = styled.div`
   }
 `;
 
-export function ViewOffersPage({
-  status,
-}: {
+export type ViewOffersPageProps = {
   status: "authenticated" | "loading" | "unauthenticated";
-}) {
+};
+
+export function ViewOffersPage({ status }: ViewOffersPageProps) {
   const { dispatchApiEvents } = useApiEvents();
 
   const [offers, setOffers] = useState(new Array<Offer>());

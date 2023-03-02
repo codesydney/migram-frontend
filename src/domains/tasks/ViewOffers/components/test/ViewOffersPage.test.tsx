@@ -1,14 +1,28 @@
 import { screen } from "@testing-library/react";
-import { ViewOffersPage } from "../ViewOffersPage";
+import { ViewOffersPage, ViewOffersPageProps } from "../ViewOffersPage";
 import { renderWithPolarisTestProvider } from "src/test/utils";
-import { ApiEventsProvider } from "src/common/ApiResponse/ApiEventsContext";
+import {
+  ApiEventsProvider,
+  InitialApiEventsState,
+} from "src/common/ApiResponse/ApiEventsContext";
 
-test("smoke test if it renders", () => {
-  renderWithPolarisTestProvider(
+type setupRenderOptions = {
+  componentProps?: ViewOffersPageProps;
+  initialProviderState?: InitialApiEventsState;
+};
+
+function setupRender(options: setupRenderOptions = {}) {
+  return renderWithPolarisTestProvider(
     <ApiEventsProvider>
       <ViewOffersPage status="authenticated" />
     </ApiEventsProvider>
   );
+}
+
+test("smoke test if it renders", () => {
+  const componentProps = { status: "authenticated" } as const;
+
+  setupRender({ componentProps });
 
   const viewOffersPage = screen.getByLabelText(/^view offers page$/i);
   expect(viewOffersPage).toBeTruthy();
