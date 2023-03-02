@@ -53,38 +53,13 @@ const ApiEventsContext = createContext<ApiEventsContextValues | undefined>(
   undefined
 );
 
-const testEvents = [
-  [
-    "1",
-    {
-      id: "1",
-      isError: true,
-      title: "string",
-      status: 400,
-      statusText: "Bad Request",
-      level: "error",
-    },
-  ],
-  [
-    "2",
-    {
-      id: "2",
-      isError: true,
-      title: "Event Two",
-      status: 400,
-      statusText: "Bad Request",
-      level: "error",
-    },
-  ],
-] as const;
-
 export type ApiEventsProviderProps = {
   initialState?: ApiEventsMap;
 } & PropsWithChildren<{}>;
 
 export function ApiEventsProvider({
   children,
-  initialState = new ImmutableMap<string, ApiEvent>(testEvents),
+  initialState = new ImmutableMap<string, ApiEvent>(),
 }: ApiEventsProviderProps) {
   const [apiEvents, dispatchApiEvents] = useReducer(
     apiEventsReducer,
