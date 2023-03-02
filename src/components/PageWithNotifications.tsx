@@ -4,15 +4,10 @@ import { ComponentPropsWithoutRef } from "react";
 import { useApiEvents } from "src/common/ApiResponse/ApiEventsContext";
 import { BaseNotification } from "./Notification";
 
-export type PageWithNotificationsProps = ComponentPropsWithoutRef<
-  typeof Page
-> & {
-  notification?: () => React.ReactNode;
-};
+export type PageWithNotificationsProps = ComponentPropsWithoutRef<typeof Page>;
 
 export function PageWithNotifications({
   children,
-  notification,
   ...otherProps
 }: PageWithNotificationsProps) {
   const { apiEvents } = useApiEvents();
@@ -28,8 +23,6 @@ export function PageWithNotifications({
             status="critical"
           />
         ))}
-
-        {notification ? notification() : null}
         {children}
       </Layout>
     </Page>
