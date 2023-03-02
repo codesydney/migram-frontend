@@ -102,8 +102,6 @@ function EmptyTaskCardBody({ loading }: { loading: boolean }) {
 
 const StyledDiv = styled.div`
   .Polaris-Layout {
-    flex-direction: column-reverse;
-
     .Polaris-Layout__Section {
       width: 100%;
     }
