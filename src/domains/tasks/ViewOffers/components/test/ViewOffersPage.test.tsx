@@ -33,6 +33,45 @@ async function setupRender({
   );
 }
 
+const getOffersSuccessHandler = rest.get(
+  getOffersUrl,
+  async (req, res, ctx) => {
+    const serverResponse = {
+      status: "success",
+      results: 16,
+      data: {
+        offers: [
+          {
+            status: "completed",
+            _id: "6360610f5fac2e5082d00912",
+            offerAmt: 195,
+            comments: "waerawerawerw123123123123123",
+            providerId: "acct_1Lur4rIWxYvLVjGY",
+            task: "636060fa5fac2e5082d00903",
+            createdAt: "2022-10-31T23:58:07.185Z",
+            updatedAt: "2022-11-06T09:28:04.710Z",
+            __v: 0,
+            timeElapsed: "121 days ago",
+            id: "6360610f5fac2e5082d00912",
+          },
+        ],
+      },
+    };
+
+    return res(ctx.status(200), ctx.json(serverResponse));
+  }
+);
+
+const getTaskNotFoundHandler = rest.get(
+  `${getTaskURL}/:id`,
+  async (req, res, ctx) => {
+    return res(
+      ctx.status(404),
+      ctx.json({ status: "error", message: "Task Not Found" })
+    );
+  }
+);
+
 test("smoke test if it renders", async () => {
   const componentProps = { status: "authenticated" } as const;
 
@@ -72,40 +111,8 @@ test("displays error notification when getOffersOfProviderQuery fails", async ()
 });
 
 test("displays error notification when getTaskQuery fails", async () => {
-  server.use(
-    rest.get(getOffersUrl, async (req, res, ctx) => {
-      const serverResponse = {
-        status: "success",
-        results: 16,
-        data: {
-          offers: [
-            {
-              status: "completed",
-              _id: "6360610f5fac2e5082d00912",
-              offerAmt: 195,
-              comments: "waerawerawerw123123123123123",
-              providerId: "acct_1Lur4rIWxYvLVjGY",
-              task: "636060fa5fac2e5082d00903",
-              createdAt: "2022-10-31T23:58:07.185Z",
-              updatedAt: "2022-11-06T09:28:04.710Z",
-              __v: 0,
-              timeElapsed: "121 days ago",
-              id: "6360610f5fac2e5082d00912",
-            },
-          ],
-        },
-      };
-
-      return res(ctx.status(200), ctx.json(serverResponse));
-    }),
-    rest.get(`${getTaskURL}/:id`, async (req, res, ctx) => {
-      return res(
-        ctx.status(404),
-        ctx.json({ status: "error", message: "Invalid task" })
-      );
-    })
-  );
-
+  // overrides the default MSW handlers
+  server.use(getOffersSuccessHandler, getTaskNotFoundHandler);
   const user = userEvent.setup();
 
   await act(() => {
@@ -120,6 +127,6 @@ test("displays error notification when getTaskQuery fails", async () => {
     await user.click(viewTaskDetailsButton);
   });
 
-  const notification = screen.getByText(/^invalid task$/i);
-  expect(notification).toBeTruthy();
+  const notification = screen.getByText(/^task not found$/i);
+  expect(notification).toBeInTheDocument();
 });
