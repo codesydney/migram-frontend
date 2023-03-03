@@ -20,6 +20,10 @@ interface CheckoutFormProps {
   taskId: string;
 }
 
+const StyledStripeForm = styled.div`
+  padding: 20px;
+`;
+
 export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -74,13 +78,15 @@ export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
       <Card title="Payment Details">
         <Form onSubmit={onSubmit}>
           <FormLayout>
-            <AddressElement
-              options={{ mode: "billing", allowedCountries: ["AU"] }}
-            />
-            <CardElement />
-            <Button primary submit disabled={disabled}>
-              Submit
-            </Button>
+            <StyledStripeForm>
+              <AddressElement
+                options={{ mode: "billing", allowedCountries: ["AU"] }}
+              />
+              <CardElement />
+              <Button primary submit disabled={disabled}>
+                Submit
+              </Button>
+            </StyledStripeForm>
           </FormLayout>
         </Form>
       </Card>
