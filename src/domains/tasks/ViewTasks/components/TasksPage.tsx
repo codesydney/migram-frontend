@@ -65,11 +65,19 @@ export const OffersSection = ({ task }: { task: Task }) => {
 
 export const TaskCard = ({ task }: { task: Task }) => {
   const { location } = task;
+  const isCompleted = task.status === "completed";
+
+  const checkoutButton = isCompleted
+    ? {
+        content: "Finalize Payment",
+        onAction: () => routerPush(`/checkout/${task.id}`),
+      }
+    : undefined;
 
   return (
     <Layout.Section>
       <article aria-label="Task Card">
-        <Card sectioned>
+        <Card sectioned primaryFooterAction={checkoutButton}>
           <Card.Header
             title={
               <Stack>
