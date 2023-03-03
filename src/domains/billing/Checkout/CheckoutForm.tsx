@@ -1,14 +1,19 @@
 "use client";
+
+import React, { useState } from "react";
 import {
   AddressElement,
   CardElement as CardElementPrimitive,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import React, { useState } from "react";
-import { useCreatePaymentIntent } from "./hooks";
 import { StripeCardElement } from "@stripe/stripe-js";
+
+import { Button, Card, Form, FormLayout, Layout } from "@shopify/polaris";
+import styled from "styled-components";
+
 import { CardElement } from "./CardElement";
+import { useCreatePaymentIntent } from "./hooks";
 
 interface CheckoutFormProps {
   isPageLoading: boolean;
@@ -65,17 +70,20 @@ export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
   };
 
   return (
-    <form method="post" onSubmit={onSubmit} aria-label="Checkout Form">
-      <fieldset disabled={disabled}>
-        <h2>Billing Details</h2>
-        <AddressElement
-          options={{ mode: "billing", allowedCountries: ["AU"] }}
-        />
-        <CardElement />
-        <button type="submit" disabled={disabled}>
-          Checkout
-        </button>
-      </fieldset>
-    </form>
+    <Layout.Section fullWidth>
+      <Card title="Payment Details">
+        <Form onSubmit={onSubmit}>
+          <FormLayout>
+            <AddressElement
+              options={{ mode: "billing", allowedCountries: ["AU"] }}
+            />
+            <CardElement />
+            <Button primary submit disabled={disabled}>
+              Submit
+            </Button>
+          </FormLayout>
+        </Form>
+      </Card>
+    </Layout.Section>
   );
 };
