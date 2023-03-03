@@ -30,6 +30,7 @@ export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
   const [message, setMessage] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const { clientSecret } = useCreatePaymentIntent(taskId, setIsLoading);
+  const isStripeLoading = !stripe ? true : false;
 
   const disabled = isPageLoading || isLoading;
 
@@ -83,9 +84,11 @@ export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
                 options={{ mode: "billing", allowedCountries: ["AU"] }}
               />
               <CardElement />
-              <Button primary submit disabled={disabled}>
-                Submit
-              </Button>
+              {isStripeLoading ? null : (
+                <Button primary submit disabled={disabled}>
+                  Submit
+                </Button>
+              )}
             </StyledStripeForm>
           </FormLayout>
         </Form>
