@@ -1,4 +1,5 @@
 import { Task } from "@Tasks/common/types";
+import { Card, Layout, Text, TextContainer } from "@shopify/polaris";
 
 interface CheckoutDetailsProps {
   task: Task;
@@ -8,32 +9,36 @@ interface CheckoutDetailsProps {
 export const CheckoutDetails = ({ task, isLoading }: CheckoutDetailsProps) => {
   if (isLoading) return <div>Loading</div>;
 
+  console.log(task);
+
   return (
-    <div>
-      <div className="checkout-details-body">
-        <h2>Task Details</h2>
-        <h4>{task.details}</h4>
-        <p>123 Fake St, Sydney NSW 2000</p>
-
-        <h4>Your task was completed by</h4>
-        <div className="provider-container">
-          <div className="temp-provider-avatar"></div>
-          <p>John Provider</p>
-        </div>
-
-        <div className="invoice-container">
-          <h4>Invoice</h4>
-          <div className="temp-invoice-pdf">pdf</div>
-        </div>
-      </div>
-      <div className="checkout-details-footer">
-        <div className="price-container">
-          <h5 className="price">
-            <span>Total</span>
-            <span>AUD ${task.budget}</span>
-          </h5>
-        </div>
-      </div>
-    </div>
+    <Layout.Section>
+      <Card>
+        <Card.Section title="Task Details">
+          <TextContainer>
+            <Text as="p" variant="bodyMd">
+              {task.details}
+            </Text>
+          </TextContainer>
+        </Card.Section>
+        <Card.Section title="Address">
+          <TextContainer>
+            <Text as="p" variant="bodyMd">
+              {task.location.line1} {task.location.line2}
+              <br />
+              {task.location.city} {task.location.state}{" "}
+              {task.location.postal_code}
+            </Text>
+          </TextContainer>
+        </Card.Section>
+        <Card.Section title="Amount">
+          <TextContainer>
+            <Text as="p" variant="bodyLg">
+              ${task.budget}
+            </Text>
+          </TextContainer>
+        </Card.Section>
+      </Card>
+    </Layout.Section>
   );
 };
