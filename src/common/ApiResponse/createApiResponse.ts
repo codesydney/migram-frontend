@@ -1,21 +1,41 @@
+import { v4 as uuid } from "uuid";
 import { AxiosResponse } from "axios";
 
 import { ApiResponse } from "./types";
 import { isErrorStatusCode } from "./utils";
 
+export type CreateApiResponseOptions = { message: string; id?: string };
+
 export function createApiResponse(
   result: AxiosResponse,
-  successMessage: string
+  options: CreateApiResponseOptions
 ): ApiResponse<any> {
   const isError = isErrorStatusCode(result.status);
 
   return {
     apiEvent: {
+      id: options?.id || uuid(),
       isError,
-      title: isError ? result.data.message : successMessage,
+      level: "error",
+      title: options.message,
       status: result.status,
       statusText: result.statusText,
     },
     data: isError ? undefined : result.data,
   };
+}
+
+export type createDefaultApiErrorEventOptions = CreateApiResponseOptions;
+
+export function createDefaultApiErrorEvent(
+  options: createDefaultApiErrorEventOptions
+) {
+  return {
+    id: options?.id || uuid(),
+    isError: true,
+    title: options.message,
+    status: 500,
+    statusText: "Internal Server Error",
+    level: "error",
+  } as const;
 }

@@ -6,7 +6,6 @@ import {
   Card,
   EmptyState,
   Layout,
-  Page,
   Spinner,
   Stack,
   Text,
@@ -22,7 +21,13 @@ import {
   getOffersOfProviderQuery,
   completeOfferMutation,
 } from "../api";
-import { BaseNotification, PageWithNotifications } from "src/components";
+import { PageWithNotifications } from "src/components";
+import { useApiEvents } from "src/common/ApiResponse/ApiEventsContext";
+import {
+  createApiResponse,
+  createDefaultApiErrorEvent,
+} from "src/common/ApiResponse";
+import { AxiosError } from "axios";
 
 const TaskCard = dynamic(() =>
   import("./TaskCard").then((mod) => mod.TaskCard)
@@ -97,8 +102,6 @@ function EmptyTaskCardBody({ loading }: { loading: boolean }) {
 
 const StyledDiv = styled.div`
   .Polaris-Layout {
-    flex-direction: column-reverse;
-
     .Polaris-Layout__Section {
       width: 100%;
     }
@@ -109,11 +112,13 @@ const StyledDiv = styled.div`
   }
 `;
 
-export function ViewOffersPage({
-  status,
-}: {
+export type ViewOffersPageProps = {
   status: "authenticated" | "loading" | "unauthenticated";
-}) {
+};
+
+export function ViewOffersPage({ status }: ViewOffersPageProps) {
+  const { dispatchApiEvents } = useApiEvents();
+
   const [offers, setOffers] = useState(new Array<Offer>());
   const [selectedTask, setSelectedTask] = useState<Task | undefined>();
   const [loading, setLoading] = useState(false);
@@ -126,7 +131,14 @@ export function ViewOffersPage({
         setSelectedTask(task);
       })
       .catch((error) => {
-        console.log(error);
+        if (error instanceof AxiosError && error.response) {
+          dispatchApiEvents({
+            type: "set",
+            event: createApiResponse(error.response, {
+              message: error.response.data.message,
+            }).apiEvent,
+          });
+        }
       })
       .finally(() => {
         setLoading(false);
@@ -141,19 +153,29 @@ export function ViewOffersPage({
         setOffers(offers);
       })
       .catch((error) => {
-        console.log(error);
+        if (error instanceof AxiosError) {
+          const errorMessage =
+            "Failed to load offers. Please contact support if refreshing the page does not work.";
+
+          const apiEvent = error.response
+            ? createApiResponse(error.response, {
+                message: errorMessage,
+              }).apiEvent
+            : createDefaultApiErrorEvent({
+                message: errorMessage,
+              });
+
+          dispatchApiEvents({
+            type: "set",
+            event: apiEvent,
+          });
+        }
       });
-  }, [status]);
+  }, [dispatchApiEvents, status]);
 
   return (
     <StyledDiv aria-label="View Offers Page">
-      <PageWithNotifications
-        title="Offers"
-        notification={() => (
-          <BaseNotification title="You done messed up" status="critical" />
-        )}
-        fullWidth
-      >
+      <PageWithNotifications title="Offers" fullWidth>
         <Layout.Section oneHalf>
           {offers.map((offer) => {
             return (
