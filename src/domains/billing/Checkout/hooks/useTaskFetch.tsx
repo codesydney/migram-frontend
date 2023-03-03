@@ -7,7 +7,7 @@ export const useTaskFetch = (taskId: string) => {
   return useQuery({
     queryKey: ["tasks", taskId],
     queryFn: async () => {
-      const url = new URL(taskId, getTaskURL);
+      const url = new URL(`${getTaskURL}/${taskId}`);
       const response = await fetch(url);
 
       if (!response.ok) {
