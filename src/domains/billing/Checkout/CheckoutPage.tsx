@@ -1,3 +1,4 @@
+import { PageWithNotifications } from "src/components";
 import { CheckoutDetails } from "./CheckoutDetails";
 import { CheckoutForm } from "./CheckoutForm";
 import { useTaskFetch } from "./hooks";
@@ -8,8 +9,10 @@ export const CheckoutPage = ({ taskId }: { taskId: string }) => {
 
   return (
     <div aria-label="Checkout Page">
-      <CheckoutDetails task={query.data} isLoading={isLoading} />
-      <CheckoutForm isPageLoading={isLoading} taskId={taskId} />
+      <PageWithNotifications title="Finalize Payment" fullWidth>
+        <CheckoutDetails task={query.data} isLoading={isLoading} />
+        <CheckoutForm isPageLoading={isLoading} taskId={taskId} />
+      </PageWithNotifications>
     </div>
   );
 };
