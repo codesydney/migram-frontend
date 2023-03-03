@@ -9,11 +9,12 @@ export const useTaskFetch = (taskId: string) => {
     queryFn: async () => {
       const url = new URL(`${getTaskURL}/${taskId}`);
       const response = await fetch(url);
-
+      const data = await response.json();
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      return response.json();
+
+      return data.data.task;
     },
   });
 };
