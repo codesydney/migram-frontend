@@ -1,7 +1,20 @@
+"use client";
+
+import { Elements } from "@stripe/react-stripe-js";
+import { Stripe, loadStripe } from "@stripe/stripe-js";
+import { Card, Layout, Text, TextContainer } from "@shopify/polaris";
+
 import { PageWithNotifications } from "src/components";
 import { CheckoutForm } from "./CheckoutForm";
 import { useTaskFetch } from "./hooks";
-import { Card, Layout, Text, TextContainer } from "@shopify/polaris";
+
+let stripePromise: Promise<Stripe | null>;
+const getStripe = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PK!);
+  }
+  return stripePromise;
+};
 
 export const CheckoutPage = ({ taskId }: { taskId: string }) => {
   const query = useTaskFetch(taskId);
@@ -42,7 +55,9 @@ export const CheckoutPage = ({ taskId }: { taskId: string }) => {
             </Card.Section>
           </Card>
         </Layout.Section>
-        <CheckoutForm isPageLoading={isLoading} taskId={taskId} />
+        <Elements stripe={getStripe()}>
+          <CheckoutForm isPageLoading={isLoading} taskId={taskId} />
+        </Elements>
       </PageWithNotifications>
     </div>
   );
