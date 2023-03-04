@@ -24,7 +24,11 @@ interface CheckoutFormProps {
 }
 
 const StyledStripeForm = styled.div`
-  padding: 20px;
+  padding: 1rem;
+
+  @media (min-width: 490px) {
+    padding: 20px;
+  }
 `;
 
 export function createApiEvent({
