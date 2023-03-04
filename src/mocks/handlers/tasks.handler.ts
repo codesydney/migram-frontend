@@ -61,6 +61,6 @@ const getTaskResponse = {
   },
 };
 
-export const getTask = rest.get(getTaskURL + ":id", (req, res, ctx) => {
+export const getTask = rest.get(getTaskURL + "/:id", (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(getTaskResponse));
 });
