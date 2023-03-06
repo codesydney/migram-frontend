@@ -17,6 +17,7 @@ import { ApiEventsProvider } from "src/common/ApiResponse/ApiEventsContext";
 import { server } from "src/mocks/server";
 import { rest } from "msw";
 import { getTaskURL } from "../hooks";
+import { createPaymentIntentUrl } from "../api";
 
 const ProvidersWrapper = ({ children }: PropsWithChildren<{}>) => {
   return (
@@ -35,6 +36,21 @@ function setupRender() {
     </ProvidersWrapper>
   );
 }
+
+const postPaymentIntentHandler = rest.post(
+  createPaymentIntentUrl,
+  (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        status: "error",
+        data: {
+          client_secret: "client_secret",
+        },
+      })
+    );
+  }
+);
 
 const getTaskUnauthorizedHandler = rest.get(
   getTaskURL + "/:id",
@@ -56,7 +72,10 @@ test("Smoke test if it renders", async () => {
 });
 
 it("displays the task details when the task loads", async () => {
+  server.use(postPaymentIntentHandler);
+
   setupRender();
+
   const getLoadingElement = () => screen.getByText("Loading");
 
   await waitFor(() => waitForElementToBeRemoved(getLoadingElement));
@@ -68,7 +87,9 @@ it("displays the task details when the task loads", async () => {
   ).toBeInTheDocument();
 });
 
-it("displays the Stripe Checkout Form when the task fails to load", async () => {
+it("displays the Stripe Checkout Form when the task loads", async () => {
+  server.use(postPaymentIntentHandler);
+
   await act(() => {
     setupRender();
   });
@@ -79,7 +100,7 @@ it("displays the Stripe Checkout Form when the task fails to load", async () => 
 });
 
 it("displays an error when the task fails to load", async () => {
-  server.use(getTaskUnauthorizedHandler);
+  server.use(getTaskUnauthorizedHandler, postPaymentIntentHandler);
 
   await act(() => {
     setupRender();
@@ -88,12 +109,12 @@ it("displays an error when the task fails to load", async () => {
   // value taken from mock handler for GET /tasks/:taskId
   // see: src/mocks/handlers/tasks.handler.ts
   expect(
-    screen.queryByText(/you are unauthorized to access this task/i)
+    screen.queryByText(/^you are unauthorized to access this task$/i)
   ).toBeInTheDocument();
 });
 
 it("does not display task details when the task fails to load", async () => {
-  server.use(getTaskUnauthorizedHandler);
+  server.use(getTaskUnauthorizedHandler, postPaymentIntentHandler);
 
   await act(() => {
     setupRender();
@@ -107,7 +128,7 @@ it("does not display task details when the task fails to load", async () => {
 });
 
 it("does not display the Stripe Checkout Form when the task fails to load", async () => {
-  server.use(getTaskUnauthorizedHandler);
+  server.use(getTaskUnauthorizedHandler, postPaymentIntentHandler);
 
   await act(() => {
     setupRender();
