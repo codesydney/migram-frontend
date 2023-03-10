@@ -6,8 +6,3 @@ export type Notification = {
   statusText: string;
   level: "info" | "warn" | "error";
 };
-
-export type ApiResponse<TData> = {
-  apiEvent: Notification;
-  data?: TData;
-};

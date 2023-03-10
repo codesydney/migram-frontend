@@ -1,6 +1,5 @@
 import { AxiosResponse } from "axios";
-import { createApiResponse } from "../createApiResponse";
-import { ApiResponse } from "../types";
+import { ApiResponse, createApiResponse } from "../createApiResponse";
 
 type AxiosTableTestCases = {
   name: string;

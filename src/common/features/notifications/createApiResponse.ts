@@ -1,10 +1,15 @@
 import { v4 as uuid } from "uuid";
 import { AxiosResponse } from "axios";
 
-import { ApiResponse } from "./types";
+import { Notification } from "./types";
 import { isErrorStatusCode } from "./utils";
 
 export type CreateApiResponseOptions = { message: string; id?: string };
+
+export type ApiResponse<TData> = {
+  apiEvent: Notification;
+  data?: TData;
+};
 
 export function createApiResponse(
   result: AxiosResponse,
