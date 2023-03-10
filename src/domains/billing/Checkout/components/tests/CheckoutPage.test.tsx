@@ -1,9 +1,4 @@
-import {
-  act,
-  screen,
-  waitFor,
-  waitForElementToBeRemoved,
-} from "@testing-library/react";
+import { act, screen, waitFor } from "@testing-library/react";
 
 import { CheckoutPage } from "../CheckoutPage";
 
@@ -17,7 +12,7 @@ import { ApiEventsProvider } from "src/common/ApiResponse/ApiEventsContext";
 import { server } from "src/mocks/server";
 import { rest } from "msw";
 import { createPaymentIntentUrl } from "../../api";
-import { getTaskURL } from "@Billing/Checkout/hooks";
+import { getCheckoutTaskURL } from "@Billing/Checkout/hooks";
 import { createGetTaskResponse } from "./testUtils";
 
 const ProvidersWrapper = ({ children }: PropsWithChildren<{}>) => {
@@ -54,7 +49,7 @@ const postPaymentIntentHandler = rest.post(
 );
 
 const getTaskUnauthorizedHandler = rest.get(
-  getTaskURL + "/:id",
+  getCheckoutTaskURL + "/:id",
   (req, res, ctx) => {
     return res(
       ctx.status(401),
@@ -67,7 +62,7 @@ const getTaskUnauthorizedHandler = rest.get(
 );
 
 const getSuccessTaskResponse_PaymentStatusUndefined = rest.get(
-  getTaskURL + "/:id",
+  getCheckoutTaskURL + "/:id",
   (req, res, ctx) => {
     const data = createGetTaskResponse({
       paymentStatus: undefined,
@@ -78,7 +73,7 @@ const getSuccessTaskResponse_PaymentStatusUndefined = rest.get(
 );
 
 const getSuccessTaskResponse_PaymentStatusPaid = rest.get(
-  getTaskURL + "/:id",
+  getCheckoutTaskURL + "/:id",
   (req, res, ctx) => {
     const data = createGetTaskResponse({
       paymentStatus: "paid",

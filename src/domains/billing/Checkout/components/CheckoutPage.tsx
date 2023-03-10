@@ -6,7 +6,7 @@ import { Card, Layout, Text, TextContainer } from "@shopify/polaris";
 
 import { PageWithNotifications } from "src/components";
 import { CheckoutForm } from "./CheckoutForm";
-import { useTaskFetch } from "../hooks";
+import { useCheckoutTaskFetch } from "../hooks";
 
 let stripePromise: Promise<Stripe | null>;
 const getStripe = () => {
@@ -44,7 +44,7 @@ export function isPaymentDue(paymentStatus?: string) {
 }
 
 export const CheckoutPage = ({ taskId }: { taskId: string }) => {
-  const query = useTaskFetch(taskId);
+  const query = useCheckoutTaskFetch(taskId);
   const isLoading = query.isLoading;
 
   if (isLoading) return <div>Loading</div>;
