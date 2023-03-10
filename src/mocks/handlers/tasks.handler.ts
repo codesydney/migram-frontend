@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { getTaskURL } from "@Billing/Checkout/hooks";
+import { getCheckoutTaskURL } from "@Billing/Checkout/hooks";
 
 const getTaskResponse = {
   status: "success",
@@ -62,6 +62,9 @@ const getTaskResponse = {
   },
 };
 
-export const getTask = rest.get(getTaskURL + "/:id", (req, res, ctx) => {
-  return res(ctx.status(200), ctx.json(getTaskResponse));
-});
+export const getTask = rest.get(
+  getCheckoutTaskURL + "/:id",
+  (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(getTaskResponse));
+  }
+);
