@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNotifications } from "src/common/features/notifications";
-import { createApiEvent } from "../utils";
 import axios from "axios";
+import { createNotification } from "src/common/features/notifications/utils";
 
 export const getCheckoutTaskURL = `${process.env.NEXT_PUBLIC_API_URL}api/v1/checkout`;
 
@@ -26,7 +26,13 @@ export const useCheckoutTaskFetch = (taskId: string) => {
     onError: (error: Error) => {
       dispatchApiEvents({
         type: "set",
-        event: createApiEvent({ message: error.message }),
+        event: createNotification({
+          isError: true,
+          title: error.message,
+          type: "notification",
+          status: "warning",
+          source: "Api Error",
+        }),
       });
     },
   });

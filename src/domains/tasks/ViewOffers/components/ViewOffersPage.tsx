@@ -25,11 +25,9 @@ import {
   PageWithNotifications,
   useNotifications,
 } from "src/common/features/notifications";
-import {
-  createApiResponse,
-  createDefaultApiErrorEvent,
-} from "src/common/features/notifications";
+
 import { AxiosError } from "axios";
+import { createNotification } from "src/common/features/notifications/utils";
 
 const TaskCard = dynamic(() =>
   import("./TaskCard").then((mod) => mod.TaskCard)
@@ -136,9 +134,13 @@ export function ViewOffersPage({ status }: ViewOffersPageProps) {
         if (error instanceof AxiosError && error.response) {
           dispatchApiEvents({
             type: "set",
-            event: createApiResponse(error.response, {
-              message: error.response.data.message,
-            }).apiEvent,
+            event: createNotification({
+              isError: true,
+              title: error.response.data.message,
+              type: "notification",
+              status: "warning",
+              source: "Api Error",
+            }),
           });
         }
       })
@@ -159,13 +161,13 @@ export function ViewOffersPage({ status }: ViewOffersPageProps) {
           const errorMessage =
             "Failed to load offers. Please contact support if refreshing the page does not work.";
 
-          const apiEvent = error.response
-            ? createApiResponse(error.response, {
-                message: errorMessage,
-              }).apiEvent
-            : createDefaultApiErrorEvent({
-                message: errorMessage,
-              });
+          const apiEvent = createNotification({
+            isError: true,
+            title: errorMessage,
+            type: "notification",
+            status: "warning",
+            source: "Api Error",
+          });
 
           dispatchApiEvents({
             type: "set",

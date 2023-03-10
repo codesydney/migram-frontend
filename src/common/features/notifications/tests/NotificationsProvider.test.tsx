@@ -10,7 +10,7 @@ import { render } from "@testing-library/react";
 import {
   NotificationsProvider,
   InitialNotificationsState,
-} from "../NotificationsContext";
+} from "../hooks/NotificationsContext";
 import { ImmutableMap } from "map-immute";
 import { Notification } from "../types";
 

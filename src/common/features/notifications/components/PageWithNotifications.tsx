@@ -5,12 +5,6 @@ import { BaseNotification } from "./Notification";
 
 export type PageWithNotificationsProps = ComponentPropsWithoutRef<typeof Page>;
 
-const EventLevelToNotificationStatus = {
-  info: "info",
-  warn: "warning",
-  error: "critical",
-} as const;
-
 export function PageWithNotifications({
   children,
   ...otherProps
@@ -25,7 +19,7 @@ export function PageWithNotifications({
           <BaseNotification
             key={event.id}
             title={event.title}
-            status={EventLevelToNotificationStatus[event.level]}
+            status={event.status}
             onDismiss={() => {
               dispatchApiEvents({
                 type: "delete",

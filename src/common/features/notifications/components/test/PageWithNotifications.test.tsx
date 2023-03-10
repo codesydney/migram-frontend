@@ -11,7 +11,7 @@ import {
 import {
   InitialNotificationsState,
   NotificationsProvider,
-} from "../../NotificationsContext";
+} from "../../hooks/NotificationsContext";
 
 type SetupRenderProps = {
   componentProps?: PageWithNotificationsProps;
@@ -50,9 +50,9 @@ it("displays a notification when there is an API Event", () => {
         id: "1",
         isError: true,
         title: "Test Notification",
-        status: 400,
-        statusText: "Bad Request",
-        level: "error",
+        type: "notification",
+        status: "critical",
+        source: "Api Error",
       },
     ],
   ] as const;
@@ -72,9 +72,9 @@ it("notification disappears when closed", async () => {
         id: "1",
         isError: true,
         title: "Test Notification",
-        status: 400,
-        statusText: "Bad Request",
-        level: "error",
+        type: "notification",
+        status: "critical",
+        source: "Api Error",
       },
     ],
   ] as const;
