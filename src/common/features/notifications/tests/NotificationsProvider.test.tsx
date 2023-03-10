@@ -7,12 +7,15 @@
  */
 import { render } from "@testing-library/react";
 
-import { ApiEventsProvider, InitialApiEventsState } from "../ApiEventsContext";
+import {
+  NotificationsProvider,
+  InitialNotificationsState,
+} from "../NotificationsContext";
 import { ImmutableMap } from "map-immute";
-import { ApiEvent } from "../types";
+import { Notification } from "../types";
 
-function setupRender(initialState: InitialApiEventsState) {
-  return render(<ApiEventsProvider initialState={initialState} />);
+function setupRender(initialState: InitialNotificationsState) {
+  return render(<NotificationsProvider initialState={initialState} />);
 }
 
 it("throws an error when an invalid initalState is provided", () => {
@@ -26,19 +29,19 @@ test("does not throw error when initialState is not provided", () => {
 });
 
 it("allows an ImmutableMap<string, ApiEvent> as the  initialState", () => {
-  const initialState = new ImmutableMap<string, ApiEvent>();
+  const initialState = new ImmutableMap<string, Notification>();
 
   expect(() => setupRender(initialState)).not.toThrow();
 });
 
 it("allows a Map<string, ApiEvent> as the initialState", () => {
-  const initialState = new Map<string, ApiEvent>();
+  const initialState = new Map<string, Notification>();
 
   expect(() => setupRender(initialState)).not.toThrow();
 });
 
 it("allows an Array<[string, ApiEvent]> as the initialState", () => {
-  const initialState = new Array<[string, ApiEvent]>();
+  const initialState = new Array<[string, Notification]>();
 
   expect(() => setupRender(initialState)).not.toThrow();
 });

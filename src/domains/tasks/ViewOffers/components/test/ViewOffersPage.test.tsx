@@ -5,8 +5,8 @@ import { server } from "src/mocks/server";
 import { ViewOffersPage, ViewOffersPageProps } from "../ViewOffersPage";
 import { renderWithPolarisTestProvider } from "src/test/utils";
 import {
-  ApiEventsProvider,
-  InitialApiEventsState,
+  NotificationsProvider,
+  InitialNotificationsState,
 } from "src/common/features/notifications";
 
 import { getOffersUrl, getTasksUrl } from "@Tasks/ViewOffers/api";
@@ -14,7 +14,7 @@ import userEvent from "@testing-library/user-event";
 
 type setupRenderOptions = {
   componentProps?: ViewOffersPageProps;
-  initialProviderState?: InitialApiEventsState;
+  initialProviderState?: InitialNotificationsState;
 };
 
 async function setupRender({
@@ -22,13 +22,13 @@ async function setupRender({
   componentProps,
 }: setupRenderOptions = {}) {
   return renderWithPolarisTestProvider(
-    <ApiEventsProvider initialState={initialProviderState}>
+    <NotificationsProvider initialState={initialProviderState}>
       <ViewOffersPage
         status={
           componentProps?.status ? componentProps.status : "unauthenticated"
         }
       />
-    </ApiEventsProvider>
+    </NotificationsProvider>
   );
 }
 

@@ -1,3 +1,3 @@
 export * from "./types";
 export * from "./createApiResponse";
-export * from "./ApiEventsContext";
+export * from "./NotificationsContext";

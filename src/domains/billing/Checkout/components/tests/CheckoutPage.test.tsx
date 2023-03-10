@@ -8,7 +8,7 @@ import {
   renderWithPolarisTestProvider,
 } from "src/test/utils";
 import { ElementsWrapper } from "src/components/ElementsWrapper";
-import { ApiEventsProvider } from "src/common/features/notifications";
+import { NotificationsProvider } from "src/common/features/notifications";
 import { server } from "src/mocks/server";
 import { rest } from "msw";
 import { createPaymentIntentUrl } from "../../api";
@@ -18,9 +18,9 @@ import { createGetTaskResponse } from "./testUtils";
 const ProvidersWrapper = ({ children }: PropsWithChildren<{}>) => {
   return (
     <ElementsWrapper>
-      <ApiEventsProvider>
+      <NotificationsProvider>
         <QueryClientWrapper>{children}</QueryClientWrapper>
-      </ApiEventsProvider>
+      </NotificationsProvider>
     </ElementsWrapper>
   );
 };

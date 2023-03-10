@@ -6,14 +6,14 @@ import {
   PageWithNotificationsProps,
 } from "../PageWithNotifications";
 import {
-  ApiEventsProvider,
-  InitialApiEventsState,
+  NotificationsProvider,
+  InitialNotificationsState,
 } from "src/common/features/notifications";
 import userEvent from "@testing-library/user-event";
 
 type SetupRenderProps = {
   componentProps?: PageWithNotificationsProps;
-  initialProviderState?: InitialApiEventsState;
+  initialProviderState?: InitialNotificationsState;
 };
 
 function setupRender({
@@ -21,9 +21,9 @@ function setupRender({
   initialProviderState,
 }: SetupRenderProps = {}) {
   return renderWithPolarisTestProvider(
-    <ApiEventsProvider initialState={initialProviderState}>
+    <NotificationsProvider initialState={initialProviderState}>
       <PageWithNotifications {...componentProps} />
-    </ApiEventsProvider>
+    </NotificationsProvider>
   );
 }
 
@@ -41,7 +41,7 @@ it("does not display a notification when there are no API Events", () => {
 });
 
 it("displays a notification when there is an API Event", () => {
-  const intialApiEventsState: InitialApiEventsState = [
+  const intialApiEventsState: InitialNotificationsState = [
     [
       "1",
       {
@@ -63,7 +63,7 @@ it("displays a notification when there is an API Event", () => {
 });
 
 it("notification disappears when closed", async () => {
-  const intialApiEventsState: InitialApiEventsState = [
+  const intialApiEventsState: InitialNotificationsState = [
     [
       "1",
       {
