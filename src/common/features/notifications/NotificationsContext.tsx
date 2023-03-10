@@ -9,7 +9,7 @@ import {
 } from "react";
 import { ImmutableMap } from "map-immute";
 
-import { ApiEvent as Notification } from "./types";
+import { Notification as Notification } from "./types";
 
 export type NotifcationsMap = ImmutableMap<string, Notification>;
 export type InitialNotificationsState = Iterable<

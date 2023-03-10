@@ -1,4 +1,4 @@
-export type ApiEvent = {
+export type Notification = {
   id: string;
   isError: boolean;
   title: string;
@@ -8,6 +8,6 @@ export type ApiEvent = {
 };
 
 export type ApiResponse<TData> = {
-  apiEvent: ApiEvent;
+  apiEvent: Notification;
   data?: TData;
 };
