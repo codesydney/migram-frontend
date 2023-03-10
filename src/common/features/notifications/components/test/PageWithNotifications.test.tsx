@@ -1,15 +1,17 @@
 import { screen } from "@testing-library/react";
 
 import { renderWithPolarisTestProvider } from "src/test/utils";
+
+import userEvent from "@testing-library/user-event";
+
 import {
-  PageWithNotifications,
   PageWithNotificationsProps,
+  PageWithNotifications,
 } from "../PageWithNotifications";
 import {
-  NotificationsProvider,
   InitialNotificationsState,
-} from "src/common/features/notifications";
-import userEvent from "@testing-library/user-event";
+  NotificationsProvider,
+} from "../../NotificationsContext";
 
 type SetupRenderProps = {
   componentProps?: PageWithNotificationsProps;

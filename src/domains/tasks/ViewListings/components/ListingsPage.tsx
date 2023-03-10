@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 import axios from "axios";
 import { useSession } from "next-auth/react";
-
 import { Button, Layout, Page } from "@shopify/polaris";
+
 import { MakeAnOfferModal } from "@Tasks/MakeOffer";
 import { ListingCard } from "./ListingCard";
+import { PageWithNotifications } from "src/common/features/notifications";
+
 import { routerPush } from "@Utils/router";
-import Link from "next/link";
-import { PageWithNotifications } from "src/components";
 
 export function ListingsPage() {
   const [currentPage, setCurrentPage]: any = useState(1);

@@ -21,8 +21,10 @@ import {
   getOffersOfProviderQuery,
   completeOfferMutation,
 } from "../api";
-import { PageWithNotifications } from "src/components";
-import { useNotifications } from "src/common/features/notifications";
+import {
+  PageWithNotifications,
+  useNotifications,
+} from "src/common/features/notifications";
 import {
   createApiResponse,
   createDefaultApiErrorEvent,
