@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { getTaskURL } from "@Billing/Checkout/hooks";
+import { getCheckoutTaskURL } from "@Billing/Checkout/hooks";
 
 const getTaskResponse = {
   status: "success",
@@ -7,6 +7,7 @@ const getTaskResponse = {
     task: {
       location: { type: "Point", name: "2000", coordinates: [0, 0] },
       status: "open",
+      paymentStatus: "payment_due",
       photos: [""],
       _id: "6350d8e080c58772355d7645",
       category: "Cleaning",
@@ -61,6 +62,9 @@ const getTaskResponse = {
   },
 };
 
-export const getTask = rest.get(getTaskURL + ":id", (req, res, ctx) => {
-  return res(ctx.status(200), ctx.json(getTaskResponse));
-});
+export const getTask = rest.get(
+  getCheckoutTaskURL + "/:id",
+  (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(getTaskResponse));
+  }
+);

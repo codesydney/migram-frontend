@@ -8,6 +8,7 @@ import { MakeAnOfferModal } from "@Tasks/MakeOffer";
 import { ListingCard } from "./ListingCard";
 import { routerPush } from "@Utils/router";
 import Link from "next/link";
+import { PageWithNotifications } from "src/components";
 
 export function ListingsPage() {
   const [currentPage, setCurrentPage]: any = useState(1);
@@ -46,7 +47,7 @@ export function ListingsPage() {
   }, [currentPage, status]);
 
   return (
-    <Page
+    <PageWithNotifications
       title="Listings"
       fullWidth
       primaryAction={
@@ -62,23 +63,21 @@ export function ListingsPage() {
         </>
       )}
 
-      <Layout>
-        {tasks.map((task: any) => (
-          <Layout.Section oneHalf key={task.id}>
-            <ListingCard
-              isProvider={isProvider}
-              task={task}
-              onMakeAnOfferClick={() => setSelectedTaskId(task.id)}
-            />
-          </Layout.Section>
-        ))}
-      </Layout>
+      {tasks.map((task: any) => (
+        <Layout.Section oneHalf key={task.id}>
+          <ListingCard
+            isProvider={isProvider}
+            task={task}
+            onMakeAnOfferClick={() => setSelectedTaskId(task.id)}
+          />
+        </Layout.Section>
+      ))}
       {selectedTaskId ? (
         <MakeAnOfferModal
           taskId={selectedTaskId}
           onClose={() => setSelectedTaskId(undefined)}
         />
       ) : null}
-    </Page>
+    </PageWithNotifications>
   );
 }
