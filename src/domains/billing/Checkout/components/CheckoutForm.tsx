@@ -14,10 +14,10 @@ import { Button, Card, Form, FormLayout, Layout } from "@shopify/polaris";
 import styled from "styled-components";
 
 import { CardElement } from "./CardElement";
-import { useCreatePaymentIntent } from "./hooks";
 import { useApiEvents } from "src/common/ApiResponse/ApiEventsContext";
-import { ApiEvent } from "src/common/ApiResponse";
 import { routerPush } from "@Utils/router";
+import { useCreatePaymentIntent } from "../hooks";
+import { createApiEvent } from "../utils";
 
 interface CheckoutFormProps {
   isPageLoading: boolean;
@@ -31,23 +31,6 @@ const StyledStripeForm = styled.div`
     padding: 20px;
   }
 `;
-
-export function createApiEvent({
-  id = uuid(),
-  message,
-}: {
-  id?: string;
-  message: string;
-}): ApiEvent {
-  return {
-    id: id,
-    isError: true,
-    title: message,
-    status: 500,
-    statusText: "",
-    level: "error",
-  } as const;
-}
 
 export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
   const stripe = useStripe();

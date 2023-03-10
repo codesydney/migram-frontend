@@ -1,1 +1,1 @@
-export * from "./CheckoutPage";
+export { CheckoutPage } from "./components";

@@ -6,7 +6,7 @@ import { Card, Layout, Text, TextContainer } from "@shopify/polaris";
 
 import { PageWithNotifications } from "src/components";
 import { CheckoutForm } from "./CheckoutForm";
-import { useTaskFetch } from "./hooks";
+import { useTaskFetch } from "../hooks";
 
 let stripePromise: Promise<Stripe | null>;
 const getStripe = () => {

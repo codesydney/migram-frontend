@@ -16,8 +16,8 @@ import { ElementsWrapper } from "src/components/ElementsWrapper";
 import { ApiEventsProvider } from "src/common/ApiResponse/ApiEventsContext";
 import { server } from "src/mocks/server";
 import { rest } from "msw";
-import { getTaskURL } from "../hooks";
-import { createPaymentIntentUrl } from "../api";
+import { createPaymentIntentUrl } from "../../api";
+import { getTaskURL } from "@Billing/Checkout/hooks";
 
 const ProvidersWrapper = ({ children }: PropsWithChildren<{}>) => {
   return (
