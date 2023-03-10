@@ -9,9 +9,8 @@ import {
   InitialApiEventsState,
 } from "src/common/ApiResponse/ApiEventsContext";
 
-import { getOffersUrl } from "@Tasks/ViewOffers/api";
+import { getOffersUrl, getTasksUrl } from "@Tasks/ViewOffers/api";
 import userEvent from "@testing-library/user-event";
-import { getTaskURL } from "@Billing/Checkout/hooks";
 
 type setupRenderOptions = {
   componentProps?: ViewOffersPageProps;
@@ -63,8 +62,10 @@ const getOffersSuccessHandler = rest.get(
 );
 
 const getTaskNotFoundHandler = rest.get(
-  `${getTaskURL}/:id`,
+  `${getTasksUrl}/:id`,
   async (req, res, ctx) => {
+    console.log("POLO");
+
     return res(
       ctx.status(404),
       ctx.json({ status: "error", message: "Task Not Found" })
