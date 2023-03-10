@@ -7,7 +7,7 @@ import { renderWithPolarisTestProvider } from "src/test/utils";
 import {
   ApiEventsProvider,
   InitialApiEventsState,
-} from "src/common/features/ApiResponse";
+} from "src/common/features/notifications";
 
 import { getOffersUrl, getTasksUrl } from "@Tasks/ViewOffers/api";
 import userEvent from "@testing-library/user-event";

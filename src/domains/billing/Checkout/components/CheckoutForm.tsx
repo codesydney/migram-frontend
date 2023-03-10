@@ -14,7 +14,7 @@ import { Button, Card, Form, FormLayout, Layout } from "@shopify/polaris";
 import styled from "styled-components";
 
 import { CardElement } from "./CardElement";
-import { useApiEvents } from "src/common/features/ApiResponse";
+import { useApiEvents } from "src/common/features/notifications";
 import { routerPush } from "@Utils/router";
 import { useCreatePaymentIntent } from "../hooks";
 import { createApiEvent } from "../utils";

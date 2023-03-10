@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { CheckoutForm } from "../CheckoutForm";
 import { ElementsWrapper } from "src/components/ElementsWrapper";
 import { renderWithPolarisTestProvider } from "src/test/utils";
-import { ApiEventsProvider } from "src/common/features/ApiResponse";
+import { ApiEventsProvider } from "src/common/features/notifications";
 
 describe("CheckoutForm", () => {
   test("Smoke test if it renders", () => {

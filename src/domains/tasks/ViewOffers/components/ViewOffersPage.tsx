@@ -22,11 +22,11 @@ import {
   completeOfferMutation,
 } from "../api";
 import { PageWithNotifications } from "src/components";
-import { useApiEvents } from "src/common/features/ApiResponse";
+import { useApiEvents } from "src/common/features/notifications";
 import {
   createApiResponse,
   createDefaultApiErrorEvent,
-} from "src/common/features/ApiResponse";
+} from "src/common/features/notifications";
 import { AxiosError } from "axios";
 
 const TaskCard = dynamic(() =>

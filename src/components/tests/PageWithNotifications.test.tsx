@@ -8,7 +8,7 @@ import {
 import {
   ApiEventsProvider,
   InitialApiEventsState,
-} from "src/common/features/ApiResponse";
+} from "src/common/features/notifications";
 import userEvent from "@testing-library/user-event";
 
 type SetupRenderProps = {

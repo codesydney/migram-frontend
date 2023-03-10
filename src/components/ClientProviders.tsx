@@ -1,6 +1,6 @@
 "use client";
 
-import { ApiEventsProvider } from "src/common/features/ApiResponse";
+import { ApiEventsProvider } from "src/common/features/notifications";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { PropsWithChildren } from "react";
 

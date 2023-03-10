@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 
-import { ApiEvent } from "src/common/features/ApiResponse";
+import { ApiEvent } from "src/common/features/notifications";
 
 export function createApiEvent({
   id = uuid(),
