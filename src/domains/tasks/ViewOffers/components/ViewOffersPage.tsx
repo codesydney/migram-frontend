@@ -21,12 +21,14 @@ import {
   getOffersOfProviderQuery,
   completeOfferMutation,
 } from "../api";
-import { PageWithNotifications } from "src/components";
-import { useApiEvents } from "src/common/ApiResponse/ApiEventsContext";
+import {
+  PageWithNotifications,
+  useNotifications,
+} from "src/common/features/notifications";
 import {
   createApiResponse,
   createDefaultApiErrorEvent,
-} from "src/common/ApiResponse";
+} from "src/common/features/notifications";
 import { AxiosError } from "axios";
 
 const TaskCard = dynamic(() =>
@@ -117,7 +119,7 @@ export type ViewOffersPageProps = {
 };
 
 export function ViewOffersPage({ status }: ViewOffersPageProps) {
-  const { dispatchApiEvents } = useApiEvents();
+  const { dispatchApiEvents } = useNotifications();
 
   const [offers, setOffers] = useState(new Array<Offer>());
   const [selectedTask, setSelectedTask] = useState<Task | undefined>();

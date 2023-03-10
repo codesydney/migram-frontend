@@ -1,21 +1,20 @@
-import { act, screen } from "@testing-library/react";
+import { act, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { server } from "src/mocks/server";
 
 import { ViewOffersPage, ViewOffersPageProps } from "../ViewOffersPage";
 import { renderWithPolarisTestProvider } from "src/test/utils";
 import {
-  ApiEventsProvider,
-  InitialApiEventsState,
-} from "src/common/ApiResponse/ApiEventsContext";
+  NotificationsProvider,
+  InitialNotificationsState,
+} from "src/common/features/notifications";
 
-import { getOffersUrl } from "@Tasks/ViewOffers/api";
+import { getOffersUrl, getTasksUrl } from "@Tasks/ViewOffers/api";
 import userEvent from "@testing-library/user-event";
-import { getTaskURL } from "@Billing/Checkout/hooks";
 
 type setupRenderOptions = {
   componentProps?: ViewOffersPageProps;
-  initialProviderState?: InitialApiEventsState;
+  initialProviderState?: InitialNotificationsState;
 };
 
 async function setupRender({
@@ -23,13 +22,13 @@ async function setupRender({
   componentProps,
 }: setupRenderOptions = {}) {
   return renderWithPolarisTestProvider(
-    <ApiEventsProvider initialState={initialProviderState}>
+    <NotificationsProvider initialState={initialProviderState}>
       <ViewOffersPage
         status={
           componentProps?.status ? componentProps.status : "unauthenticated"
         }
       />
-    </ApiEventsProvider>
+    </NotificationsProvider>
   );
 }
 
@@ -63,8 +62,10 @@ const getOffersSuccessHandler = rest.get(
 );
 
 const getTaskNotFoundHandler = rest.get(
-  `${getTaskURL}/:id`,
+  `${getTasksUrl}/:id`,
   async (req, res, ctx) => {
+    console.log("POLO");
+
     return res(
       ctx.status(404),
       ctx.json({ status: "error", message: "Task Not Found" })

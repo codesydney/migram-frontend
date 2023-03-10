@@ -4,9 +4,9 @@ import { Elements } from "@stripe/react-stripe-js";
 import { Stripe, loadStripe } from "@stripe/stripe-js";
 import { Card, Layout, Text, TextContainer } from "@shopify/polaris";
 
-import { PageWithNotifications } from "src/components";
 import { CheckoutForm } from "./CheckoutForm";
 import { useCheckoutTaskFetch } from "../hooks";
+import { PageWithNotifications } from "src/common/features/notifications";
 
 let stripePromise: Promise<Stripe | null>;
 const getStripe = () => {

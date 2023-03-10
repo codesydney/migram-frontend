@@ -14,7 +14,7 @@ import { Button, Card, Form, FormLayout, Layout } from "@shopify/polaris";
 import styled from "styled-components";
 
 import { CardElement } from "./CardElement";
-import { useApiEvents } from "src/common/ApiResponse/ApiEventsContext";
+import { useNotifications } from "src/common/features/notifications";
 import { routerPush } from "@Utils/router";
 import { useCreatePaymentIntent } from "../hooks";
 import { createApiEvent } from "../utils";
@@ -37,7 +37,7 @@ export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(true);
   const { clientSecret } = useCreatePaymentIntent(taskId, setIsLoading);
-  const { dispatchApiEvents } = useApiEvents();
+  const { dispatchApiEvents } = useNotifications();
   const isStripeLoading = !stripe ? true : false;
 
   const disabled = isPageLoading || isLoading;

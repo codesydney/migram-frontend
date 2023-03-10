@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 
-import { ApiEvent } from "src/common/ApiResponse";
+import { Notification } from "src/common/features/notifications";
 
 export function createApiEvent({
   id = uuid(),
@@ -8,7 +8,7 @@ export function createApiEvent({
 }: {
   id?: string;
   message: string;
-}): ApiEvent {
+}): Notification {
   return {
     id: id,
     isError: true,
