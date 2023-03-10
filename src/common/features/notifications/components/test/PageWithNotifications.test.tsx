@@ -11,7 +11,7 @@ import {
 import {
   InitialNotificationsState,
   NotificationsProvider,
-} from "../../NotificationsContext";
+} from "../../hooks/NotificationsContext";
 
 type SetupRenderProps = {
   componentProps?: PageWithNotificationsProps;

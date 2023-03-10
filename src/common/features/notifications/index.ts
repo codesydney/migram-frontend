@@ -1,4 +1,4 @@
 export * from "./types";
 export * from "./createApiResponse";
-export * from "./NotificationsContext";
+export * from "./hooks";
 export { PageWithNotifications } from "./components";
