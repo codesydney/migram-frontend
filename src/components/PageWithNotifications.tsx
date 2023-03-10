@@ -1,6 +1,6 @@
 import { Page, Layout } from "@shopify/polaris";
 import { ComponentPropsWithoutRef } from "react";
-import { useApiEvents } from "src/common/ApiResponse/ApiEventsContext";
+import { useApiEvents } from "src/common/features/ApiResponse";
 import { BaseNotification } from "./Notification";
 
 export type PageWithNotificationsProps = ComponentPropsWithoutRef<typeof Page>;

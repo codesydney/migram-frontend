@@ -8,7 +8,7 @@ import {
   renderWithPolarisTestProvider,
 } from "src/test/utils";
 import { ElementsWrapper } from "src/components/ElementsWrapper";
-import { ApiEventsProvider } from "src/common/ApiResponse/ApiEventsContext";
+import { ApiEventsProvider } from "src/common/features/ApiResponse";
 import { server } from "src/mocks/server";
 import { rest } from "msw";
 import { createPaymentIntentUrl } from "../../api";

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useApiEvents } from "src/common/ApiResponse/ApiEventsContext";
+import { useApiEvents } from "src/common/features/ApiResponse/ApiEventsContext";
 import { createApiEvent } from "../utils";
 import axios from "axios";
 

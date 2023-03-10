@@ -1,4 +1,4 @@
-import { act, screen } from "@testing-library/react";
+import { act, screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { server } from "src/mocks/server";
 
@@ -7,7 +7,7 @@ import { renderWithPolarisTestProvider } from "src/test/utils";
 import {
   ApiEventsProvider,
   InitialApiEventsState,
-} from "src/common/ApiResponse/ApiEventsContext";
+} from "src/common/features/ApiResponse";
 
 import { getOffersUrl, getTasksUrl } from "@Tasks/ViewOffers/api";
 import userEvent from "@testing-library/user-event";
