@@ -18,6 +18,7 @@ import { server } from "src/mocks/server";
 import { rest } from "msw";
 import { createPaymentIntentUrl } from "../../api";
 import { getTaskURL } from "@Billing/Checkout/hooks";
+import { createGetTaskResponse } from "./testUtils";
 
 const ProvidersWrapper = ({ children }: PropsWithChildren<{}>) => {
   return (
@@ -29,8 +30,8 @@ const ProvidersWrapper = ({ children }: PropsWithChildren<{}>) => {
   );
 };
 
-function setupRender() {
-  renderWithPolarisTestProvider(
+export function setupRender() {
+  return renderWithPolarisTestProvider(
     <ProvidersWrapper>
       <CheckoutPage taskId="1" />
     </ProvidersWrapper>
@@ -62,6 +63,28 @@ const getTaskUnauthorizedHandler = rest.get(
         message: "You are unauthorized to access this task",
       })
     );
+  }
+);
+
+const getSuccessTaskResponse_PaymentStatusUndefined = rest.get(
+  getTaskURL + "/:id",
+  (req, res, ctx) => {
+    const data = createGetTaskResponse({
+      paymentStatus: undefined,
+    });
+
+    return res(ctx.status(200), ctx.json(data));
+  }
+);
+
+const getSuccessTaskResponse_PaymentStatusPaid = rest.get(
+  getTaskURL + "/:id",
+  (req, res, ctx) => {
+    const data = createGetTaskResponse({
+      paymentStatus: "paid",
+    });
+
+    return res(ctx.status(200), ctx.json(data));
   }
 );
 
@@ -135,4 +158,34 @@ it("does not display the Stripe Checkout Form when the task fails to load", asyn
   // value taken from mock handler for GET /tasks/:taskId
   // see: src/mocks/handlers/tasks.handler.ts
   expect(screen.queryByLabelText(/^stripe checkout$/i)).not.toBeInTheDocument();
+});
+
+it("shows the error 'Checkout Error: The Task has been not completed yet' when the Task is not completed", async () => {
+  server.use(
+    getSuccessTaskResponse_PaymentStatusUndefined,
+    postPaymentIntentHandler
+  );
+
+  setupRender();
+
+  const getError = () =>
+    screen.getByText("Checkout Error: The Task has been not completed yet");
+
+  await waitFor(() => expect(getError()).toBeTruthy());
+});
+
+it("shows the error 'Checkout Error: The Task has been paid' when the Task's paymentStatus is 'paid", async () => {
+  server.use(
+    getSuccessTaskResponse_PaymentStatusPaid,
+    postPaymentIntentHandler
+  );
+
+  await act(async () => {
+    setupRender();
+  });
+
+  const getError = () =>
+    screen.getByText("Checkout Error: The Task has been paid");
+
+  await waitFor(() => expect(getError()).toBeTruthy());
 });

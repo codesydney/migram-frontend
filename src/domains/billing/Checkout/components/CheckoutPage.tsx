@@ -16,6 +16,33 @@ const getStripe = () => {
   return stripePromise;
 };
 
+/**
+ * Returns an error message based on the payment status.
+ * @param paymentStatus
+ * @returns an error message
+ * @error Throws error when a payment status is either "payment_pending" or "payment_due"
+ */
+export function getErrorMessageFromPaymentStatus(paymentStatus?: string) {
+  switch (paymentStatus) {
+    case "paid":
+      return "Checkout Error: The Task has been paid";
+    case "pay_in_processing":
+      return "Checkout Error: The payment is currently is being processed";
+    case undefined:
+      return "Checkout Error: The Task has been not completed yet";
+    default:
+      throw new Error(
+        "A valid paymentStatus was passed into getErrorMessageFromPaymentStatus"
+      );
+  }
+}
+
+export function isPaymentDue(paymentStatus?: string) {
+  return (
+    paymentStatus === "payment_due" || paymentStatus === "payment_declined"
+  );
+}
+
 export const CheckoutPage = ({ taskId }: { taskId: string }) => {
   const query = useTaskFetch(taskId);
   const isLoading = query.isLoading;
@@ -23,6 +50,10 @@ export const CheckoutPage = ({ taskId }: { taskId: string }) => {
   if (isLoading) return <div>Loading</div>;
 
   const task = query.data;
+
+  if (!query.error && !isPaymentDue(task.paymentStatus)) {
+    return <div>{getErrorMessageFromPaymentStatus(task.paymentStatus)}</div>;
+  }
 
   return (
     <div aria-label="Checkout Page">
