@@ -74,11 +74,9 @@ test("Smoke test if it renders", async () => {
 it("displays the task details when the task loads", async () => {
   server.use(postPaymentIntentHandler);
 
-  setupRender();
-
-  const getLoadingElement = () => screen.getByText("Loading");
-
-  await waitFor(() => waitForElementToBeRemoved(getLoadingElement));
+  await act(() => {
+    setupRender();
+  });
 
   // value taken from mock handler for GET /tasks/:taskId
   // see: src/mocks/handlers/tasks.handler.ts
