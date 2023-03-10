@@ -17,7 +17,7 @@ import { CardElement } from "./CardElement";
 import { useNotifications } from "src/common/features/notifications";
 import { routerPush } from "@Utils/router";
 import { useCreatePaymentIntent } from "../hooks";
-import { createApiEvent } from "../utils";
+import { createNotification } from "src/common/features/notifications/utils";
 
 interface CheckoutFormProps {
   isPageLoading: boolean;
@@ -64,24 +64,27 @@ export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
 
       dispatchApiEvents({
         type: "set",
-        event: createApiEvent({ message: errorMessage }),
+        event: createNotification({
+          isError: true,
+          title: "Payment successful",
+          type: "notification",
+          status: "success",
+          source: "Checkout Event",
+        }),
       });
-    } else {
-      if (result.paymentIntent.status === "succeeded") {
-        dispatchApiEvents({
-          type: "set",
-          event: {
-            id: uuid(),
-            isError: false,
-            title: "Payment successful",
-            status: 200,
-            statusText: "OK",
-            level: "info",
-          },
-        });
+    } else if (result.paymentIntent.status === "succeeded") {
+      dispatchApiEvents({
+        type: "set",
+        event: createNotification({
+          isError: false,
+          title: "Payment successful",
+          type: "notification",
+          status: "success",
+          source: "Checkout Event",
+        }),
+      });
 
-        setTimeout(() => routerPush("/"), 2000);
-      }
+      setTimeout(() => routerPush("/"), 2000);
     }
 
     setIsLoading(false);
