@@ -17,6 +17,7 @@ import { CardElement } from "./CardElement";
 import { useCreatePaymentIntent } from "./hooks";
 import { useApiEvents } from "src/common/ApiResponse/ApiEventsContext";
 import { ApiEvent } from "src/common/ApiResponse";
+import { routerPush } from "@Utils/router";
 
 interface CheckoutFormProps {
   isPageLoading: boolean;
@@ -51,7 +52,6 @@ export function createApiEvent({
 export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
   const stripe = useStripe();
   const elements = useElements();
-  const [message, setMessage] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const { clientSecret } = useCreatePaymentIntent(taskId, setIsLoading);
   const { dispatchApiEvents } = useApiEvents();
@@ -75,30 +75,29 @@ export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
     });
 
     if (result.error) {
-      console.log(result.error.message);
+      let errorMessage = result.error.message
+        ? result.error.message
+        : "An unexpected error occurred.";
 
-      if (
-        result.error?.type === "card_error" ||
-        result.error?.type === "validation_error"
-      ) {
-        setMessage(result.error?.message);
-      } else {
-        dispatchApiEvents({
-          type: "set",
-          event: createApiEvent({ message: "An unexpected error occurred." }),
-        });
-
-        setMessage("An unexpected error occurred.");
-      }
+      dispatchApiEvents({
+        type: "set",
+        event: createApiEvent({ message: errorMessage }),
+      });
     } else {
       if (result.paymentIntent.status === "succeeded") {
-        // Show a success message to your customer
-        // There's a risk of the customer closing the window before callback
-        // execution. Set up a webhook or plugin to listen for the
-        // payment_intent.succeeded event that handles any business critical
-        // post-payment actions.
+        dispatchApiEvents({
+          type: "set",
+          event: {
+            id: uuid(),
+            isError: false,
+            title: "Payment successful",
+            status: 200,
+            statusText: "OK",
+            level: "info",
+          },
+        });
 
-        alert("Finalized Payment");
+        setTimeout(() => routerPush("/"), 2000);
       }
     }
 
@@ -110,7 +109,7 @@ export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
       <Card title="Payment Details">
         <Form onSubmit={onSubmit}>
           <FormLayout>
-            <StyledStripeForm>
+            <StyledStripeForm aria-label="Stripe Checkout">
               <AddressElement
                 options={{ mode: "billing", allowedCountries: ["AU"] }}
               />
