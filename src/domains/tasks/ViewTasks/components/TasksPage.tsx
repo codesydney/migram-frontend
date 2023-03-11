@@ -66,14 +66,16 @@ export const OffersSection = ({ task }: { task: Task }) => {
 export const TaskCard = ({ task }: { task: Task }) => {
   const { location } = task;
   const isCompleted = task.status === "completed";
+  const isDue = task.paymentStatus === "payment_due" || task.paymentStatus === "pay_decline"
 
-  const checkoutButton = isCompleted
+  const checkoutButton = isCompleted && isDue
     ? {
         content: "Finalize Payment",
         onAction: () => routerPush(`/checkout/${task.id}`),
       }
     : undefined;
 
+  console.log("isDue", {isDue})
   return (
     <Layout.Section>
       <article aria-label="Task Card">

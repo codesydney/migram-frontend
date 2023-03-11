@@ -5,12 +5,18 @@ export const TaskStatusSchema = z.enum([
   "open",
   "assigned",
   "completed",
+] as const);
+
+export type TaskStatus = z.infer<typeof TaskStatusSchema>;
+
+export const PaymentStatusSchema = z.enum([
+  "payment_due",
   "paid",
   "pay_decline",
   "pay_in_processing",
 ] as const);
 
-export type TaskStatus = z.infer<typeof TaskStatusSchema>;
+export type PaymentStatus = z.infer<typeof PaymentStatusSchema>;
 
 export const TaskCategorySchema = z.enum([
   "Cleaning",
@@ -53,6 +59,7 @@ export const TaskSchema = z.object({
   timeOfArrival: TaskTimeOfArrivalSchema.default("7am-10am"),
   timeEstimate: TaskTimeEstimateSchema.default("1-3hrs"),
   status: TaskStatusSchema.default("open"),
+  paymentStatus: PaymentStatusSchema.default("payment_due"),
   dueDate: z.coerce
     .date({ invalid_type_error: "Due date must be a date" })
     .min(new Date(), { message: "Due date must be in the future" }),
