@@ -1,6 +1,7 @@
 import { TopBar as TopBarPrimitive, Text } from "@shopify/polaris";
 import { useSession } from "next-auth/react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { Session } from "next-auth";
 
 import { routerPush } from "@Utils/index";
 import { useSetAuthHeader } from "@Users/common/hooks";
@@ -37,6 +38,24 @@ const secondaryMenuMarkup = (
   />
 );
 
+function getMenuItems(session?: Session) {
+  if (session?.user.customerId) {
+    return [
+      { content: "Listings", onAction: () => routerPush("/") },
+      { content: "Tasks", onAction: () => routerPush("/tasks") },
+    ];
+  }
+
+  if (session?.user.providerId) {
+    return [
+      { content: "Listings", onAction: () => routerPush("/") },
+      { content: "Offers", onAction: () => routerPush("/offers") },
+    ];
+  }
+
+  return [{ content: "Listings", onAction: () => routerPush("/") }];
+}
+
 /**
  * Top Navigation Bar
  */
@@ -62,9 +81,7 @@ export const TopBar = () => {
     <TopBarPrimitive.UserMenu
       actions={[
         {
-          items: [
-            { content: "Account", onAction: () => routerPush("/account") },
-          ],
+          items: getMenuItems(session),
         },
         {
           items: [{ content: "Sign Out", onAction: signOut }],
