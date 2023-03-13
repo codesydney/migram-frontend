@@ -58,10 +58,15 @@ export function ListingsPage() {
       }
     >
       {data ? null : (
-        <>
-          Please <Link href="/login">login</Link> or{" "}
-          <Link href="/signup">signup</Link> to view listings.
-        </>
+        <div
+          style={{
+            marginTop: "1.25em",
+            fontSize: "1.3em"
+          }}
+        >
+          Please&nbsp;<Link href="/login">login</Link>&nbsp;or&nbsp;
+          <Link href="/signup">signup</Link>&nbsp;to view listings.
+        </div>
       )}
 
       {tasks.map((task: any) => (
