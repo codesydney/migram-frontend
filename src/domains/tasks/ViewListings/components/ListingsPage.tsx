@@ -61,10 +61,7 @@ export function ListingsPage() {
         <div
           style={{
             marginTop: "1.25em",
-            fontSize: "1.3em",
-            wordWrap: "break-word",
-            wordBreak: "break-word",
-            overflowWrap: "break-word",
+            fontSize: "1.3em"
           }}
         >
           Please&nbsp;<Link href="/login">login</Link>&nbsp;or&nbsp;
