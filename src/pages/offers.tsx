@@ -1,6 +1,8 @@
 import { useSession } from "next-auth/react";
-import { Card, EmptyState, Layout, Page } from "@shopify/polaris";
-
+import { Card, EmptyState, Layout } from "@shopify/polaris";
+import {
+  PageWithNotifications,
+} from "src/common/features/notifications";
 import { ViewOffersPage } from "@Tasks/ViewOffers/components/ViewOffersPage";
 
 export default function OffersPage() {
@@ -8,7 +10,7 @@ export default function OffersPage() {
 
   if (data?.user.customerId) {
     return (
-      <Page title="Offers" fullWidth>
+      <PageWithNotifications title="Offers" fullWidth>
         <Layout>
           <Layout.Section>
             <Card sectioned>
@@ -20,7 +22,7 @@ export default function OffersPage() {
             </Card>
           </Layout.Section>
         </Layout>
-      </Page>
+      </PageWithNotifications>
     );
   }
 

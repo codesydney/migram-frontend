@@ -1,4 +1,4 @@
-import { Page, Form, FormLayout, Button, Text } from "@shopify/polaris";
+import { Form, FormLayout, Button, Text } from "@shopify/polaris";
 
 import { TextField, Select } from "src/components/index";
 
@@ -10,13 +10,16 @@ import {
   TaskTimeEstimateSchema,
   TaskTimeOfArrivalSchema,
 } from "@Tasks/common/types";
+import {
+  PageWithNotifications,
+} from "src/common/features/notifications";
 
 export const CreateTaskPage = () => {
   const { control, onSubmit } = useCreateTaskForm();
 
   return (
     <div aria-label="Create Task Page">
-      <Page title="Create Task">
+      <PageWithNotifications title="Create Task">
         <Form onSubmit={onSubmit}>
           <FormLayout>
             <TextField<CreateTaskFormState>
@@ -121,7 +124,7 @@ export const CreateTaskPage = () => {
             </Button>
           </FormLayout>
         </Form>
-      </Page>
+      </PageWithNotifications>
     </div>
   );
 };

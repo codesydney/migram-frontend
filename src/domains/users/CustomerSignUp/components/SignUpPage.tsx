@@ -6,9 +6,11 @@ import {
   Checkbox,
   Form,
   FormLayout,
-  Page,
   Text,
 } from "@shopify/polaris";
+import {
+  PageWithNotifications,
+} from "src/common/features/notifications";
 import { TextField } from "src/components/TextField";
 import { useSignUpForm, SignUpFormState } from "../hooks";
 
@@ -17,7 +19,7 @@ export const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <Page title="Sign Up">
+    <PageWithNotifications title="Sign Up">
       <Form onSubmit={onSubmit}>
         <FormLayout>
           <TextField<SignUpFormState>
@@ -70,6 +72,6 @@ export const SignUpPage = () => {
           </Text>
         </FormLayout>
       </Form>
-    </Page>
+    </PageWithNotifications>
   );
 };

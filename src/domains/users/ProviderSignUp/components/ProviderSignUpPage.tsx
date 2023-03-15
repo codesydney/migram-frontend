@@ -1,14 +1,15 @@
 import { useState } from "react";
 import Link from "next/link";
-
 import {
   Button,
   Checkbox,
   Form,
   FormLayout,
-  Page,
   Text,
 } from "@shopify/polaris";
+import {
+  PageWithNotifications,
+} from "src/common/features/notifications";
 import { TextField } from "src/components/TextField";
 import { useProviderSignUpForm, SignUpFormState } from "../hooks";
 
@@ -17,7 +18,7 @@ export const ProviderSignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <Page title="Provider Sign Up">
+    <PageWithNotifications title="Provider Sign Up">
       <Form onSubmit={onSubmit}>
         <FormLayout>
           <TextField<SignUpFormState>
@@ -70,6 +71,6 @@ export const ProviderSignUpPage = () => {
           </Text>
         </FormLayout>
       </Form>
-    </Page>
+    </PageWithNotifications>
   );
 };

@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   Layout,
-  Page,
   Stack,
   Text,
   TextContainer,
@@ -16,6 +15,9 @@ import { Task, TaskStatus } from "@Tasks/common/types";
 
 import { getTasksOfCustomerQuery, getOffersOfTaskQuery } from "../api";
 import { routerPush } from "@Utils/router";
+import {
+  PageWithNotifications,
+} from "src/common/features/notifications";
 
 const OffersTable = dynamic(() =>
   import("./OffersTable").then((mod) => mod.OffersTable)
@@ -165,7 +167,7 @@ export const TasksPage = ({
 
   return (
     <StyledDiv aria-label="Customer Tasks Page">
-      <Page
+      <PageWithNotifications
         title="Tasks"
         fullWidth
         primaryAction={
@@ -179,7 +181,7 @@ export const TasksPage = ({
             return <TaskCard task={item} key={item.id} />;
           })}
         </Layout>
-      </Page>
+      </PageWithNotifications>
     </StyledDiv>
   );
 };

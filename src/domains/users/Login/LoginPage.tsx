@@ -4,7 +4,10 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Button, Checkbox, Form, FormLayout, Page } from "@shopify/polaris";
+import { Button, Checkbox, Form, FormLayout } from "@shopify/polaris";
+import {
+  PageWithNotifications,
+} from "src/common/features/notifications";
 import { routerPush } from "@Utils/router";
 import { TextField } from "src/components/TextField";
 import { signIn } from "../common/api";
@@ -34,7 +37,7 @@ export const LoginPage = () => {
   });
 
   return (
-    <Page title="Login">
+    <PageWithNotifications title="Login">
       <Form onSubmit={handleSubmit(handleLogin)}>
         <FormLayout>
           <TextField<LoginFormState>
@@ -61,6 +64,6 @@ export const LoginPage = () => {
           </Button>
         </FormLayout>
       </Form>
-    </Page>
+    </PageWithNotifications>
   );
 };
