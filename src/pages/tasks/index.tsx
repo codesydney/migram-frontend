@@ -1,6 +1,8 @@
 import { useSession } from "next-auth/react";
-import { Card, EmptyState, Layout, Page } from "@shopify/polaris";
-
+import { Card, EmptyState, Layout } from "@shopify/polaris";
+import {
+  PageWithNotifications,
+} from "src/common/features/notifications";
 import { TasksPage as TaskPagePrimitive } from "@Tasks/ViewTasks";
 
 export default function TasksPage() {
@@ -8,7 +10,7 @@ export default function TasksPage() {
 
   if (data?.user.providerId) {
     return (
-      <Page title="Tasks" fullWidth>
+      <PageWithNotifications title="Tasks" fullWidth>
         <Layout>
           <Layout.Section>
             <Card sectioned>
@@ -20,7 +22,7 @@ export default function TasksPage() {
             </Card>
           </Layout.Section>
         </Layout>
-      </Page>
+      </PageWithNotifications>
     );
   }
 
