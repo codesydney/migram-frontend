@@ -18,6 +18,7 @@ Thank you to our contributors.
 - [davidtaing](https://github.com/davidtaing) - Frontend Developer
 - [capsap](https://github.com/capsap) - Frontend Developer
 - [foadbotan](https://github.com/foadbotan) - Frontend Developer
+- [OB1](https://github.com/OB-CODE) - Frontend Developer
 
 ## Getting Started
 
