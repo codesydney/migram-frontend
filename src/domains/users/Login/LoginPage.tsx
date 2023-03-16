@@ -3,8 +3,16 @@ import { signIn as nextAuthSignIn } from "next-auth/react";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 
-import { Button, Checkbox, Form, FormLayout } from "@shopify/polaris";
+
+import { 
+  Button, 
+  Checkbox, 
+  Form, 
+  FormLayout, 
+  Text 
+} from "@shopify/polaris";
 import {
   PageWithNotifications,
 } from "src/common/features/notifications";
@@ -62,6 +70,16 @@ export const LoginPage = () => {
           <Button primary submit size="large">
             Submit
           </Button>
+          <Text as="h2" variant="headingSm">
+            If you don't have an account, {" "}
+            <Link
+              href="/signup"
+              className="Polaris-Link"
+              data-polaris-unstyled="true"
+            >
+              Sign Up here.
+            </Link>
+          </Text>
         </FormLayout>
       </Form>
     </PageWithNotifications>
