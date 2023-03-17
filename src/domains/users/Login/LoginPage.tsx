@@ -21,19 +21,19 @@ const formSchema = z.object({
 });
 export type LoginFormState = z.infer<typeof formSchema>;
 
-const handleLogin = async (formValues: LoginFormState) => {
-  const data = await signIn(formValues);
-  if (!data?.error && data?.url) return routerPush(data?.url);
-
-  return data;
-};
-
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { control, handleSubmit } = useForm<LoginFormState>({
     mode: "onBlur",
     resolver: zodResolver(formSchema),
   });
+
+  const handleLogin = async (formValues: LoginFormState) => {
+    const data = await signIn(formValues);
+    if (!data?.error && data?.url) return routerPush(data?.url);
+
+    return data;
+  };
 
   return (
     <PageWithNotifications title="Login">

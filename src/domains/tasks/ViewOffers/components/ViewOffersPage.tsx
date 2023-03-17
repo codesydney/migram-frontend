@@ -117,7 +117,7 @@ export type ViewOffersPageProps = {
 };
 
 export function ViewOffersPage({ status }: ViewOffersPageProps) {
-  const { dispatchApiEvents } = useNotifications();
+  const { dispatchNotifications } = useNotifications();
 
   const [offers, setOffers] = useState(new Array<Offer>());
   const [selectedTask, setSelectedTask] = useState<Task | undefined>();
@@ -132,7 +132,7 @@ export function ViewOffersPage({ status }: ViewOffersPageProps) {
       })
       .catch((error) => {
         if (error instanceof AxiosError && error.response) {
-          dispatchApiEvents({
+          dispatchNotifications({
             type: "set",
             event: createNotification({
               isError: true,
@@ -169,13 +169,13 @@ export function ViewOffersPage({ status }: ViewOffersPageProps) {
             source: "Api Error",
           });
 
-          dispatchApiEvents({
+          dispatchNotifications({
             type: "set",
             event: apiEvent,
           });
         }
       });
-  }, [dispatchApiEvents, status]);
+  }, [dispatchNotifications, status]);
 
   return (
     <StyledDiv aria-label="View Offers Page">
