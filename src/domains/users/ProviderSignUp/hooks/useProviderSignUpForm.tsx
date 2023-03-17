@@ -4,6 +4,9 @@ import { z } from "zod";
 
 import axios from "axios";
 import { createUser, signIn } from "@Users/common/api";
+import { useNotifications } from "src/common/features/notifications";
+import { routerPush } from "@Utils/router";
+import { createNotification } from "src/common/features/notifications/utils";
 
 export const formSchema = z
   .object({
@@ -34,20 +37,52 @@ const fetchProviderOnboardingUrl = async (userId: string) => {
   return response.data.data.accountLink.url;
 };
 
-export const submitHandler = async (data: SignUpFormState) => {
-  const userId = await createUser(data);
-
-  await signIn({ email: data.email, password: data.password });
-
-  const providerOnboardingUrl = await fetchProviderOnboardingUrl(userId);
-  window.location.assign(providerOnboardingUrl);
-};
-
 export const useProviderSignUpForm = () => {
+  const { dispatchNotifications } = useNotifications();
   const { control, handleSubmit } = useForm<SignUpFormState>({
     mode: "onBlur",
     resolver: zodResolver(formSchema),
   });
+
+  const submitHandler = async (data: SignUpFormState) => {
+    dispatchNotifications({ type: "clear" });
+    const userId = await createUser(data)
+      .then((res) => {
+        const action = {
+          type: "set",
+          event: createNotification({
+            isError: false,
+            title: "Successfully created account. Redirecting you to Stripe",
+            type: "toast",
+            status: "success",
+            source: "Provider Signup Success",
+          }),
+        } as const;
+
+        dispatchNotifications(action);
+
+        return res;
+      })
+      .catch((err) => {
+        const action = {
+          type: "set",
+          event: createNotification({
+            isError: true,
+            title: err.response.data.message,
+            type: "notification",
+            status: "critical",
+            source: "Provider Signup Failure",
+          }),
+        } as const;
+
+        dispatchNotifications(action);
+      });
+
+    await signIn({ email: data.email, password: data.password });
+
+    const providerOnboardingUrl = await fetchProviderOnboardingUrl(userId);
+    window.location.assign(providerOnboardingUrl);
+  };
 
   return { control, onSubmit: handleSubmit(submitHandler) };
 };
