@@ -23,6 +23,7 @@ import { TextField } from "src/components/TextField";
 import { signIn } from "../common/api";
 import { createNotification } from "src/common/features/notifications/utils";
 import { FormPaddingDiv } from "src/components/FormPaddingDiv";
+import { SignInResponse } from "next-auth/react";
 
 const formSchema = z.object({
   email: z
@@ -42,24 +43,45 @@ export const LoginPage = () => {
     resolver: zodResolver(formSchema),
   });
 
-  const handleLogin = async (formValues: LoginFormState) => {
-    const data = await signIn(formValues).then((data) => {
-      const action: NotificationsAction = {
+  /**
+   * Creates a Notification based on the result of the login request
+   */
+  const handleLoginResult = (
+    data: SignInResponse | undefined
+  ): NotificationsAction => {
+    if (!data?.ok && data?.error) {
+      return {
         type: "set",
         event: createNotification({
-          isError: false,
-          title: "Successfully logged in.",
-          type: "toast",
-          status: "success",
-          source: "Login Success",
+          isError: true,
+          title: data.error,
+          type: "notification",
+          status: "critical",
+          source: "Login Failure",
         }),
       };
+    }
 
-      dispatchNotifications(action);
+    return {
+      type: "set",
+      event: createNotification({
+        isError: false,
+        title: "Successfully logged in.",
+        type: "toast",
+        status: "success",
+        source: "Login Success",
+      }),
+    };
+  };
+
+  const handleLogin = async (formValues: LoginFormState) => {
+    const data = await signIn(formValues).then((data) => {
+      dispatchNotifications(handleLoginResult(data));
 
       return data;
     });
-    if (!data?.error && data?.url) return routerPush(data?.url);
+
+    if (!data?.error && data?.url) return routerPush(data.url);
 
     return data;
   };
