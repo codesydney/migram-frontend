@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import axios from "axios";
-import { createUser } from "@Users/common/api";
+import { createUser, signIn } from "@Users/common/api";
 
 export const formSchema = z
   .object({
@@ -36,6 +36,9 @@ const fetchProviderOnboardingUrl = async (userId: string) => {
 
 export const submitHandler = async (data: SignUpFormState) => {
   const userId = await createUser(data);
+
+  await signIn({ email: data.email, password: data.password });
+
   const providerOnboardingUrl = await fetchProviderOnboardingUrl(userId);
   window.location.assign(providerOnboardingUrl);
 };
