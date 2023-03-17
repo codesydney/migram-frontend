@@ -5,17 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 
-
-import { 
-  Button, 
-  Checkbox, 
-  Form, 
-  FormLayout, 
-  Text 
-} from "@shopify/polaris";
-import {
-  PageWithNotifications,
-} from "src/common/features/notifications";
+import { Button, Checkbox, Form, FormLayout, Text } from "@shopify/polaris";
+import { PageWithNotifications } from "src/common/features/notifications";
 import { routerPush } from "@Utils/router";
 import { TextField } from "src/components/TextField";
 import { signIn } from "../common/api";
@@ -71,7 +62,7 @@ export const LoginPage = () => {
             Submit
           </Button>
           <Text as="h2" variant="headingSm">
-            If you don't have an account, {" "}
+            If you don&apos;t have an account,{" "}
             <Link
               href="/signup"
               className="Polaris-Link"
