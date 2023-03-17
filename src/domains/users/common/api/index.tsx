@@ -13,7 +13,7 @@ import { LoginFormState } from "@Users/Login/LoginPage";
 import { SignUpFormState } from "@Users/CustomerSignUp/hooks";
 
 export const signIn = async (formValues: LoginFormState) => {
-  const signInResponse = nextAuthSignIn("credentials", {
+  const signInResponse = await nextAuthSignIn("credentials", {
     ...formValues,
     redirect: false,
     callbackUrl: "/",
@@ -29,17 +29,10 @@ export const signIn = async (formValues: LoginFormState) => {
  * Original signup endpoint for all users
  */
 export const createUser = async (user: SignUpFormState) => {
-  const credentials = {
-    email: user.email,
-    password: user.password,
-  };
-
   const signUpResponse = await axios.post(
     `${process.env.NEXT_PUBLIC_API_URL}api/v1/users/signUp`,
     user
   );
-
-  await signIn(credentials);
 
   return signUpResponse.data.data.user._id;
 };
