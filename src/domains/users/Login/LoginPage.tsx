@@ -75,6 +75,8 @@ export const LoginPage = () => {
   };
 
   const handleLogin = async (formValues: LoginFormState) => {
+    dispatchNotifications({ type: "clear" });
+
     const data = await signIn(formValues).then((data) => {
       dispatchNotifications(handleLoginResult(data));
 
