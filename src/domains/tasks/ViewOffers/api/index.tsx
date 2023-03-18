@@ -5,10 +5,9 @@ export const getOffersUrl = `${process.env.NEXT_PUBLIC_API_URL}api/v1/offers`;
 export const getTasksUrl = `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`;
 
 export async function completeOfferMutation(taskId: string) {
-  axios
-    .patch(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${taskId}/completed`)
-    .then((response) => console.log(response))
-    .catch((error) => console.log(error));
+  return axios.patch(
+    `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks/${taskId}/completed`
+  );
 }
 
 export async function getTaskQuery(taskId: string) {
