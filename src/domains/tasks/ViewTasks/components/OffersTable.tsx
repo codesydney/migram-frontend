@@ -15,6 +15,8 @@ import { Offer, OfferStatus } from "@Tasks/common/types";
 
 import { acceptOfferMutation } from "../api";
 import { OfferStatusBadge } from "@Tasks/common/components";
+import { createNotification } from "src/common/features/notifications/utils";
+import { useNotifications } from "src/common/features/notifications";
 
 type IndexTableRowProps = ComponentProps<typeof IndexTable.Row>;
 
@@ -54,6 +56,7 @@ export const OfferItemRow = ({ offer, ...props }: OfferItemRowProps) => {
 export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
   const { handleSelectionChange, selectedResources, clearSelection } =
     useIndexResourceState(offers);
+  const { dispatchNotifications } = useNotifications();
 
   const customHandleSelectionChange = (
     selectionType: IndexTableSelectionType,
@@ -93,7 +96,35 @@ export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
           offerId: selectedResources[0],
         };
 
-        acceptOfferMutation(body.taskId, body.offerId);
+        acceptOfferMutation(body.taskId, body.offerId)
+          .then((response) => {
+            const action = {
+              type: "set",
+              event: createNotification({
+                status: "success",
+                isError: false,
+                title: `Successfully accepted offer.`,
+                type: "toast",
+                source: "Accept Offer Success",
+              }),
+            } as const;
+
+            dispatchNotifications(action);
+          })
+          .catch((error) => {
+            const action = {
+              type: "set",
+              event: createNotification({
+                status: "critical",
+                isError: true,
+                title: "Failed to select offer, please try again later.",
+                type: "toast",
+                source: "Accept Offer Failure",
+              }),
+            } as const;
+
+            dispatchNotifications(action);
+          });
       },
     },
   ];

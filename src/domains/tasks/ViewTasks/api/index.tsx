@@ -1,15 +1,10 @@
 import axios from "axios";
 
 export const acceptOfferMutation = (taskId: string, offerId: string) => {
-  axios
-    .post(`${process.env.NEXT_PUBLIC_API_URL}api/v1/acceptoffer/`, {
-      taskId,
-      offerId,
-    })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => console.log(error));
+  return axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/v1/acceptoffer/`, {
+    taskId,
+    offerId,
+  });
 };
 
 export const getOffersOfTaskQuery = (taskId: string) => {
