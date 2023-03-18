@@ -48,8 +48,8 @@ export function notificationsReducer(
 }
 
 export type NotificationsContextValues = {
-  apiEvents: NotifcationsMap;
-  dispatchApiEvents: Dispatch<NotificationsAction>;
+  notifications: NotifcationsMap;
+  dispatchNotifications: Dispatch<NotificationsAction>;
 };
 
 const NotificationsContext = createContext<
@@ -84,8 +84,8 @@ export function NotificationsProvider({
   return (
     <NotificationsContext.Provider
       value={{
-        apiEvents: notifications,
-        dispatchApiEvents: dispatchNotifications,
+        notifications: notifications,
+        dispatchNotifications: dispatchNotifications,
       }}
     >
       {children}

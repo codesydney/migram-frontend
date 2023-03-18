@@ -12,12 +12,18 @@ import {
   Layout,
   Text,
 } from "@shopify/polaris";
-import { PageWithNotifications } from "src/common/features/notifications";
+import {
+  NotificationsAction,
+  PageWithNotifications,
+  useNotifications,
+} from "src/common/features/notifications";
 import { routerPush } from "@Utils/router";
 
 import { TextField } from "src/components/TextField";
 import { signIn } from "../common/api";
+import { createNotification } from "src/common/features/notifications/utils";
 import { FormPaddingDiv } from "src/components/FormPaddingDiv";
+import { SignInResponse } from "next-auth/react";
 
 const formSchema = z.object({
   email: z
@@ -29,19 +35,58 @@ const formSchema = z.object({
 });
 export type LoginFormState = z.infer<typeof formSchema>;
 
-const handleLogin = async (formValues: LoginFormState) => {
-  const data = await signIn(formValues);
-  if (!data?.error && data?.url) return routerPush(data?.url);
-
-  return data;
-};
-
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { dispatchNotifications } = useNotifications();
   const { control, handleSubmit } = useForm<LoginFormState>({
     mode: "onBlur",
     resolver: zodResolver(formSchema),
   });
+
+  /**
+   * Creates a Notification based on the result of the login request
+   */
+  const handleLoginResult = (
+    data: SignInResponse | undefined
+  ): NotificationsAction => {
+    if (!data?.ok && data?.error) {
+      return {
+        type: "set",
+        event: createNotification({
+          isError: true,
+          title: data.error,
+          type: "notification",
+          status: "critical",
+          source: "Login Failure",
+        }),
+      };
+    }
+
+    return {
+      type: "set",
+      event: createNotification({
+        isError: false,
+        title: "Successfully logged in.",
+        type: "toast",
+        status: "success",
+        source: "Login Success",
+      }),
+    };
+  };
+
+  const handleLogin = async (formValues: LoginFormState) => {
+    dispatchNotifications({ type: "clear" });
+
+    const data = await signIn(formValues).then((data) => {
+      dispatchNotifications(handleLoginResult(data));
+
+      return data;
+    });
+
+    if (!data?.error && data?.url) return routerPush(data.url);
+
+    return data;
+  };
 
   return (
     <PageWithNotifications title="Login">

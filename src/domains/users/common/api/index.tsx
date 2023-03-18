@@ -41,14 +41,10 @@ export const createUser = async (user: SignUpFormState) => {
  * Consolidated signup request for creating a new User and a Stripe Customer
  */
 export const createCustomerUser = async (user: SignUpFormState) => {
-  const signUpResponse = await axios.post(
+  return await axios.post(
     `${process.env.NEXT_PUBLIC_API_URL}api/v1/customers`,
     user
   );
-
-  debugger;
-
-  return signUpResponse.data.data;
 };
 
 export const signInAndRedirectHome = async (

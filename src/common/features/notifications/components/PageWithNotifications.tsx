@@ -9,8 +9,8 @@ export function PageWithNotifications({
   children,
   ...otherProps
 }: PageWithNotificationsProps) {
-  const { apiEvents, dispatchApiEvents } = useNotifications();
-  const events = [...apiEvents.values()];
+  const { notifications, dispatchNotifications } = useNotifications();
+  const events = [...notifications.values()];
 
   return (
     <Page {...otherProps}>
@@ -23,7 +23,7 @@ export function PageWithNotifications({
               title={event.title}
               status={event.status}
               onDismiss={() => {
-                dispatchApiEvents({
+                dispatchNotifications({
                   type: "delete",
                   id: event.id,
                 });
@@ -40,7 +40,7 @@ export function PageWithNotifications({
               content={event.title}
               error={event.isError}
               onDismiss={() => {
-                dispatchApiEvents({
+                dispatchNotifications({
                   type: "delete",
                   id: event.id,
                 });

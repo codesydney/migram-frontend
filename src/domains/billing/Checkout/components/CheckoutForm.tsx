@@ -37,7 +37,7 @@ export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(true);
   const { clientSecret } = useCreatePaymentIntent(taskId, setIsLoading);
-  const { dispatchApiEvents } = useNotifications();
+  const { dispatchNotifications } = useNotifications();
   const isStripeLoading = !stripe ? true : false;
 
   const disabled = isPageLoading || isLoading;
@@ -62,7 +62,7 @@ export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
         ? result.error.message
         : "An unexpected error occurred.";
 
-      dispatchApiEvents({
+      dispatchNotifications({
         type: "set",
         event: createNotification({
           isError: true,
@@ -73,7 +73,7 @@ export const CheckoutForm = ({ isPageLoading, taskId }: CheckoutFormProps) => {
         }),
       });
     } else if (result.paymentIntent.status === "succeeded") {
-      dispatchApiEvents({
+      dispatchNotifications({
         type: "set",
         event: createNotification({
           isError: false,

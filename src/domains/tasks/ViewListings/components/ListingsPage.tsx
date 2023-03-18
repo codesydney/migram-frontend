@@ -7,25 +7,37 @@ import { Button, Layout } from "@shopify/polaris";
 
 import { MakeAnOfferModal } from "@Tasks/MakeOffer";
 import { ListingCard } from "./ListingCard";
-import { PageWithNotifications } from "src/common/features/notifications";
+import {
+  PageWithNotifications,
+  useNotifications,
+} from "src/common/features/notifications";
 
 import { routerPush } from "@Utils/router";
+import { createNotification } from "src/common/features/notifications/utils";
+
+async function getTasks(currentPage: number) {
+  const params = { page: currentPage, limit: 6 };
+
+  return axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
+    params,
+  });
+}
 
 export function ListingsPage() {
   const [currentPage, setCurrentPage]: any = useState(1);
   const { status, data } = useSession();
   const [tasks, setTasks]: any[] = useState([]);
   const [selectedTaskId, setSelectedTaskId] = useState<string | undefined>();
+  const { dispatchNotifications } = useNotifications();
 
   const isProvider = data?.user.providerId ? true : false;
 
-  function getTasks(currentPage: number) {
-    const params = { page: currentPage, limit: 6 };
+  useEffect(() => {
+    if (status === "loading") return;
 
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
-        params,
-      })
+    dispatchNotifications({ type: "clear" });
+
+    getTasks(currentPage)
       .then((response) => {
         if (response.data.data.tasks.length == 0) {
           setCurrentPage(currentPage - 1);
@@ -34,18 +46,20 @@ export function ListingsPage() {
         }
       })
       .catch((error) => {
-        if (error.response.data.message == "This page does not exist.") {
-          setCurrentPage(currentPage - 1);
-        }
+        const action = {
+          type: "set",
+          event: createNotification({
+            status: "critical",
+            isError: true,
+            title: `Failed to fetch tasks. Please refresh the page. If the problem persists, please contact the administrator at ${process.env.ADMIN_EMAIL}`,
+            type: "notification",
+            source: "",
+          }),
+        } as const;
+
+        dispatchNotifications(action);
       });
-  }
-
-  // dedupes requests while loading
-  useEffect(() => {
-    if (status === "loading") return;
-
-    getTasks(currentPage);
-  }, [currentPage, status]);
+  }, [currentPage, dispatchNotifications, status]);
 
   return (
     <PageWithNotifications
@@ -61,7 +75,7 @@ export function ListingsPage() {
         <div
           style={{
             marginTop: "1.25em",
-            fontSize: "1.3em"
+            fontSize: "1.3em",
           }}
         >
           Please&nbsp;<Link href="/login">login</Link>&nbsp;or&nbsp;

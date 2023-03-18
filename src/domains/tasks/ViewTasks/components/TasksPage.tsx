@@ -17,7 +17,9 @@ import { getTasksOfCustomerQuery, getOffersOfTaskQuery } from "../api";
 import { routerPush } from "@Utils/router";
 import {
   PageWithNotifications,
+  useNotifications,
 } from "src/common/features/notifications";
+import { createNotification } from "src/common/features/notifications/utils";
 
 const OffersTable = dynamic(() =>
   import("./OffersTable").then((mod) => mod.OffersTable)
@@ -43,6 +45,7 @@ export const OffersSection = ({ task }: { task: Task }) => {
 
   const [showOffers, setShowOffers] = useState(false);
   const [updatedTask, setUpdatedTask] = useState<any>(task);
+  const { dispatchNotifications } = useNotifications();
 
   useEffect(() => {
     getOffersOfTaskQuery(task.id)
@@ -53,8 +56,21 @@ export const OffersSection = ({ task }: { task: Task }) => {
       })
       .catch((error: any) => {
         setUpdatedTask(task);
+
+        const action = {
+          type: "set",
+          event: createNotification({
+            status: "critical",
+            isError: true,
+            title: error.response.data.message,
+            type: "notification",
+            source: "Get Offers of Task Failure",
+          }),
+        } as const;
+
+        dispatchNotifications(action);
       });
-  }, [task, taskId]);
+  }, [dispatchNotifications, task, taskId]);
 
   return (
     <Card.Section
@@ -68,16 +84,18 @@ export const OffersSection = ({ task }: { task: Task }) => {
 export const TaskCard = ({ task }: { task: Task }) => {
   const { location } = task;
   const isCompleted = task.status === "completed";
-  const isDue = task.paymentStatus === "payment_due" || task.paymentStatus === "pay_decline"
+  const isDue =
+    task.paymentStatus === "payment_due" ||
+    task.paymentStatus === "pay_decline";
 
-  const checkoutButton = isCompleted && isDue
-    ? {
-        content: "Finalize Payment",
-        onAction: () => routerPush(`/checkout/${task.id}`),
-      }
-    : undefined;
+  const checkoutButton =
+    isCompleted && isDue
+      ? {
+          content: "Finalize Payment",
+          onAction: () => routerPush(`/checkout/${task.id}`),
+        }
+      : undefined;
 
-  console.log("isDue", {isDue})
   return (
     <Layout.Section>
       <article aria-label="Task Card">
@@ -140,30 +158,31 @@ export const TasksPage = ({
 }: {
   status: "authenticated" | "loading" | "unauthenticated";
 }) => {
-  const [currentPage, setCurrentPage]: any = useState(1);
   const [tasks, setTasks] = useState(Array<Task>);
-
-  function getTasks(currentPage: number) {
-    getTasksOfCustomerQuery()
-      .then((response) => {
-        if (response.data.data.tasks.length == 0) {
-          setCurrentPage(currentPage - 1);
-        } else {
-          setTasks(response.data.data.tasks);
-        }
-      })
-      .catch((error) => {
-        if (error.response.data.message == "This page does not exist.") {
-          setCurrentPage(currentPage - 1);
-        }
-      });
-  }
+  const { dispatchNotifications } = useNotifications();
 
   useEffect(() => {
     if (status === "loading") return;
 
-    getTasks(currentPage);
-  }, [currentPage, status]);
+    getTasksOfCustomerQuery()
+      .then((res) => {
+        setTasks(res.data.data.tasks);
+      })
+      .catch(() => {
+        const action = {
+          type: "set",
+          event: createNotification({
+            isError: true,
+            title: `Failed to fetch tasks. Please refresh the page. If the problem persists, please contact the administrator at ${process.env.ADMIN_EMAIL}`,
+            type: "notification",
+            status: "critical",
+            source: "Mark Task as Completed Failure",
+          }),
+        } as const;
+
+        dispatchNotifications(action);
+      });
+  }, [dispatchNotifications, status]);
 
   return (
     <StyledDiv aria-label="Customer Tasks Page">

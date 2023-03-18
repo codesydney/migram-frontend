@@ -6,7 +6,7 @@ import { createNotification } from "src/common/features/notifications/utils";
 export const getCheckoutTaskURL = `${process.env.NEXT_PUBLIC_API_URL}api/v1/checkout`;
 
 export const useCheckoutTaskFetch = (taskId: string) => {
-  const { dispatchApiEvents } = useNotifications();
+  const { dispatchNotifications } = useNotifications();
 
   return useQuery({
     retry: false,
@@ -24,7 +24,7 @@ export const useCheckoutTaskFetch = (taskId: string) => {
       return task;
     },
     onError: (error: Error) => {
-      dispatchApiEvents({
+      dispatchNotifications({
         type: "set",
         event: createNotification({
           isError: true,
