@@ -45,6 +45,7 @@ export const OffersSection = ({ task }: { task: Task }) => {
 
   const [showOffers, setShowOffers] = useState(false);
   const [updatedTask, setUpdatedTask] = useState<any>(task);
+  const { dispatchNotifications } = useNotifications();
 
   useEffect(() => {
     getOffersOfTaskQuery(task.id)
@@ -55,8 +56,21 @@ export const OffersSection = ({ task }: { task: Task }) => {
       })
       .catch((error: any) => {
         setUpdatedTask(task);
+
+        const action = {
+          type: "set",
+          event: createNotification({
+            status: "critical",
+            isError: true,
+            title: error.response.data.message,
+            type: "notification",
+            source: "Get Offers of Task Failure",
+          }),
+        } as const;
+
+        dispatchNotifications(action);
       });
-  }, [task, taskId]);
+  }, [dispatchNotifications, task, taskId]);
 
   return (
     <Card.Section
