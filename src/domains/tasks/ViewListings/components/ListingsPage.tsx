@@ -31,6 +31,9 @@ export function ListingsPage() {
   const { dispatchNotifications } = useNotifications();
 
   const isProvider = data?.user.providerId ? true : false;
+  const isCustomer = data?.user.customerId ? true : false;
+
+  const createTaskButton = <Button primary onClick={() => routerPush("/tasks new")}> Create Task </Button>
 
   useEffect(() => {
     if (status === "loading") return;
@@ -66,9 +69,7 @@ export function ListingsPage() {
       title="Listings"
       fullWidth
       primaryAction={
-        <Button primary onClick={() => routerPush("/tasks/new")}>
-          Create Task
-        </Button>
+      isCustomer ? createTaskButton : null
       }
     >
       {data ? null : (
