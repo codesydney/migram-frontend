@@ -13,13 +13,14 @@ import styled from "styled-components";
 import { TaskStatusBadge } from "@Tasks/common/components";
 import { Task, TaskStatus } from "@Tasks/common/types";
 
-import { getTasksOfCustomerQuery, getOffersOfTaskQuery } from "../api";
+import { getOffersOfTaskQuery } from "../api";
 import { routerPush } from "@Utils/router";
 import {
   PageWithNotifications,
   useNotifications,
 } from "src/common/features/notifications";
 import { createNotification } from "src/common/features/notifications/utils";
+import { getTasksOfCustomerQuery } from "@Tasks/common/api";
 
 const OffersTable = dynamic(() =>
   import("./OffersTable").then((mod) => mod.OffersTable)
