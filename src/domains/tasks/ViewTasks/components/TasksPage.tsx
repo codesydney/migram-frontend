@@ -20,7 +20,7 @@ import {
   useNotifications,
 } from "src/common/features/notifications";
 import { createNotification } from "src/common/features/notifications/utils";
-import { getTasksOfCustomerQuery } from "@Tasks/common/api";
+import { useSession } from "next-auth/react";
 
 const OffersTable = dynamic(() =>
   import("./OffersTable").then((mod) => mod.OffersTable)
@@ -47,8 +47,11 @@ export const OffersSection = ({ task }: { task: Task }) => {
   const [showOffers, setShowOffers] = useState(false);
   const [updatedTask, setUpdatedTask] = useState<any>(task);
   const { dispatchNotifications } = useNotifications();
+  const { status } = useSession();
 
   useEffect(() => {
+    if (status === "loading") return;
+
     getOffersOfTaskQuery(task.id)
       .then((response: any) => {
         if (taskId == response.data.data.task._id) {
@@ -71,7 +74,7 @@ export const OffersSection = ({ task }: { task: Task }) => {
 
         dispatchNotifications(action);
       });
-  }, [dispatchNotifications, task, taskId]);
+  }, [dispatchNotifications, status, task, taskId]);
 
   return (
     <Card.Section
@@ -154,36 +157,8 @@ const StyledDiv = styled.div`
   }
 `;
 
-export const TasksPage = ({
-  status,
-}: {
-  status: "authenticated" | "loading" | "unauthenticated";
-}) => {
-  const [tasks, setTasks] = useState(Array<Task>);
-  const { dispatchNotifications } = useNotifications();
-
-  useEffect(() => {
-    if (status === "loading") return;
-
-    getTasksOfCustomerQuery()
-      .then((res) => {
-        setTasks(res.data.data.tasks);
-      })
-      .catch(() => {
-        const action = {
-          type: "set",
-          event: createNotification({
-            isError: true,
-            title: `Failed to fetch tasks. Please refresh the page. If the problem persists, please contact the administrator at ${process.env.ADMIN_EMAIL}`,
-            type: "notification",
-            status: "critical",
-            source: "Mark Task as Completed Failure",
-          }),
-        } as const;
-
-        dispatchNotifications(action);
-      });
-  }, [dispatchNotifications, status]);
+export const TasksPage = ({ initialTasks }: { initialTasks: Task[] }) => {
+  const [tasks, setTasks] = useState(initialTasks);
 
   return (
     <StyledDiv aria-label="Customer Tasks Page">
