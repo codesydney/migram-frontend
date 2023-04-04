@@ -17,17 +17,14 @@ import styled from "styled-components";
 import { OfferStatusBadge } from "@Tasks/common/components";
 
 import { Offer, Task } from "@Tasks/common/types";
-import {
-  getTaskQuery,
-  getOffersOfProviderQuery,
-  completeOfferMutation,
-} from "../api";
+import { getTaskQuery, completeOfferMutation } from "../api";
 import {
   PageWithNotifications,
   useNotifications,
 } from "src/common/features/notifications";
 
 import { createNotification } from "src/common/features/notifications/utils";
+import { getOffersOfProviderQuery } from "@Tasks/common/api";
 
 const TaskCard = dynamic(() =>
   import("./TaskCard").then((mod) => mod.TaskCard)

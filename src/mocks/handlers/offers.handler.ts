@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { getOffersUrl } from "@Tasks/ViewOffers/api";
+import { getOffersUrl } from "@Tasks/common/api";
 
 export const getOffers = rest.get(getOffersUrl, async (req, res, ctx) => {
   const serverResponse = {

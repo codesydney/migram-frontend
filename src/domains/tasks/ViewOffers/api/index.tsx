@@ -1,7 +1,6 @@
 import { Task, Offer } from "@Tasks/common/types";
 import axios from "axios";
 
-export const getOffersUrl = `${process.env.NEXT_PUBLIC_API_URL}api/v1/offers`;
 export const getTasksUrl = `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`;
 
 export async function completeOfferMutation(taskId: string) {
@@ -16,12 +15,4 @@ export async function getTaskQuery(taskId: string) {
   );
 
   return response.data.data.task as Task;
-}
-
-export async function getOffersOfProviderQuery() {
-  const response = await axios.get(getOffersUrl, {
-    params: { my_offers: true },
-  });
-
-  return response.data.data.offers as Array<Offer>;
 }
