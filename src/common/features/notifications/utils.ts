@@ -10,9 +10,11 @@ export type CreateNotificationOptions = Omit<Notification, "id"> & {
   id?: string;
 };
 
-export function createNotification(options: CreateNotificationOptions) {
+export function createNotification(
+  options: CreateNotificationOptions
+): Notification {
   return {
     ...options,
     id: options?.id || uuid(),
-  };
+  } as const;
 }

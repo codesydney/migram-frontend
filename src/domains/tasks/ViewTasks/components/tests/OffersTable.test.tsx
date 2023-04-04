@@ -6,6 +6,7 @@ import { OffersTable } from "../OffersTable";
 
 import { renderWithPolarisTestProvider } from "src/test/utils";
 import { Offer } from "@Tasks/common/types";
+import { NotificationsProvider } from "src/common/features/notifications";
 
 const testOffer = {
   status: "open" as const,
@@ -17,7 +18,11 @@ const testOffer = {
 };
 
 function renderOffersTable(props: ComponentProps<typeof OffersTable>) {
-  return renderWithPolarisTestProvider(<OffersTable {...props} />);
+  return renderWithPolarisTestProvider(
+    <NotificationsProvider>
+      <OffersTable {...props} />
+    </NotificationsProvider>
+  );
 }
 
 function setupWithOneOffer() {
