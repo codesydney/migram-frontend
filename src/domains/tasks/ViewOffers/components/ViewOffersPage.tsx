@@ -142,12 +142,13 @@ const StyledDiv = styled.div`
 
 export type ViewOffersPageProps = {
   status: "authenticated" | "loading" | "unauthenticated";
+  initialOffers: Offer[];
 };
 
-export function ViewOffersPage({ status }: ViewOffersPageProps) {
+export function ViewOffersPage({ initialOffers, status }: ViewOffersPageProps) {
   const { dispatchNotifications } = useNotifications();
 
-  const [offers, setOffers] = useState(new Array<Offer>());
+  const [offers, setOffers] = useState(initialOffers);
   const [selectedTask, setSelectedTask] = useState<Task | undefined>();
   const [loading, setLoading] = useState(false);
 
@@ -176,34 +177,6 @@ export function ViewOffersPage({ status }: ViewOffersPageProps) {
         setLoading(false);
       });
   };
-
-  useEffect(() => {
-    if (status === "loading") return;
-
-    getOffersOfProviderQuery()
-      .then((offers) => {
-        setOffers(offers);
-      })
-      .catch((error) => {
-        if (error instanceof AxiosError) {
-          const errorMessage =
-            "Failed to load offers. Please contact support if refreshing the page does not work.";
-
-          const apiEvent = createNotification({
-            isError: true,
-            title: errorMessage,
-            type: "notification",
-            status: "warning",
-            source: "Api Error",
-          });
-
-          dispatchNotifications({
-            type: "set",
-            event: apiEvent,
-          });
-        }
-      });
-  }, [dispatchNotifications, status]);
 
   return (
     <StyledDiv aria-label="View Offers Page">

@@ -1,5 +1,9 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { Offer } from "../types";
+import {
+  Notification,
+  createNotification,
+} from "src/common/features/notifications";
 
 export const getTasksOfCustomerQuery = (config?: AxiosRequestConfig) => {
   return axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
@@ -19,10 +23,40 @@ export async function getTasksQuery(config?: AxiosRequestConfig) {
 
 export const getOffersUrl = `${process.env.NEXT_PUBLIC_API_URL}api/v1/offers`;
 
-export async function getOffersOfProviderQuery() {
-  const response = await axios.get(getOffersUrl, {
-    params: { my_offers: true },
-  });
+export type GetOffersOfProviderReturnType = Promise<{
+  offers: Offer[];
+  event?: Notification;
+}>;
 
-  return response.data.data.offers as Array<Offer>;
+export async function getOffersOfProviderQuery(
+  config?: AxiosRequestConfig
+): GetOffersOfProviderReturnType {
+  return axios
+    .get(getOffersUrl, {
+      ...config,
+      params: { my_offers: true },
+    })
+    .then((res) => ({
+      offers: res.data.data.offers as Array<Offer>,
+    }))
+    .catch((error) => {
+      const offers = new Array<Offer>();
+
+      if (error instanceof AxiosError) {
+        const errorMessage =
+          "Failed to load offers. Please contact support if refreshing the page does not work.";
+
+        const notification = createNotification({
+          isError: true,
+          title: errorMessage,
+          type: "notification",
+          status: "warning",
+          source: "Api Error",
+        });
+
+        return { offers, event: notification };
+      }
+
+      return { offers };
+    });
 }
