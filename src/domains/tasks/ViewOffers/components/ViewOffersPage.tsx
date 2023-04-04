@@ -88,6 +88,13 @@ export function ViewOffersPage({ initialOffers }: ViewOffersPageProps) {
     <StyledDiv aria-label="View Offers Page">
       <PageWithNotifications title="Offers" fullWidth>
         <Layout.Section oneHalf>
+          {!selectedTask || loading ? (
+            <EmptyTaskCardBody loading={loading} />
+          ) : (
+            <TaskCard task={selectedTask} />
+          )}
+        </Layout.Section>
+        <Layout.Section oneHalf>
           {offers.map((offer) => {
             return (
               <OfferCard
@@ -99,13 +106,6 @@ export function ViewOffersPage({ initialOffers }: ViewOffersPageProps) {
               />
             );
           })}
-        </Layout.Section>
-        <Layout.Section oneHalf>
-          {!selectedTask || loading ? (
-            <EmptyTaskCardBody loading={loading} />
-          ) : (
-            <TaskCard task={selectedTask} />
-          )}
         </Layout.Section>
       </PageWithNotifications>
     </StyledDiv>
