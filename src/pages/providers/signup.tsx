@@ -1,3 +1,3 @@
-import { ProviderSignUpPage } from "@Users/ProviderSignUp";
+import { ProviderSignUpPage } from "@Users/pages/ProviderSignUp";
 
 export default ProviderSignUpPage;

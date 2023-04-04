@@ -20,7 +20,7 @@ import {
 import { routerPush } from "@Utils/router";
 
 import { TextField } from "src/components/TextField";
-import { signIn } from "../common/api";
+import { signIn } from "../../common/api";
 import { createNotification } from "src/common/features/notifications/utils";
 import { FormPaddingDiv } from "src/components/FormPaddingDiv";
 import { SignInResponse } from "next-auth/react";

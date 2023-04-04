@@ -1,3 +1,3 @@
-import { LoginPage } from "@Users/Login";
+import { LoginPage } from "@Users/pages/Login";
 
 export default LoginPage;
