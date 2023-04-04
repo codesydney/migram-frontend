@@ -3,7 +3,7 @@ import { Form, FormLayout, Button, Text, Layout } from "@shopify/polaris";
 import { TextField, Select } from "src/common/components/index";
 
 import { useCreateTaskForm } from "../hooks/useCreateTaskForm";
-import { StateSchema } from "@Types/schemas";
+import { StateSchema } from "src/common/types/schemas";
 import { CreateTaskFormState } from "../types";
 import {
   TaskCategorySchema,
