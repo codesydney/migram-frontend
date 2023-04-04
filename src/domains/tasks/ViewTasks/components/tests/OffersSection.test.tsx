@@ -1,12 +1,11 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { OffersSection } from "../TasksPage";
-
 import { renderWithPolarisTestProvider } from "src/test/utils";
 import { Task } from "@Tasks/common/types";
 import { NotificationsProvider } from "src/common/features/notifications";
-import { SessionProvider } from "next-auth/react";
+
+import { OffersSection } from "../TaskCard";
 
 const task: Task = {
   location: {

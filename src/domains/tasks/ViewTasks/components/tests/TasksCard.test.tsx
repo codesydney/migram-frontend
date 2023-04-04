@@ -1,10 +1,9 @@
 import { screen } from "@testing-library/react";
 
-import { TaskCard } from "../TasksPage";
-
 import { renderWithPolarisTestProvider } from "src/test/utils";
 import { Task } from "@Tasks/common/types";
 import { NotificationsProvider } from "src/common/features/notifications";
+import { TaskCard } from "../TaskCard";
 
 const task: Task = {
   location: {
