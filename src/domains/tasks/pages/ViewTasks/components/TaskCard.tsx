@@ -15,8 +15,7 @@ import {
 } from "src/common/features/notifications";
 import { routerPush } from "@Utils/router";
 
-import { Task, TaskStatus } from "@Tasks/common/types";
-import { TaskStatusBadge } from "@Tasks/common/components";
+import { Task, TaskStatus, TaskStatusBadge } from "@Tasks/common";
 
 import { getOffersOfTaskQuery } from "../api";
 

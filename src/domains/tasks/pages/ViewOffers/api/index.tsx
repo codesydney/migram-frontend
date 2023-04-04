@@ -1,5 +1,6 @@
-import { Task, Offer } from "@Tasks/common/types";
 import axios from "axios";
+
+import { Task } from "@Tasks/common";
 
 export const getTasksUrl = `${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`;
 

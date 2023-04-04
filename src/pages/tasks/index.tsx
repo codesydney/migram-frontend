@@ -6,7 +6,7 @@ import {
   PageWithNotifications,
   useNotifications,
 } from "src/common/features/notifications";
-import { TasksPage as TaskPagePrimitive } from "@Tasks/ViewTasks";
+import { TasksPage as TaskPagePrimitive } from "@Tasks/pages/ViewTasks";
 import { Task } from "@Tasks/common/types";
 import { getTasksOfCustomerQuery } from "@Tasks/common/api";
 import { Notification } from "../../common/features/notifications";

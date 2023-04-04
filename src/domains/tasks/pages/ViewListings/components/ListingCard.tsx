@@ -1,7 +1,6 @@
 import { Card, Stack, TextContainer, Text } from "@shopify/polaris";
 
-import { Task, TaskStatus } from "../../common/types";
-import { TaskStatusBadge } from "@Tasks/common/components";
+import { Task, TaskStatus, TaskStatusBadge } from "@Tasks/common";
 
 export type ListingCardProps = {
   task: Task;

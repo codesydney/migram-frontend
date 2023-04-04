@@ -1,15 +1,15 @@
 import { GetServerSideProps } from "next";
 import { getToken } from "next-auth/jwt";
 
-import { ListingsPage } from "@Tasks/ViewListings";
-import { getTasksQuery } from "@Tasks/common/api";
-import { Task } from "@Tasks/common/types";
-
 import {
   Notification,
   createNotification,
   useNotifications,
 } from "../common/features/notifications";
+
+import { ListingsPage } from "@Tasks/pages/ViewListings";
+import { getTasksQuery } from "@Tasks/common/api";
+import { Task } from "@Tasks/common/types";
 
 export type ListingsRouteProps = {
   tasks: Task[];

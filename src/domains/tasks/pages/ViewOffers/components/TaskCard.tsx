@@ -7,8 +7,7 @@ import {
   TextContainer,
 } from "@shopify/polaris";
 
-import { Task, TaskStatus } from "@Tasks/common/types";
-import { TaskStatusBadge } from "@Tasks/common/components";
+import { Task, TaskStatus, TaskStatusBadge } from "@Tasks/common";
 
 export type TaskCardProps = { task?: Task; loading: boolean };
 

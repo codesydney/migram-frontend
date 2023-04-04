@@ -1,17 +1,18 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { Card, EmptyState, Layout, Spinner, Text } from "@shopify/polaris";
+import { Layout } from "@shopify/polaris";
 import { AxiosError } from "axios";
 import styled from "styled-components";
 
-import { Offer, Task } from "@Tasks/common/types";
-import { getTaskQuery } from "../api";
 import {
   PageWithNotifications,
   useNotifications,
 } from "src/common/features/notifications";
-
 import { createNotification } from "src/common/features/notifications/utils";
+
+import { Offer, Task } from "@Tasks/common";
+
+import { getTaskQuery } from "../api";
 import { OfferCard } from "./OfferCard";
 
 const TaskCard = dynamic(() =>

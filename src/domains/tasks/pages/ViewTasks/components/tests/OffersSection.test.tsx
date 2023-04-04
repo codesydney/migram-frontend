@@ -2,8 +2,9 @@ import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { renderWithPolarisTestProvider } from "src/test/utils";
-import { Task } from "@Tasks/common/types";
 import { NotificationsProvider } from "src/common/features/notifications";
+
+import { Task } from "@Tasks/common";
 
 import { OffersSection } from "../TaskCard";
 

@@ -1,4 +1,4 @@
-import { TaskStatus } from "@Tasks/common/types";
+import { TaskStatus } from "@Tasks/common";
 import { Badge } from "@shopify/polaris";
 import { Status } from "@shopify/polaris/build/ts/latest/src/components/Badge";
 

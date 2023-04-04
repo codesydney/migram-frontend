@@ -2,11 +2,12 @@ import { ComponentProps } from "react";
 import { getAllByRole, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { OffersTable } from "../OffersTable";
-
 import { renderWithPolarisTestProvider } from "src/test/utils";
-import { Offer } from "@Tasks/common/types";
 import { NotificationsProvider } from "src/common/features/notifications";
+
+import { Offer } from "@Tasks/common";
+
+import { OffersTable } from "../OffersTable";
 
 const testOffer = {
   status: "open" as const,

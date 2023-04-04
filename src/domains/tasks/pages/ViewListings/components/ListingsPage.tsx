@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 import { useSession } from "next-auth/react";
@@ -9,7 +9,7 @@ import { ListingCard } from "./ListingCard";
 import { PageWithNotifications } from "src/common/features/notifications";
 
 import { routerPush } from "@Utils/router";
-import { Task } from "@Tasks/common/types";
+import { Task } from "@Tasks/common";
 
 export type ListingsPageProps = {
   initialTasks: Task[];

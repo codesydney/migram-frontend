@@ -4,8 +4,6 @@ import {
   TextContainer,
   ButtonGroup,
   Button,
-  EmptyState,
-  Spinner,
   Text,
 } from "@shopify/polaris";
 
@@ -13,9 +11,8 @@ import {
   useNotifications,
   createNotification,
 } from "src/common/features/notifications";
-import { OfferStatusBadge } from "@Tasks/common/components";
-import { Offer } from "@Tasks/common/types";
 
+import { Offer, OfferStatusBadge } from "@Tasks/common";
 import { completeOfferMutation } from "../api";
 
 export function OfferCard({

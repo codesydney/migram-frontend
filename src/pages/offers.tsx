@@ -4,7 +4,7 @@ import {
   PageWithNotifications,
   useNotifications,
 } from "src/common/features/notifications";
-import { ViewOffersPage } from "@Tasks/ViewOffers/components/ViewOffersPage";
+import { ViewOffersPage } from "@Tasks/pages/ViewOffers/";
 import { GetServerSideProps } from "next";
 import { getToken } from "next-auth/jwt";
 import { Offer } from "@Tasks/common/types";

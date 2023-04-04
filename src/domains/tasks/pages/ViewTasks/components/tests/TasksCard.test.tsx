@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 
 import { renderWithPolarisTestProvider } from "src/test/utils";
-import { Task } from "@Tasks/common/types";
+import { Task } from "@Tasks/common";
 import { NotificationsProvider } from "src/common/features/notifications";
 import { TaskCard } from "../TaskCard";
 

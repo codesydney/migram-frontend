@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Layout } from "@shopify/polaris";
 import styled from "styled-components";
 
-import { Task } from "@Tasks/common/types";
+import { Task } from "@Tasks/common";
 
 import { routerPush } from "@Utils/router";
 import { PageWithNotifications } from "src/common/features/notifications";

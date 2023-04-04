@@ -9,9 +9,9 @@ import {
   InitialNotificationsState,
 } from "src/common/features/notifications";
 
-import { getTasksUrl } from "@Tasks/ViewOffers/api";
+import { getTasksUrl } from "@Tasks/pages/ViewOffers/api";
 import userEvent from "@testing-library/user-event";
-import { Offer } from "@Tasks/common/types";
+import { Offer } from "@Tasks/common";
 
 type SetupRenderOptions = {
   componentProps: ViewOffersPageProps;

@@ -11,12 +11,13 @@ import {
   useIndexResourceState,
 } from "@shopify/polaris";
 
-import { Offer, OfferStatus } from "@Tasks/common/types";
+import {
+  createNotification,
+  useNotifications,
+} from "src/common/features/notifications";
 
+import { Offer, OfferStatus, OfferStatusBadge } from "@Tasks/common";
 import { acceptOfferMutation } from "../api";
-import { OfferStatusBadge } from "@Tasks/common/components";
-import { createNotification } from "src/common/features/notifications/utils";
-import { useNotifications } from "src/common/features/notifications";
 
 type IndexTableRowProps = ComponentProps<typeof IndexTable.Row>;
 
