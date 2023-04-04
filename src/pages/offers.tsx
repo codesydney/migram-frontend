@@ -18,7 +18,6 @@ export type OffersRouteProps = {
 };
 
 export default function OffersRoute({
-  status,
   isProvider,
   offers,
   error,
@@ -45,7 +44,7 @@ export default function OffersRoute({
     );
   }
 
-  return <ViewOffersPage initialOffers={offers} status={status} />;
+  return <ViewOffersPage initialOffers={offers} />;
 }
 
 export const getServerSideProps: GetServerSideProps<OffersRouteProps> = async ({

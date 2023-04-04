@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 import {
   Button,
@@ -24,7 +24,6 @@ import {
 } from "src/common/features/notifications";
 
 import { createNotification } from "src/common/features/notifications/utils";
-import { getOffersOfProviderQuery } from "@Tasks/common/api";
 
 const TaskCard = dynamic(() =>
   import("./TaskCard").then((mod) => mod.TaskCard)
@@ -141,11 +140,10 @@ const StyledDiv = styled.div`
 `;
 
 export type ViewOffersPageProps = {
-  status: "authenticated" | "loading" | "unauthenticated";
   initialOffers: Offer[];
 };
 
-export function ViewOffersPage({ initialOffers, status }: ViewOffersPageProps) {
+export function ViewOffersPage({ initialOffers }: ViewOffersPageProps) {
   const { dispatchNotifications } = useNotifications();
 
   const [offers, setOffers] = useState(initialOffers);

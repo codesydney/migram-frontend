@@ -11,7 +11,6 @@ import {
 
 import { getTasksUrl } from "@Tasks/ViewOffers/api";
 import userEvent from "@testing-library/user-event";
-import { getOffersUrl } from "@Tasks/common/api";
 import { Offer } from "@Tasks/common/types";
 
 type SetupRenderOptions = {
@@ -21,7 +20,6 @@ type SetupRenderOptions = {
 
 const defaultSetupRenderProps: SetupRenderOptions = {
   componentProps: {
-    status: "unauthenticated",
     initialOffers: new Array<Offer>(),
   },
 } as const;
@@ -60,7 +58,6 @@ const getTaskNotFoundHandler = rest.get(
 
 test("smoke test if it renders", async () => {
   const componentProps: ViewOffersPageProps = {
-    status: "authenticated",
     initialOffers: [offer],
   };
 
@@ -74,7 +71,6 @@ test("smoke test if it renders", async () => {
 
 test("displays a list of OfferItems", async () => {
   const componentProps: ViewOffersPageProps = {
-    status: "authenticated",
     initialOffers: [offer, offer],
   };
 
@@ -88,7 +84,6 @@ test("displays a list of OfferItems", async () => {
 
 test("displays error notification when getTaskQuery fails", async () => {
   const componentProps: ViewOffersPageProps = {
-    status: "authenticated",
     initialOffers: [offer],
   };
 
