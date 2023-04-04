@@ -1,135 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  EmptyState,
-  Layout,
-  Spinner,
-  Stack,
-  Text,
-  TextContainer,
-} from "@shopify/polaris";
+import { Card, EmptyState, Layout, Spinner, Text } from "@shopify/polaris";
 import { AxiosError } from "axios";
 import styled from "styled-components";
 
-import { OfferStatusBadge } from "@Tasks/common/components";
-
 import { Offer, Task } from "@Tasks/common/types";
-import {
-  getTaskQuery,
-  getOffersOfProviderQuery,
-  completeOfferMutation,
-} from "../api";
+import { getTaskQuery } from "../api";
 import {
   PageWithNotifications,
   useNotifications,
 } from "src/common/features/notifications";
 
 import { createNotification } from "src/common/features/notifications/utils";
+import { OfferCard } from "./OfferCard";
 
 const TaskCard = dynamic(() =>
   import("./TaskCard").then((mod) => mod.TaskCard)
 );
-
-export function OfferCard({
-  offer,
-  onViewTaskClick,
-}: {
-  offer: Offer;
-  onViewTaskClick(): void;
-}) {
-  const showMarkAsCompleteButton = offer.status === "accepted";
-  const { dispatchNotifications } = useNotifications();
-
-  const onCompleteTaskClick = () => {
-    completeOfferMutation(offer.task)
-      .then((res) => {
-        const action = {
-          type: "set",
-          event: createNotification({
-            isError: false,
-            title: "Task marked as completed",
-            type: "toast",
-            status: "success",
-            source: "Mark Task as Completed Success",
-          }),
-        } as const;
-
-        dispatchNotifications(action);
-      })
-      .catch((err: any) => {
-        const action = {
-          type: "set",
-          event: createNotification({
-            isError: true,
-            title: err.response.data.message,
-            type: "toast",
-            status: "critical",
-            source: "Mark Task as Completed Failure",
-          }),
-        } as const;
-
-        dispatchNotifications(action);
-      });
-  };
-
-  return (
-    <Card
-      sectioned
-      title={
-        <Stack>
-          <Stack.Item fill>
-            <Text variant="headingMd" as="h2">
-              Offer
-            </Text>
-          </Stack.Item>
-          <Stack.Item>
-            <OfferStatusBadge status={offer.status} />
-          </Stack.Item>
-        </Stack>
-      }
-    >
-      <Card.Section>
-        <Stack vertical>
-          <TextContainer spacing="tight">
-            <Text as="h3" variant="headingMd">
-              ${offer.offerAmt}
-            </Text>
-            <Text as="p" variant="bodyMd">
-              {offer.comments}
-            </Text>
-          </TextContainer>
-          <Stack distribution="trailing">
-            <ButtonGroup>
-              <Button plain onClick={onViewTaskClick}>
-                View Task Details
-              </Button>
-              {showMarkAsCompleteButton ? (
-                <Button onClick={onCompleteTaskClick}>Mark as Complete</Button>
-              ) : null}
-            </ButtonGroup>
-          </Stack>
-        </Stack>
-      </Card.Section>
-    </Card>
-  );
-}
-
-function EmptyTaskCardBody({ loading }: { loading: boolean }) {
-  return (
-    <Card sectioned>
-      <EmptyState heading="View Task Details Here" image={""}>
-        {loading ? (
-          <Spinner />
-        ) : (
-          <p>Click on the &quot;View Task Details&quot; button.</p>
-        )}
-      </EmptyState>
-    </Card>
-  );
-}
 
 const StyledDiv = styled.div`
   .Polaris-Layout {
@@ -144,13 +31,13 @@ const StyledDiv = styled.div`
 `;
 
 export type ViewOffersPageProps = {
-  status: "authenticated" | "loading" | "unauthenticated";
+  initialOffers: Offer[];
 };
 
-export function ViewOffersPage({ status }: ViewOffersPageProps) {
+export function ViewOffersPage({ initialOffers }: ViewOffersPageProps) {
   const { dispatchNotifications } = useNotifications();
 
-  const [offers, setOffers] = useState(new Array<Offer>());
+  const [offers, setOffers] = useState(initialOffers);
   const [selectedTask, setSelectedTask] = useState<Task | undefined>();
   const [loading, setLoading] = useState(false);
 
@@ -180,37 +67,12 @@ export function ViewOffersPage({ status }: ViewOffersPageProps) {
       });
   };
 
-  useEffect(() => {
-    if (status === "loading") return;
-
-    getOffersOfProviderQuery()
-      .then((offers) => {
-        setOffers(offers);
-      })
-      .catch((error) => {
-        if (error instanceof AxiosError) {
-          const errorMessage =
-            "Failed to load offers. Please contact support if refreshing the page does not work.";
-
-          const apiEvent = createNotification({
-            isError: true,
-            title: errorMessage,
-            type: "notification",
-            status: "warning",
-            source: "Api Error",
-          });
-
-          dispatchNotifications({
-            type: "set",
-            event: apiEvent,
-          });
-        }
-      });
-  }, [dispatchNotifications, status]);
-
   return (
     <StyledDiv aria-label="View Offers Page">
       <PageWithNotifications title="Offers" fullWidth>
+        <Layout.Section oneHalf>
+          <TaskCard task={selectedTask} loading={loading} />
+        </Layout.Section>
         <Layout.Section oneHalf>
           {offers.map((offer) => {
             return (
@@ -223,13 +85,6 @@ export function ViewOffersPage({ status }: ViewOffersPageProps) {
               />
             );
           })}
-        </Layout.Section>
-        <Layout.Section oneHalf>
-          {!selectedTask || loading ? (
-            <EmptyTaskCardBody loading={loading} />
-          ) : (
-            <TaskCard task={selectedTask} />
-          )}
         </Layout.Section>
       </PageWithNotifications>
     </StyledDiv>
