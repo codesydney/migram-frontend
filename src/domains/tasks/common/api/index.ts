@@ -34,13 +34,35 @@ export const getTasksOfCustomerQuery = (
     });
 };
 
-export async function getTasksQuery(config?: AxiosRequestConfig) {
+export type GetTasksQueryReturnType = Promise<{
+  tasks: Task[];
+  event?: Notification;
+}>;
+
+export async function getTasksQuery(
+  config?: AxiosRequestConfig
+): GetTasksQueryReturnType {
   const currentPage = 0;
 
-  return axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
-    ...config,
-    params: { page: currentPage, limit: 6 },
-  });
+  return axios
+    .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
+      ...config,
+      params: { page: currentPage, limit: 6 },
+    })
+    .then((res) => ({
+      tasks: res.data.data.tasks,
+    }))
+    .catch((err) => {
+      const notification = createNotification({
+        status: "critical",
+        isError: true,
+        title: `Failed to fetch tasks. Please refresh the page. If the problem persists, please contact the administrator at ${process.env.ADMIN_EMAIL}`,
+        type: "notification",
+        source: "",
+      });
+
+      return { tasks: new Array<Task>(), error: notification };
+    });
 }
 
 export const getOffersUrl = `${process.env.NEXT_PUBLIC_API_URL}api/v1/offers`;

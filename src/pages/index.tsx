@@ -38,27 +38,13 @@ export const getServerSideProps: GetServerSideProps<
     return { props: { tasks: [], status: "unauthenticated" } };
   }
 
-  try {
-    const tasks = await getTasksQuery({
-      headers: {
-        Authorization: `Bearer ${token?.accessToken}`,
-      },
-    }).then((res) => res.data.data.tasks);
+  const response = await getTasksQuery({
+    headers: {
+      Authorization: `Bearer ${token?.accessToken}`,
+    },
+  });
 
-    return {
-      props: { tasks: tasks, status: "authenticated" },
-    };
-  } catch (err: any) {
-    const event = createNotification({
-      status: "critical",
-      isError: true,
-      title: `Failed to fetch tasks. Please refresh the page. If the problem persists, please contact the administrator at ${process.env.ADMIN_EMAIL}`,
-      type: "notification",
-      source: "",
-    });
-
-    return {
-      props: { tasks: [], status: "authenticated", event },
-    };
-  }
+  return {
+    props: { ...response, status: "authenticated" },
+  };
 };
