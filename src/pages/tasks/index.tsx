@@ -9,7 +9,6 @@ import {
 import { TasksPage as TaskPagePrimitive } from "@Tasks/ViewTasks";
 import { Task } from "@Tasks/common/types";
 import { getTasksOfCustomerQuery } from "@Tasks/common/api";
-import { createNotification } from "src/common/features/notifications/utils";
 import { Notification } from "../../common/features/notifications";
 import { useSession } from "next-auth/react";
 
@@ -57,27 +56,13 @@ export const getServerSideProps: GetServerSideProps<TaskRouteProps> = async ({
   const token = await getToken({ req });
   const isCustomer = !!token?.user.customerId;
 
-  if (!token) {
-    return { props: { tasks: [], isCustomer } };
-  }
+  if (!token || !isCustomer) return { props: { tasks: [], isCustomer } };
 
-  try {
-    const tasks = await getTasksOfCustomerQuery({
-      headers: {
-        Authorization: `Bearer ${token?.accessToken}`,
-      },
-    }).then((res) => res.data.data.tasks);
+  const response = await getTasksOfCustomerQuery({
+    headers: {
+      Authorization: `Bearer ${token?.accessToken}`,
+    },
+  });
 
-    return { props: { tasks, isCustomer } };
-  } catch (error: any) {
-    const errorNotification = createNotification({
-      isError: true,
-      title: `Failed to fetch tasks. Please refresh the page. If the problem persists, please contact the administrator at ${process.env.ADMIN_EMAIL}`,
-      type: "notification",
-      status: "critical",
-      source: "Mark Task as Completed Failure",
-    });
-
-    return { props: { tasks: [], error: errorNotification, isCustomer } };
-  }
+  return { props: { ...response, isCustomer } };
 };

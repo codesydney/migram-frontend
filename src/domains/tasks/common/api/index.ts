@@ -1,15 +1,37 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
-import { Offer } from "../types";
+import { Offer, Task } from "../types";
 import {
   Notification,
   createNotification,
 } from "src/common/features/notifications";
 
-export const getTasksOfCustomerQuery = (config?: AxiosRequestConfig) => {
-  return axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
-    ...config,
-    params: { my_tasks: true },
-  });
+export type GetTasksOfCustomerReturnType = Promise<{
+  tasks: Task[];
+  event?: Notification;
+}>;
+
+export const getTasksOfCustomerQuery = (
+  config?: AxiosRequestConfig
+): GetTasksOfCustomerReturnType => {
+  return axios
+    .get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
+      ...config,
+      params: { my_tasks: true },
+    })
+    .then((res) => ({
+      tasks: res.data.data.tasks,
+    }))
+    .catch((err) => {
+      const notification = createNotification({
+        isError: true,
+        title: `Failed to fetch tasks. Please refresh the page. If the problem persists, please contact the administrator at ${process.env.ADMIN_EMAIL}`,
+        type: "notification",
+        status: "critical",
+        source: "Mark Task as Completed Failure",
+      });
+
+      return { tasks: new Array<Task>(), error: notification };
+    });
 };
 
 export async function getTasksQuery(config?: AxiosRequestConfig) {
