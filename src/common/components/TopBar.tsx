@@ -1,6 +1,6 @@
 import { TopBar as TopBarPrimitive, Text } from "@shopify/polaris";
 import { useSession } from "next-auth/react";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { Session } from "next-auth";
 
 import { routerPush } from "@Utils/index";
@@ -59,7 +59,11 @@ function getMenuItems(session?: Session) {
 /**
  * Top Navigation Bar
  */
-export const TopBar = () => {
+export const TopBar = ({
+  onMobileNavToggle,
+}: {
+  onMobileNavToggle: () => void;
+}) => {
   const { data: session } = useSession();
   const showLoginButton = !session ? secondaryMenuMarkup : null;
 
@@ -73,10 +77,6 @@ export const TopBar = () => {
     []
   );
 
-  const handleNavigationToggle = useCallback(() => {
-    console.log("toggle navigation visibility");
-  }, []);
-
   const userMenuMarkup = session ? (
     <TopBarPrimitive.UserMenu
       actions={[
@@ -88,7 +88,7 @@ export const TopBar = () => {
         },
       ]}
       name={session?.user?.firstName as string}
-      initials="D"
+      initials=""
       detail={UserType[getUserType(session?.user)]}
       open={isUserMenuOpen}
       onToggle={toggleIsUserMenuOpen}
@@ -102,7 +102,7 @@ export const TopBar = () => {
       showNavigationToggle
       userMenu={userMenuMarkup}
       secondaryMenu={showLoginButton}
-      onNavigationToggle={handleNavigationToggle}
+      onNavigationToggle={onMobileNavToggle}
     />
   );
 };
