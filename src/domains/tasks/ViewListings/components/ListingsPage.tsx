@@ -6,68 +6,37 @@ import { Button, Layout } from "@shopify/polaris";
 
 import { MakeAnOfferModal } from "@Tasks/MakeOffer";
 import { ListingCard } from "./ListingCard";
-import {
-  PageWithNotifications,
-  useNotifications,
-} from "src/common/features/notifications";
+import { PageWithNotifications } from "src/common/features/notifications";
 
 import { routerPush } from "@Utils/router";
-import { createNotification } from "src/common/features/notifications/utils";
-import { getTasksQuery } from "@Tasks/common/api";
+import { Task } from "@Tasks/common/types";
 
-export function ListingsPage() {
-  const [currentPage, setCurrentPage]: any = useState(1);
-  const { status, data } = useSession();
-  const [tasks, setTasks]: any[] = useState([]);
+export type ListingsPageProps = {
+  initialTasks: Task[];
+  status: "authenticated" | "loading" | "unauthenticated";
+};
+
+export function ListingsPage({ initialTasks, status }: ListingsPageProps) {
+  const { data } = useSession();
+  const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [selectedTaskId, setSelectedTaskId] = useState<string | undefined>();
-  const { dispatchNotifications } = useNotifications();
 
   const isProvider = data?.user.providerId ? true : false;
   const isCustomer = data?.user.customerId ? true : false;
 
   const createTaskButton = (
-    <Button primary onClick={() => routerPush("/tasks new")}>
-      {" "}
-      Create Task{" "}
+    <Button primary onClick={() => routerPush("/tasks/new")}>
+      Create Task
     </Button>
   );
-
-  useEffect(() => {
-    if (status === "loading") return;
-
-    dispatchNotifications({ type: "clear" });
-
-    getTasksQuery(currentPage)
-      .then((response) => {
-        if (response.data.data.tasks.length == 0) {
-          setCurrentPage(currentPage - 1);
-        } else {
-          setTasks(response.data.data.tasks);
-        }
-      })
-      .catch((error) => {
-        const action = {
-          type: "set",
-          event: createNotification({
-            status: "critical",
-            isError: true,
-            title: `Failed to fetch tasks. Please refresh the page. If the problem persists, please contact the administrator at ${process.env.ADMIN_EMAIL}`,
-            type: "notification",
-            source: "",
-          }),
-        } as const;
-
-        dispatchNotifications(action);
-      });
-  }, [currentPage, dispatchNotifications, status]);
 
   return (
     <PageWithNotifications
       title="Listings"
       fullWidth
-      primaryAction={isCustomer ? createTaskButton : null}
+      primaryAction={isCustomer && createTaskButton}
     >
-      {data ? null : (
+      {status !== "authenticated" && (
         <div
           style={{
             marginTop: "1.25em",
@@ -88,12 +57,13 @@ export function ListingsPage() {
           />
         </Layout.Section>
       ))}
-      {selectedTaskId ? (
+
+      {selectedTaskId && (
         <MakeAnOfferModal
           taskId={selectedTaskId}
           onClose={() => setSelectedTaskId(undefined)}
         />
-      ) : null}
+      )}
     </PageWithNotifications>
   );
 }
