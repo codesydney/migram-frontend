@@ -4,6 +4,7 @@ import { TaskCard } from "../TasksPage";
 
 import { renderWithPolarisTestProvider } from "src/test/utils";
 import { Task } from "@Tasks/common/types";
+import { NotificationsProvider } from "src/common/features/notifications";
 
 const task: Task = {
   location: {
@@ -24,10 +25,15 @@ const task: Task = {
   dueDate: new Date("2023-01-27T00:00:00.000Z"),
   customerId: "cus_Me9Lz7memmLIEB",
   id: "63d26e6651167241c5f238a4",
+  paymentStatus: "payment_due",
 };
 
 function renderTaskCard() {
-  return renderWithPolarisTestProvider(<TaskCard task={task} />);
+  return renderWithPolarisTestProvider(
+    <NotificationsProvider>
+      <TaskCard task={task} status="authenticated" />
+    </NotificationsProvider>
+  );
 }
 
 test("Smoke Test if it renders", () => {

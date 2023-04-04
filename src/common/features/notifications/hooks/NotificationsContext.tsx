@@ -61,9 +61,9 @@ export type NotificationsProviderProps = {
 } & PropsWithChildren<{}>;
 
 function setupInitialState(intialState?: InitialNotificationsState) {
-  return intialState instanceof ImmutableMap<string, Notification>
-    ? intialState
-    : new ImmutableMap<string, Notification>(intialState);
+  return intialState
+    ? new ImmutableMap<string, Notification>(intialState)
+    : new ImmutableMap<string, Notification>();
 }
 
 /**

@@ -20,7 +20,6 @@ import {
   useNotifications,
 } from "src/common/features/notifications";
 import { createNotification } from "src/common/features/notifications/utils";
-import { useSession } from "next-auth/react";
 
 const OffersTable = dynamic(() =>
   import("./OffersTable").then((mod) => mod.OffersTable)
@@ -41,13 +40,18 @@ const OffersSectionTitle = ({ onClick }: { onClick: () => void }) => {
   );
 };
 
-export const OffersSection = ({ task }: { task: Task }) => {
+export const OffersSection = ({
+  task,
+  status,
+}: {
+  task: Task;
+  status: "authenticated" | "loading" | "unauthenticated";
+}) => {
   const { id: taskId } = task;
 
   const [showOffers, setShowOffers] = useState(false);
   const [updatedTask, setUpdatedTask] = useState<any>(task);
   const { dispatchNotifications } = useNotifications();
-  const { status } = useSession();
 
   useEffect(() => {
     if (status === "loading") return;
@@ -85,7 +89,13 @@ export const OffersSection = ({ task }: { task: Task }) => {
   );
 };
 
-export const TaskCard = ({ task }: { task: Task }) => {
+export const TaskCard = ({
+  task,
+  status,
+}: {
+  task: Task;
+  status: "authenticated" | "loading" | "unauthenticated";
+}) => {
   const { location } = task;
   const isCompleted = task.status === "completed";
   const isDue =
@@ -141,7 +151,7 @@ export const TaskCard = ({ task }: { task: Task }) => {
               </Text>
             </TextContainer>
           </Card.Section>
-          <OffersSection task={task} />
+          <OffersSection task={task} status={status} />
         </Card>
       </article>
     </Layout.Section>
@@ -157,7 +167,13 @@ const StyledDiv = styled.div`
   }
 `;
 
-export const TasksPage = ({ initialTasks }: { initialTasks: Task[] }) => {
+export const TasksPage = ({
+  initialTasks,
+  status,
+}: {
+  initialTasks: Task[];
+  status: "authenticated" | "loading" | "unauthenticated";
+}) => {
   const [tasks, setTasks] = useState(initialTasks);
 
   return (
@@ -173,7 +189,7 @@ export const TasksPage = ({ initialTasks }: { initialTasks: Task[] }) => {
       >
         <Layout>
           {tasks.map((item) => {
-            return <TaskCard task={item} key={item.id} />;
+            return <TaskCard task={item} key={item.id} status={status} />;
           })}
         </Layout>
       </PageWithNotifications>

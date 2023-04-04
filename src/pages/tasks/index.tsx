@@ -11,6 +11,7 @@ import { Task } from "@Tasks/common/types";
 import { getTasksOfCustomerQuery } from "@Tasks/common/api";
 import { createNotification } from "src/common/features/notifications/utils";
 import { Notification } from "../../common/features/notifications";
+import { useSession } from "next-auth/react";
 
 export type TaskRouteProps = {
   isCustomer: boolean;
@@ -24,6 +25,7 @@ export default function TasksRoute({
   error,
 }: TaskRouteProps) {
   const { dispatchNotifications } = useNotifications();
+  const { status } = useSession();
 
   if (!isCustomer) {
     return (
@@ -45,7 +47,7 @@ export default function TasksRoute({
 
   if (error) dispatchNotifications({ type: "set", event: error });
 
-  return <TaskPagePrimitive initialTasks={tasks} />;
+  return <TaskPagePrimitive initialTasks={tasks} status={status} />;
 }
 
 export const getServerSideProps: GetServerSideProps<TaskRouteProps> = async ({

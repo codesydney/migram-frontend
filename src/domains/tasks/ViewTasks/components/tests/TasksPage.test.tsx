@@ -8,7 +8,7 @@ import { NotificationsProvider } from "src/common/features/notifications";
 async function setupRender() {
   return renderWithPolarisTestProvider(
     <NotificationsProvider>
-      <TasksPage status={"authenticated"} />
+      <TasksPage initialTasks={[]} status="authenticated" />
     </NotificationsProvider>
   );
 }
