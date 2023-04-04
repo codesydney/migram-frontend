@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-import axios from "axios";
 import { useSession } from "next-auth/react";
 import { Button, Layout } from "@shopify/polaris";
 
@@ -14,14 +13,7 @@ import {
 
 import { routerPush } from "@Utils/router";
 import { createNotification } from "src/common/features/notifications/utils";
-
-async function getTasks(currentPage: number) {
-  const params = { page: currentPage, limit: 6 };
-
-  return axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
-    params,
-  });
-}
+import { getTasks } from "@Tasks/common/api";
 
 export function ListingsPage() {
   const [currentPage, setCurrentPage]: any = useState(1);
@@ -33,7 +25,12 @@ export function ListingsPage() {
   const isProvider = data?.user.providerId ? true : false;
   const isCustomer = data?.user.customerId ? true : false;
 
-  const createTaskButton = <Button primary onClick={() => routerPush("/tasks new")}> Create Task </Button>
+  const createTaskButton = (
+    <Button primary onClick={() => routerPush("/tasks new")}>
+      {" "}
+      Create Task{" "}
+    </Button>
+  );
 
   useEffect(() => {
     if (status === "loading") return;
@@ -68,9 +65,7 @@ export function ListingsPage() {
     <PageWithNotifications
       title="Listings"
       fullWidth
-      primaryAction={
-      isCustomer ? createTaskButton : null
-      }
+      primaryAction={isCustomer ? createTaskButton : null}
     >
       {data ? null : (
         <div
