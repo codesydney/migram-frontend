@@ -4,12 +4,12 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Button, Layout } from "@shopify/polaris";
 
-import { MakeAnOfferModal } from "@Tasks/MakeOffer";
 import { ListingCard } from "./ListingCard";
 import { PageWithNotifications } from "src/common/features/notifications";
 
 import { routerPush } from "@Utils/router";
 import { Task } from "@Tasks/common";
+import { MakeAnOfferModal } from "@Tasks/components/MakeOffer";
 
 export type ListingsPageProps = {
   initialTasks: Task[];
