@@ -7,12 +7,12 @@ import {
   QueryClientWrapper,
   renderWithPolarisTestProvider,
 } from "src/test/utils";
-import { ElementsWrapper } from "src/components/ElementsWrapper";
+import { ElementsWrapper } from "src/common/components/ElementsWrapper";
 import { NotificationsProvider } from "src/common/features/notifications";
 import { server } from "src/mocks/server";
 import { rest } from "msw";
 import { createPaymentIntentUrl } from "../../api";
-import { getCheckoutTaskURL } from "@Billing/Checkout/hooks";
+import { getCheckoutTaskURL } from "@Billing/pages/Checkout/hooks";
 import { createGetTaskResponse } from "./testUtils";
 
 const ProvidersWrapper = ({ children }: PropsWithChildren<{}>) => {

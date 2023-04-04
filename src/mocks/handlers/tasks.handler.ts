@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { getCheckoutTaskURL } from "@Billing/Checkout/hooks";
+import { getCheckoutTaskURL } from "@Billing/pages/Checkout/hooks";
 
 const getTaskResponse = {
   status: "success",
