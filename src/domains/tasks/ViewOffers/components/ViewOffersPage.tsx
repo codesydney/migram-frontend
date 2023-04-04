@@ -1,6 +1,6 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { Card, EmptyState, Layout, Spinner } from "@shopify/polaris";
+import { Card, EmptyState, Layout, Spinner, Text } from "@shopify/polaris";
 import { AxiosError } from "axios";
 import styled from "styled-components";
 
@@ -17,23 +17,6 @@ import { OfferCard } from "./OfferCard";
 const TaskCard = dynamic(() =>
   import("./TaskCard").then((mod) => mod.TaskCard)
 );
-
-/**
- * This component is shown when a Task has not been selected yet.
- */
-function EmptyTaskCardBody({ loading }: { loading: boolean }) {
-  return (
-    <Card sectioned>
-      <EmptyState heading="View Task Details Here" image={""}>
-        {loading ? (
-          <Spinner />
-        ) : (
-          <p>Click on the &quot;View Task Details&quot; button.</p>
-        )}
-      </EmptyState>
-    </Card>
-  );
-}
 
 const StyledDiv = styled.div`
   .Polaris-Layout {
@@ -88,11 +71,7 @@ export function ViewOffersPage({ initialOffers }: ViewOffersPageProps) {
     <StyledDiv aria-label="View Offers Page">
       <PageWithNotifications title="Offers" fullWidth>
         <Layout.Section oneHalf>
-          {!selectedTask || loading ? (
-            <EmptyTaskCardBody loading={loading} />
-          ) : (
-            <TaskCard task={selectedTask} />
-          )}
+          <TaskCard task={selectedTask} loading={loading} />
         </Layout.Section>
         <Layout.Section oneHalf>
           {offers.map((offer) => {
