@@ -1,4 +1,4 @@
-import { AddressSchema } from "@Types/schemas";
+import { AddressSchema } from "src/common/types/schemas";
 import { z } from "zod";
 
 export const TaskStatusSchema = z.enum([

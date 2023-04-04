@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/router";
 
-import { CheckoutPage } from "@Billing/Checkout";
+import { CheckoutPage } from "@Billing/pages/Checkout";
 
 const CheckoutRoute = () => {
   const router = useRouter();

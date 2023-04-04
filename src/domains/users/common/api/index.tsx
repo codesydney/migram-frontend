@@ -9,8 +9,8 @@ import router from "next/router";
 import { deleteAuthHeader, setAuthHeader } from "../utils";
 import { routerPush } from "@Utils/router";
 import { PasswordLoginCredentials } from "../types";
-import { LoginFormState } from "@Users/Login/LoginPage";
-import { SignUpFormState } from "@Users/CustomerSignUp/hooks";
+import { LoginFormState } from "@Users/pages/Login";
+import { SignUpFormState } from "@Users/pages/CustomerSignUp";
 
 export const signIn = async (formValues: LoginFormState) => {
   const signInResponse = await nextAuthSignIn("credentials", {
