@@ -7,9 +7,7 @@ export const getTasksOfCustomerQuery = (config?: AxiosRequestConfig) => {
   });
 };
 
-export async function getTasks(currentPage: number) {
-  const params = { page: currentPage, limit: 6 };
-
+export async function getTasksQuery(currentPage: number) {
   return axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/v1/tasks`, {
     params,
   });

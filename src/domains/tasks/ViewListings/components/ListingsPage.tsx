@@ -13,7 +13,7 @@ import {
 
 import { routerPush } from "@Utils/router";
 import { createNotification } from "src/common/features/notifications/utils";
-import { getTasks } from "@Tasks/common/api";
+import { getTasksQuery } from "@Tasks/common/api";
 
 export function ListingsPage() {
   const [currentPage, setCurrentPage]: any = useState(1);
@@ -37,7 +37,7 @@ export function ListingsPage() {
 
     dispatchNotifications({ type: "clear" });
 
-    getTasks(currentPage)
+    getTasksQuery(currentPage)
       .then((response) => {
         if (response.data.data.tasks.length == 0) {
           setCurrentPage(currentPage - 1);
