@@ -4,8 +4,8 @@ import { SessionProvider } from "next-auth/react";
 import Nprogress from "nprogress";
 import "nprogress/nprogress.css";
 
-import { Layout } from "src/components";
-import { ClientProviders } from "src/components/ClientProviders";
+import { Layout } from "src/common/components";
+import { ClientProviders } from "src/common/components/ClientProviders";
 
 if (process.env.NODE_ENV === "test") {
   require("../mocks");

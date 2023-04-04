@@ -9,9 +9,9 @@ import {
   Text,
 } from "@shopify/polaris";
 import { PageWithNotifications } from "src/common/features/notifications";
-import { TextField } from "src/components/TextField";
+import { TextField } from "src/common/components/TextField";
 import { useProviderSignUpForm, SignUpFormState } from "../hooks";
-import { FormPaddingDiv } from "src/components/FormPaddingDiv";
+import { FormPaddingDiv } from "src/common/components/FormPaddingDiv";
 
 export const ProviderSignUpPage = () => {
   const { control, onSubmit } = useProviderSignUpForm();

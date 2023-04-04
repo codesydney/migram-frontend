@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import { CheckoutForm } from "../CheckoutForm";
-import { ElementsWrapper } from "src/components/ElementsWrapper";
+import { ElementsWrapper } from "src/common/components/ElementsWrapper";
 import { renderWithPolarisTestProvider } from "src/test/utils";
 import { NotificationsProvider } from "src/common/features/notifications";
 

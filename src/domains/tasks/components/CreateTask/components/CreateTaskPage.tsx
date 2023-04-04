@@ -1,6 +1,6 @@
 import { Form, FormLayout, Button, Text, Layout } from "@shopify/polaris";
 
-import { TextField, Select } from "src/components/index";
+import { TextField, Select } from "src/common/components/index";
 
 import { useCreateTaskForm } from "../hooks/useCreateTaskForm";
 import { StateSchema } from "@Types/schemas";
@@ -11,7 +11,7 @@ import {
   TaskTimeOfArrivalSchema,
 } from "@Tasks/common/types";
 import { PageWithNotifications } from "src/common/features/notifications";
-import { FormPaddingDiv } from "src/components/FormPaddingDiv";
+import { FormPaddingDiv } from "src/common/components/FormPaddingDiv";
 
 export const CreateTaskPage = () => {
   const { control, onSubmit } = useCreateTaskForm();
