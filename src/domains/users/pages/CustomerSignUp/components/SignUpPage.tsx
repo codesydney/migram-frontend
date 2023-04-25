@@ -1,81 +1,78 @@
-import { useState } from "react";
 import Link from "next/link";
+import { Text } from "@shopify/polaris";
 
+import { createCustomerUser } from "@Users/common/api";
+import { routerPush } from "@Utils/router";
 import {
-  Button,
-  Checkbox,
-  Form,
-  FormLayout,
-  Layout,
-  Text,
-} from "@shopify/polaris";
-import { PageWithNotifications } from "src/common/features/notifications";
-import { TextField } from "src/common/components/TextField";
-import { useSignUpForm, SignUpFormState } from "../hooks";
-import { FormPaddingDiv } from "src/common/components/FormPaddingDiv";
+  useNotifications,
+  createNotification,
+  PageWithNotifications,
+} from "src/common/features/notifications";
+import {
+  SignUpForm,
+  SignUpFormState,
+  useSignUpForm,
+} from "@Users/common/components/SignUpForm";
+
+function useSignUpHandler() {
+  const { dispatchNotifications } = useNotifications();
+  const submitHandler = async (data: SignUpFormState) => {
+    dispatchNotifications({ type: "clear" });
+    await createCustomerUser(data)
+      .then((res) => {
+        const action = {
+          type: "set",
+          event: createNotification({
+            isError: false,
+            title:
+              "Thank you for signing up. Please login with your account details.",
+            type: "toast",
+            status: "success",
+            source: "Customer Signup Success",
+          }),
+        } as const;
+
+        dispatchNotifications(action);
+
+        routerPush("/login");
+      })
+      .catch((err) => {
+        const action = {
+          type: "set",
+          event: createNotification({
+            isError: true,
+            title: err.response.data.message,
+            type: "notification",
+            status: "critical",
+            source: "Customer Signup Failure",
+          }),
+        } as const;
+
+        dispatchNotifications(action);
+      });
+  };
+
+  return submitHandler;
+}
 
 export const SignUpPage = () => {
-  const { control, onSubmit } = useSignUpForm();
-  const [showPassword, setShowPassword] = useState(false);
+  const submitHandler = useSignUpHandler();
+  const { control, onSubmit } = useSignUpForm(submitHandler);
 
   return (
-    <PageWithNotifications title="Sign Up">
-      <Layout.Section>
-        <FormPaddingDiv>
-          <Form onSubmit={onSubmit}>
-            <FormLayout>
-              <TextField<SignUpFormState>
-                name="name"
-                label="Name"
-                autoComplete="name"
-                control={control}
-              />
-              <TextField<SignUpFormState>
-                name="email"
-                label="Email"
-                type="email"
-                autoComplete="email"
-                control={control}
-              />
-              <TextField<SignUpFormState>
-                id="password"
-                name="password"
-                label="Password"
-                type={showPassword ? "text" : "password"}
-                autoComplete="new-password"
-                control={control}
-              />
-              <TextField<SignUpFormState>
-                id="passwordConfirm"
-                name="passwordConfirm"
-                label="Confirm Password"
-                type={showPassword ? "text" : "password"}
-                autoComplete="new-password"
-                control={control}
-              />
-              <Checkbox
-                label="Show Password"
-                checked={showPassword}
-                onChange={() => setShowPassword(!showPassword)}
-              />
-              <Button primary submit size="large">
-                Submit
-              </Button>
-
-              <Text as="h2" variant="headingSm">
-                Want to earn money on Tasks instead?{" "}
-                <Link
-                  href="/providers/signup"
-                  className="Polaris-Link"
-                  data-polaris-unstyled="true"
-                >
-                  Sign Up as Provider.
-                </Link>
-              </Text>
-            </FormLayout>
-          </Form>
-        </FormPaddingDiv>
-      </Layout.Section>
+    <PageWithNotifications title="Sign Up as Customer">
+      <SignUpForm control={control} onSubmit={onSubmit}>
+        <Text as="h2" variant="headingSm">
+          Want to earn money on Tasks instead?{" "}
+          <Link
+            href="/providers/signup"
+            className="Polaris-Link"
+            data-polaris-unstyled="true"
+          >
+            Sign Up as Provider.
+          </Link>
+        </Text>
+      </SignUpForm>
     </PageWithNotifications>
   );
 };
