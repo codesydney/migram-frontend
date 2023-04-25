@@ -1,30 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 
 import axios from "axios";
 import { createUser, signIn } from "@Users/common/api";
 import { useNotifications } from "src/common/features/notifications";
-import { routerPush } from "@Utils/router";
 import { createNotification } from "src/common/features/notifications/utils";
-
-export const formSchema = z
-  .object({
-    name: z.string({ required_error: "Name is required" }),
-    email: z
-      .string({ required_error: "Email is required" })
-      .email({ message: "Invalid email address" }),
-    password: z
-      .string({ required_error: "Password is required" })
-      .min(8, "Password must be 8 or more characters"),
-    passwordConfirm: z.string().min(1, "Please enter a password confirmation"),
-  })
-  .refine((data) => data.password === data.passwordConfirm, {
-    message: "Passwords don't match",
-    path: ["passwordConfirm"],
-  });
-
-export type SignUpFormState = z.infer<typeof formSchema>;
+import {
+  SignUpFormState,
+  formSchema,
+} from "@Users/common/components/SignUpForm";
 
 const fetchProviderOnboardingUrl = async (userId: string) => {
   const response = await axios.post(
