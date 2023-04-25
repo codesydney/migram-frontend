@@ -21,8 +21,8 @@ export type PaymentStatus = z.infer<typeof PaymentStatusSchema>;
 export const TaskCategorySchema = z.enum([
   "Cleaning",
   "Gardening",
-  "Lawn Mowing",
   "Painting",
+  "Other",
 ] as const);
 
 export const TaskTimeOfArrivalSchema = z.enum([
