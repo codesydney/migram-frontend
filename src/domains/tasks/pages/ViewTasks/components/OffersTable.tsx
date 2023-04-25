@@ -26,7 +26,8 @@ type OfferItemRowProps = {
 } & Omit<IndexTableRowProps, "id" | "children">;
 
 export const OfferItemRow = ({ offer, ...props }: OfferItemRowProps) => {
-  const { id, offerAmt, status, comments, firstName } = offer as any;
+  const { id, offerAmt, status, comments, firstName, phone, email } =
+    offer as any;
 
   return (
     <IndexTable.Row {...props} id={id}>
@@ -47,6 +48,12 @@ export const OfferItemRow = ({ offer, ...props }: OfferItemRowProps) => {
               {firstName}
             </Text>
             <p>{comments}</p>
+            <Text variant="bodyMd" color="subdued" as="p">
+              Phone Number: <a href={`{tel:${phone}`}>{phone}</a>
+            </Text>
+            <Text variant="bodyMd" color="subdued" as="p">
+              Email: <a href={`{mailto:${email}`}>{email}</a>
+            </Text>
           </TextContainer>
         </div>
       </IndexTable.Cell>
@@ -81,10 +88,6 @@ export const OffersTable = ({ offers }: { offers: Array<Offer> }) => {
   };
 
   const promotedBulkActions = [
-    {
-      content: "View Contact Details",
-      onAction: () => console.log("Todo: implement bulk add tags"),
-    },
     {
       content: "Accept Offer",
       onAction: () => {
