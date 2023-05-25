@@ -2,11 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import pino from "pino";
 import Stripe from "stripe";
 
-// import {
-//   createWebhookEvent,
-//   deleteWebhookEvent,
-//   getWebhookEvent,
-// } from "@/data/webhooks";
+import { WebhookEvent } from "@/backend/data/webhooks";
 import { updateUserCalls } from "@/backend/services/users";
 import { verifyStripeWebhook } from "@/backend/util/webhooks";
 
@@ -18,13 +14,13 @@ async function handlePaymentIntentSucceeded(
 ) {
   logger.info({ id: payload.id }, "Stripe Payment Intent Succeeded");
   const { id } = payload;
-  // const existingEvent = await getWebhookEvent(id);
+  const existingEvent = await WebhookEvent.findOne({ id });
 
-  // if (existingEvent) {
-  //   return res.status(200).json({ message: "duplicate" });
-  // }
+  if (existingEvent && existingEvent.status !== "rejected") {
+    return res.status(200).json({ message: "duplicate" });
+  }
 
-  // await createWebhookEvent({ id });
+  await WebhookEvent.create({ id, source: "Stripe", status: "pending" });
 
   const paymentIntent = payload.data.object as Stripe.PaymentIntent;
   const userId = paymentIntent.metadata.userId;
@@ -32,14 +28,14 @@ async function handlePaymentIntentSucceeded(
   const updateCallsResult = await updateUserCalls(userId);
 
   if (updateCallsResult.type === "error") {
-    // await deleteWebhookEvent(id);
+    await WebhookEvent.updateOne({ id }, { status: "error" });
 
     return res
       .status(updateCallsResult.status)
       .json({ error: updateCallsResult.error });
   }
 
-  // await deleteWebhookEvent(id);
+  await WebhookEvent.updateOne({ id }, { status: "success" });
 
   logger.info({ userId });
 
