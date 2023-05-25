@@ -6,8 +6,9 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 
 const navigation = [
-  { name: "Pricing", href: "#" },
-  { name: "How Does Lost Me Phone Work?", href: "/#how-does-it-work" },
+  { name: "Home", href: "/" },
+  { name: "Tasks", href: "/tasks" },
+  { name: "Offers", href: "/offers" },
 ];
 
 export function Header() {
@@ -21,11 +22,10 @@ export function Header() {
       >
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              src="/logo.png"
               alt=""
             />
           </a>
