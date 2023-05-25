@@ -1,9 +1,5 @@
-export default function Home() {
-  return (
-    <main>
-      <Tasks />
-    </main>
-  );
+export default function TasksPage() {
+  return <Tasks />;
 }
 
 const tasks = [

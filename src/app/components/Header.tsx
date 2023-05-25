@@ -23,11 +23,7 @@ export function Header() {
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className="h-8 w-auto"
-              src="/logo.png"
-              alt=""
-            />
+            <img className="h-8 w-auto" src="/logo.png" alt="" />
           </a>
         </div>
         <div className="flex lg:hidden">
