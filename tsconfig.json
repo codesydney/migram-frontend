@@ -1,16 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "baseUrl": ".",
-    "paths": {
-      "@Components/*": ["src/common/components/*"],
-      "@Billing/*": ["src/domains/billing/*"],
-      "@Tasks/*": ["src/domains/tasks/*"],
-      "@Types/*": ["src/common/types/*"],
-      "@Users/*": ["src/domains/users/*"],
-      "@Utils/*": ["src/common/utils/*"]
-    },
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -22,13 +13,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/v2/components/offers"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
