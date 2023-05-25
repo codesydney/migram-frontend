@@ -5,7 +5,7 @@ import pino from "pino";
 import { Stripe } from "stripe";
 import { Webhook } from "svix";
 
-import { stripe } from "@/services/payments";
+import { stripe } from "@/backend/services/payments";
 
 const CLERK_WEBHOOK_AUTH_SECRET = process.env.CLERK_WEBHOOK_AUTH_SECRET;
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;

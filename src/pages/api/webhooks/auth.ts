@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import to from "await-to-js";
 import pino from "pino";
 
-import { updateUser } from "@/data/users";
-import { verifyClerkWebhook } from "@/util/webhooks";
+import { verifyClerkWebhook } from "@/backend/util/webhooks";
+import { updateUser } from "@/backend/data/users";
 
 export const config = { api: { bodyParser: false } };
 

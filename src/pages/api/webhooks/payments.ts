@@ -7,8 +7,8 @@ import Stripe from "stripe";
 //   deleteWebhookEvent,
 //   getWebhookEvent,
 // } from "@/data/webhooks";
-import { updateUserCalls } from "@/services/users";
-import { verifyStripeWebhook } from "@/util";
+import { updateUserCalls } from "@/backend/services/users";
+import { verifyStripeWebhook } from "@/backend/util/webhooks";
 
 const logger = pino({ name: "Payments Webhook Handler" });
 

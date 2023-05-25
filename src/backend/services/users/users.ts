@@ -1,6 +1,6 @@
 import pino from "pino";
 
-import { getUser, updateUser } from "@/data/users";
+import { getUser, updateUser } from "@/backend/data/users";
 
 const logger = pino({ name: "Payments Webhook Handler" });
 
