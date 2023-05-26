@@ -1,6 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  CreateTaskPayload,
+  CreateTaskSchema,
+  StateSchema,
+} from "@/types/schemas/Task";
 
 export default function CreateTaskPage() {
   const router = useRouter();
@@ -9,7 +15,7 @@ export default function CreateTaskPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<CreateTaskPayload>({ resolver: zodResolver(CreateTaskSchema) });
 
   const onSubmit = (data: any) => {
     console.log(data);
