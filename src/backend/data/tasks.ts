@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { Task } from "@/types/schemas/Task";
 
-const taskSchema = new mongoose.Schema({
+const taskSchema = new mongoose.Schema<Task>({
   customerId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "Customer",
     index: true,
     required: true,
@@ -28,13 +29,13 @@ const taskSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["open", "in_progress", "completed"],
-    default: "open",
+    enum: ["Open", "In Progress", "Completed"],
+    default: "Open",
   },
   paymentStatus: {
     type: String,
-    enum: ["pending", "paid"],
-    default: "pending",
+    enum: ["N/A", "Payment Due", "Pending", "Paid", "Payment Declined"],
+    default: "N/A",
   },
   dueDate: {
     type: Date,
@@ -71,4 +72,5 @@ const taskSchema = new mongoose.Schema({
   },
 });
 
-export const Task = mongoose.models.Task || mongoose.model("Task", taskSchema);
+export const TaskModel =
+  mongoose.models.Task || mongoose.model("Task", taskSchema);

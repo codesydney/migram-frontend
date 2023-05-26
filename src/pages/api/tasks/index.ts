@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { Task } from "@/backend/data/tasks";
+import { TaskModel } from "@/backend/data/tasks";
 import { dbConnect } from "@/backend/services/db";
 import { authenticate } from "@/backend/middlewares/auth";
 import { isUserCustomer } from "@/backend/services/users";
 
 async function getTasks(req: NextApiRequest, res: NextApiResponse) {
-  const tasks = await Task.find();
+  const tasks = await TaskModel.find();
 
   return res.status(200).json({ data: tasks });
 }
@@ -28,7 +28,7 @@ async function createTask(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const payload = req.body;
-  const task = await Task.create(payload);
+  const task = await TaskModel.create(payload);
 
   return res.status(200).json({ data: task });
 }

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { Task } from "@/backend/data/tasks";
+import { TaskModel } from "@/backend/data/tasks";
 import { authenticate } from "@/backend/middlewares/auth";
 import { dbConnect } from "@/backend/services/db";
 import { isUserCustomer } from "@/backend/services/users";
@@ -8,7 +8,7 @@ import { CustomerMetadata } from "@/backend/services/users/types";
 
 async function getTaskById(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-  const task = await Task.findOne({ id });
+  const task = await TaskModel.findOne({ id });
 
   return res.status(200).json({ data: task });
 }
@@ -28,7 +28,7 @@ async function updateTask(req: NextApiRequest, res: NextApiResponse) {
     });
 
   const { id } = req.query;
-  const task = await Task.findById({ id });
+  const task = await TaskModel.findById({ id });
 
   const userMetadata = user.publicMetadata as CustomerMetadata;
   const customerId = userMetadata.customerId;
