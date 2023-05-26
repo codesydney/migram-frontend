@@ -13,6 +13,13 @@ async function createStripeCustomer(req: NextApiRequest, res: NextApiResponse) {
   const user = await clerkClient.users.getUser(userId);
   if (!user) return res.status(401).end("Unauthorized");
 
+  const existingCustomer = await Customer.findById(userId);
+
+  if (existingCustomer)
+    return res
+      .status(200)
+      .json({ message: "Stripe Customer has already been registered" });
+
   const emailAddressResult = getPrimaryEmailAddress(user!);
 
   if (emailAddressResult.type === "error")
