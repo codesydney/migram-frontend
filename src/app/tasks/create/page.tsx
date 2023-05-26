@@ -22,7 +22,7 @@ function CreateTaskForm() {
                   Task Details
                 </h2>
                 <p className="mt-1 text-sm leading-6 text-gray-600">
-                  Tell us what needs to be done?
+                  Tell us what needs to be done
                 </p>
               </div>
 
@@ -39,9 +39,8 @@ function CreateTaskForm() {
                       <div className="mt-2">
                         <input
                           type="text"
-                          name="street-address"
-                          id="street-address"
-                          autoComplete="street-address"
+                          name="shortDescription"
+                          id="short-description"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -71,15 +70,15 @@ function CreateTaskForm() {
 
                     <div className="col-span-full">
                       <label
-                        htmlFor="about"
+                        htmlFor="details"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
                         More Details
                       </label>
                       <div className="mt-2">
                         <textarea
-                          id="about"
-                          name="about"
+                          id="details"
+                          name="details"
                           rows={3}
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           defaultValue={""}
@@ -89,7 +88,7 @@ function CreateTaskForm() {
 
                     <div className="sm:col-span-4">
                       <label
-                        htmlFor="street-address"
+                        htmlFor="due-date"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
                         Due Date
@@ -97,15 +96,14 @@ function CreateTaskForm() {
                       <div className="mt-2">
                         <input
                           type="date"
-                          name="street-address"
-                          id="street-address"
-                          autoComplete="street-address"
+                          name="dueDate"
+                          id="due-date"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
                     </div>
 
-                    <div className="col-span-full">
+                    {/* <div className="col-span-full">
                       <label
                         htmlFor="cover-photo"
                         className="block text-sm font-medium leading-6 text-gray-900"
@@ -138,6 +136,41 @@ function CreateTaskForm() {
                           </p>
                         </div>
                       </div>
+                    </div> */}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
+              <div className="px-4 sm:px-0">
+                <h2 className="text-base font-semibold leading-7 text-gray-900">
+                  Budget
+                </h2>
+                <p className="mt-1 text-sm leading-6 text-gray-600">
+                  Tell us how much you are looking to spend
+                </p>
+              </div>
+
+              <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+                <div className="px-4 py-6 sm:p-8">
+                  <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div className="col-span-full">
+                      <label
+                        htmlFor="budget"
+                        className="block text-sm font-medium leading-6 text-gray-900"
+                      >
+                        Budget
+                      </label>
+                      <div className="mt-2">
+                        <input
+                          type="number"
+                          name="budget"
+                          id="budget"
+                          autoComplete="budget"
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -150,7 +183,7 @@ function CreateTaskForm() {
                   Address
                 </h2>
                 <p className="mt-1 text-sm leading-6 text-gray-600">
-                  Tell us where the task will need to be done.
+                  Tell us where the task will need to be done
                 </p>
               </div>
 
@@ -167,7 +200,7 @@ function CreateTaskForm() {
                       <div className="mt-2">
                         <input
                           type="text"
-                          name="street-address"
+                          name="streetAddress"
                           id="street-address"
                           autoComplete="street-address"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -195,7 +228,7 @@ function CreateTaskForm() {
 
                     <div className="sm:col-span-2">
                       <label
-                        htmlFor="region"
+                        htmlFor="state"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
                         State / Province
@@ -203,8 +236,8 @@ function CreateTaskForm() {
                       <div className="mt-2">
                         <input
                           type="text"
-                          name="region"
-                          id="region"
+                          name="state"
+                          id="state"
                           autoComplete="address-level1"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
@@ -216,12 +249,12 @@ function CreateTaskForm() {
                         htmlFor="postal-code"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        ZIP / Postal code
+                        Postcode
                       </label>
                       <div className="mt-2">
                         <input
                           type="text"
-                          name="postal-code"
+                          name="postal_code"
                           id="postal-code"
                           autoComplete="postal-code"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
