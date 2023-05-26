@@ -58,6 +58,9 @@ export default function CreateTaskPage() {
                           {...register("shortDescription")}
                         />
                       </div>
+                      <p className="mt-2 text-sm text-red-600" id="email-error">
+                        {errors.shortDescription?.message as string}
+                      </p>
                     </div>
 
                     <div className="sm:col-span-4">
@@ -97,6 +100,9 @@ export default function CreateTaskPage() {
                           {...register("details")}
                         />
                       </div>
+                      <p className="mt-2 text-sm text-red-600" id="email-error">
+                        {errors.details?.message as string}
+                      </p>
                     </div>
 
                     <div className="sm:col-span-4">
@@ -114,6 +120,9 @@ export default function CreateTaskPage() {
                           {...register("dueDate")}
                         />
                       </div>
+                      <p className="mt-2 text-sm text-red-600" id="email-error">
+                        {errors.dueDate?.message as string}
+                      </p>
                     </div>
 
                     {/* <div className="col-span-full">
@@ -184,6 +193,9 @@ export default function CreateTaskPage() {
                           {...register("budget")}
                         />
                       </div>
+                      <p className="mt-2 text-sm text-red-600" id="email-error">
+                        {errors.budget?.message as string}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -219,6 +231,9 @@ export default function CreateTaskPage() {
                           {...register("streetAddress")}
                         />
                       </div>
+                      <p className="mt-2 text-sm text-red-600" id="email-error">
+                        {errors.streetAddress?.message as string}
+                      </p>
                     </div>
 
                     <div className="sm:col-span-2 sm:col-start-1">
@@ -237,6 +252,9 @@ export default function CreateTaskPage() {
                           {...register("city")}
                         />
                       </div>
+                      <p className="mt-2 text-sm text-red-600" id="email-error">
+                        {errors.city?.message as string}
+                      </p>
                     </div>
 
                     <div className="sm:col-span-2">
@@ -255,6 +273,9 @@ export default function CreateTaskPage() {
                           {...register("state")}
                         />
                       </div>
+                      <p className="mt-2 text-sm text-red-600" id="email-error">
+                        {errors.state?.message as string}
+                      </p>
                     </div>
 
                     <div className="sm:col-span-2">
@@ -273,6 +294,9 @@ export default function CreateTaskPage() {
                           {...register("postal_code")}
                         />
                       </div>
+                      <p className="mt-2 text-sm text-red-600" id="email-error">
+                        {errors.postal_code?.message as string}
+                      </p>
                     </div>
                   </div>
                 </div>
