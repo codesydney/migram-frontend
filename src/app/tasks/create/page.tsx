@@ -234,11 +234,11 @@ export default function CreateTaskPage() {
                           id="street-address"
                           autoComplete="street-address"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          {...register("streetAddress")}
+                          {...register("location.streetAddress")}
                         />
                       </div>
                       <p className="mt-2 text-sm text-red-600" id="email-error">
-                        {errors.streetAddress?.message as string}
+                        {errors.location?.streetAddress?.message as string}
                       </p>
                     </div>
 
@@ -255,11 +255,11 @@ export default function CreateTaskPage() {
                           id="city"
                           autoComplete="address-level2"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          {...register("city")}
+                          {...register("location.city")}
                         />
                       </div>
                       <p className="mt-2 text-sm text-red-600" id="email-error">
-                        {errors.city?.message as string}
+                        {errors.location?.city?.message as string}
                       </p>
                     </div>
 
@@ -268,7 +268,7 @@ export default function CreateTaskPage() {
                         htmlFor="state"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        State / Province
+                        State
                       </label>
                       <div className="mt-2">
                         <input
@@ -276,11 +276,11 @@ export default function CreateTaskPage() {
                           id="state"
                           autoComplete="address-level1"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          {...register("state")}
+                          {...register("location.state")}
                         />
                       </div>
                       <p className="mt-2 text-sm text-red-600" id="email-error">
-                        {errors.state?.message as string}
+                        {errors.location?.state?.message as string}
                       </p>
                     </div>
 
@@ -297,11 +297,11 @@ export default function CreateTaskPage() {
                           id="postal-code"
                           autoComplete="postal-code"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          {...register("postal_code")}
+                          {...register("location.postal_code")}
                         />
                       </div>
                       <p className="mt-2 text-sm text-red-600" id="email-error">
-                        {errors.postal_code?.message as string}
+                        {errors.location?.postal_code?.message as string}
                       </p>
                     </div>
                   </div>
