@@ -1,4 +1,13 @@
+"use client";
+import { useRouter } from "next/navigation";
+
 export default function CreateTaskPage() {
+  const router = useRouter();
+
+  const onCancelClick = () => {
+    router.push("/tasks");
+  };
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -261,6 +270,7 @@ export default function CreateTaskPage() {
                   <button
                     type="button"
                     className="text-sm font-semibold leading-6 text-gray-900"
+                    onClick={onCancelClick}
                   >
                     Cancel
                   </button>
