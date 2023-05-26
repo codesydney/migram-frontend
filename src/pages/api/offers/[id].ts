@@ -2,17 +2,17 @@ import { Offer } from "@/backend/data/offers";
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function getOfferById(req: NextApiRequest, res: NextApiResponse) {
-  const id = "";
+  const { id } = req.query;
   const offer = await Offer.findOne({ id });
 
   return res.status(200).json({ data: offer });
 }
 
 async function updateOffer(req: NextApiRequest, res: NextApiResponse) {
-  const id = "";
+  const { id } = req.query;
   const offer = Offer.updateOne({ id }, {});
 
-  return res.status(200).json({ data: offer });
+  return res.status(200).json({ data: offer, id });
 }
 
 export default async function handler(
