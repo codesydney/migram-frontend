@@ -26,4 +26,5 @@ const offerSchema = new mongoose.Schema({
   },
 });
 
-export const Offer = mongoose.model("Offer", offerSchema);
+export const Offer =
+  mongoose.models.Offer || mongoose.model("Offer", offerSchema);
