@@ -28,7 +28,7 @@ export const TaskCategorySchema = z.enum([
 export const TaskSchema = z.object({
   id: z.string(),
   customerId: z.string(),
-  category: TaskCategorySchema.default("Cleaning"),
+  category: TaskCategorySchema,
   shortDescription: z
     .string({
       required_error: "shortDescription is required",
@@ -59,4 +59,13 @@ export const TaskSchema = z.object({
   acceptedOffer: z.optional(z.string()),
 });
 
+export const CreateTaskSchema = TaskSchema.omit({
+  id: true,
+  customerId: true,
+  status: true,
+  paymentStatus: true,
+  acceptedOffer: true,
+});
+
 export type Task = z.infer<typeof TaskSchema>;
+export type CreateTaskPayload = z.infer<typeof CreateTaskSchema>;
