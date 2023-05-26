@@ -6,6 +6,7 @@ import {
   CreateTaskPayload,
   CreateTaskSchema,
   StateSchema,
+  TaskCategorySchema,
 } from "@/types/schemas/Task";
 
 export default function CreateTaskPage() {
@@ -83,10 +84,11 @@ export default function CreateTaskPage() {
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                           {...register("category")}
                         >
-                          <option>Cleaning</option>
-                          <option>Gardening</option>
-                          <option>Painting</option>
-                          <option>Other</option>
+                          {TaskCategorySchema.options.map((category) => (
+                            <option value={category} key={category}>
+                              {category}
+                            </option>
+                          ))}
                         </select>
                       </div>
                     </div>
