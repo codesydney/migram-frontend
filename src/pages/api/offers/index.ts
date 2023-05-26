@@ -5,6 +5,11 @@ import { isUserServiceProvider } from "@/backend/services/users";
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function getOffers(req: NextApiRequest, res: NextApiResponse) {
+  const authResult = await authenticate(req);
+
+  if (authResult.type === "error")
+    return res.status(authResult.status).json({ message: authResult.message });
+
   const offers = await Offer.find();
 
   return res.status(200).json({ data: offers });

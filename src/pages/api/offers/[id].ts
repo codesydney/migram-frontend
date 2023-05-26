@@ -5,6 +5,11 @@ import { ServiceProviderMetadata } from "@/backend/services/users/types";
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function getOfferById(req: NextApiRequest, res: NextApiResponse) {
+  const authResult = await authenticate(req);
+
+  if (authResult.type === "error")
+    return res.status(authResult.status).json({ message: authResult.message });
+
   const { id } = req.query;
   const offer = await Offer.findOne({ id });
 
