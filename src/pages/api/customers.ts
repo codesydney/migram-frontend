@@ -22,7 +22,7 @@ async function createStripeCustomer(req: NextApiRequest, res: NextApiResponse) {
     const message = "Stripe Customer has already been registered";
     logger.error(message);
 
-    return res.status(200).json({ message });
+    return res.status(400).json({ message });
   }
 
   const emailAddressResult = getPrimaryEmailAddress(user!);
