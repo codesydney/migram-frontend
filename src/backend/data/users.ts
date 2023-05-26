@@ -11,9 +11,9 @@ export type UpdateUserParams = {
   password?: string;
   skipPasswordChecks?: boolean;
   signOutOfOtherSessions?: boolean;
-  primaryEmailAddressID?: string;
-  primaryPhoneNumberID?: string;
-  primaryWeb3WalletID?: string;
+  primaryEmailAddressId?: string;
+  primaryPhoneNumberId?: string;
+  primaryWeb3WalletId?: string;
   profileImageID?: string;
   totpSecret?: string;
   backupCodes?: string[];
