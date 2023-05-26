@@ -1,8 +1,17 @@
 import mongoose from "mongoose";
 
-const offerSchema = new mongoose.Schema({
+import { Offer as BaseOffer } from "@/types/schemas/Offer";
+
+/**
+ * Mongoose Friendly Offer Type with the taskId string field converted to an ObjectId field
+ */
+type Offer = Omit<BaseOffer, "taskId"> & {
+  taskId: mongoose.Schema.Types.ObjectId;
+};
+
+const offerSchema = new mongoose.Schema<Offer>({
   serviceProviderId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: "ServiceProvider",
     required: true,
   },
@@ -17,8 +26,8 @@ const offerSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["pending", "accepted", "rejected"],
-    default: "pending",
+    enum: ["Pending", "Accepted", "Rejected"],
+    default: "Pending",
   },
   message: {
     type: String,
@@ -27,4 +36,4 @@ const offerSchema = new mongoose.Schema({
 });
 
 export const OfferModel =
-  mongoose.models.Offer || mongoose.model("Offer", offerSchema);
+  mongoose.models.Offer || mongoose.model<Offer>("Offer", offerSchema);
