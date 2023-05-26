@@ -1,9 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import pino from "pino";
 
 import { TaskModel } from "@/backend/data/tasks";
 import { dbConnect } from "@/backend/services/db";
 import { authenticate } from "@/backend/middlewares/auth";
 import { isUserCustomer } from "@/backend/services/users";
+
+const logger = pino({ name: "api/tasks" });
 
 async function getTasks(req: NextApiRequest, res: NextApiResponse) {
   const tasks = await TaskModel.find();
@@ -31,6 +34,8 @@ async function createTask(req: NextApiRequest, res: NextApiResponse) {
 
   const payload = { ...req.body, customerId };
   const task = await TaskModel.create(payload);
+
+  logger.info({ task }, "Task succesfully created");
 
   return res.status(200).json({ data: task });
 }
