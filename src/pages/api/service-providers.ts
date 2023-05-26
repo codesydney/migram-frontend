@@ -9,6 +9,7 @@ import {
   createStripeConnectRedirectLink,
 } from "@/backend/services/payments/connect";
 import { getPrimaryEmailAddress } from "@/backend/services/users";
+import { UserMetadata } from "@/backend/services/users/types";
 
 const logger = pino({ name: "api/service-providers" });
 
@@ -21,6 +22,13 @@ async function createServiceProvider(
 
   const user = await clerkClient.users.getUser(userId);
   if (!user) return res.status(500).end("Internal Server Error");
+
+  const userMetadata = user.publicMetadata as UserMetadata;
+
+  if (userMetadata.role !== "customer")
+    return res.status(400).json({
+      message: "Bad Request: Customers cannot sign up as Service Providers",
+    });
 
   const existingServiceProvider = await ServiceProvider.findById(userId);
 

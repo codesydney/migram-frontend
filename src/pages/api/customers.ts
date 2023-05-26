@@ -6,6 +6,7 @@ import { Customer } from "@/backend/data/customers";
 import { dbConnect } from "@/backend/services/db";
 import { stripe } from "@/backend/services/payments";
 import { getPrimaryEmailAddress } from "@/backend/services/users";
+import { UserMetadata } from "@/backend/services/users/types";
 
 const logger = pino({ name: "api/customers" });
 
@@ -15,6 +16,13 @@ async function createStripeCustomer(req: NextApiRequest, res: NextApiResponse) {
 
   const user = await clerkClient.users.getUser(userId);
   if (!user) return res.status(500).end("Internal Server Error");
+
+  const userMetadata = user.publicMetadata as UserMetadata;
+
+  if (userMetadata.role !== "service-provider")
+    return res.status(400).json({
+      message: "Bad Request: Service Providers cannot sign up as Customers",
+    });
 
   const existingCustomer = await Customer.findById(userId);
 
