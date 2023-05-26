@@ -25,16 +25,28 @@ export const TaskCategorySchema = z.enum([
   "Other",
 ] as const);
 
+export const StateSchema = z.enum([
+  "NSW",
+  "ACT",
+  "NT",
+  "QLD",
+  "SA",
+  "TAS",
+  "VIC",
+  "WA",
+]);
+export type State = z.infer<typeof StateSchema>;
+
 export const TaskSchema = z.object({
   id: z.string(),
   customerId: z.string(),
   category: TaskCategorySchema,
   shortDescription: z
     .string({
-      required_error: "shortDescription is required",
+      required_error: "Description is required",
     })
     .min(10, {
-      message: "shortDescription must be at least 10 characters long",
+      message: "Description must be at least 10 characters long",
     }),
   details: z
     .string({ required_error: "Details are required" })
@@ -51,10 +63,12 @@ export const TaskSchema = z.object({
     .min(new Date(), { message: "Due date must be in the future" }),
   photos: z.array(z.string()),
   location: z.object({
-    streetAddress: z.string(),
-    city: z.string(),
-    state: z.enum(["NSW", "ACT", "NT", "QLD", "SA", "TAS", "VIC", "WA"]),
-    postal_code: z.string(),
+    streetAddress: z
+      .string()
+      .nonempty({ message: "Street address is required" }),
+    city: z.string().nonempty({ message: "City is required" }),
+    state: StateSchema,
+    postal_code: z.string().nonempty({ message: "Postcode is required" }),
   }),
   acceptedOffer: z.optional(z.string()),
 });
