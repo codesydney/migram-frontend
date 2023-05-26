@@ -1,4 +1,6 @@
 import { Offer } from "@/backend/data/offers";
+import { authenticate } from "@/backend/middlewares/auth";
+import { isUserServiceProvider } from "@/backend/services/users";
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function getOfferById(req: NextApiRequest, res: NextApiResponse) {
@@ -9,12 +11,27 @@ async function getOfferById(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function updateOffer(req: NextApiRequest, res: NextApiResponse) {
+  const authResult = await authenticate(req);
+
+  if (authResult.type === "error")
+    return res.status(authResult.status).json({ message: authResult.message });
+
+  const { user } = authResult;
+
+  const isServiceProvider = isUserServiceProvider(user);
+  if (!isServiceProvider)
+    return res.status(403).json({
+      message: "Forbidden: Only Service Providers may perform this action.",
+    });
+
   const { id } = req.query;
+  const offer = await Offer.findById({ id });
 
   const payload = req.body;
-  const offer = Offer.updateOne({ id }, payload);
+  offer.set(payload);
+  const updatedOffer = offer.save();
 
-  return res.status(200).json({ data: offer, id });
+  return res.status(200).json({ data: updatedOffer, id });
 }
 
 export default async function handler(
