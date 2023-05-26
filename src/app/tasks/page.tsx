@@ -113,7 +113,7 @@ function Tasks() {
                 />
               </div>
               <h3 className="mt-4 text-sm text-gray-700">
-                <a href={task.href}>
+                <a href={`/tasks/${task.id}`}>
                   <span className="absolute inset-0" />
                   {task.name}
                 </a>
