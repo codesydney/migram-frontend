@@ -35,13 +35,13 @@ async function createStripeCustomer(req: NextApiRequest, res: NextApiResponse) {
   const stripeCustomer = await stripe.customers.create(params);
   const stripeCustomerId = stripeCustomer.id;
 
-  const customerDocument = await Customer.create({
+  const newCustomer = await Customer.create({
     _id: userId,
     customerId: stripeCustomerId,
   });
 
   return res.status(200).json({
-    data: customerDocument,
+    data: newCustomer,
     message: "Successfully Created Stripe Customer",
   });
 }
