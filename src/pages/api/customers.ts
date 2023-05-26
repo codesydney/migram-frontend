@@ -26,7 +26,7 @@ async function createStripeCustomer(req: NextApiRequest, res: NextApiResponse) {
   const stripeCustomerId = stripeCustomer.id;
 
   const customerDocument = await Customer.create({
-    userId,
+    _id: userId,
     customerId: stripeCustomerId,
   });
 
@@ -43,5 +43,6 @@ export default async function handler(
   if (req.method !== "POST")
     return res.status(405).json({ message: "Method Not Supported" });
 
+  await dbConnect();
   return await createStripeCustomer(req, res);
 }
