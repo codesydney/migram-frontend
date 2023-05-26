@@ -94,12 +94,14 @@ function Tasks() {
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
             Tasks
           </h2>
-          <button
-            type="button"
-            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            <a href="/tasks/create">Create Task</a>
-          </button>
+          <a href="/tasks/create">
+            <button
+              type="button"
+              className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Create Task
+            </button>
+          </a>
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
