@@ -33,7 +33,6 @@
     "stripe": "^12.6.0",
     "svix": "^0.85.1",
     "tailwindcss": "3.3.2",
-    "twilio": "^4.11.1",
     "typescript": "5.0.4",
     "zod": "^3.21.4"
   },
