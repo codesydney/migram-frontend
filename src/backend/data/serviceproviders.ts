@@ -13,6 +13,6 @@ const serviceProviderSchema = new mongoose.Schema({
   },
 });
 
-export const ServiceProvider =
+export const ServiceProviderModel =
   mongoose.models.ServiceProvider ||
   mongoose.model("ServiceProvider", serviceProviderSchema);

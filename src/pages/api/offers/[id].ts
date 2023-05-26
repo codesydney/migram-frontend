@@ -1,4 +1,4 @@
-import { Offer } from "@/backend/data/offers";
+import { OfferModel } from "@/backend/data/offers";
 import { authenticate } from "@/backend/middlewares/auth";
 import { isUserServiceProvider } from "@/backend/services/users";
 import { ServiceProviderMetadata } from "@/backend/services/users/types";
@@ -11,7 +11,7 @@ async function getOfferById(req: NextApiRequest, res: NextApiResponse) {
     return res.status(authResult.status).json({ message: authResult.message });
 
   const { id } = req.query;
-  const offer = await Offer.findOne({ id });
+  const offer = await OfferModel.findOne({ id });
 
   return res.status(200).json({ data: offer });
 }
@@ -31,7 +31,7 @@ async function updateOffer(req: NextApiRequest, res: NextApiResponse) {
     });
 
   const { id } = req.query;
-  const offer = await Offer.findById({ id });
+  const offer = await OfferModel.findById({ id });
 
   const userMetadata = user.publicMetadata as ServiceProviderMetadata;
   const serviceProviderId = userMetadata.serviceProviderId;

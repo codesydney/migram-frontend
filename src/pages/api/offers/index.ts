@@ -1,4 +1,4 @@
-import { Offer } from "@/backend/data/offers";
+import { OfferModel } from "@/backend/data/offers";
 import { authenticate } from "@/backend/middlewares/auth";
 import { dbConnect } from "@/backend/services/db";
 import { isUserServiceProvider } from "@/backend/services/users";
@@ -10,7 +10,7 @@ async function getOffers(req: NextApiRequest, res: NextApiResponse) {
   if (authResult.type === "error")
     return res.status(authResult.status).json({ message: authResult.message });
 
-  const offers = await Offer.find();
+  const offers = await OfferModel.find();
 
   return res.status(200).json({ data: offers });
 }
@@ -32,7 +32,7 @@ async function createOffer(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const payload = req.body;
-  const offer = await Offer.create(payload);
+  const offer = await OfferModel.create(payload);
 
   return res.status(200).json({ data: offer });
 }

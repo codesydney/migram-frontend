@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import pino from "pino";
 import Stripe from "stripe";
 
-import { WebhookEvent } from "@/backend/data/webhooks";
+import { WebhookEventModel } from "@/backend/data/webhooks";
 import { verifyStripeWebhook } from "@/backend/util/webhooks";
 
 const logger = pino({ name: "Payments Webhook Handler" });
@@ -13,18 +13,18 @@ async function handlePaymentIntentSucceeded(
 ) {
   logger.info({ id: payload.id }, "Stripe Payment Intent Succeeded");
   const { id } = payload;
-  const existingEvent = await WebhookEvent.findOne({ id });
+  const existingEvent = await WebhookEventModel.findOne({ id });
 
   if (existingEvent && existingEvent.status !== "rejected") {
     return res.status(200).json({ message: "duplicate" });
   }
 
-  await WebhookEvent.create({ id, source: "Stripe", status: "pending" });
+  await WebhookEventModel.create({ id, source: "Stripe", status: "pending" });
 
   const paymentIntent = payload.data.object as Stripe.PaymentIntent;
   const userId = paymentIntent.metadata.userId;
 
-  await WebhookEvent.updateOne({ id }, { status: "success" });
+  await WebhookEventModel.updateOne({ id }, { status: "success" });
 
   logger.info({ userId });
 

@@ -13,5 +13,5 @@ const customerSchema = new mongoose.Schema({
   },
 });
 
-export const Customer =
+export const CustomerModel =
   mongoose.models.Customer || mongoose.model("Customer", customerSchema);

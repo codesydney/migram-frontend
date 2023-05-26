@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { clerkClient } from "@clerk/nextjs";
 import pino from "pino";
 
-import { ServiceProvider } from "@/backend/data/serviceproviders";
+import { ServiceProviderModel } from "@/backend/data/serviceproviders";
 import { authenticate } from "@/backend/middlewares/auth";
 import {
   createStripeConnectAccount,
@@ -31,7 +31,7 @@ async function createServiceProvider(
       message: "Bad Request: Customers cannot sign up as Service Providers",
     });
 
-  const existingServiceProvider = await ServiceProvider.findById(userId);
+  const existingServiceProvider = await ServiceProviderModel.findById(userId);
 
   if (existingServiceProvider) {
     const message = "Stripe Service Provider has already been registered";
@@ -57,7 +57,7 @@ async function createServiceProvider(
   });
   const serviceProviderId = stripeAccount.id;
 
-  const newServiceProvider = await ServiceProvider.create({
+  const newServiceProvider = await ServiceProviderModel.create({
     _id: userId,
     serviceProviderId,
   });

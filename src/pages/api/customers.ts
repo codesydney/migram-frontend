@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { clerkClient, getAuth } from "@clerk/nextjs/server";
 import pino from "pino";
 
-import { Customer } from "@/backend/data/customers";
+import { CustomerModel } from "@/backend/data/customers";
 import { authenticate } from "@/backend/middlewares/auth";
 import { dbConnect } from "@/backend/services/db";
 import { stripe } from "@/backend/services/payments";
@@ -26,7 +26,7 @@ async function createStripeCustomer(req: NextApiRequest, res: NextApiResponse) {
       message: "Bad Request: Service Providers cannot sign up as Customers",
     });
 
-  const existingCustomer = await Customer.findById(userId);
+  const existingCustomer = await CustomerModel.findById(userId);
 
   if (existingCustomer) {
     const message = "Stripe Customer has already been registered";
@@ -56,7 +56,7 @@ async function createStripeCustomer(req: NextApiRequest, res: NextApiResponse) {
   const stripeCustomer = await stripe.customers.create(params);
   const stripeCustomerId = stripeCustomer.id;
 
-  const newCustomer = await Customer.create({
+  const newCustomer = await CustomerModel.create({
     _id: userId,
     customerId: stripeCustomerId,
   });
