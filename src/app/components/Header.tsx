@@ -1,6 +1,13 @@
 "use client";
 
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { UserMetadata } from "@/backend/services/users/types";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
@@ -13,11 +20,16 @@ const navigation = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user } = useUser();
+
+  const userMetadata = user?.publicMetadata as UserMetadata | undefined;
+
+  const userRole = userMetadata?.role;
 
   return (
     <header className="absolute inset-x-0 top-0 z-50 mx-auto max-w-2xl lg:max-w-7xl ">
       <nav
-        className="flex items-center justify-between p-6 lg:px-8"
+        className="flex items-center justify-between p-4 lg:px-8"
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
