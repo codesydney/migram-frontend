@@ -14,7 +14,7 @@ async function createStripeCustomer(req: NextApiRequest, res: NextApiResponse) {
   if (!userId) return res.status(401).end("Unauthorized");
 
   const user = await clerkClient.users.getUser(userId);
-  if (!user) return res.status(401).end("Unauthorized");
+  if (!user) return res.status(500).end("Internal Server Error");
 
   const existingCustomer = await Customer.findById(userId);
 
