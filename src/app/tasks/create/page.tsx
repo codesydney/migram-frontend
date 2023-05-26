@@ -1,7 +1,11 @@
 "use client";
 import { useRouter } from "next/navigation";
+
+import axios from "axios";
+import to from "await-to-js";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   CreateTaskPayload,
   CreateTaskSchema,
@@ -18,8 +22,15 @@ export default function CreateTaskPage() {
     formState: { errors },
   } = useForm<CreateTaskPayload>({ resolver: zodResolver(CreateTaskSchema) });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: CreateTaskPayload) => {
+    const [err, result] = await to(axios.post("/api/tasks", data));
+
+    // TODO Handle Errors
+
+    if (!err && result) {
+      console.log("Successfully Created Task");
+      router.push("/tasks");
+    }
   };
 
   const onCancelClick = () => {
