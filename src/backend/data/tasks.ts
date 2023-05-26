@@ -38,6 +38,7 @@ const taskSchema = new mongoose.Schema({
   },
   dueDate: {
     type: Date,
+    required: true,
   },
   photos: {
     type: [String],
@@ -64,7 +65,9 @@ const taskSchema = new mongoose.Schema({
     },
   },
   acceptedOffer: {
-    type: Object,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Offer",
+    required: true,
   },
 });
 
