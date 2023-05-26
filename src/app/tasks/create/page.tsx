@@ -1,8 +1,19 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 
 export default function CreateTaskPage() {
   const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
 
   const onCancelClick = () => {
     router.push("/tasks");
@@ -17,7 +28,7 @@ export default function CreateTaskPage() {
           </h2>
         </div>
 
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-10 divide-y divide-gray-900/10">
             <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
               <div className="px-4 sm:px-0">
@@ -42,9 +53,9 @@ export default function CreateTaskPage() {
                       <div className="mt-2">
                         <input
                           type="text"
-                          name="shortDescription"
                           id="short-description"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          {...register("shortDescription")}
                         />
                       </div>
                     </div>
@@ -59,9 +70,9 @@ export default function CreateTaskPage() {
                       <div className="mt-2">
                         <select
                           id="category"
-                          name="category"
                           autoComplete="category"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                          {...register("category")}
                         >
                           <option>Cleaning</option>
                           <option>Gardening</option>
@@ -81,10 +92,9 @@ export default function CreateTaskPage() {
                       <div className="mt-2">
                         <textarea
                           id="details"
-                          name="details"
                           rows={3}
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          defaultValue={""}
+                          {...register("details")}
                         />
                       </div>
                     </div>
@@ -99,9 +109,9 @@ export default function CreateTaskPage() {
                       <div className="mt-2">
                         <input
                           type="date"
-                          name="dueDate"
                           id="due-date"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          {...register("dueDate")}
                         />
                       </div>
                     </div>
@@ -168,10 +178,10 @@ export default function CreateTaskPage() {
                       <div className="mt-2">
                         <input
                           type="number"
-                          name="budget"
                           id="budget"
                           autoComplete="budget"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          {...register("budget")}
                         />
                       </div>
                     </div>
@@ -203,10 +213,10 @@ export default function CreateTaskPage() {
                       <div className="mt-2">
                         <input
                           type="text"
-                          name="streetAddress"
                           id="street-address"
                           autoComplete="street-address"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          {...register("streetAddress")}
                         />
                       </div>
                     </div>
@@ -221,10 +231,10 @@ export default function CreateTaskPage() {
                       <div className="mt-2">
                         <input
                           type="text"
-                          name="city"
                           id="city"
                           autoComplete="address-level2"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          {...register("city")}
                         />
                       </div>
                     </div>
@@ -239,10 +249,10 @@ export default function CreateTaskPage() {
                       <div className="mt-2">
                         <input
                           type="text"
-                          name="state"
                           id="state"
                           autoComplete="address-level1"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          {...register("state")}
                         />
                       </div>
                     </div>
@@ -257,10 +267,10 @@ export default function CreateTaskPage() {
                       <div className="mt-2">
                         <input
                           type="text"
-                          name="postal_code"
                           id="postal-code"
                           autoComplete="postal-code"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          {...register("postal_code")}
                         />
                       </div>
                     </div>
