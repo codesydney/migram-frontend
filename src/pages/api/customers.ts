@@ -51,6 +51,10 @@ async function createStripeCustomer(req: NextApiRequest, res: NextApiResponse) {
     customerId: stripeCustomerId,
   });
 
+  await clerkClient.users.updateUser(userId, {
+    publicMetadata: { customerId: stripeCustomerId, role: "customer" },
+  });
+
   const message = `Successfully Created Stripe Customer for ${userId}`;
   logger.info({ customer: newCustomer }, message);
 
