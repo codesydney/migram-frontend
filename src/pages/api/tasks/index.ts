@@ -27,7 +27,9 @@ async function createTask(req: NextApiRequest, res: NextApiResponse) {
     });
   }
 
-  const payload = req.body;
+  const customerId = user.publicMetadata.customerId;
+
+  const payload = { ...req.body, customerId };
   const task = await TaskModel.create(payload);
 
   return res.status(200).json({ data: task });
