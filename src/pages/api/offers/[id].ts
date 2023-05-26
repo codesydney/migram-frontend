@@ -1,6 +1,7 @@
 import { Offer } from "@/backend/data/offers";
 import { authenticate } from "@/backend/middlewares/auth";
 import { isUserServiceProvider } from "@/backend/services/users";
+import { ServiceProviderMetadata } from "@/backend/services/users/types";
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function getOfferById(req: NextApiRequest, res: NextApiResponse) {
@@ -27,9 +28,19 @@ async function updateOffer(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   const offer = await Offer.findById({ id });
 
+  const userMetadata = user.publicMetadata as ServiceProviderMetadata;
+  const serviceProviderId = userMetadata.serviceProviderId;
+  const isOfferOwner = serviceProviderId === offer.serviceProviderId;
+
+  if (!isOfferOwner) {
+    return res.status(403).json({
+      message: "Forbidden: You do not have access to this resource.",
+    });
+  }
+
   const payload = req.body;
   offer.set(payload);
-  const updatedOffer = offer.save();
+  const updatedOffer = await offer.save();
 
   return res.status(200).json({ data: updatedOffer, id });
 }
