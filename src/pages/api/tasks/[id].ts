@@ -4,15 +4,16 @@ import { Task } from "@/backend/data/tasks";
 
 async function getTaskById(req: NextApiRequest, res: NextApiResponse) {
   const id = "";
+  const task = await Task.findOne({ id });
 
-  return Task.findOne({ id });
+  return res.status(200).json({ data: task });
 }
 
 async function updateTask(req: NextApiRequest, res: NextApiResponse) {
   const id = "";
-  const task = {};
+  const task = await Task.updateOne({ id }, {});
 
-  return Task.updateOne({ id }, task);
+  return res.status(200).json({ data: task });
 }
 
 export default async function handler(

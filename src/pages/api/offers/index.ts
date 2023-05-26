@@ -2,13 +2,15 @@ import { Offer } from "@/backend/data/offers";
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function getOffers(req: NextApiRequest, res: NextApiResponse) {
-  return Offer.find();
+  const offers = await Offer.find();
+
+  return res.status(200).json({ data: offers });
 }
 
 async function createOffer(req: NextApiRequest, res: NextApiResponse) {
-  const offer = {};
+  const offer = await Offer.create({});
 
-  return Offer.create(offer);
+  return res.status(200).json({ data: offer });
 }
 
 export default async function handler(
