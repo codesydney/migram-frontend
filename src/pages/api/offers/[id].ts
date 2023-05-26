@@ -10,7 +10,9 @@ async function getOfferById(req: NextApiRequest, res: NextApiResponse) {
 
 async function updateOffer(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-  const offer = Offer.updateOne({ id }, {});
+
+  const payload = req.body;
+  const offer = Offer.updateOne({ id }, payload);
 
   return res.status(200).json({ data: offer, id });
 }

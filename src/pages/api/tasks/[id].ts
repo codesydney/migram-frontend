@@ -12,7 +12,9 @@ async function getTaskById(req: NextApiRequest, res: NextApiResponse) {
 
 async function updateTask(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-  const task = await Task.updateOne({ id }, {});
+
+  const payload = req.body;
+  const task = await Task.updateOne({ id }, payload);
 
   return res.status(200).json({ data: task });
 }
