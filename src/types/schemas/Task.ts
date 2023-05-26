@@ -61,7 +61,7 @@ export const TaskSchema = z.object({
   dueDate: z.coerce
     .date({ invalid_type_error: "Due date must be a date" })
     .min(new Date(), { message: "Due date must be in the future" }),
-  photos: z.array(z.string()),
+  photos: z.array(z.string()).default([]),
   location: z.object({
     streetAddress: z
       .string()
