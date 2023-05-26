@@ -27,3 +27,11 @@ export function getPrimaryEmailAddress(
 
   return { type: "success", email: primaryEmailAddress.emailAddress };
 }
+
+export function isUserCustomer(user: User) {
+  return user.publicMetadata.role === "customer";
+}
+
+export function isUserServiceProvider(user: User) {
+  return user.publicMetadata.role === "service-provider";
+}
