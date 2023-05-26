@@ -55,7 +55,7 @@ export const TaskSchema = z.object({
     .number({
       invalid_type_error: "Budget must be a number",
     })
-    .gt(5, { message: "Budget must be at least $5" }),
+    .gte(20, { message: "Budget must be at least $20" }),
   status: TaskStatusSchema.default("Open"),
   paymentStatus: PaymentStatusSchema.default("N/A"),
   dueDate: z.coerce
