@@ -3,6 +3,7 @@ import { clerkClient, getAuth } from "@clerk/nextjs/server";
 import pino from "pino";
 
 import { Customer } from "@/backend/data/customers";
+import { authenticate } from "@/backend/middlewares/auth";
 import { dbConnect } from "@/backend/services/db";
 import { stripe } from "@/backend/services/payments";
 import { getPrimaryEmailAddress } from "@/backend/services/users";
@@ -11,11 +12,12 @@ import { UserMetadata } from "@/backend/services/users/types";
 const logger = pino({ name: "api/customers" });
 
 async function createStripeCustomer(req: NextApiRequest, res: NextApiResponse) {
-  const { userId } = getAuth(req);
-  if (!userId) return res.status(401).end("Unauthorized");
+  const authResult = await authenticate(req);
 
-  const user = await clerkClient.users.getUser(userId);
-  if (!user) return res.status(500).end("Internal Server Error");
+  if (authResult.type === "error")
+    return res.status(authResult.status).json({ message: authResult.message });
+
+  const { user, userId } = authResult;
 
   const userMetadata = user.publicMetadata as UserMetadata;
 

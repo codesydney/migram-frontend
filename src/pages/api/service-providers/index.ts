@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { clerkClient } from "@clerk/nextjs";
-import { getAuth } from "@clerk/nextjs/server";
 import pino from "pino";
 
 import { ServiceProvider } from "@/backend/data/serviceproviders";
+import { authenticate } from "@/backend/middlewares/auth";
 import {
   createStripeConnectAccount,
   createStripeConnectRedirectLink,
@@ -17,11 +17,12 @@ async function createServiceProvider(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { userId } = getAuth(req);
-  if (!userId) return res.status(401).end("Unauthorized");
+  const authResult = await authenticate(req);
 
-  const user = await clerkClient.users.getUser(userId);
-  if (!user) return res.status(500).end("Internal Server Error");
+  if (authResult.type === "error")
+    return res.status(authResult.status).json({ message: authResult.message });
+
+  const { user, userId } = authResult;
 
   const userMetadata = user.publicMetadata as UserMetadata;
 
