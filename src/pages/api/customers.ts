@@ -1,16 +1,19 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getAuth } from "@clerk/nextjs/server";
+import { clerkClient, getAuth } from "@clerk/nextjs/server";
 
-import { stripe } from "@/backend/services/payments";
 import { Customer } from "@/backend/data/customers";
+import { dbConnect } from "@/backend/services/db";
+import { stripe } from "@/backend/services/payments";
 import { getPrimaryEmailAddress } from "@/backend/services/users";
 
 async function createStripeCustomer(req: NextApiRequest, res: NextApiResponse) {
-  const { user, userId } = getAuth(req);
+  const { userId } = getAuth(req);
+  if (!userId) return res.status(401).end("Unauthorized");
 
-  if (!user || !userId) return res.status(401).end("Unauthorized");
+  const user = await clerkClient.users.getUser(userId);
+  if (!user) return res.status(401).end("Unauthorized");
 
-  const emailAddressResult = getPrimaryEmailAddress(user);
+  const emailAddressResult = getPrimaryEmailAddress(user!);
 
   if (emailAddressResult.type === "error")
     return res.status(500).end("Internal Server Error");
