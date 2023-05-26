@@ -3,7 +3,6 @@ import pino from "pino";
 import Stripe from "stripe";
 
 import { WebhookEvent } from "@/backend/data/webhooks";
-import { updateUserCalls } from "@/backend/services/users";
 import { verifyStripeWebhook } from "@/backend/util/webhooks";
 
 const logger = pino({ name: "Payments Webhook Handler" });
@@ -24,16 +23,6 @@ async function handlePaymentIntentSucceeded(
 
   const paymentIntent = payload.data.object as Stripe.PaymentIntent;
   const userId = paymentIntent.metadata.userId;
-
-  const updateCallsResult = await updateUserCalls(userId);
-
-  if (updateCallsResult.type === "error") {
-    await WebhookEvent.updateOne({ id }, { status: "error" });
-
-    return res
-      .status(updateCallsResult.status)
-      .json({ error: updateCallsResult.error });
-  }
 
   await WebhookEvent.updateOne({ id }, { status: "success" });
 
