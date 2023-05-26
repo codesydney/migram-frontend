@@ -68,7 +68,6 @@ const taskSchema = new mongoose.Schema<Task>({
   acceptedOffer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Offer",
-    required: true,
   },
 });
 
