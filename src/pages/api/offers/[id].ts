@@ -11,7 +11,7 @@ async function getOfferById(req: NextApiRequest, res: NextApiResponse) {
     return res.status(authResult.status).json({ message: authResult.message });
 
   const { id } = req.query;
-  const offer = await OfferModel.findOne({ id });
+  const offer = await OfferModel.findOne({ _id: id });
 
   return res.status(200).json({ data: offer });
 }
@@ -31,7 +31,7 @@ async function updateOffer(req: NextApiRequest, res: NextApiResponse) {
     });
 
   const { id } = req.query;
-  const offer = await OfferModel.findById({ id });
+  const offer = await OfferModel.findById({ _id: id });
 
   const userMetadata = user.publicMetadata as ServiceProviderMetadata;
   const serviceProviderId = userMetadata.serviceProviderId;

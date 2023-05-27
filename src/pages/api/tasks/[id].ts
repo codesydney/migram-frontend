@@ -8,7 +8,7 @@ import { CustomerMetadata } from "@/backend/services/users/types";
 
 async function getTaskById(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-  const task = await TaskModel.findOne({ id });
+  const task = await TaskModel.findOne({ _id: id });
 
   return res.status(200).json({ data: task });
 }
@@ -28,7 +28,7 @@ async function updateTask(req: NextApiRequest, res: NextApiResponse) {
     });
 
   const { id } = req.query;
-  const task = await TaskModel.findById({ id });
+  const task = await TaskModel.findById({ _id: id });
 
   const userMetadata = user.publicMetadata as CustomerMetadata;
   const customerId = userMetadata.customerId;
