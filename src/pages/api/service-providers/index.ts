@@ -26,7 +26,7 @@ async function createServiceProvider(
 
   const userMetadata = user.publicMetadata as UserMetadata;
 
-  if (userMetadata.role !== "customer")
+  if (userMetadata.role === "customer")
     return res.status(400).json({
       message: "Bad Request: Customers cannot sign up as Service Providers",
     });
