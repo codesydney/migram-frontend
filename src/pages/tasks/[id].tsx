@@ -5,6 +5,7 @@ import { Task } from "@/types/schemas/Task";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import to from "await-to-js";
+import { Offer } from "@/types/schemas/Offer";
 
 type ServerTask = Omit<Task, "dueDate"> & { dueDate: string };
 type GetTaskResponse = { data: ServerTask };
@@ -111,7 +112,20 @@ const people = [
   // More people...
 ];
 
+type GetTaskOffersResponse = { data: Offer[] };
+
 export function TaskOffersList({ taskId }: { taskId: string }) {
+  const [offers, setOffers] = useState(new Array<Offer>());
+
+  useEffect(() => {
+    if (taskId) {
+      const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/tasks/${taskId}/offers`;
+      axios.get<GetTaskOffersResponse>(url).then((response) => {
+        setOffers(response.data.data);
+      });
+    }
+  }, [taskId]);
+
   return (
     <div aria-label="Task Offers">
       <div className="sm:flex sm:items-center">
