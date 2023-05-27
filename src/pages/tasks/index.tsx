@@ -1,7 +1,24 @@
 import { Task } from "@/types/schemas/Task";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+type ServerTask = Omit<Task, "dueDate"> & { dueDate: string };
+type GetTasksResponse = { data: ServerTask[] };
 
 export default function TasksPage() {
-  const tasks: Task[] = [];
+  const [tasks, setTasks] = useState(new Array<Task>());
+
+  useEffect(() => {
+    const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/tasks`;
+    axios.get<GetTasksResponse>(url).then((response) => {
+      const tasks: Task[] = response.data.data.map((task) => ({
+        ...task,
+        dueDate: new Date(task.dueDate),
+      }));
+
+      setTasks(tasks);
+    });
+  }, []);
 
   return (
     <div className="bg-white">
