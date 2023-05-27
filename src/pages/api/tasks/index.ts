@@ -20,7 +20,7 @@ async function createTask(req: NextApiRequest, res: NextApiResponse) {
   if (authResult.type === "error")
     return res.status(authResult.status).json({ message: authResult.message });
 
-  const { user } = authResult;
+  const { user, userId } = authResult;
 
   const isCustomer = isUserCustomer(user);
 
@@ -32,7 +32,7 @@ async function createTask(req: NextApiRequest, res: NextApiResponse) {
 
   const customerId = user.publicMetadata.customerId;
 
-  const payload = { ...req.body, customerId };
+  const payload = { ...req.body, customerId, userId };
   const task = await TaskModel.create(payload);
 
   logger.info({ task }, "Task succesfully created");

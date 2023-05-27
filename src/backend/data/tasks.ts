@@ -2,10 +2,15 @@ import mongoose from "mongoose";
 import { Task } from "@/types/schemas/Task";
 
 const taskSchema = new mongoose.Schema<Task>({
-  customerId: {
+  userId: {
     type: String,
     ref: "Customer",
     index: true,
+    required: true,
+  },
+  customerId: {
+    type: String,
+    ref: "Customer",
     required: true,
   },
   category: {

@@ -40,6 +40,7 @@ export type State = z.infer<typeof StateSchema>;
 export const TaskSchema = z.object({
   __v: z.number(),
   _id: z.string(),
+  userId: z.string().nonempty(),
   customerId: z.string(),
   category: TaskCategorySchema,
   shortDescription: z
@@ -77,6 +78,7 @@ export const TaskSchema = z.object({
 export const CreateTaskSchema = TaskSchema.omit({
   __v: true,
   _id: true,
+  userId: true,
   customerId: true,
   status: true,
   paymentStatus: true,

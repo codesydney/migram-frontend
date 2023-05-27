@@ -21,7 +21,7 @@ async function createOffer(req: NextApiRequest, res: NextApiResponse) {
   if (authResult.type === "error")
     return res.status(authResult.status).json({ message: authResult.message });
 
-  const { user } = authResult;
+  const { user, userId } = authResult;
 
   const isServiceProvider = isUserServiceProvider(user);
 
@@ -31,8 +31,14 @@ async function createOffer(req: NextApiRequest, res: NextApiResponse) {
     });
   }
 
+  const serviceProviderId = user.publicMetadata.serviceProviderId;
+
   const payload = req.body;
-  const offer = await OfferModel.create(payload);
+  const offer = await OfferModel.create({
+    ...payload,
+    serviceProviderId,
+    userId,
+  });
 
   return res.status(200).json({ data: offer });
 }

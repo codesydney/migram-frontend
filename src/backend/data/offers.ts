@@ -10,6 +10,12 @@ type Offer = Omit<BaseOffer, "taskId"> & {
 };
 
 const offerSchema = new mongoose.Schema<Offer>({
+  userId: {
+    type: String,
+    ref: "Customer",
+    index: true,
+    required: true,
+  },
   serviceProviderId: {
     type: String,
     ref: "ServiceProvider",
