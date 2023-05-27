@@ -1,13 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import pino from "pino";
 
 import { TaskModel } from "@/backend/data/tasks";
 import { dbConnect } from "@/backend/services/db";
 import { authenticate } from "@/backend/middlewares/auth";
 import { OfferModel } from "@/backend/data/offers";
 import { CustomerMetadata } from "@/backend/services/users/types";
-
-const logger = pino({ name: "api/tasks/[id]/offers" });
 
 async function getOffersOfTasks(req: NextApiRequest, res: NextApiResponse) {
   const authResult = await authenticate(req);
@@ -22,8 +19,6 @@ async function getOffersOfTasks(req: NextApiRequest, res: NextApiResponse) {
   const userMetadata = user.publicMetadata as CustomerMetadata;
   const customerId = userMetadata.customerId;
   const isTaskOwner = customerId === task.customerId;
-
-  logger.info({ task, isTaskOwner, customerId, userMetadata });
 
   if (!isTaskOwner) {
     return res.status(403).json({
