@@ -4,9 +4,14 @@ import { useRouter } from "next/router";
 import to from "await-to-js";
 import axios from "axios";
 import { useUser } from "@clerk/nextjs";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { Offer } from "@/types/schemas/Offer";
+import {
+  CreateOfferPayload,
+  CreateOfferPayloadSchema,
+  Offer,
+} from "@/types/schemas/Offer";
 import { Task } from "@/types/schemas/Task";
 
 type ServerTask = Omit<Task, "dueDate"> & { dueDate: string };
@@ -242,24 +247,23 @@ export function TaskOffersList({ taskId }: { taskId: string }) {
 }
 
 export function MakeAnOfferForm({ taskId }: { taskId: string }) {
-  const router = useRouter();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<CreateOfferPayload>({
+    resolver: zodResolver(CreateOfferPayloadSchema),
+  });
 
-  const onSubmit = async (data: any) => {
-    const [err, result] = await to(axios.post("/api/tasks", data));
-
-    // TODO Handle Errors
+  const onSubmit = async (data: CreateOfferPayload) => {
+    const url = `/api/tasks/${taskId}/offers`;
+    const [err, result] = await to(axios.post(url, data));
 
     if (!err && result) {
-      console.log("Successfully Created Task");
-      router.push("/tasks");
+      console.log("Successfully Created Offer");
     }
   };
+  console.log({ errors });
 
   return (
     <div>
@@ -284,14 +288,14 @@ export function MakeAnOfferForm({ taskId }: { taskId: string }) {
                     </label>
                     <div className="mt-2">
                       <input
-                        type="number"
+                        type="amount"
                         id="amount"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         {...register("amount")}
                       />
                     </div>
                     <p className="mt-2 text-sm text-red-600" id="email-error">
-                      {errors.shortDescription?.message as string}
+                      {errors.amount?.message as string}
                     </p>
                   </div>
 
@@ -304,14 +308,14 @@ export function MakeAnOfferForm({ taskId }: { taskId: string }) {
                     </label>
                     <div className="mt-2">
                       <textarea
-                        id="details"
+                        id="message"
                         rows={3}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        {...register("details")}
+                        {...register("message")}
                       />
                     </div>
                     <p className="mt-2 text-sm text-red-600" id="email-error">
-                      {errors.details?.message as string}
+                      {errors.message?.message as string}
                     </p>
                   </div>
                 </div>
