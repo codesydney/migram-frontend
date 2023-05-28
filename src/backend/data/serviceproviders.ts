@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const serviceProviderSchema = new mongoose.Schema({
+const ServiceProviderSchema = new mongoose.Schema({
   _id: {
     type: String,
     alias: "userId",
@@ -15,4 +15,4 @@ const serviceProviderSchema = new mongoose.Schema({
 
 export const ServiceProviderModel =
   mongoose.models.ServiceProvider ||
-  mongoose.model("ServiceProvider", serviceProviderSchema);
+  mongoose.model("ServiceProvider", ServiceProviderSchema);

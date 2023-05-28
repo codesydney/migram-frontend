@@ -1,15 +1,15 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 
 import { Offer as BaseOffer } from "@/types/schemas/Offer";
 
 /**
  * Mongoose Friendly Offer Type with the taskId string field converted to an ObjectId field
  */
-type Offer = Omit<BaseOffer, "taskId"> & {
+export type Offer = Omit<BaseOffer, "taskId"> & {
   taskId: mongoose.Schema.Types.ObjectId;
 };
 
-const offerSchema = new mongoose.Schema<Offer>({
+const OfferSchema = new mongoose.Schema<Offer>({
   userId: {
     type: String,
     ref: "Customer",
@@ -41,5 +41,5 @@ const offerSchema = new mongoose.Schema<Offer>({
   },
 });
 
-export const OfferModel =
-  mongoose.models.Offer || mongoose.model<Offer>("Offer", offerSchema);
+export const OfferModel: Model<Offer> =
+  mongoose.models.Offer || mongoose.model<Offer>("Offer", OfferSchema);

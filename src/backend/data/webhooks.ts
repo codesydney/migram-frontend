@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const webhookEventSchema = new mongoose.Schema({
+const WebhookEventSchema = new mongoose.Schema({
   _id: {
     type: String,
     alias: "eventId",
@@ -17,4 +17,4 @@ const webhookEventSchema = new mongoose.Schema({
 
 export const WebhookEventModel =
   mongoose.models.WebhookEvent ||
-  mongoose.model("WebhookEvent", webhookEventSchema);
+  mongoose.model("WebhookEvent", WebhookEventSchema);

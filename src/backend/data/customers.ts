@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const customerSchema = new mongoose.Schema({
+const CustomerSchema = new mongoose.Schema({
   _id: {
     type: String,
     alias: "userId",
@@ -14,4 +14,4 @@ const customerSchema = new mongoose.Schema({
 });
 
 export const CustomerModel =
-  mongoose.models.Customer || mongoose.model("Customer", customerSchema);
+  mongoose.models.Customer || mongoose.model("Customer", CustomerSchema);

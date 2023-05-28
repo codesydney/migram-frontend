@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { Task } from "@/types/schemas/Task";
 
-const taskSchema = new mongoose.Schema<Task>({
+const TaskSchema = new mongoose.Schema<Task>({
   userId: {
     type: String,
     ref: "Customer",
@@ -76,5 +76,5 @@ const taskSchema = new mongoose.Schema<Task>({
   },
 });
 
-export const TaskModel =
-  mongoose.models.Task || mongoose.model("Task", taskSchema);
+export const TaskModel: Model<Task> =
+  mongoose.models.Task || mongoose.model("Task", TaskSchema);
