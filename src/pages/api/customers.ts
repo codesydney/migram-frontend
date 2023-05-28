@@ -21,7 +21,7 @@ async function createStripeCustomer(req: NextApiRequest, res: NextApiResponse) {
 
   const userMetadata = user.publicMetadata as UserMetadata;
 
-  if (userMetadata.role !== "service-provider")
+  if (userMetadata.role === "service-provider")
     return res.status(400).json({
       message: "Bad Request: Service Providers cannot sign up as Customers",
     });
@@ -78,8 +78,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== "POST")
-    return res.status(405).json({ message: "Method Not Supported" });
+  // if (req.method !== "POST")
+  //   return res.status(405).json({ message: "Method Not Supported" });
 
   await dbConnect();
   return await createStripeCustomer(req, res);
