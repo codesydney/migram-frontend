@@ -1,10 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
+import { OfferModel } from "@/backend/data/offers";
 import { TaskModel } from "@/backend/data/tasks";
 import { dbConnect } from "@/backend/services/db";
 import { authenticate } from "@/backend/middlewares/auth";
-import { OfferModel } from "@/backend/data/offers";
 import { CustomerMetadata } from "@/backend/services/users/types";
+import { isUserServiceProvider } from "@/backend/services/users";
 
 async function getOffersOfTasks(req: NextApiRequest, res: NextApiResponse) {
   const authResult = await authenticate(req);
@@ -38,7 +39,6 @@ async function createOffer(req: NextApiRequest, res: NextApiResponse) {
     return res.status(authResult.status).json({ message: authResult.message });
 
   const { user, userId } = authResult;
-
   const isServiceProvider = isUserServiceProvider(user);
 
   if (!isServiceProvider) {
@@ -49,9 +49,18 @@ async function createOffer(req: NextApiRequest, res: NextApiResponse) {
 
   const serviceProviderId = user.publicMetadata.serviceProviderId;
 
+  const taskId = req.query.id;
+  const task = await TaskModel.findById({ _id: taskId });
+
+  if (!task) return res.status(404).json({ message: "Task not found" });
+
+  if (task.status !== "Open")
+    return res.status(400).json({ message: "Task is no longer open" });
+
   const payload = req.body;
   const offer = await OfferModel.create({
     ...payload,
+    taskId: task._id,
     serviceProviderId,
     userId,
   });
