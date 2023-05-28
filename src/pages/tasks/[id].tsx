@@ -10,12 +10,11 @@ import { useForm } from "react-hook-form";
 import {
   CreateOfferPayload,
   CreateOfferPayloadSchema,
+  GetTaskOffersResponse,
   Offer,
+  TaskOffer,
 } from "@/types/schemas/Offer";
-import { Task } from "@/types/schemas/Task";
-
-type ServerTask = Omit<Task, "dueDate"> & { dueDate: string };
-type GetTaskResponse = { data: ServerTask };
+import { GetTaskResponse, Task } from "@/types/schemas/Task";
 
 export async function queryTaskById(id: string) {
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/tasks/${id}`;
@@ -84,7 +83,7 @@ export function TaskDetails({ task }: { task: Task }) {
               Budget
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              ${task.budget}
+              {task.budget && `$${task.budget}`}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -117,10 +116,8 @@ export function TaskDetails({ task }: { task: Task }) {
   );
 }
 
-type GetTaskOffersResponse = { data: Offer[] };
-
 export function TaskOffersList({ taskId }: { taskId: string }) {
-  const [offers, setOffers] = useState(new Array<Offer>());
+  const [offers, setOffers] = useState(new Array<TaskOffer>());
 
   useEffect(() => {
     if (taskId) {

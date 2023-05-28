@@ -32,5 +32,5 @@ export type TaskOffer = Omit<Offer, "amount"> & {
 };
 
 export type GetTaskOffersResponse = {
-  data: TaskOffer;
+  data: TaskOffer[];
 };

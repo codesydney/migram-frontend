@@ -5,7 +5,6 @@ export const TaskStatusSchema = z.enum([
   "In Progress",
   "Completed",
 ] as const);
-
 export type TaskStatus = z.infer<typeof TaskStatusSchema>;
 
 export const PaymentStatusSchema = z.enum([
@@ -15,7 +14,6 @@ export const PaymentStatusSchema = z.enum([
   "Paid",
   "Payment Declined",
 ] as const);
-
 export type PaymentStatus = z.infer<typeof PaymentStatusSchema>;
 
 export const TaskCategorySchema = z.enum([
@@ -86,25 +84,8 @@ export const CreateTaskSchema = TaskSchema.omit({
 });
 
 export type Task = z.infer<typeof TaskSchema>;
-export type CreateTaskPayload = z.infer<typeof CreateTaskSchema>;
 
-const tasks = {
-  location: {
-    streetAddress: "123 Fake ST",
-    city: "Sydney",
-    state: "NSW",
-    postal_code: "2000",
-  },
-  _id: "647137d51c16698dbec51417",
-  customerId: "cus_Nxu5BDmkSqQKs8",
-  category: "Cleaning",
-  shortDescription: "Clean Bathrooms, Gas Hob and Oven",
-  details:
-    "I need 2 bathrooms cleaned, no bath tub, only standing shower to be cleaned along with all soap scum marks removed from glass and mirror. Walls cleaned including wash basin, and toilet. \n\nI also need the gas hob and oven cleaned, pictures attached. \nType of clean: Regular\nNumber of bedrooms: None\nNumber of bathrooms: 2\nEquipment and supplies: Tasker must provide\n",
-  budget: 100,
-  status: "Open",
-  paymentStatus: "N/A",
-  dueDate: "2023-05-29T00:00:00.000Z",
-  photos: [],
-  __v: 0,
-};
+// Server dates are sent as strings over the wire.
+export type ServerTask = Omit<Task, "dueDate"> & { dueDate: string };
+export type CreateTaskPayload = z.infer<typeof CreateTaskSchema>;
+export type GetTaskResponse = { data: ServerTask };
