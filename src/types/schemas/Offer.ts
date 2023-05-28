@@ -26,3 +26,11 @@ export const CreateOfferPayloadSchema = offerSchema.omit({
 
 export type Offer = z.infer<typeof offerSchema>;
 export type CreateOfferPayload = z.infer<typeof CreateOfferPayloadSchema>;
+
+export type TaskOffer = Omit<Offer, "amount"> & {
+  amount?: number;
+};
+
+export type GetTaskOffersResponse = {
+  data: TaskOffer;
+};

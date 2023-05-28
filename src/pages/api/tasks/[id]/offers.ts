@@ -1,19 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { Offer, OfferModel } from "@/backend/data/offers";
+import { OfferModel } from "@/backend/data/offers";
 import { TaskModel } from "@/backend/data/tasks";
 import { dbConnect } from "@/backend/services/db";
 import { authenticate } from "@/backend/middlewares/auth";
 import { UserMetadata } from "@/backend/services/users/types";
 import { isUserServiceProvider } from "@/backend/services/users";
-
-export type TaskOffer = Omit<Offer, "amount"> & {
-  amount?: number;
-};
-
-export type GetTaskOffersResponse = {
-  data: TaskOffer;
-};
+import { TaskOffer } from "@/types/schemas/Offer";
 
 async function getTaskOffers(req: NextApiRequest, res: NextApiResponse) {
   const authResult = await authenticate(req);
