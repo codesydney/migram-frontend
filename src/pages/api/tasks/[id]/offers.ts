@@ -1,11 +1,19 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { OfferModel } from "@/backend/data/offers";
+import { Offer, OfferModel } from "@/backend/data/offers";
 import { TaskModel } from "@/backend/data/tasks";
 import { dbConnect } from "@/backend/services/db";
 import { authenticate } from "@/backend/middlewares/auth";
-import { CustomerMetadata } from "@/backend/services/users/types";
+import { UserMetadata } from "@/backend/services/users/types";
 import { isUserServiceProvider } from "@/backend/services/users";
+
+export type TaskOffer = Omit<Offer, "amount"> & {
+  amount?: number;
+};
+
+export type GetTaskOffersResponse = {
+  data: TaskOffer;
+};
 
 async function getTaskOffers(req: NextApiRequest, res: NextApiResponse) {
   const authResult = await authenticate(req);
@@ -19,11 +27,27 @@ async function getTaskOffers(req: NextApiRequest, res: NextApiResponse) {
 
   if (!task) return res.status(404).json({ message: "Task not found" });
 
+  const userMetadata = user.publicMetadata as UserMetadata;
+  const customerId = userMetadata?.customerId;
+  const serviceProviderId = userMetadata?.serviceProviderId;
   const isTaskOwner = customerId === task.customerId;
 
   const offers = await OfferModel.find({ taskId: id });
+  let results: TaskOffer[] = [];
 
-  return res.status(200).json({ data: offers });
+  if (!isTaskOwner) {
+    results = offers.map((item) => {
+      const isOfferOwner = item.serviceProviderId === serviceProviderId;
+      const amount = isOfferOwner ? item.amount : undefined;
+
+      return {
+        ...item.toObject(),
+        amount,
+      };
+    });
+  }
+
+  return res.status(200).json({ data: results });
 }
 
 async function createOffer(req: NextApiRequest, res: NextApiResponse) {
