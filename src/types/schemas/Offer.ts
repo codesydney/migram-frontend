@@ -11,4 +11,13 @@ export const offerSchema = z.object({
   message: z.string().nonempty(),
 });
 
+export const CreateOfferPayloadSchema = offerSchema.omit({
+  __v: true,
+  _id: true,
+  status: true,
+  userId: true,
+  serviceProviderId: true,
+});
+
 export type Offer = z.infer<typeof offerSchema>;
+export type CreateOfferPayload = z.infer<typeof CreateOfferPayloadSchema>;
