@@ -42,14 +42,19 @@ async function createOffer(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const serviceProviderId = user.publicMetadata.serviceProviderId;
-
   const taskId = req.query.id;
+
   const task = await TaskModel.findById({ _id: taskId });
 
   if (!task) return res.status(404).json({ message: "Task not found" });
 
   if (task.status !== "Open")
     return res.status(400).json({ message: "Task is no longer open" });
+
+  const existingOffer = await OfferModel.findOne({ taskId, serviceProviderId });
+
+  if (existingOffer)
+    return res.status(400).json({ message: "Offer already exists" });
 
   const payload = req.body;
   const offer = await OfferModel.create({
