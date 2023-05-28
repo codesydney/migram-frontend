@@ -7,7 +7,7 @@ import { authenticate } from "@/backend/middlewares/auth";
 import { CustomerMetadata } from "@/backend/services/users/types";
 import { isUserServiceProvider } from "@/backend/services/users";
 
-async function getOffersOfTasks(req: NextApiRequest, res: NextApiResponse) {
+async function getTaskOffers(req: NextApiRequest, res: NextApiResponse) {
   const authResult = await authenticate(req);
 
   if (authResult.type === "error")
@@ -75,7 +75,7 @@ export default async function handler(
 
   switch (req.method) {
     case "GET":
-      return getOffersOfTasks(req, res);
+      return getTaskOffers(req, res);
     case "POST":
       return createOffer(req, res);
     default:
