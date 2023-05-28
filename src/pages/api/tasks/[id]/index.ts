@@ -32,7 +32,7 @@ async function updateTask(req: NextApiRequest, res: NextApiResponse) {
 
   const userMetadata = user.publicMetadata as CustomerMetadata;
   const customerId = userMetadata.customerId;
-  const isTaskOwner = customerId === task.customerId;
+  const isTaskOwner = customerId === task?.customerId;
 
   if (!isTaskOwner) {
     return res.status(403).json({
