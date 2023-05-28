@@ -1,35 +1,48 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-
-import { Task } from "@/types/schemas/Task";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
+
 import to from "await-to-js";
+import axios from "axios";
+import { useUser } from "@clerk/nextjs";
+import { useForm } from "react-hook-form";
+
 import { Offer } from "@/types/schemas/Offer";
+import { Task } from "@/types/schemas/Task";
 
 type ServerTask = Omit<Task, "dueDate"> & { dueDate: string };
 type GetTaskResponse = { data: ServerTask };
 
+export async function queryTaskById(id: string) {
+  const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/tasks/${id}`;
+  const [err, response] = await to(axios.get<GetTaskResponse>(url));
+
+  if (!response || err) {
+    return null;
+  }
+
+  const originalTask = response.data.data;
+
+  const task: Task = {
+    ...originalTask,
+    dueDate: new Date(originalTask.dueDate),
+  };
+
+  return task;
+}
+
 export default function TaskItemPage() {
   const [task, setTask] = useState<Task | undefined>();
   const router = useRouter();
+  const { user } = useUser();
+  const isProvider = user?.publicMetadata.role === "service-provider";
+  const isCustomer = user?.publicMetadata.role === "customer";
 
   const id = router.query.id as string;
 
   useEffect(() => {
-    if (id) {
-      const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/tasks/${id}`;
-      axios.get<GetTaskResponse>(url).then((response) => {
-        const originalTask = response.data.data;
-
-        const task: Task = {
-          ...originalTask,
-          dueDate: new Date(originalTask.dueDate),
-        };
-
-        setTask(task);
-      });
-    }
+    queryTaskById(id).then((task) => {
+      if (task) setTask(task);
+    });
   }, [id]);
 
   if (!task) {
@@ -41,8 +54,8 @@ export default function TaskItemPage() {
     <div className="bg-white">
       <div className="flex flex-col gap-10 mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 md:gap-20 lg:max-w-7xl lg:px-8">
         <TaskDetails task={task} />
-        <TaskOffersList taskId={task._id} />
-        <MakeAnOfferForm taskId={task._id} />
+        {<TaskOffersList taskId={task._id} />}
+        {isProvider && <MakeAnOfferForm taskId={task._id} />}
       </div>
     </div>
   );
