@@ -8,6 +8,23 @@ import { UserMetadata } from "@/backend/services/users/types";
 import { isUserServiceProvider } from "@/backend/services/users";
 import { TaskOffer } from "@/types/schemas/Offer";
 
+/**
+ * Hide non-owners offer amounts
+ * @param offers Array of TaskOffers
+ * @param serviceProviderId (Optional) Service Provider Id
+ */
+const hideOfferAmounts = (offers: TaskOffer[], serviceProviderId?: string) => {
+  return offers.map((item) => {
+    const isOfferOwner = item.serviceProviderId === serviceProviderId;
+    const amount = isOfferOwner ? item.amount : undefined;
+
+    return {
+      ...item,
+      amount,
+    };
+  });
+};
+
 async function getTaskOffers(req: NextApiRequest, res: NextApiResponse) {
   const authResult = await authenticate(req);
 
@@ -22,25 +39,22 @@ async function getTaskOffers(req: NextApiRequest, res: NextApiResponse) {
 
   const userMetadata = user.publicMetadata as UserMetadata;
   const customerId = userMetadata?.customerId;
-  const serviceProviderId = userMetadata?.serviceProviderId;
   const isTaskOwner = customerId === task.customerId;
 
   const offers = await OfferModel.find({ taskId: id });
-  let results: TaskOffer[] = [];
 
   if (!isTaskOwner) {
-    results = offers.map((item) => {
-      const isOfferOwner = item.serviceProviderId === serviceProviderId;
-      const amount = isOfferOwner ? item.amount : undefined;
+    const serviceProviderId = userMetadata?.serviceProviderId;
 
-      return {
-        ...item.toObject(),
-        amount,
-      };
-    });
+    const results: TaskOffer[] = hideOfferAmounts(
+      offers.map((item) => item.toObject()),
+      serviceProviderId
+    );
+
+    return res.status(200).json({ data: results });
   }
 
-  return res.status(200).json({ data: results });
+  return res.status(200).json({ data: offers });
 }
 
 async function createOffer(req: NextApiRequest, res: NextApiResponse) {
