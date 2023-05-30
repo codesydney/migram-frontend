@@ -24,6 +24,8 @@ import {
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { Offer } from "@/types/schemas/Offer";
+import { Task } from "@/types/schemas/Task";
 
 if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
   throw new Error("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not set");
@@ -56,6 +58,8 @@ const products = [
 export default function CheckoutForm() {
   const router = useRouter();
   const [checkoutData, setCheckoutData] = useState<any>(null);
+  const task = checkoutData?.task;
+  const acceptedOffer = checkoutData?.acceptedOffer;
 
   const options = {
     appearance: {
@@ -86,160 +90,12 @@ export default function CheckoutForm() {
       <main className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 lg:flex lg:min-h-full lg:flex-row-reverse lg:overflow-hidden">
         <h1 className="sr-only">Checkout</h1>
 
-        {/* Mobile order summary */}
-        <section
-          aria-labelledby="order-heading"
-          className="bg-gray-50 px-4 py-6 sm:px-6 lg:hidden"
-        >
-          <Disclosure as="div" className="mx-auto max-w-lg">
-            {({ open }) => (
-              <>
-                <div className="flex items-center justify-between">
-                  <h2
-                    id="order-heading"
-                    className="text-lg font-medium text-gray-900"
-                  >
-                    Your Order
-                  </h2>
-                  <Disclosure.Button className="font-medium text-indigo-600 hover:text-indigo-500">
-                    {open ? (
-                      <span>Hide full summary</span>
-                    ) : (
-                      <span>Show full summary</span>
-                    )}
-                  </Disclosure.Button>
-                </div>
-
-                <Disclosure.Panel>
-                  <ul
-                    role="list"
-                    className="divide-y divide-gray-200 border-b border-gray-200"
-                  >
-                    {products.map((product) => (
-                      <li key={product.id} className="flex space-x-6 py-6">
-                        <img
-                          src={product.imageSrc}
-                          alt={product.imageAlt}
-                          className="h-40 w-40 flex-none rounded-md bg-gray-200 object-cover object-center"
-                        />
-                        <div className="flex flex-col justify-between space-y-4">
-                          <div className="space-y-1 text-sm font-medium">
-                            <h3 className="text-gray-900">{product.name}</h3>
-                            <p className="text-gray-900">{product.price}</p>
-                            <p className="text-gray-500">{product.color}</p>
-                            <p className="text-gray-500">{product.size}</p>
-                          </div>
-                          <div className="flex space-x-4">
-                            <button
-                              type="button"
-                              className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                            >
-                              Edit
-                            </button>
-                            <div className="flex border-l border-gray-300 pl-4">
-                              <button
-                                type="button"
-                                className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                              >
-                                Remove
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <dl className="mt-10 space-y-6 text-sm font-medium text-gray-500">
-                    <div className="flex justify-between">
-                      <dt>Subtotal</dt>
-                      <dd className="text-gray-900">{subtotal}</dd>
-                    </div>
-                    <div className="flex justify-between">
-                      <dt>Taxes</dt>
-                      <dd className="text-gray-900">{taxes}</dd>
-                    </div>
-                    <div className="flex justify-between">
-                      <dt>Shipping</dt>
-                      <dd className="text-gray-900">{shipping}</dd>
-                    </div>
-                  </dl>
-                </Disclosure.Panel>
-
-                <p className="mt-6 flex items-center justify-between border-t border-gray-200 pt-6 text-sm font-medium text-gray-900">
-                  <span className="text-base">Total</span>
-                  <span className="text-base">{total}</span>
-                </p>
-              </>
-            )}
-          </Disclosure>
-        </section>
-
-        {/* Order summary */}
-        <section
-          aria-labelledby="summary-heading"
-          className="hidden w-full max-w-md flex-col bg-gray-50 lg:flex"
-        >
-          <h2 id="summary-heading" className="sr-only">
-            Order summary
-          </h2>
-
-          <ul
-            role="list"
-            className="flex-auto divide-y divide-gray-200 overflow-y-auto px-6"
-          >
-            {products.map((product) => (
-              <li key={product.id} className="flex space-x-6 py-6">
-                <img
-                  src={product.imageSrc}
-                  alt={product.imageAlt}
-                  className="h-40 w-40 flex-none rounded-md bg-gray-200 object-cover object-center"
-                />
-                <div className="flex flex-col justify-between space-y-4">
-                  <div className="space-y-1 text-sm font-medium">
-                    <h3 className="text-gray-900">{product.name}</h3>
-                    <p className="text-gray-900">{product.price}</p>
-                    <p className="text-gray-500">{product.color}</p>
-                    <p className="text-gray-500">{product.size}</p>
-                  </div>
-                  <div className="flex space-x-4">
-                    <button
-                      type="button"
-                      className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                    >
-                      Edit
-                    </button>
-                    <div className="flex border-l border-gray-300 pl-4">
-                      <button
-                        type="button"
-                        className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          <div className="sticky bottom-0 flex-none border-t border-gray-200 bg-gray-50 p-6">
-            <dl className="space-y-6 text-sm font-medium text-gray-500">
-              <div className="flex justify-between">
-                <dt>Subtotal</dt>
-                <dd className="text-gray-900">{subtotal}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt>Taxes</dt>
-                <dd className="text-gray-900">{taxes}</dd>
-              </div>
-              <div className="flex items-center justify-between border-t border-gray-200 pt-6 text-gray-900">
-                <dt>Total</dt>
-                <dd className="text-base">{total}</dd>
-              </div>
-            </dl>
-          </div>
-        </section>
+        {acceptedOffer && task && (
+          <>
+            <MobileOrderSummary acceptedOffer={acceptedOffer} task={task} />
+            <OrderSummary acceptedOffer={acceptedOffer} task={task} />
+          </>
+        )}
 
         {/* Checkout form */}
         <section
@@ -258,6 +114,120 @@ export default function CheckoutForm() {
         </section>
       </main>
     </>
+  );
+}
+
+export type OrderSummaryProps = {
+  acceptedOffer: Offer;
+  task: Task;
+};
+
+export function MobileOrderSummary({ acceptedOffer, task }: OrderSummaryProps) {
+  return (
+    <section
+      aria-labelledby="order-heading"
+      className="bg-gray-50 px-4 py-6 sm:px-6 lg:hidden"
+    >
+      <Disclosure as="div" className="mx-auto max-w-lg">
+        {({ open }) => (
+          <>
+            <div className="flex items-center justify-between">
+              <h2
+                id="order-heading"
+                className="text-lg font-medium text-gray-900"
+              >
+                Your Order
+              </h2>
+              <Disclosure.Button className="font-medium text-indigo-600 hover:text-indigo-500">
+                {open ? (
+                  <span>Hide full summary</span>
+                ) : (
+                  <span>Show full summary</span>
+                )}
+              </Disclosure.Button>
+            </div>
+
+            <Disclosure.Panel>
+              <ul
+                role="list"
+                className="divide-y divide-gray-200 border-b border-gray-200"
+              >
+                <li key={task._id} className="flex space-x-6 py-6">
+                  <div className="flex flex-col justify-between space-y-4">
+                    <div className="space-y-1 text-sm font-medium">
+                      <h3 className="text-gray-900">{task.shortDescription}</h3>
+                      <p className="text-gray-900">{task.details}</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+
+              <dl className="mt-10 space-y-6 text-sm font-medium text-gray-500">
+                <div className="flex justify-between">
+                  <dt>Subtotal</dt>
+                  <dd className="text-gray-900">${acceptedOffer.amount}.00</dd>
+                </div>
+                {/* <div className="flex justify-between">
+                  <dt>Taxes</dt>
+                  <dd className="text-gray-900">{taxes}</dd>
+                </div> */}
+              </dl>
+            </Disclosure.Panel>
+
+            <p className="mt-6 flex items-center justify-between border-t border-gray-200 pt-6 text-sm font-medium text-gray-900">
+              <span className="text-base">Total</span>
+              <span className="text-base">${acceptedOffer.amount}.00</span>
+            </p>
+          </>
+        )}
+      </Disclosure>
+    </section>
+  );
+}
+
+export function OrderSummary({ acceptedOffer, task }: OrderSummaryProps) {
+  return (
+    <section
+      aria-labelledby="summary-heading"
+      className="hidden w-full max-w-md flex-col bg-gray-50 lg:flex"
+    >
+      <h2 id="summary-heading" className="sr-only">
+        Order summary
+      </h2>
+
+      <ul
+        role="list"
+        className="flex-auto divide-y divide-gray-200 overflow-y-auto px-6"
+      >
+        {
+          <li key={task._id} className="flex space-x-6 py-6">
+            <div className="flex flex-col justify-between space-y-4">
+              <div className="space-y-1 text-sm font-medium">
+                <h3 className="text-gray-900">{task.shortDescription}</h3>
+                <p className="text-gray-900">{task.details}</p>
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+
+      <div className="sticky bottom-0 flex-none border-t border-gray-200 bg-gray-50 p-6">
+        <dl className="space-y-6 text-sm font-medium text-gray-500">
+          <div className="flex justify-between">
+            <dt>Subtotal</dt>
+            <dd className="text-gray-900">${acceptedOffer.amount}.00</dd>
+          </div>
+          {/* <div className="flex justify-between">
+            <dt>Taxes</dt>
+            <dd className="text-gray-900">{taxes}</dd>
+          </div> */}
+          <div className="flex items-center justify-between border-t border-gray-200 pt-6 text-gray-900">
+            <dt>Total</dt>
+            <dd className="text-base">${acceptedOffer.amount}.00</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
   );
 }
 
