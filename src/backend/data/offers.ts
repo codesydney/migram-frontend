@@ -24,6 +24,7 @@ const OfferSchema = new mongoose.Schema<Offer>({
   taskId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Task",
+    index: true,
     required: true,
   },
   amount: {
