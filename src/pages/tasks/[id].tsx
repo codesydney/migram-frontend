@@ -17,6 +17,7 @@ import {
   CreateOfferPayload,
   CreateOfferPayloadSchema,
   GetTaskOffersResponse,
+  Offer,
   TaskOffer,
 } from "@/types/schemas/Offer";
 import { GetTaskResponse, Task } from "@/types/schemas/Task";
@@ -293,9 +294,7 @@ export function OfferTableRow({
         {offer.amount && `$${offer.amount}`}
       </td>
       <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-        <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-          {offer.status}
-        </span>
+        <OfferStatusBadge status={offer.status} />
       </td>
       <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
         {offer.message}
@@ -308,6 +307,41 @@ export function OfferTableRow({
       )}
     </tr>
   );
+}
+
+export function OfferStatusBadge({ status }: { status: Offer["status"] }) {
+  switch (status) {
+    case "Pending":
+      return (
+        <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+          {status}
+        </span>
+      );
+    case "Accepted":
+      return (
+        <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+          {status}
+        </span>
+      );
+    case "Completed":
+      return (
+        <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+          {status}
+        </span>
+      );
+    case "Rejected":
+      return (
+        <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+          {status}
+        </span>
+      );
+    default:
+      return (
+        <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+          {status}
+        </span>
+      );
+  }
 }
 
 export function MakeOfferForm({ taskId }: { taskId: string }) {
