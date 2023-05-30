@@ -1,6 +1,8 @@
-import { Task } from "@/types/schemas/Task";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { MapPinIcon, WrenchScrewdriverIcon } from "@heroicons/react/20/solid";
+
+import { Task } from "@/types/schemas/Task";
 
 type ServerTask = Omit<Task, "dueDate"> & { dueDate: string };
 type GetTasksResponse = { data: ServerTask[] };
@@ -23,8 +25,8 @@ export default function TasksPage() {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <div className="md:flex md:items-center md:justify-between">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+        <div className="flex items-center justify-between">
+          <h2 className="inline-block text-2xl font-bold tracking-tight text-gray-900">
             Tasks
           </h2>
           <a href="/tasks/create">
@@ -37,17 +39,30 @@ export default function TasksPage() {
           </a>
         </div>
 
-        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 lg:gap-x-8">
-          {tasks.map((task: any) => (
-            <div key={task._id} className="group relative">
-              <h3 className="mt-4 text-sm text-gray-700">
+        <div className="mt-8 grid gap-4 md:gap-y-10 sm:gap-x-6 md:grid-cols-3 lg:gap-x-8">
+          {tasks.map((task: Task) => (
+            <div
+              key={task._id}
+              className="flex flex-col gap-4 text-gray-500 group relative border-2 border-gray-400 p-4 rounded-md hover:border-indigo-600 hover:text-indigo-600"
+            >
+              <h3 className="text-lg text-gray-700 font-bold group-hover:text-indigo-600">
                 <a href={`/tasks/${task._id}`}>
                   <span className="absolute inset-0" />
                   {task.shortDescription}
                 </a>
               </h3>
-              <p className="mt-1 text-sm text-gray-500">{task.budget}</p>
-              <p className="mt-1 text-sm font-medium text-gray-900">
+              <p className="mt-auto flex gap-2">
+                <WrenchScrewdriverIcon className="h-6 w-6" />
+                {task.category}
+              </p>
+              <p className="flex gap-2">
+                <MapPinIcon className="h-6 w-6" />
+                <span>{task.location.city}</span>
+              </p>
+              <p className="flex gap-2">
+                <span>{task.status}</span>
+              </p>
+              <p className="text-xl font-medium text-gray-900 group-hover:text-indigo-600">
                 ${task.budget}
               </p>
             </div>
