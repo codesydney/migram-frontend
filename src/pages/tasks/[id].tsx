@@ -72,7 +72,7 @@ export function useTaskDetials() {
 
 export default function TaskItemPage() {
   const [task, setTask] = useState<Task | undefined>();
-  const { customerId, isProvider } = useMigramUser();
+  const { customerId, isProvider, serviceProviderId } = useMigramUser();
   const router = useRouter();
 
   const id = router.query.id as string;
@@ -99,8 +99,11 @@ export default function TaskItemPage() {
       <div className="bg-white">
         <div className="flex flex-col gap-10 mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 md:gap-20 lg:max-w-7xl lg:px-8">
           <TaskDetails task={task} />
-          {task.acceptedOffer && (
-            <AcceptedOfferDetails offerId={task.acceptedOffer} />
+          {task.acceptedOffer && serviceProviderId && (
+            <AcceptedOfferDetails
+              offerId={task.acceptedOffer}
+              serviceProviderId={serviceProviderId}
+            />
           )}
           <TaskOffersTable taskId={task._id} />
           {isProvider && <MakeOfferForm taskId={task._id} />}
@@ -423,12 +426,25 @@ export type GetOfferResponse = {
   data: Offer;
 };
 
-export function AcceptedOfferDetails({ offerId }: { offerId: string }) {
+export type AcceptedOfferDetailsProps = {
+  offerId: string;
+  serviceProviderId: string;
+};
+
+export function AcceptedOfferDetails({
+  offerId,
+  serviceProviderId,
+}: AcceptedOfferDetailsProps) {
   const [acceptedOffer, setAcceptedOffer] = useState<Offer | undefined>();
+  const isOfferOwner = serviceProviderId === acceptedOffer?.serviceProviderId;
+  const isOfferCompleted = acceptedOffer?.status === "Completed";
+  const showMarkCompleteButton = isOfferOwner && !isOfferCompleted;
 
   const onMarkTaskCompleteClick = async () => {
-    const url = `/api/offers/${offerId}/complete`;
+    if (!isOfferOwner)
+      throw new Error("Only the offer owner can mark the task as complete");
 
+    const url = `/api/offers/${offerId}/complete`;
     const [err, response] = await to(axios.post(url));
 
     if (err || !response) {
@@ -501,18 +517,20 @@ export function AcceptedOfferDetails({ offerId }: { offerId: string }) {
               {acceptedOffer?.message}
             </dd>
           </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900"></dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              <button
-                type="button"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                onClick={onMarkTaskCompleteClick}
-              >
-                Mark as Complete
-              </button>
-            </dd>
-          </div>
+          {showMarkCompleteButton && (
+            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+              <dt className="text-sm font-medium leading-6 text-gray-900"></dt>
+              <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                <button
+                  type="button"
+                  className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  onClick={onMarkTaskCompleteClick}
+                >
+                  Mark as Complete
+                </button>
+              </dd>
+            </div>
+          )}
         </dl>
       </div>
     </div>

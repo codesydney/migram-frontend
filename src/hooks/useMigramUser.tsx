@@ -13,8 +13,10 @@ export function useMigramUser() {
     | undefined;
   const isProvider = userRole === "service-provider";
   const isCustomer = userRole === "customer";
-  const serviceProviderId = user?.publicMetadata.serviceProviderId;
-  const customerId = user?.publicMetadata.customerId;
+  const serviceProviderId = user?.publicMetadata.serviceProviderId as
+    | string
+    | undefined;
+  const customerId = user?.publicMetadata.customerId as string | undefined;
 
   return {
     ...useUserReturn,
