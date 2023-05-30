@@ -12,7 +12,9 @@ export const offerSchema = z.object({
     })
     .positive({ message: "Amount must be more than 0" }),
   message: z.string().nonempty(),
-  status: z.enum(["Pending", "Accepted", "Rejected"]).default("Pending"),
+  status: z
+    .enum(["Pending", "Accepted", "Rejected", "Completed"])
+    .default("Pending"),
   contactEmail: z.string().email(),
   contactName: z.string().nonempty(),
   contactPhoto: z.string().url(),

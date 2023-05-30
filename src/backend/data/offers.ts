@@ -33,7 +33,7 @@ const OfferSchema = new mongoose.Schema<Offer>({
   },
   status: {
     type: String,
-    enum: ["Pending", "Accepted", "Rejected"],
+    enum: ["Pending", "Accepted", "Rejected", "Completed"],
     default: "Pending",
   },
   message: {
