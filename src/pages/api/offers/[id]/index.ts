@@ -1,7 +1,8 @@
 import { OfferModel } from "@/backend/data/offers";
+import { TaskModel } from "@/backend/data/tasks";
 import { authenticate } from "@/backend/middlewares/auth";
 import { isUserServiceProvider } from "@/backend/services/users";
-import { ServiceProviderMetadata } from "@/backend/services/users/types";
+import { ServiceProviderMetadata as UserMetadata } from "@/backend/services/users/types";
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function getOfferById(req: NextApiRequest, res: NextApiResponse) {
@@ -13,10 +14,17 @@ async function getOfferById(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   const offer = await OfferModel.findOne({ _id: id });
 
+  if (!offer) return res.status(404).json({ message: "Offer not found" });
+
+  const task = await TaskModel.findOne({ _id: offer?.taskId });
+  const userMetadata = authResult.user.publicMetadata as UserMetadata;
+  const customerId = userMetadata?.customerId;
+  const isTaskOwner = customerId === task?.customerId;
+
   const cleanedOffer = {
     ...offer?.toObject(),
     serviceProviderId: undefined,
-    contactEmail: undefined,
+    contactEmail: isTaskOwner ? offer.contactEmail : undefined,
   };
 
   return res.status(200).json({ data: cleanedOffer });
@@ -39,7 +47,7 @@ async function updateOffer(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   const offer = await OfferModel.findById({ _id: id });
 
-  const userMetadata = user.publicMetadata as ServiceProviderMetadata;
+  const userMetadata = user.publicMetadata as UserMetadata;
   const serviceProviderId = userMetadata.serviceProviderId;
   const isOfferOwner = serviceProviderId === offer?.serviceProviderId;
 
