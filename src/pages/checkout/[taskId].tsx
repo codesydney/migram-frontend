@@ -1,29 +1,18 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
-import { Disclosure } from "@headlessui/react";
-import axios from "axios";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+
+import axios from "axios";
+import { Disclosure } from "@headlessui/react";
 import {
-  PaymentElement,
-  LinkAuthenticationElement,
   AddressElement,
+  Elements,
+  LinkAuthenticationElement,
+  PaymentElement,
+  useElements,
+  useStripe,
 } from "@stripe/react-stripe-js";
-import { useStripe, useElements } from "@stripe/react-stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+
 import { Offer } from "@/types/schemas/Offer";
 import { Task } from "@/types/schemas/Task";
 
