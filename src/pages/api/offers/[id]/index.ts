@@ -13,7 +13,13 @@ async function getOfferById(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   const offer = await OfferModel.findOne({ _id: id });
 
-  return res.status(200).json({ data: offer });
+  const cleanedOffer = {
+    ...offer?.toObject(),
+    serviceProviderId: undefined,
+    contactEmail: undefined,
+  };
+
+  return res.status(200).json({ data: cleanedOffer });
 }
 
 async function updateOffer(req: NextApiRequest, res: NextApiResponse) {
