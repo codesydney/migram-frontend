@@ -212,7 +212,7 @@ export type OfferTableRowProps = {
 
 export function OfferTableRow({ offer }: OfferTableRowProps) {
   const onClick = async () => {
-    const url = `api/offers/${offer._id}/approve`;
+    const url = `/api/offers/${offer._id}/approve`;
 
     const [err, response] = await to(axios.post(url));
 
