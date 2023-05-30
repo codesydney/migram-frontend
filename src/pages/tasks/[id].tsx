@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 
 import to from "await-to-js";
 import axios from "axios";
-import { useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -15,6 +14,7 @@ import {
   TaskOffer,
 } from "@/types/schemas/Offer";
 import { GetTaskResponse, Task } from "@/types/schemas/Task";
+import { useMigramUser } from "@/hooks";
 
 export async function queryTaskById(id: string) {
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/tasks/${id}`;
@@ -37,9 +37,7 @@ export async function queryTaskById(id: string) {
 export default function TaskItemPage() {
   const [task, setTask] = useState<Task | undefined>();
   const router = useRouter();
-  const { user } = useUser();
-  const isProvider = user?.publicMetadata.role === "service-provider";
-  const isCustomer = user?.publicMetadata.role === "customer";
+  const { user, isCustomer, isProvider } = useMigramUser();
 
   const id = router.query.id as string;
 
