@@ -34,27 +34,6 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 );
 
-const subtotal = "$108.00";
-const discount = { code: "CHEAPSKATE", amount: "$16.00" };
-const taxes = "$9.92";
-const shipping = "$8.00";
-const total = "$141.92";
-const products = [
-  {
-    id: 1,
-    name: "Mountain Mist Artwork Tee",
-    href: "#",
-    price: "$36.00",
-    color: "Birch",
-    size: "L",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/checkout-form-04-product-01.jpg",
-    imageAlt:
-      "Off-white t-shirt with circular dot illustration on the front of mountain ridges that fade.",
-  },
-  // More products...
-];
-
 export default function CheckoutForm() {
   const router = useRouter();
   const [checkoutData, setCheckoutData] = useState<any>(null);
