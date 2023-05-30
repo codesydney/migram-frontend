@@ -16,7 +16,7 @@ import { TaskOffer } from "@/types/schemas/Offer";
  * @param offers Array of TaskOffers
  * @param serviceProviderId (Optional) Service Provider Id
  */
-const hideSensiteOfferData = (
+const hideSensitiveOfferData = (
   offers: TaskOffer[],
   serviceProviderId?: string
 ) => {
@@ -54,7 +54,7 @@ async function getTaskOffers(req: NextApiRequest, res: NextApiResponse) {
   if (!isTaskOwner) {
     const serviceProviderId = userMetadata?.serviceProviderId;
 
-    const results: TaskOffer[] = hideSensiteOfferData(
+    const results: TaskOffer[] = hideSensitiveOfferData(
       offers.map((item) => item.toObject()),
       serviceProviderId
     );
