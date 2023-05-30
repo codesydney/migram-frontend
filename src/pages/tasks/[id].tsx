@@ -215,10 +215,8 @@ export function TaskOffersList({ taskId }: { taskId: string }) {
                 {offers.length === 0 ? (
                   <tr key="no-offers">
                     <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
-                      <td className="whitespace-nowrap px-3 py-5 text-md text-gray-900">
-                        Looks like there are no offers yet. Be the first to make
-                        an offer.
-                      </td>
+                      Looks like there are no offers yet. Be the first to make
+                      an offer.
                     </td>
                   </tr>
                 ) : null}
