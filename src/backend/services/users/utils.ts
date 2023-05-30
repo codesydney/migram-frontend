@@ -7,6 +7,7 @@ export type getPrimaryEmailAddressResult =
     }
   | {
       type: "error";
+      email?: undefined;
       error: Error;
     };
 

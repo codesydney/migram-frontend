@@ -35,7 +35,7 @@ async function updateOffer(req: NextApiRequest, res: NextApiResponse) {
 
   const userMetadata = user.publicMetadata as ServiceProviderMetadata;
   const serviceProviderId = userMetadata.serviceProviderId;
-  const isOfferOwner = serviceProviderId === offer.serviceProviderId;
+  const isOfferOwner = serviceProviderId === offer?.serviceProviderId;
 
   if (!isOfferOwner) {
     return res.status(403).json({

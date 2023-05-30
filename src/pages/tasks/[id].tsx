@@ -187,22 +187,22 @@ export function TaskOffersList({ taskId }: { taskId: string }) {
                         <div className="h-11 w-11 flex-shrink-0">
                           <img
                             className="h-11 w-11 rounded-full"
-                            src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            src={offer.contactPhoto}
                             alt=""
                           />
                         </div>
                         <div className="ml-4">
                           <div className="font-medium text-gray-900">
-                            {"David Taing"}
+                            {offer.contactName}
                           </div>
-                          {/* <div className="mt-1 text-gray-500">
-                            {"adavidtaing@gmail.com"}
-                          </div> */}
+                          <div className="mt-1 text-gray-500">
+                            {offer.contactEmail}
+                          </div>
                         </div>
                       </div>
                     </td>
                     <td className="whitespace-nowrap px-3 py-5 text-md text-gray-900">
-                      ${offer.amount}
+                      {offer.amount && `$${offer.amount}`}
                     </td>
                     <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                       <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
@@ -240,7 +240,6 @@ export function MakeOfferForm({ taskId }: { taskId: string }) {
       console.log("Successfully Created Offer");
     }
   };
-  console.log({ errors });
 
   return (
     <div>

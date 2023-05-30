@@ -13,6 +13,9 @@ export const offerSchema = z.object({
     .positive({ message: "Amount must be more than 0" }),
   message: z.string().nonempty(),
   status: z.enum(["Pending", "Accepted", "Rejected"]).default("Pending"),
+  contactEmail: z.string().email(),
+  contactName: z.string().nonempty(),
+  contactPhoto: z.string().url(),
 });
 
 export const CreateOfferPayloadSchema = offerSchema.omit({
@@ -22,6 +25,9 @@ export const CreateOfferPayloadSchema = offerSchema.omit({
   serviceProviderId: true,
   taskId: true,
   status: true,
+  contactEmail: true,
+  contactName: true,
+  contactPhoto: true,
 });
 
 export type Offer = z.infer<typeof offerSchema>;

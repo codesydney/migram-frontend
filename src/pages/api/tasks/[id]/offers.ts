@@ -5,7 +5,10 @@ import { TaskModel } from "@/backend/data/tasks";
 import { dbConnect } from "@/backend/services/db";
 import { authenticate } from "@/backend/middlewares/auth";
 import { UserMetadata } from "@/backend/services/users/types";
-import { isUserServiceProvider } from "@/backend/services/users";
+import {
+  getPrimaryEmailAddress,
+  isUserServiceProvider,
+} from "@/backend/services/users";
 import { TaskOffer } from "@/types/schemas/Offer";
 
 /**
@@ -93,6 +96,9 @@ async function createOffer(req: NextApiRequest, res: NextApiResponse) {
     taskId: task._id,
     serviceProviderId,
     userId,
+    contactEmail: getPrimaryEmailAddress(user).email,
+    contactName: `${user.firstName} ${user.lastName}`,
+    contactPhoto: user.profileImageUrl,
   });
 
   return res.status(200).json({ data: offer });

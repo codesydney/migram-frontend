@@ -39,6 +39,18 @@ const OfferSchema = new mongoose.Schema<Offer>({
     type: String,
     required: true,
   },
+  contactEmail: {
+    type: String,
+    required: true,
+  },
+  contactName: {
+    type: String,
+    required: true,
+  },
+  contactPhoto: {
+    type: String,
+    required: true,
+  },
 });
 
 export const OfferModel: Model<Offer> =
