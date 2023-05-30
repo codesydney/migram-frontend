@@ -12,18 +12,23 @@ import {
 import { TaskOffer } from "@/types/schemas/Offer";
 
 /**
- * Hide non-owners offer amounts
+ * Hide non-owner's offer amounts and email addresses
  * @param offers Array of TaskOffers
  * @param serviceProviderId (Optional) Service Provider Id
  */
-const hideOfferAmounts = (offers: TaskOffer[], serviceProviderId?: string) => {
+const hideSensiteOfferData = (
+  offers: TaskOffer[],
+  serviceProviderId?: string
+) => {
   return offers.map((item) => {
     const isOfferOwner = item.serviceProviderId === serviceProviderId;
     const amount = isOfferOwner ? item.amount : undefined;
+    const contactEmail = isOfferOwner ? item.contactEmail : undefined;
 
     return {
       ...item,
       amount,
+      contactEmail,
     };
   });
 };
@@ -49,7 +54,7 @@ async function getTaskOffers(req: NextApiRequest, res: NextApiResponse) {
   if (!isTaskOwner) {
     const serviceProviderId = userMetadata?.serviceProviderId;
 
-    const results: TaskOffer[] = hideOfferAmounts(
+    const results: TaskOffer[] = hideSensiteOfferData(
       offers.map((item) => item.toObject()),
       serviceProviderId
     );
