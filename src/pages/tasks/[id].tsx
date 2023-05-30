@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 
 import to from "await-to-js";
 import axios from "axios";
-import { clsx } from "clsx";
 import { zodResolver } from "@hookform/resolvers/zod";
 import pino from "pino";
 import { useForm } from "react-hook-form";
@@ -100,6 +99,9 @@ export default function TaskItemPage() {
       <div className="bg-white">
         <div className="flex flex-col gap-10 mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 md:gap-20 lg:max-w-7xl lg:px-8">
           <TaskDetails task={task} />
+          {task.acceptedOffer && (
+            <AcceptedOfferDetails offerId={task.acceptedOffer} />
+          )}
           <TaskOffersTable taskId={task._id} />
           {isProvider && <MakeOfferForm taskId={task._id} />}
         </div>
@@ -414,5 +416,79 @@ export function ApproveOfferButton({ onClick }: ApproveOfferButtonProps) {
     >
       Approve
     </button>
+  );
+}
+
+export type GetOfferResponse = {
+  data: Offer;
+};
+
+export function AcceptedOfferDetails({ offerId }: { offerId: string }) {
+  const [acceptedOffer, setAcceptedOffer] = useState<Offer | undefined>();
+
+  useEffect(() => {
+    const url = `/api/offers/${offerId}`;
+    axios.get<GetOfferResponse>(url).then((response) => {
+      setAcceptedOffer(response.data.data);
+    });
+  }, []);
+
+  return (
+    <div aria-label="Task Offers">
+      <div className="sm:flex sm:items-center">
+        <div className="sm:flex-auto">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+            Accepted Offer
+          </h1>
+        </div>
+      </div>
+      <div className="mt-6 border-t border-gray-100">
+        <dl className="divide-y divide-gray-100">
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-gray-900">
+              Status
+            </dt>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              {acceptedOffer && (
+                <OfferStatusBadge status={acceptedOffer.status} />
+              )}
+            </dd>
+          </div>
+          <div className="items-center px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-gray-900">
+              Service Provider
+            </dt>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              <div className="flex items-center">
+                <div className="h-11 w-11 flex-shrink-0">
+                  <img
+                    className="h-11 w-11 rounded-full"
+                    src={acceptedOffer?.contactPhoto}
+                    alt=""
+                  />
+                </div>
+                <div className="ml-4">
+                  <div className="font-medium text-gray-900">
+                    {acceptedOffer?.contactName}
+                  </div>
+                  <div className="mt-1 text-gray-500">
+                    {acceptedOffer?.contactEmail}
+                  </div>
+                </div>
+              </div>
+            </dd>
+          </div>
+
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-gray-900">
+              Short Description
+            </dt>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              {acceptedOffer?.message}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
   );
 }
