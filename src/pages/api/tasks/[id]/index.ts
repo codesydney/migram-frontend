@@ -7,6 +7,11 @@ import { isUserCustomer } from "@/backend/services/users";
 import { CustomerMetadata } from "@/backend/services/users/types";
 
 async function getTaskById(req: NextApiRequest, res: NextApiResponse) {
+  const authResult = await authenticate(req);
+
+  if (authResult.type === "error")
+    return res.status(authResult.status).json({ message: authResult.message });
+
   const { id } = req.query;
   const task = await TaskModel.findOne({ _id: id });
 
