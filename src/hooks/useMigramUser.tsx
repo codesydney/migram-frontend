@@ -7,8 +7,12 @@ import { useUser } from "@clerk/nextjs";
 export function useMigramUser() {
   const useUserReturn = useUser();
   const { user } = useUserReturn;
-  const isProvider = user?.publicMetadata.role === "service-provider";
-  const isCustomer = user?.publicMetadata.role === "customer";
+  const userRole = user?.publicMetadata.role as
+    | "customer"
+    | "service-provider"
+    | undefined;
+  const isProvider = userRole === "service-provider";
+  const isCustomer = userRole === "customer";
 
-  return { ...useUserReturn, isCustomer, isProvider };
+  return { ...useUserReturn, userRole, isCustomer, isProvider };
 }

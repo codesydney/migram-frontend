@@ -1,6 +1,7 @@
 "use client";
 
 import { UserMetadata } from "@/backend/services/users/types";
+import { useMigramUser } from "@/hooks";
 import {
   SignedIn,
   SignedOut,
@@ -14,17 +15,13 @@ import { useState } from "react";
 
 const navigation = [
   { name: "Listings", href: "/listings" },
-  { name: "My Tasks", href: "/my-tasks" },
-  { name: "My Offers", href: "/my-offers" },
+  { name: "My Tasks", href: "/my-tasks", role: "customer" },
+  { name: "My Offers", href: "/my-offers", role: "service-provider" },
 ];
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user } = useUser();
-
-  const userMetadata = user?.publicMetadata as UserMetadata | undefined;
-
-  const userRole = userMetadata?.role;
+  const { user, userRole } = useMigramUser();
 
   return (
     <header className="absolute inset-x-0 top-0 z-50 mx-auto max-w-2xl lg:max-w-7xl ">
@@ -49,15 +46,19 @@ export function Header() {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          {navigation.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              {item.name}
-            </a>
-          ))}
+          {navigation.map((item) => {
+            if (item.role && item.role !== userRole) return null;
+
+            return (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-sm font-semibold leading-6 text-gray-900"
+              >
+                {item.name}
+              </a>
+            );
+          })}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4">
           <UserTypeBadge type={userRole}></UserTypeBadge>
