@@ -14,6 +14,9 @@
 */
 import { StateSchema, Task } from "@/types/schemas/Task";
 import { Disclosure } from "@headlessui/react";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const subtotal = "$108.00";
 const discount = { code: "CHEAPSKATE", amount: "$16.00" };
@@ -37,6 +40,28 @@ const products = [
 ];
 
 export default function CheckoutForm() {
+  const router = useRouter();
+  const [checkoutData, setCheckoutData] = useState<any>(null);
+
+  const taskId = router.query.taskId as string;
+
+  const onSubmit = (data: any) => {};
+
+  useEffect(() => {
+    if (taskId) {
+      const url = `/api/payments/payment-intent`;
+
+      axios
+        .post(url, {
+          taskId,
+        })
+        .then((res) => {
+          setCheckoutData(res.data);
+        })
+        .catch((err) => alert(err));
+    }
+  }, [taskId]);
+
   return (
     <>
       <main className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 lg:flex lg:min-h-full lg:flex-row-reverse lg:overflow-hidden">
