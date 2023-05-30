@@ -1,12 +1,10 @@
 import to from "await-to-js";
 import { NextApiRequest, NextApiResponse } from "next";
-import pino from "pino";
 
 import { TaskModel } from "@/backend/data/tasks";
 import { stripe } from "@/backend/services/payments/stripe";
 import { OfferModel } from "@/backend/data/offers";
-
-const logger = pino({ name: "api/payments/payment-intent" });
+import { dbConnect } from "@/backend/services/db";
 
 export default async function handler(
   req: NextApiRequest,
@@ -14,6 +12,8 @@ export default async function handler(
 ) {
   if (req.method !== "POST")
     return res.status(400).json({ message: "Invalid request method" });
+
+  await dbConnect();
 
   const taskId = req.body.taskId as string;
 
