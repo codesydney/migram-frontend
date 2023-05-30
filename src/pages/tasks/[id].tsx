@@ -182,58 +182,9 @@ export function TaskOffersList({ taskId }: { taskId: string }) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {offers.map((offer) => {
-                  const onClick = async () => {
-                    const url = `api/offers/${offer._id}/approve`;
-
-                    const [err, response] = await to(axios.post(url));
-
-                    if (err || !response) {
-                      alert("Something went wrong");
-                      return;
-                    }
-
-                    window.location.reload();
-                  };
-
-                  return (
-                    <tr key={offer._id}>
-                      <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
-                        <div className="flex items-center">
-                          <div className="h-11 w-11 flex-shrink-0">
-                            <img
-                              className="h-11 w-11 rounded-full"
-                              src={offer.contactPhoto}
-                              alt=""
-                            />
-                          </div>
-                          <div className="ml-4">
-                            <div className="font-medium text-gray-900">
-                              {offer.contactName}
-                            </div>
-                            <div className="mt-1 text-gray-500">
-                              {offer.contactEmail}
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-5 text-md text-gray-900">
-                        {offer.amount && `$${offer.amount}`}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                        <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                          {offer.status}
-                        </span>
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
-                        {offer.message}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
-                        <ApproveOfferButton onClick={onClick} />
-                      </td>
-                    </tr>
-                  );
-                })}
+                {offers.map((offer) => (
+                  <OfferTableRow offer={offer} />
+                ))}
                 {offers.length === 0 ? (
                   <tr key="no-offers">
                     <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
@@ -248,6 +199,59 @@ export function TaskOffersList({ taskId }: { taskId: string }) {
         </div>
       </div>
     </div>
+  );
+}
+
+export type OfferTableRowProps = {
+  offer: TaskOffer;
+};
+
+export function OfferTableRow({ offer }: OfferTableRowProps) {
+  const onClick = async () => {
+    const url = `api/offers/${offer._id}/approve`;
+
+    const [err, response] = await to(axios.post(url));
+
+    if (err || !response) {
+      alert("Something went wrong");
+      return;
+    }
+
+    window.location.reload();
+  };
+
+  return (
+    <tr key={offer._id}>
+      <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+        <div className="flex items-center">
+          <div className="h-11 w-11 flex-shrink-0">
+            <img
+              className="h-11 w-11 rounded-full"
+              src={offer.contactPhoto}
+              alt=""
+            />
+          </div>
+          <div className="ml-4">
+            <div className="font-medium text-gray-900">{offer.contactName}</div>
+            <div className="mt-1 text-gray-500">{offer.contactEmail}</div>
+          </div>
+        </div>
+      </td>
+      <td className="whitespace-nowrap px-3 py-5 text-md text-gray-900">
+        {offer.amount && `$${offer.amount}`}
+      </td>
+      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+        <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+          {offer.status}
+        </span>
+      </td>
+      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
+        {offer.message}
+      </td>
+      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
+        <ApproveOfferButton onClick={onClick} />
+      </td>
+    </tr>
   );
 }
 
