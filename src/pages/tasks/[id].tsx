@@ -215,12 +215,7 @@ export function TaskOffersList({ taskId }: { taskId: string }) {
                       {offer.message}
                     </td>
                     <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
-                      <button
-                        type="button"
-                        className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                      >
-                        Approve
-                      </button>
+                      <ApproveOfferButton />
                     </td>
                   </tr>
                 ))}
@@ -328,5 +323,16 @@ export function MakeOfferForm({ taskId }: { taskId: string }) {
         </div>
       </form>
     </div>
+  );
+}
+
+export function ApproveOfferButton({}) {
+  return (
+    <button
+      type="button"
+      className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+    >
+      Approve
+    </button>
   );
 }
