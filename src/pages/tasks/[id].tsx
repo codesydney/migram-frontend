@@ -6,11 +6,12 @@ import {
   useContext,
 } from "react";
 import { useRouter } from "next/router";
-import pino from "pino";
 
 import to from "await-to-js";
 import axios from "axios";
+import { clsx } from "clsx";
 import { zodResolver } from "@hookform/resolvers/zod";
+import pino from "pino";
 import { useForm } from "react-hook-form";
 
 import {
@@ -310,38 +311,41 @@ export function OfferTableRow({
 }
 
 export function OfferStatusBadge({ status }: { status: Offer["status"] }) {
+  let className = "";
+  const baseClasses =
+    "inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium ring-1 ring-inset";
+
   switch (status) {
     case "Pending":
-      return (
-        <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
-          {status}
-        </span>
+      className = clsx(
+        baseClasses,
+        "bg-gray-50 text-gray-600 ring-gray-500/10"
       );
+      break;
     case "Accepted":
-      return (
-        <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-          {status}
-        </span>
+      className = clsx(
+        baseClasses,
+        "bg-green-50 text-green-700 ring-green-600/20"
       );
+      break;
     case "Completed":
-      return (
-        <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-          {status}
-        </span>
+      className = clsx(
+        baseClasses,
+        "bg-blue-50 text-blue-700  ring-blue-700/10"
       );
+      break;
     case "Rejected":
-      return (
-        <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-          {status}
-        </span>
-      );
+      className = clsx(baseClasses, "bg-red-50 text-red-700 ring-red-600/10");
+      break;
     default:
-      return (
-        <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
-          {status}
-        </span>
+      className = clsx(
+        baseClasses,
+        "bg-gray-50 text-gray-600 ring-gray-500/10"
       );
+      break;
   }
+
+  return <span className={className}>{status}</span>;
 }
 
 export function MakeOfferForm({ taskId }: { taskId: string }) {
