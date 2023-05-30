@@ -169,10 +169,27 @@ export function OrderSummary({ acceptedOffer, task }: OrderSummaryProps) {
       >
         {
           <li key={task._id} className="flex space-x-6 py-6">
-            <div className="flex flex-col justify-between space-y-4">
+            <div className="flex flex-col justify-between space-y-8">
               <div className="space-y-1 text-sm font-medium">
                 <h3 className="text-gray-900">{task.shortDescription}</h3>
-                <p className="text-gray-900">{task.details}</p>
+                <p className="text-gray-500">{task.details}</p>
+              </div>
+              <div className="flex items-center">
+                <div className="h-11 w-11 flex-shrink-0">
+                  <img
+                    className="h-11 w-11 rounded-full"
+                    src={acceptedOffer.contactPhoto}
+                    alt=""
+                  />
+                </div>
+                <div className="ml-4">
+                  <div className="font-medium text-gray-900">
+                    {acceptedOffer.contactName}
+                  </div>
+                  <div className="mt-1 text-gray-500">
+                    {acceptedOffer.contactEmail}
+                  </div>
+                </div>
               </div>
             </div>
           </li>
