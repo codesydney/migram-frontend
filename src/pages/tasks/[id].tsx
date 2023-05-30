@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import pino from "pino";
 
 import to from "await-to-js";
 import axios from "axios";
@@ -10,12 +11,13 @@ import {
   CreateOfferPayload,
   CreateOfferPayloadSchema,
   GetTaskOffersResponse,
-  Offer,
   TaskOffer,
 } from "@/types/schemas/Offer";
 import { GetTaskResponse, Task } from "@/types/schemas/Task";
 import { useMigramUser } from "@/hooks";
 import { TaskStatusBadge } from "@/components/TaskStatusBadge";
+
+const logger = pino({ name: "TaskItemPage" });
 
 export async function queryTaskById(id: string) {
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/tasks/${id}`;
@@ -43,9 +45,11 @@ export default function TaskItemPage() {
   const id = router.query.id as string;
 
   useEffect(() => {
-    queryTaskById(id).then((task) => {
-      if (task) setTask(task);
-    });
+    if (id) {
+      queryTaskById(id).then((task) => {
+        if (task) setTask(task);
+      });
+    }
   }, [id]);
 
   if (!task) {
@@ -214,6 +218,7 @@ export function OfferTableRow({ offer }: OfferTableRowProps) {
 
     if (err || !response) {
       alert("Something went wrong");
+      logger.info({ err });
       return;
     }
 
