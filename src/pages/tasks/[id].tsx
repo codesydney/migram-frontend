@@ -15,6 +15,7 @@ import {
 } from "@/types/schemas/Offer";
 import { GetTaskResponse, Task } from "@/types/schemas/Task";
 import { useMigramUser } from "@/hooks";
+import { TaskStatusBadge } from "@/components/TaskStatusBadge";
 
 export async function queryTaskById(id: string) {
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/tasks/${id}`;
@@ -72,6 +73,9 @@ export function TaskDetails({ task }: { task: Task }) {
         </h3>
         <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
           Details about the Task
+        </p>
+        <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          <TaskStatusBadge status={task.status} />
         </p>
       </div>
       <div className="mt-6 border-t border-gray-100">
