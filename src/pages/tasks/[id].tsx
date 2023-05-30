@@ -1,4 +1,10 @@
-import { useState, useEffect } from "react";
+import {
+  useState,
+  useEffect,
+  createContext,
+  PropsWithChildren,
+  useContext,
+} from "react";
 import { useRouter } from "next/router";
 import pino from "pino";
 
@@ -37,12 +43,39 @@ export async function queryTaskById(id: string) {
   return task;
 }
 
+export type TaskDetialsContext = {
+  task?: Task;
+  setTask: (task: Task) => void;
+  isTaskOwner: boolean;
+  hasAcceptedOffer: boolean;
+};
+
+const TaskDetailsContext = createContext<TaskDetialsContext | undefined>(
+  undefined
+);
+
+export function TaskDetailsProvider({ children }: PropsWithChildren<{}>) {
+  return { children };
+}
+
+export function useTaskDetials() {
+  const context = useContext(TaskDetailsContext);
+
+  if (!context) {
+    throw new Error("useTaskDetials must be used within TaskDetailsProvider");
+  }
+
+  return context;
+}
+
 export default function TaskItemPage() {
   const [task, setTask] = useState<Task | undefined>();
+  const { customerId, isProvider } = useMigramUser();
   const router = useRouter();
-  const { user, isCustomer, isProvider } = useMigramUser();
 
   const id = router.query.id as string;
+  const hasAcceptedOffer = !!task?.acceptedOffer;
+  const isTaskOwner = customerId === task?.customerId;
 
   useEffect(() => {
     if (id) {
@@ -58,13 +91,17 @@ export default function TaskItemPage() {
   }
 
   return (
-    <div className="bg-white">
-      <div className="flex flex-col gap-10 mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 md:gap-20 lg:max-w-7xl lg:px-8">
-        <TaskDetails task={task} />
-        <TaskOffersList taskId={task._id} />
-        {isProvider && <MakeOfferForm taskId={task._id} />}
+    <TaskDetailsContext.Provider
+      value={{ task, setTask, isTaskOwner, hasAcceptedOffer }}
+    >
+      <div className="bg-white">
+        <div className="flex flex-col gap-10 mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 md:gap-20 lg:max-w-7xl lg:px-8">
+          <TaskDetails task={task} />
+          <TaskOffersList taskId={task._id} />
+          {isProvider && <MakeOfferForm taskId={task._id} />}
+        </div>
       </div>
-    </div>
+    </TaskDetailsContext.Provider>
   );
 }
 
@@ -124,6 +161,8 @@ export function TaskDetails({ task }: { task: Task }) {
 
 export function TaskOffersList({ taskId }: { taskId: string }) {
   const [offers, setOffers] = useState(new Array<TaskOffer>());
+  const { hasAcceptedOffer, isTaskOwner } = useTaskDetials();
+  const showApproveButtons = isTaskOwner && !hasAcceptedOffer;
 
   useEffect(() => {
     if (taskId) {
@@ -187,7 +226,10 @@ export function TaskOffersList({ taskId }: { taskId: string }) {
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
                 {offers.map((offer) => (
-                  <OfferTableRow offer={offer} />
+                  <OfferTableRow
+                    offer={offer}
+                    showApproveButton={showApproveButtons}
+                  />
                 ))}
                 {offers.length === 0 ? (
                   <tr key="no-offers">
@@ -208,9 +250,13 @@ export function TaskOffersList({ taskId }: { taskId: string }) {
 
 export type OfferTableRowProps = {
   offer: TaskOffer;
+  showApproveButton: boolean;
 };
 
-export function OfferTableRow({ offer }: OfferTableRowProps) {
+export function OfferTableRow({
+  offer,
+  showApproveButton,
+}: OfferTableRowProps) {
   const onClick = async () => {
     const url = `/api/offers/${offer._id}/approve`;
 
@@ -253,9 +299,12 @@ export function OfferTableRow({ offer }: OfferTableRowProps) {
       <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
         {offer.message}
       </td>
-      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
-        <ApproveOfferButton onClick={onClick} />
-      </td>
+
+      {showApproveButton && (
+        <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
+          <ApproveOfferButton onClick={onClick} />
+        </td>
+      )}
     </tr>
   );
 }
