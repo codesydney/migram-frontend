@@ -56,7 +56,7 @@ export default async function handler(
   });
 
   offer.set({ status: "Accepted" });
-  task.set({ status: "Assigned", acceptedOffer: offer._id });
+  task.set({ status: "In Progress", acceptedOffer: offer._id });
 
   await Promise.all([offer.save(), task.save()]);
 
