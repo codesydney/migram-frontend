@@ -13,9 +13,9 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Tasks", href: "/tasks" },
-  { name: "Offers", href: "/offers" },
+  { name: "Listings", href: "/listings" },
+  { name: "My Tasks", href: "/my-tasks" },
+  { name: "My Offers", href: "/my-offers" },
 ];
 
 export function Header() {
