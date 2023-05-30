@@ -1,18 +1,21 @@
 import to from "await-to-js";
 import { NextApiRequest, NextApiResponse } from "next";
+import pino from "pino";
 
 import { TaskModel } from "@/backend/data/tasks";
 import { stripe } from "@/backend/services/payments/stripe";
 import { OfferModel } from "@/backend/data/offers";
 
+const logger = pino({ name: "api/payments/payment-intent" });
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.body !== "POST")
+  if (req.method !== "POST")
     return res.status(400).json({ message: "Invalid request method" });
 
-  const taskId = req.query.taskId as string;
+  const taskId = req.body.taskId as string;
 
   const task = await TaskModel.findOne({ _id: taskId });
   if (!task) return res.status(404).json({ message: "Task not found" });
@@ -48,5 +51,7 @@ export default async function handler(
 
   return res.status(200).json({
     clientSecret: paymentIntent.client_secret,
+    task,
+    acceptedOffer,
   });
 }
