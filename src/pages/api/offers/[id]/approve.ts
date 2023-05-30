@@ -41,6 +41,11 @@ export default async function handler(
       message: "Tasks cannot be approved if the status is not 'Open'",
     });
 
+  if (task.acceptedOffer)
+    return res
+      .status(400)
+      .json({ message: "An offer has already been approved" });
+
   const otherOffersFilter = {
     taskId: task._id,
     _id: { $ne: offer._id },
