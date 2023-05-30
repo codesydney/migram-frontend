@@ -182,43 +182,58 @@ export function TaskOffersList({ taskId }: { taskId: string }) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {offers.map((offer) => (
-                  <tr key={offer._id}>
-                    <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
-                      <div className="flex items-center">
-                        <div className="h-11 w-11 flex-shrink-0">
-                          <img
-                            className="h-11 w-11 rounded-full"
-                            src={offer.contactPhoto}
-                            alt=""
-                          />
-                        </div>
-                        <div className="ml-4">
-                          <div className="font-medium text-gray-900">
-                            {offer.contactName}
+                {offers.map((offer) => {
+                  const onClick = async () => {
+                    const url = `api/offers/${offer._id}/approve`;
+
+                    const [err, response] = await to(axios.post(url));
+
+                    if (err || !response) {
+                      alert("Something went wrong");
+                      return;
+                    }
+
+                    window.location.reload();
+                  };
+
+                  return (
+                    <tr key={offer._id}>
+                      <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+                        <div className="flex items-center">
+                          <div className="h-11 w-11 flex-shrink-0">
+                            <img
+                              className="h-11 w-11 rounded-full"
+                              src={offer.contactPhoto}
+                              alt=""
+                            />
                           </div>
-                          <div className="mt-1 text-gray-500">
-                            {offer.contactEmail}
+                          <div className="ml-4">
+                            <div className="font-medium text-gray-900">
+                              {offer.contactName}
+                            </div>
+                            <div className="mt-1 text-gray-500">
+                              {offer.contactEmail}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                    <td className="whitespace-nowrap px-3 py-5 text-md text-gray-900">
-                      {offer.amount && `$${offer.amount}`}
-                    </td>
-                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                      <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                        {offer.status}
-                      </span>
-                    </td>
-                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
-                      {offer.message}
-                    </td>
-                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
-                      <ApproveOfferButton />
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-5 text-md text-gray-900">
+                        {offer.amount && `$${offer.amount}`}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                        <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                          {offer.status}
+                        </span>
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
+                        {offer.message}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
+                        <ApproveOfferButton onClick={onClick} />
+                      </td>
+                    </tr>
+                  );
+                })}
                 {offers.length === 0 ? (
                   <tr key="no-offers">
                     <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
@@ -326,11 +341,16 @@ export function MakeOfferForm({ taskId }: { taskId: string }) {
   );
 }
 
-export function ApproveOfferButton({}) {
+export type ApproveOfferButtonProps = {
+  onClick: () => void;
+};
+
+export function ApproveOfferButton({ onClick }: ApproveOfferButtonProps) {
   return (
     <button
       type="button"
       className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      onClick={onClick}
     >
       Approve
     </button>
