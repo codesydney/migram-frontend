@@ -12,11 +12,25 @@
   }
   ```
 */
-import { StateSchema, Task } from "@/types/schemas/Task";
 import { Disclosure } from "@headlessui/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import {
+  PaymentElement,
+  LinkAuthenticationElement,
+  AddressElement,
+} from "@stripe/react-stripe-js";
+import { useStripe, useElements } from "@stripe/react-stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+  throw new Error("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not set");
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+);
 
 const subtotal = "$108.00";
 const discount = { code: "CHEAPSKATE", amount: "$16.00" };
@@ -43,9 +57,14 @@ export default function CheckoutForm() {
   const router = useRouter();
   const [checkoutData, setCheckoutData] = useState<any>(null);
 
-  const taskId = router.query.taskId as string;
+  const options = {
+    appearance: {
+      // Fully customizable with appearance API.
+    },
+    clientSecret: checkoutData?.clientSecret,
+  };
 
-  const onSubmit = (data: any) => {};
+  const taskId = router.query.taskId as string;
 
   useEffect(() => {
     if (taskId) {
@@ -231,22 +250,94 @@ export default function CheckoutForm() {
             Payment and shipping details
           </h2>
 
-          <div className="mx-auto max-w-lg lg:pt-16">
-            <form className="mt-6">
-              <button
-                type="submit"
-                className="mt-6 w-full rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Pay {total}
-              </button>
-
-              <p className="mt-6 flex justify-center text-sm font-medium text-gray-500">
-                Payment via Stripe
-              </p>
-            </form>
-          </div>
+          {options.clientSecret && (
+            <Elements stripe={stripePromise} options={options}>
+              <StripeCheckoutForm />
+            </Elements>
+          )}
         </section>
       </main>
     </>
+  );
+}
+
+export function StripeCheckoutForm() {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [message, setMessage] = useState<string | undefined>();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        // Make sure to change this to your payment completion page
+        return_url: `${window.location.origin}/completion`,
+      },
+    });
+
+    // This point will only be reached if there is an immediate error when
+    // confirming the payment. Otherwise, your customer will be redirected to
+    // your `return_url`. For some payment methods like iDEAL, your customer will
+    // be redirected to an intermediate site first to authorize the payment, then
+    // redirected to the `return_url`.
+    if (error.type === "card_error" || error.type === "validation_error") {
+      setMessage(error.message);
+    } else {
+      setMessage("An unexpected error occured.");
+    }
+
+    setIsLoading(false);
+  };
+
+  return (
+    <div
+      id="payment-form"
+      onSubmit={handleSubmit}
+      className="mx-auto max-w-lg lg:pt-16"
+    >
+      <form className="mt-6">
+        <LinkAuthenticationElement
+          id="link-authentication-element"
+          // Access the email value like so:
+          // onChange={(event) => {
+          //  setEmail(event.value.email);
+          // }}
+          //
+          // Prefill the email field like so:
+          // options={{defaultValues: {email: 'foo@bar.com'}}}
+        />
+        <AddressElement
+          id="address-element"
+          options={{ mode: "billing", allowedCountries: ["AU"] }}
+        />
+        <PaymentElement id="payment-element" />
+        <div className="mt-10 flex justify-end">
+          <button
+            disabled={isLoading || !stripe || !elements}
+            id="submit"
+            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <span id="button-text">
+              {isLoading ? (
+                <div className="spinner" id="spinner"></div>
+              ) : (
+                "Pay now"
+              )}
+            </span>
+          </button>
+        </div>
+        {/* Show any error or success messages */}
+        {message && <div id="payment-message">{message}</div>}
+      </form>
+    </div>
   );
 }
