@@ -124,7 +124,7 @@ export function MobileOrderSummary({ acceptedOffer, task }: OrderSummaryProps) {
                   <div className="flex flex-col justify-between space-y-4">
                     <div className="space-y-1 text-sm font-medium">
                       <h3 className="text-gray-900">{task.shortDescription}</h3>
-                      <p className="text-gray-900">{task.details}</p>
+                      <p className="text-gray-500">{task.details}</p>
                     </div>
                   </div>
                 </li>
