@@ -46,6 +46,12 @@ async function updateTask(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const payload = req.body;
+
+  if (payload.status)
+    return res
+      .status(400)
+      .json({ message: "Task status cannot be updated by this operation." });
+
   task.set(payload);
   const updatedTask = await task.save();
 

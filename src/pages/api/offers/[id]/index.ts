@@ -50,6 +50,12 @@ async function updateOffer(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const payload = req.body;
+
+  if (payload.status)
+    return res
+      .status(400)
+      .json({ message: "Offer status cannot be updated by this operation." });
+
   offer.set(payload);
   const updatedOffer = await offer.save();
 
