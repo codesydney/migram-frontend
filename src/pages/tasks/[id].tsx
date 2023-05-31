@@ -89,7 +89,7 @@ export default function TaskItemPage() {
 
   if (!task) {
     // TODO handle loading state
-    return <div>Something Went Wrong</div>;
+    return <div>Loading</div>;
   }
 
   return (
