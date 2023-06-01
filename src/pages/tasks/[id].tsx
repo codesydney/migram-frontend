@@ -407,7 +407,7 @@ export function MakeOfferForm({ taskId }: { taskId: string }) {
 }
 
 export type PrimaryButtonProps = PropsWithChildren<{
-  onClick: () => void;
+  onClick?: () => void;
 }>;
 
 export function PrimaryButton({ onClick, children }: PrimaryButtonProps) {
@@ -540,18 +540,20 @@ export function AcceptedOfferDetails({
             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
               <dt className="text-sm font-medium leading-6 text-gray-900"></dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                <button
-                  type="button"
-                  className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  onClick={onMakePaymentClick}
-                >
-                  Make Payment
-                </button>
+                <MakePaymentButton taskId={acceptedOffer.taskId} />
               </dd>
             </div>
           )}
         </dl>
       </div>
     </div>
+  );
+}
+
+export function MakePaymentButton({ taskId }: { taskId: string }) {
+  return (
+    <a href={`/checkout/${taskId}`}>
+      <PrimaryButton>Make Payment</PrimaryButton>
+    </a>
   );
 }
