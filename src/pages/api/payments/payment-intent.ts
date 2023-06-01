@@ -40,6 +40,9 @@ export default async function handler(
       automatic_payment_methods: {
         enabled: true,
       },
+      metadata: {
+        taskId: task._id,
+      },
     })
   );
 
