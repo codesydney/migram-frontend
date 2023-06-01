@@ -24,6 +24,8 @@ import { GetTaskResponse, Task } from "@/types/schemas/Task";
 import { useMigramUser } from "@/hooks";
 import { TaskStatusBadge } from "@/components/TaskStatusBadge";
 import { OfferStatusBadge } from "@/components/OfferStatusBadge";
+import { PrimaryButton } from "@/components/PrimaryButton";
+import { MakePaymentButton } from "@/components/MakePaymentButton";
 
 const logger = pino({ name: "TaskItemPage" });
 
@@ -406,22 +408,6 @@ export function MakeOfferForm({ taskId }: { taskId: string }) {
   );
 }
 
-export type PrimaryButtonProps = PropsWithChildren<{
-  onClick?: () => void;
-}>;
-
-export function PrimaryButton({ onClick, children }: PrimaryButtonProps) {
-  return (
-    <button
-      type="button"
-      className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-}
-
 export type GetOfferResponse = {
   data: Offer;
 };
@@ -547,13 +533,5 @@ export function AcceptedOfferDetails({
         </dl>
       </div>
     </div>
-  );
-}
-
-export function MakePaymentButton({ taskId }: { taskId: string }) {
-  return (
-    <a href={`/checkout/${taskId}`}>
-      <PrimaryButton>Make Payment</PrimaryButton>
-    </a>
   );
 }
