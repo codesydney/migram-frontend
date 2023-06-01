@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
-import { SignedIn } from "@clerk/nextjs";
 
 import { Task } from "@/types/schemas/Task";
 import { TaskStatusBadge } from "@/components/TaskStatusBadge";
 import axios from "axios";
 import { Offer } from "@/types/schemas/Offer";
-import { MakePaymentButton } from "@/components/MakePaymentButton";
 import { PaymentStatusBadge } from "@/components/PaymentStatusBadge";
 
-export type MyOffer = Omit<Offer, "taskId"> & { taskId: Task };
-type GetTasksResponse = { data: MyOffer[] };
+export type MyOffer = Omit<Offer, "task"> & { task: Task };
 
 export default function MyTasksPage() {
   const [myOffers, setMyOffers] = useState<MyOffer[]>([]);
@@ -81,23 +78,21 @@ export default function MyTasksPage() {
                       <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                         <div className="text-gray-900">
                           <a
-                            href={`/tasks/${offer.taskId}`}
+                            href={`/tasks/${offer.task._id}`}
                             className="underline hover:text-indigo-600"
                           >
-                            {offer.taskId.shortDescription}
+                            {offer.task.shortDescription}
                           </a>
                         </div>
                       </td>
                       <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                        <TaskStatusBadge status={offer.taskId.status} />
+                        <TaskStatusBadge status={offer.task.status} />
                       </td>
                       <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                        <PaymentStatusBadge
-                          status={offer.taskId.paymentStatus}
-                        />
+                        <PaymentStatusBadge status={offer.task.paymentStatus} />
                       </td>
                       <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                        ${offer.taskId.budget}.00
+                        ${offer.task.budget}.00
                       </td>
                       <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
                         ${offer.amount}.00

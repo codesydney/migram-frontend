@@ -16,7 +16,7 @@ async function getOfferById(req: NextApiRequest, res: NextApiResponse) {
 
   if (!offer) return res.status(404).json({ message: "Offer not found" });
 
-  const task = await TaskModel.findOne({ _id: offer?.taskId });
+  const task = await TaskModel.findOne({ _id: offer?.task });
   const userMetadata = authResult.user.publicMetadata as UserMetadata;
   const customerId = userMetadata?.customerId;
   const isTaskOwner = customerId === task?.customerId;

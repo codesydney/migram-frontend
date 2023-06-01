@@ -31,7 +31,7 @@ export default async function handler(
     userId: authResult.userId,
   })
     .populate({
-      path: "taskId",
+      path: "task",
       model: TaskModel,
     })
     .exec();

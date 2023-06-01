@@ -4,7 +4,7 @@ export const offerSchema = z.object({
   __v: z.number(),
   _id: z.string().nonempty(),
   serviceProviderId: z.string().nonempty(),
-  taskId: z.string().nonempty(),
+  task: z.string().nonempty(),
   userId: z.string().nonempty(),
   amount: z.coerce
     .number({
@@ -25,7 +25,7 @@ export const CreateOfferPayloadSchema = offerSchema.omit({
   _id: true,
   userId: true,
   serviceProviderId: true,
-  taskId: true,
+  task: true,
   status: true,
   contactEmail: true,
   contactName: true,

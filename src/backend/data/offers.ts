@@ -5,8 +5,8 @@ import { Offer as BaseOffer } from "@/types/schemas/Offer";
 /**
  * Mongoose Friendly Offer Type with the taskId string field converted to an ObjectId field
  */
-export type Offer = Omit<BaseOffer, "taskId"> & {
-  taskId: mongoose.Schema.Types.ObjectId;
+export type Offer = Omit<BaseOffer, "task"> & {
+  task: mongoose.Schema.Types.ObjectId;
 };
 
 const OfferSchema = new mongoose.Schema<Offer>({
@@ -21,7 +21,7 @@ const OfferSchema = new mongoose.Schema<Offer>({
     ref: "ServiceProvider",
     required: true,
   },
-  taskId: {
+  task: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Task",
     index: true,
