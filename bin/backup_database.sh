@@ -1,3 +1,3 @@
 #!/bin/bash
 
-mongodump --db migram --out /data
+mongodump --db migram --out data/
