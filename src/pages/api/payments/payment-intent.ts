@@ -41,7 +41,7 @@ export default async function handler(
         enabled: true,
       },
       metadata: {
-        taskId: task._id,
+        taskId,
       },
     })
   );
