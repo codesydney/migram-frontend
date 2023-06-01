@@ -60,7 +60,7 @@ export function TaskDetailsProvider({ children }: PropsWithChildren<{}>) {
   return { children };
 }
 
-export function useTaskDetials() {
+export function useTaskDetails() {
   const context = useContext(TaskDetailsContext);
 
   if (!context) {
@@ -169,7 +169,7 @@ export function TaskDetails({ task }: { task: Task }) {
 
 export function TaskOffersTable({ taskId }: { taskId: string }) {
   const [offers, setOffers] = useState(new Array<TaskOffer>());
-  const { hasAcceptedOffer, isTaskOwner } = useTaskDetials();
+  const { hasAcceptedOffer, isTaskOwner } = useTaskDetails();
   const showApproveButtons = isTaskOwner && !hasAcceptedOffer;
 
   useEffect(() => {
