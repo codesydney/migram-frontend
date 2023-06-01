@@ -1,9 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import to from "await-to-js";
 import pino from "pino";
 import Stripe from "stripe";
 
 import { WebhookEventModel } from "@/backend/data/webhooks";
 import { verifyStripeWebhook } from "@/backend/util/webhooks";
+import { TaskModel } from "@/backend/data/tasks";
 
 const logger = pino({ name: "Payments Webhook Handler" });
 
@@ -22,13 +24,24 @@ async function handlePaymentIntentSucceeded(
   await WebhookEventModel.create({ id, source: "Stripe", status: "pending" });
 
   const paymentIntent = payload.data.object as Stripe.PaymentIntent;
-  const userId = paymentIntent.metadata.userId;
+  const taskId = paymentIntent.metadata.taskId;
+
+  const [err, task] = await to(
+    TaskModel.findOneAndUpdate(
+      { _id: taskId },
+      {
+        paymentStatus: "Paid",
+      }
+    )
+  );
+
+  if (err || !task) {
+    logger.info({ err, task });
+    return res.status(400).json({ message: "Task not found." });
+  }
 
   await WebhookEventModel.updateOne({ id }, { status: "success" });
-
-  logger.info({ userId });
-
-  return res.status(200).json({ userId });
+  return res.status(200).json({ taskId });
 }
 
 export const config = { api: { bodyParser: false } };
@@ -50,7 +63,7 @@ export default async function handler(
       .json({ error: verificationResult.error });
   }
 
-  const event = verificationResult.payload.type;
+  const event = verificationResult.payload?.type;
 
   switch (event) {
     case "payment_intent.succeeded":
