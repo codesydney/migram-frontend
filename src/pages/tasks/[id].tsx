@@ -309,7 +309,7 @@ export function OfferTableRow({
 
       {showApproveButton && (
         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-900">
-          <ApproveOfferButton onClick={onClick} />
+          <PrimaryButton onClick={onClick}>Approve</PrimaryButton>
         </td>
       )}
     </tr>
@@ -406,18 +406,18 @@ export function MakeOfferForm({ taskId }: { taskId: string }) {
   );
 }
 
-export type ApproveOfferButtonProps = {
+export type PrimaryButtonProps = PropsWithChildren<{
   onClick: () => void;
-};
+}>;
 
-export function ApproveOfferButton({ onClick }: ApproveOfferButtonProps) {
+export function PrimaryButton({ onClick, children }: PrimaryButtonProps) {
   return (
     <button
       type="button"
       className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       onClick={onClick}
     >
-      Approve
+      {children}
     </button>
   );
 }
