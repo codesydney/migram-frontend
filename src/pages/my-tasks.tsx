@@ -6,6 +6,7 @@ import { TaskStatusBadge } from "@/components/TaskStatusBadge";
 import axios from "axios";
 import { Offer } from "@/types/schemas/Offer";
 import { MakePaymentButton } from "@/components/MakePaymentButton";
+import { PaymentStatusBadge } from "@/components/PaymentStatusBadge";
 
 export type MyTask = Task & { acceptedOffer: Offer };
 type GetTasksResponse = { data: MyTask[] };
@@ -65,6 +66,12 @@ export default function MyTasksPage() {
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
+                      Payment
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
                       Budget
                     </th>
 
@@ -103,6 +110,9 @@ export default function MyTasksPage() {
                       </td>
                       <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                         <TaskStatusBadge status={task.status} />
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                        <PaymentStatusBadge status={task.paymentStatus} />
                       </td>
                       <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                         ${task.budget}.00
