@@ -1,13 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import pino from "pino";
 
 import { TaskModel } from "@/backend/data/tasks";
 import { dbConnect } from "@/backend/services/db";
 import { OfferModel } from "@/backend/data/offers";
 import { authenticate } from "@/backend/middlewares/auth";
 import { UserMetadata } from "@/backend/services/users/types";
-
-const logger = pino({ name: "GET /api/my-tasks" });
 
 export default async function handler(
   req: NextApiRequest,
@@ -39,8 +36,6 @@ export default async function handler(
       options: { skipInvalidIds: true },
     })
     .exec();
-
-  logger.info({ tasks });
 
   return res.status(200).json({ data: tasks });
 }
