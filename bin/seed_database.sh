@@ -1,3 +1,3 @@
 #!/bin/bash
 
-mongorestore /data
+mongorestore --drop /data
