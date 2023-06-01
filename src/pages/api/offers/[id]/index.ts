@@ -23,7 +23,6 @@ async function getOfferById(req: NextApiRequest, res: NextApiResponse) {
 
   const cleanedOffer = {
     ...offer?.toObject(),
-    serviceProviderId: undefined,
     contactEmail: isTaskOwner ? offer.contactEmail : undefined,
   };
 

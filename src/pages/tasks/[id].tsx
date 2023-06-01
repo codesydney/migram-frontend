@@ -99,7 +99,7 @@ export default function TaskItemPage() {
       <div className="bg-white">
         <div className="flex flex-col gap-10 mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 md:gap-20 lg:max-w-7xl lg:px-8">
           <TaskDetails task={task} />
-          {task.acceptedOffer && serviceProviderId && (
+          {task.acceptedOffer && (
             <AcceptedOfferDetails
               offerId={task.acceptedOffer}
               serviceProviderId={serviceProviderId}
@@ -428,7 +428,7 @@ export type GetOfferResponse = {
 
 export type AcceptedOfferDetailsProps = {
   offerId: string;
-  serviceProviderId: string;
+  serviceProviderId?: string;
 };
 
 export function AcceptedOfferDetails({
