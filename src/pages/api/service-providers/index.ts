@@ -10,6 +10,7 @@ import {
 } from "@/backend/services/payments/connect";
 import { getPrimaryEmailAddress } from "@/backend/services/users";
 import { UserMetadata } from "@/backend/services/users/types";
+import { dbConnect } from "@/backend/services/db";
 
 const logger = pino({ name: "api/service-providers" });
 
@@ -30,6 +31,8 @@ async function createServiceProvider(
     return res.status(400).json({
       message: "Bad Request: Customers cannot sign up as Service Providers",
     });
+
+  await dbConnect();
 
   const existingServiceProvider = await ServiceProviderModel.findById(userId);
 

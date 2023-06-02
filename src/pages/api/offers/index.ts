@@ -9,6 +9,8 @@ async function getOffers(req: NextApiRequest, res: NextApiResponse) {
   if (authResult.type === "error")
     return res.status(authResult.status).json({ message: authResult.message });
 
+  await dbConnect();
+
   const offers = await OfferModel.find();
 
   return res.status(200).json({ data: offers });
@@ -18,8 +20,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  await dbConnect();
-
   switch (req.method) {
     case "GET":
       return getOffers(req, res);

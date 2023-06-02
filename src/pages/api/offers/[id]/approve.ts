@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { OfferModel } from "@/backend/data/offers";
 import { TaskModel } from "@/backend/data/tasks";
 import { authenticate } from "@/backend/middlewares/auth";
+import { dbConnect } from "@/backend/services/db";
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,6 +18,8 @@ export default async function handler(
 
   if (authResult.type === "error")
     return res.status(authResult.status).json({ message: authResult.message });
+
+  await dbConnect();
 
   const offer = await OfferModel.findOne({ _id: id });
 

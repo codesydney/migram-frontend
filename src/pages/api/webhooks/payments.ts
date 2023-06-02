@@ -6,6 +6,7 @@ import Stripe from "stripe";
 import { WebhookEventModel } from "@/backend/data/webhooks";
 import { verifyStripeWebhook } from "@/backend/util/webhooks";
 import { TaskModel } from "@/backend/data/tasks";
+import { dbConnect } from "@/backend/services/db";
 
 const logger = pino({ name: "Payments Webhook Handler" });
 
@@ -62,6 +63,8 @@ export default async function handler(
       .status(verificationResult.status)
       .json({ error: verificationResult.error });
   }
+
+  await dbConnect();
 
   const event = verificationResult.payload?.type;
 

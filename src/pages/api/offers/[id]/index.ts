@@ -1,6 +1,7 @@
 import { OfferModel } from "@/backend/data/offers";
 import { TaskModel } from "@/backend/data/tasks";
 import { authenticate } from "@/backend/middlewares/auth";
+import { dbConnect } from "@/backend/services/db";
 import { isUserServiceProvider } from "@/backend/services/users";
 import { ServiceProviderMetadata as UserMetadata } from "@/backend/services/users/types";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -73,6 +74,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await dbConnect();
+
   switch (req.method) {
     case "GET":
       return getOfferById(req, res);
