@@ -47,7 +47,7 @@ export default async function handler(
       .json({ message: "An offer has already been approved" });
 
   const otherOffersFilter = {
-    taskId: task._id,
+    task: task._id,
     _id: { $ne: offer._id },
   };
 
@@ -62,7 +62,7 @@ export default async function handler(
 
   return res.status(200).json({
     data: {
-      taskId: task._id,
+      task: task._id,
       offerId: offer._id,
     },
   });

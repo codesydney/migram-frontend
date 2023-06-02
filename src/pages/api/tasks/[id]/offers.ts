@@ -49,7 +49,7 @@ async function getTaskOffers(req: NextApiRequest, res: NextApiResponse) {
   const customerId = userMetadata?.customerId;
   const isTaskOwner = customerId === task.customerId;
 
-  const offers = await OfferModel.find({ taskId: id });
+  const offers = await OfferModel.find({ task: id });
 
   if (!isTaskOwner) {
     const serviceProviderId = userMetadata?.serviceProviderId;
@@ -90,7 +90,7 @@ async function createOffer(req: NextApiRequest, res: NextApiResponse) {
   if (task.status !== "Open")
     return res.status(400).json({ message: "Task is no longer open" });
 
-  const existingOffer = await OfferModel.findOne({ taskId, serviceProviderId });
+  const existingOffer = await OfferModel.findOne({ task, serviceProviderId });
 
   if (existingOffer)
     return res.status(400).json({ message: "Offer already exists" });
@@ -98,7 +98,7 @@ async function createOffer(req: NextApiRequest, res: NextApiResponse) {
   const payload = req.body;
   const offer = await OfferModel.create({
     ...payload,
-    taskId: task._id,
+    task: task._id,
     serviceProviderId,
     userId,
     contactEmail: getPrimaryEmailAddress(user).email,
