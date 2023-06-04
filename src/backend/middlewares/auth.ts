@@ -15,6 +15,9 @@ export type AuthenticationResult =
     }
   | {
       type: "error";
+      auth?: undefined;
+      user?: undefined;
+      userId?: undefined;
       status: number;
       message: string;
     };

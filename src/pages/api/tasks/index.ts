@@ -11,7 +11,14 @@ const logger = pino({ name: "api/tasks" });
 async function getTasks(req: NextApiRequest, res: NextApiResponse) {
   const tasks = await TaskModel.find();
 
-  return res.status(200).json({ data: tasks });
+  const payload = {
+    data: tasks.map((task) => ({
+      ...task.toObject(),
+      paymentStatus: undefined,
+    })),
+  };
+
+  return res.status(200).json(payload);
 }
 
 async function createTask(req: NextApiRequest, res: NextApiResponse) {
