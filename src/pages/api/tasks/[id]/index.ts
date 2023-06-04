@@ -4,7 +4,8 @@ import { TaskModel } from "@/backend/data/tasks";
 import { authenticate } from "@/backend/middlewares/auth";
 import { dbConnect } from "@/backend/services/db";
 import { isUserCustomer } from "@/backend/services/users";
-import { CustomerMetadata } from "@/backend/services/users/types";
+import { CustomerMetadata, UserMetadata } from "@/backend/services/users/types";
+import { OfferModel } from "@/backend/data/offers";
 
 async function getTaskById(req: NextApiRequest, res: NextApiResponse) {
   const authResult = await authenticate(req);
@@ -15,7 +16,26 @@ async function getTaskById(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   const task = await TaskModel.findOne({ _id: id });
 
-  return res.status(200).json({ data: task });
+  if (!task) return res.status(404).json({ message: "Task not found" });
+
+  const userMetadata = authResult.user.publicMetadata as UserMetadata;
+  const customerId = userMetadata.customerId;
+  const isTaskOwner = customerId === task?.customerId;
+
+  const acceptedOffer = await OfferModel.findOne({ _id: task?.acceptedOffer });
+  const serviceProviderId = userMetadata.serviceProviderId;
+  const isAcceptedOfferOwner =
+    serviceProviderId && serviceProviderId === acceptedOffer?.serviceProviderId;
+
+  const responseBody = {
+    data: {
+      ...task.toObject(),
+      paymentStatus:
+        isTaskOwner || isAcceptedOfferOwner ? task.paymentStatus : undefined,
+    },
+  };
+
+  return res.status(200).json(responseBody);
 }
 
 async function updateTask(req: NextApiRequest, res: NextApiResponse) {
