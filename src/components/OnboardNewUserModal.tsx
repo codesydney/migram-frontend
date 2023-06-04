@@ -4,7 +4,7 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 import { useMigramUser } from "@/hooks";
 import axios from "axios";
 
-export function OnboardUserModal() {
+export function OnboardNewUserModal() {
   const { user, userRole } = useMigramUser();
   const isUserOnboarded = !!userRole;
   const [modalOpen, setModelOpen] = useState(false);
