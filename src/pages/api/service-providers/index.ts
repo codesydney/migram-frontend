@@ -65,14 +65,6 @@ async function createServiceProvider(
     serviceProviderId,
   });
 
-  await clerkClient.users.updateUser(userId, {
-    publicMetadata: {
-      serviceProviderId,
-      role: "service-provider",
-      onboardingStatus: "pending",
-    },
-  });
-
   logger.info(
     { serviceProvider: newServiceProvider },
     "Generating Stripe Connect Onboarding Link"
@@ -83,14 +75,23 @@ async function createServiceProvider(
   );
 
   const message = `Successfully Created Stripe Service Provider for ${userId}.`;
-  logger.info({ serviceProviderId }, message);
+  logger.info({ serviceProviderId, url: stripeConnectLink.url }, message);
+
+  await clerkClient.users.updateUser(userId, {
+    publicMetadata: {
+      serviceProviderId,
+      role: "service-provider",
+      onboardingStatus: "pending",
+      onboardingUrl: stripeConnectLink.url,
+    },
+  });
 
   return res.status(200).json({
     data: newServiceProvider,
     message:
       message +
       " Please follow the redirect link to complete onboarding via Stripe.",
-    redirect: stripeConnectLink,
+    redirect: stripeConnectLink.url,
   });
 }
 
