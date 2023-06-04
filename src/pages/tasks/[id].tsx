@@ -26,6 +26,7 @@ import { TaskStatusBadge } from "@/components/TaskStatusBadge";
 import { OfferStatusBadge } from "@/components/OfferStatusBadge";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { MakePaymentButton } from "@/components/MakePaymentButton";
+import { PaymentStatusBadge } from "@/components/PaymentStatusBadge";
 
 const logger = pino({ name: "TaskItemPage" });
 
@@ -125,8 +126,11 @@ export function TaskDetails({ task }: { task: Task }) {
         <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
           Details about the Task
         </p>
-        <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+        <p className="flex gap-4 mt-1 max-w-2xl text-sm leading-6 text-gray-500">
           <TaskStatusBadge status={task.status} />
+          {task.paymentStatus && (
+            <PaymentStatusBadge status={task.paymentStatus} />
+          )}
         </p>
       </div>
       <div className="mt-6 border-t border-gray-100">
