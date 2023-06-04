@@ -104,6 +104,7 @@ export default function TaskItemPage() {
           <TaskDetails task={task} />
           {task.acceptedOffer && (
             <AcceptedOfferDetails
+              isTaskOwner={isTaskOwner}
               offerId={task.acceptedOffer}
               serviceProviderId={serviceProviderId}
             />
@@ -417,11 +418,13 @@ export type GetOfferResponse = {
 };
 
 export type AcceptedOfferDetailsProps = {
+  isTaskOwner: boolean;
   offerId: string;
   serviceProviderId?: string;
 };
 
 export function AcceptedOfferDetails({
+  isTaskOwner,
   offerId,
   serviceProviderId,
 }: AcceptedOfferDetailsProps) {
@@ -526,7 +529,7 @@ export function AcceptedOfferDetails({
               </dd>
             </div>
           )}
-          {isOfferCompleted && (
+          {isTaskOwner && isOfferCompleted && (
             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
               <dt className="text-sm font-medium leading-6 text-gray-900"></dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
