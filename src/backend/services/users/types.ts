@@ -3,6 +3,7 @@ export type ServiceProviderMetadata = {
   serviceProviderId: string;
   customerId: undefined;
   onboardingStatus: "pending" | "onboarded";
+  onboardingUrl: string;
 };
 
 export type CustomerMetadata = {
