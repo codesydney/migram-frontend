@@ -428,7 +428,6 @@ export function AcceptedOfferDetails({
   offerId,
   serviceProviderId,
 }: AcceptedOfferDetailsProps) {
-  const router = useRouter();
   const [acceptedOffer, setAcceptedOffer] = useState<Offer | undefined>();
   const isOfferOwner = serviceProviderId === acceptedOffer?.serviceProviderId;
   const isOfferCompleted = acceptedOffer?.status === "Completed";
@@ -448,10 +447,6 @@ export function AcceptedOfferDetails({
     }
 
     window.location.reload();
-  };
-
-  const onMakePaymentClick = async () => {
-    router.push(`/checkout/${acceptedOffer?.task}`);
   };
 
   useEffect(() => {
