@@ -22,14 +22,18 @@ async function handlePaymentIntentSucceeded(
     return res.status(200).json({ message: "duplicate" });
   }
 
-  await WebhookEventModel.create({ id, source: "Stripe", status: "pending" });
+  await WebhookEventModel.create({
+    _id: id,
+    source: "Stripe",
+    status: "pending",
+  });
 
   const paymentIntent = payload.data.object as Stripe.PaymentIntent;
   const taskId = paymentIntent.metadata.taskId;
 
   const [err, task] = await to(
     TaskModel.findOneAndUpdate(
-      { _id: taskId },
+      { id: taskId },
       {
         paymentStatus: "Paid",
       }
@@ -41,7 +45,8 @@ async function handlePaymentIntentSucceeded(
     return res.status(400).json({ message: "Task not found." });
   }
 
-  await WebhookEventModel.updateOne({ id }, { status: "success" });
+  await WebhookEventModel.updateOne({ _id: id }, { status: "success" });
+
   return res.status(200).json({ taskId });
 }
 
