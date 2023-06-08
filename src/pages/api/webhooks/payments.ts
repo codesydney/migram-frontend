@@ -24,11 +24,13 @@ async function handlePaymentIntentSucceeded(
     return res.status(200).json({ message: "duplicate" });
   }
 
-  [err] = await WebhookEventModel.create({
-    _id: id,
-    source: "Stripe",
-    status: "pending",
-  });
+  [err] = await to(
+    WebhookEventModel.create({
+      _id: id,
+      source: "Stripe",
+      status: "pending",
+    })
+  );
 
   if (err) {
     const message = "Failed to save webhook event status to database";
