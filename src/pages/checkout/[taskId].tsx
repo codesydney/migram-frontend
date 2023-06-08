@@ -235,7 +235,7 @@ export function StripeCheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `${window.location.origin}/completion`,
+        return_url: `${process.env.STRIPE_RETURN_URL}/completion`,
       },
     });
 
