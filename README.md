@@ -44,6 +44,16 @@ Shopify Polaris was brought in to speed up development as a signifant amount of 
 
 ## Getting Started
 
+### Setting Up pnpm
+
+This project uses pnpm as the package manager.
+
+To quickly setup pnpm you can install it as a global npm dependency.
+
+```
+$ npm i -g pnpm
+```
+
 ### Setting up Environment Variables
 
 First you'll need to open the `.env.example` file in the root directory and copy the contents into two new files:
