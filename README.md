@@ -20,6 +20,28 @@ Thank you to our contributors.
 - [foadbotan](https://github.com/foadbotan) - Frontend Developer
 - [OB1](https://github.com/OB-CODE) - Frontend Developer
 
+## Technology
+
+### Current Version - v3
+
+- [Next.js](https://nextjs.org/)
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Payments via Stripe](https://stripe.com/au)
+- [Authentication via Clerk](https://clerk.com/)
+
+### Previous Versions
+
+**[Express](https://expressjs.com/) (Depreciated since Version 3)**
+
+The Clerk integration was brought in to simplify authentication and the remove the Users collection. This opened up an opportunity for a rewrite which resulted Migram v3, eliminating the need for the Express server.
+
+**[Shopify Polaris Design System](https://polaris.shopify.com/) (Depreciated since Version 3)**
+
+Shopify Polaris was brought in to speed up development as a signifant amount of time was being tied up with styling the components of v1. However the design system was specifically created for Admin Dashboards for Ecommerce Storefront Management. Due to this mismatch in the context and our use case, this resulted in UI being janky in a few places.
+
 ## Getting Started
 
 ### Setting up Environment Variables
