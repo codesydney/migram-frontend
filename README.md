@@ -8,17 +8,20 @@ Migram is an acronym for Migrant Marketplace. It will help immigrants of refugee
 
 Thank you to our contributors.
 
-- [seqprav](https://github.com/seqprav) - Technical Team Lead
-- [s-sindinovic](https://github.com/s-sinadinovic) - Frontend Lead Developer
 - [engramar](https://github.com/engramar) - Project Coordinator
-- [LillianLuzinsky](https://github.com/LillianLuzinsky) - UI/UX Designer
-- [rpgarde](https://github.com/rpgarde) - Frontend Developer
-- [HDKHALILI](https://github.com/HDKHALILI) - Frontend Developer
-- [ettienekorayyi](https://github.com/ettienekorayyi) - Frontend Developer
-- [davidtaing](https://github.com/davidtaing) - Frontend Developer
+- [davidtaing](https://github.com/davidtaing) - Fullstack Developer (Current Project Lead)
 - [capsap](https://github.com/capsap) - Frontend Developer
 - [foadbotan](https://github.com/foadbotan) - Frontend Developer
 - [OB1](https://github.com/OB-CODE) - Frontend Developer
+- [LillianLuzinsky](https://github.com/LillianLuzinsky) - UI/UX Designer
+
+And thank you to those that worked on the previous versions of Migram. Without you, this would have not been possible. Thank you for the hours that you put in.
+
+- [ettienekorayyi](https://github.com/ettienekorayyi) - Frontend Developer
+- [rpgarde](https://github.com/rpgarde) - Frontend Developer
+- [HDKHALILI](https://github.com/HDKHALILI) - Frontend Developer
+- [seqprav](https://github.com/seqprav) - Technical Team Lead
+- [s-sindinovic](https://github.com/s-sinadinovic) - Frontend Lead Developer
 
 ## Technology
 
@@ -56,7 +59,9 @@ $ npm i -g pnpm
 
 ### Setting up Environment Variables
 
-First you'll need to open the `.env.example` file in the root directory and copy the contents into two new files:
+The easiest way ot ask
+
+You'll need to open the `.env.example` file in the root directory and copy the contents into two new files:
 
 - `.env.local`
 - `.env.test.local`
