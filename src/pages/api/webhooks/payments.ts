@@ -16,22 +16,31 @@ async function handlePaymentIntentSucceeded(
 ) {
   logger.info({ id: payload.id }, "Stripe Payment Intent Succeeded");
   const { id } = payload;
-  const existingEvent = await WebhookEventModel.findOne({ id });
+
+  let err, task, existingEvent;
+  [err, existingEvent] = await to(WebhookEventModel.findOne({ id }));
 
   if (existingEvent && existingEvent.status !== "rejected") {
     return res.status(200).json({ message: "duplicate" });
   }
 
-  await WebhookEventModel.create({
+  [err] = await WebhookEventModel.create({
     _id: id,
     source: "Stripe",
     status: "pending",
   });
 
+  if (err) {
+    const message = "Failed to save webhook event status to database";
+    logger.error({ eventId: id }, message);
+
+    return res.status(500).json({ eventId: id, message });
+  }
+
   const paymentIntent = payload.data.object as Stripe.PaymentIntent;
   const taskId = paymentIntent.metadata.taskId;
 
-  const [err, task] = await to(
+  [err, task] = await to(
     TaskModel.findOneAndUpdate(
       { id: taskId },
       {
@@ -41,11 +50,21 @@ async function handlePaymentIntentSucceeded(
   );
 
   if (err || !task) {
-    logger.info({ err, task });
-    return res.status(400).json({ message: "Task not found." });
+    const message = `Task Not Found: ${taskId}`;
+    logger.info({ eventId: id, err, task, taskId }, message);
+    return res.status(404).json({ eventId: id, message });
   }
 
-  await WebhookEventModel.updateOne({ _id: id }, { status: "success" });
+  [err] = await to(
+    WebhookEventModel.updateOne({ _id: id }, { status: "success" })
+  );
+
+  if (err) {
+    const message = "Failed to update webhook event with success status";
+    logger.error({ id }, message);
+
+    return res.status(500).json({ eventId: id, message });
+  }
 
   return res.status(200).json({ taskId });
 }
@@ -61,6 +80,8 @@ export default async function handler(
     return res.status(405).end("Method Not Allowed");
   }
 
+  await dbConnect();
+
   const verificationResult = await verifyStripeWebhook(req);
 
   if (verificationResult.type === "error") {
@@ -68,8 +89,6 @@ export default async function handler(
       .status(verificationResult.status)
       .json({ error: verificationResult.error });
   }
-
-  await dbConnect();
 
   const event = verificationResult.payload?.type;
 
