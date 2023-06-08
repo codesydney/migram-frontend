@@ -28,12 +28,12 @@ export default function CreateTaskPage() {
 
     if (!err && result) {
       console.log("Successfully Created Task");
-      router.push("/tasks");
+      router.push("/listings");
     }
   };
 
   const onCancelClick = () => {
-    router.push("/tasks");
+    router.push("/listings");
   };
 
   return (
