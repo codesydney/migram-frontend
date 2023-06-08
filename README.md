@@ -1,34 +1,76 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Migram
+
+## About the Project
+
+Migram is an acronym for Migrant Marketplace. It will help immigrants of refugee-background to generate some income by providing low-skilled work to the local community.
+
+## Contributors
+
+Thank you to our contributors.
+
+- [seqprav](https://github.com/seqprav) - Technical Team Lead
+- [s-sindinovic](https://github.com/s-sinadinovic) - Frontend Lead Developer
+- [engramar](https://github.com/engramar) - Project Coordinator
+- [LillianLuzinsky](https://github.com/LillianLuzinsky) - UI/UX Designer
+- [rpgarde](https://github.com/rpgarde) - Frontend Developer
+- [HDKHALILI](https://github.com/HDKHALILI) - Frontend Developer
+- [ettienekorayyi](https://github.com/ettienekorayyi) - Frontend Developer
+- [davidtaing](https://github.com/davidtaing) - Frontend Developer
+- [capsap](https://github.com/capsap) - Frontend Developer
+- [foadbotan](https://github.com/foadbotan) - Frontend Developer
+- [OB1](https://github.com/OB-CODE) - Frontend Developer
 
 ## Getting Started
 
-First, run the development server:
+### Setting up Environment Variables
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+First you'll need to open the `.env.example` file in the root directory and copy the contents into two new files:
+
+- `.env.local`
+- `.env.test.local`
+
+This should setup the environment variables to connect to Migram.com's Heroku Express server instance.
+
+### Installing the project dependencies
+
+Run the following to install the NPM dependencies:
+
+```
+$ npm install
+// or
+$ npm i
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Running the Next.js Development Server and Tests
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Running Next.js in Development Mode
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Run the following command to run the Next.js Development Server
 
-## Learn More
+```
+$ npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Running Jest Tests
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+$ npm run test
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Alternatively, if you would like to run in watch mode. This will keep Jest running and will automatically re-run tests when you make any changes.
 
-## Deploy on Vercel
+```
+$ npm run test:watch
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Note: The Environment Variables will be loaded in from the `.env.test.local` file.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Building the Project
+
+```
+$ npm run dev
+```
+
+## Making Contributions
+
+If you are new to making a pull request, please navigate to the Code.Sydney Playbook Guide on [Managing version control / branches / pull requests](https://github.com/codesydney/code-sydney-playbook/blob/main/docs/pull-request.md)
